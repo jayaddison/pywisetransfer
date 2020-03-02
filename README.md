@@ -7,7 +7,7 @@ An experimental Python client library for the [TransferWise Payouts API](https:/
 ## Installation
 
 ```bash
-poetry install pytransferwise
+poetry add pytransferwise
 ```
 
 ## Usage
