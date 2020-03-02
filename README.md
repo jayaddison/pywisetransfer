@@ -7,6 +7,7 @@ An experimental Python client library for the [TransferWise Payouts API](https:/
 ## Installation
 
 ```bash
+# Within your project directory
 poetry add pytransferwise
 ```
 
@@ -25,5 +26,7 @@ client.borderless_accounts.account_list(params={'profileId': '9129'})
 ## Run tests
 
 ```bash
+# Within the pytransferwise working directory
+poetry install
 poetry run pytest --forked
 ```
