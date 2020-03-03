@@ -6,10 +6,12 @@ class Client(object):
     def add_resources(self):
         from pytransferwise.borderless_account import BorderlessAccount
         from pytransferwise.profile import Profile
+        from pytransferwise.subscription import Subscription
         from pytransferwise.user import User
 
         self.borderless_accounts = BorderlessAccount()
         self.profiles = Profile()
+        self.subscriptions = Subscription()
         self.user = User()
 
     def __init__(self):
