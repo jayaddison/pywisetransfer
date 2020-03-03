@@ -33,7 +33,6 @@ for profile in client.profiles.list():
 ### Webhook signature verification
 
 ```python
-# Signature retrieved from x-signature header in webhook request
 import pytransferwise
 from pytransferwise.webhooks import verify_signature
 
