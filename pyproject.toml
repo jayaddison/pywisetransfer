@@ -11,6 +11,7 @@ license = "AGPL-3.0"
 python = "^3.7"
 apiron = "^5.0.0"
 munch = "^2.5.0"
+cryptography = "^2.8"
 
 [tool.poetry.dev-dependencies]
 black = "^19.10b0"

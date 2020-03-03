@@ -13,6 +13,8 @@ poetry add pytransferwise
 
 ## Usage
 
+### API Requests
+
 ```python
 import pytransferwise
 
@@ -26,6 +28,23 @@ for profile in client.profiles.list():
     for account in accounts:
         currencies = [balance.currency for balance in account.balances]
         print(f"AccountID={account.id}, Currencies={currencies}")
+```
+
+### Webhook signature verification
+
+```python
+# Signature retrieved from x-signature header in webhook request
+import pytransferwise
+from pytransferwise.webhooks import verify_signature
+
+# pytransferwise.environment = 'live'
+
+payload = b'webhook-request-body-here'
+signature = 'webhook-signature-data-here'
+
+valid = verify_signature(payload, signature)
+print(f"Valid webhook signature: {valid}")
+
 ```
 
 ## Run tests
