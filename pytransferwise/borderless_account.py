@@ -4,7 +4,7 @@ from pytransferwise.base import Base
 
 
 class BorderlessAccount(Base):
-    account_list = JsonEndpoint(
+    list = JsonEndpoint(
         path="/v1/borderless-accounts", required_params=["profileId"]
     )
     statement = JsonEndpoint(
