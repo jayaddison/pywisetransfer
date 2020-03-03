@@ -1,4 +1,5 @@
 from apiron import JsonEndpoint
+from munch import munchify
 
 from pytransferwise.base import Base
 
@@ -12,7 +13,7 @@ class Profile(object):
     service = ProfileService()
 
     def list(self):
-        return self.service.list()
+        return munchify(self.service.list())
 
     def get(self, profile_id):
-        return self.service.get(profile_id=profile_id)
+        return munchify(self.service.get(profile_id=profile_id))

@@ -11,6 +11,6 @@ def test_client_live_environment():
     pytransferwise.environment = "live"
     client = pytransferwise.Client()
 
-    domain = client.borderless_accounts.domain
+    domain = client.borderless_accounts.service.domain
     assert "api.sandbox.transferwise" not in domain
     assert "api.transferwise" in domain

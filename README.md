@@ -20,7 +20,12 @@ pytransferwise.api_key = 'your-api-key-here'
 # pytransferwise.environment = 'live'
 
 client = pytransferwise.Client()
-client.borderless_accounts.list(profile_id=9129)
+
+for profile in client.profiles.list():
+    accounts = client.borderless_accounts.list(profile_id=profile.id)
+    for account in accounts:
+        currencies = [balance.currency for balance in account.balances]
+        print(f"AccountID={account.id}, Currencies={currencies}")
 ```
 
 ## Run tests

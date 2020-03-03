@@ -24,6 +24,6 @@ def test_client_default_environment():
     pytransferwise.api_key = "test-key"
     client = pytransferwise.Client()
 
-    domain = client.borderless_accounts.domain
+    domain = client.borderless_accounts.service.domain
     assert "api.sandbox.transferwise" in domain
     assert "api.transferwise" not in domain
