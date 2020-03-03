@@ -20,7 +20,7 @@ pytransferwise.api_key = 'your-api-key-here'
 # pytransferwise.environment = 'live'
 
 client = pytransferwise.Client()
-client.borderless_accounts.account_list(params={'profileId': '9129'})
+client.borderless_accounts.list(params={'profileId': '9129'})
 ```
 
 ## Run tests
