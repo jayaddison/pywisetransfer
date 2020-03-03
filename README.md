@@ -18,8 +18,8 @@ poetry add pytransferwise
 ```python
 import pytransferwise
 
-pytransferwise.api_key = 'your-api-key-here'
-# pytransferwise.environment = 'live'
+pytransferwise.api_key = "your-api-key-here"
+# pytransferwise.environment = "live"
 
 client = pytransferwise.Client()
 
@@ -37,10 +37,10 @@ for profile in client.profiles.list():
 import pytransferwise
 from pytransferwise.webhooks import verify_signature
 
-# pytransferwise.environment = 'live'
+# pytransferwise.environment = "live"
 
-payload = b'webhook-request-body-here'
-signature = 'webhook-signature-data-here'
+payload = b"webhook-request-body-here"
+signature = "webhook-signature-data-here"
 
 valid = verify_signature(payload, signature)
 print(f"Valid webhook signature: {valid}")
