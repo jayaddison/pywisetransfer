@@ -12,7 +12,7 @@ class Client(object):
         self.borderless_accounts = BorderlessAccount()
         self.profiles = Profile()
         self.subscriptions = Subscription()
-        self.user = User()
+        self.users = User()
 
     def __init__(self):
         if api_key is None:
