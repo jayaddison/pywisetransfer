@@ -8,7 +8,7 @@ class BorderlessAccountService(Base):
     list = JsonEndpoint(path="/v1/borderless-accounts", required_params=["profileId"])
     statement = JsonEndpoint(
         path="/v3/profiles/{profile_id}/borderless-accounts/{account_id}/statement.json",
-        required_params=["currency", "intervalStart", "intervalEnd"],
+        required_params=["currency", "intervalStart", "intervalEnd", "type"],
     )
 
 
@@ -19,7 +19,7 @@ class BorderlessAccount(object):
     def list(self, profile_id):
         return munchify(self.service.list(params={"profileId": profile_id}))
 
-    def statement(self, profile_id, account_id, currency, interval_start, interval_end):
+    def statement(self, profile_id, account_id, currency, interval_start, interval_end, statement_type='COMPACT'):
         return munchify(
             self.service.statement(
                 profile_id=profile_id,
@@ -28,6 +28,7 @@ class BorderlessAccount(object):
                     "currency": currency,
                     "intervalStart": interval_start,
                     "intervalEnd": interval_end,
+                    "type": statement_type
                 },
             )
         )
