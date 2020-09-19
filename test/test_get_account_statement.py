@@ -3,9 +3,8 @@ import pytest
 
 import pytransferwise
 
-pytransferwise.api_key = os.getenv('TW_API_KEY')
-# print('Get value of TW_API_KEY: {}'.format(pytransferwise.api_key))
-pytransferwise.environment = "live"
+pytransferwise.api_key = os.getenv('TRANSFERWISE_API_KEY')
+# print('Get value of TRANSFERWISE_API_KEY: {}'.format(pytransferwise.api_key))
 
 client = pytransferwise.Client()
 
