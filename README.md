@@ -48,6 +48,10 @@ print(f"Valid webhook signature: {valid}")
 
 ## Run tests
 
+Before run integration tests [test/test_get_account_statement.py]:
+
+1. Get sandbox api key according [the docs here](https://api-docs.transferwise.com/#payouts-guide-api-access)
+2. Set an environment variable 'TRANSFERWISE_API_KEY' with a value of your sandbox api key. 
 ```bash
 # Within the pytransferwise working directory
 poetry install
