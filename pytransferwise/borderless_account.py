@@ -28,7 +28,7 @@ class BorderlessAccount(object):
                     "currency": currency,
                     "intervalStart": interval_start,
                     "intervalEnd": interval_end,
-                    "type": statement_type
+                    "type": statement_type,
                 },
             )
         )
