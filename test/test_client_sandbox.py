@@ -27,3 +27,21 @@ def test_client_default_environment():
     domain = client.borderless_accounts.service.domain
     assert "api.sandbox.transferwise" in domain
     assert "api.transferwise" not in domain
+
+
+def test_client_domain_immutable():
+    assert pytransferwise.environment == "sandbox"
+
+    pytransferwise.api_key = "test-key"
+    client = pytransferwise.Client()
+
+    domain = client.borderless_accounts.service.domain
+    assert "api.sandbox.transferwise" in domain
+    assert "api.transferwise" not in domain
+
+    # Should not happen: modify the environment config after creating a client
+    pytransferwise.environment = "live"
+
+    domain = client.borderless_accounts.service.domain
+    assert "api.sandbox.transferwise" in domain
+    assert "api.transferwise" not in domain
