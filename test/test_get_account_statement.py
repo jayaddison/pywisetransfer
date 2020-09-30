@@ -3,10 +3,12 @@ import pytest
 
 import pytransferwise
 
-pytransferwise.api_key = os.getenv('TRANSFERWISE_API_KEY')
-# print('Get value of TRANSFERWISE_API_KEY: {}'.format(pytransferwise.api_key))
 
-client = pytransferwise.Client()
+@pytest.fixture
+def client():
+    pytransferwise.api_key = os.getenv('TRANSFERWISE_API_KEY')
+    # print('Get value of TRANSFERWISE_API_KEY: {}'.format(pytransferwise.api_key))
+    return pytransferwise.Client()
 
 
 @pytest.fixture()
@@ -19,7 +21,10 @@ def interval_end():
     return '2020-08-01T23:59:59.999Z'
 
 
-def test_get_statement_with_default_type_compact(interval_start, interval_end):
+client = client()
+
+
+def test_get_statement_with_default_type_compact(client, interval_start, interval_end):
     """
     This is the smoke test of passing the optional parameter type 'COMPACT'
     The test does not check the logic of passed type value.
@@ -40,7 +45,7 @@ def test_get_statement_with_default_type_compact(interval_start, interval_end):
     assert statements  # after the test execution we expect have {statements} as non empty list
 
 
-def test_get_statement_with_type_flat(interval_start, interval_end):
+def test_get_statement_with_type_flat(client, interval_start, interval_end):
     """
     This is the smoke test of passing the optional parameter type or 'FLAT'
     The test does not check the logic of passed type value.
