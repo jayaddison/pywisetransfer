@@ -1,6 +1,6 @@
 # pytransferwise
 
-An experimental Python client library for the [TransferWise API](https://api-docs.transferwise.com).
+An unofficial, experimental Python client library for the [TransferWise API](https://api-docs.transferwise.com).
 
 :warning: The classes, functions and interfaces that this library provides are very much in-development and prone to change.
 
