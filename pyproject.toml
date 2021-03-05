@@ -7,6 +7,7 @@ homepage = "https://www.github.com/jayaddison/pywisetransfer"
 repository = "https://www.github.com/jayaddison/pywisetransfer"
 license = "AGPL-3.0"
 readme = "README.md"
+keywords = ["payments", "transferwise"]
 
 [tool.poetry.dependencies]
 python = "^3.7"
