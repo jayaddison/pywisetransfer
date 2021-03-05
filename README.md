@@ -2,6 +2,8 @@
 
 An unofficial, experimental Python client library for the [TransferWise API](https://api-docs.transferwise.com).
 
+:warning: This package name is deprecated.  Please migrate to the [`pywisetransfer`](https://pypi.org/project/pywisetransfer/) package, which is a direct continuation of this library.
+
 :warning: The classes, functions and interfaces that this library provides are very much in-development and prone to change.
 
 ## Installation
