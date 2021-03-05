@@ -1,28 +1,28 @@
 import pytest
 
-import pytransferwise
+import pywisetransfer
 
 
 def setup_function(method):
-    pytransferwise.api_key = None
-    pytransferwise.environment = "sandbox"
+    pywisetransfer.api_key = None
+    pywisetransfer.environment = "sandbox"
 
 
 def test_client_missing_key():
-    with pytest.raises(KeyError, match="pytransferwise.api_key"):
-        pytransferwise.Client()
+    with pytest.raises(KeyError, match="pywisetransfer.api_key"):
+        pywisetransfer.Client()
 
 
 def test_client_invalid_environment():
-    pytransferwise.api_key = "test-key"
-    pytransferwise.environment = "test-environment"
-    with pytest.raises(KeyError, match="pytransferwise.environment"):
-        pytransferwise.Client()
+    pywisetransfer.api_key = "test-key"
+    pywisetransfer.environment = "test-environment"
+    with pytest.raises(KeyError, match="pywisetransfer.environment"):
+        pywisetransfer.Client()
 
 
 def test_client_default_environment():
-    pytransferwise.api_key = "test-key"
-    client = pytransferwise.Client()
+    pywisetransfer.api_key = "test-key"
+    client = pywisetransfer.Client()
 
     domain = client.borderless_accounts.service.domain
     assert "api.sandbox.transferwise" in domain
@@ -30,17 +30,17 @@ def test_client_default_environment():
 
 
 def test_client_domain_immutable():
-    assert pytransferwise.environment == "sandbox"
+    assert pywisetransfer.environment == "sandbox"
 
-    pytransferwise.api_key = "test-key"
-    client = pytransferwise.Client()
+    pywisetransfer.api_key = "test-key"
+    client = pywisetransfer.Client()
 
     domain = client.borderless_accounts.service.domain
     assert "api.sandbox.transferwise" in domain
     assert "api.transferwise" not in domain
 
     # Should not happen: modify the environment config after creating a client
-    pytransferwise.environment = "live"
+    pywisetransfer.environment = "live"
 
     domain = client.borderless_accounts.service.domain
     assert "api.sandbox.transferwise" in domain

@@ -1,7 +1,7 @@
 from apiron import JsonEndpoint
 from munch import munchify
 
-from pytransferwise.base import Base
+from pywisetransfer.base import Base
 
 
 class ProfileService(Base):

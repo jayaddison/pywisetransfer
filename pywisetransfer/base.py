@@ -1,4 +1,4 @@
-from pytransferwise import api_key, environment
+from pywisetransfer import api_key, environment
 
 from apiron import Service
 

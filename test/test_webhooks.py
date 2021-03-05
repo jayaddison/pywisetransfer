@@ -1,6 +1,6 @@
 import pytest
 
-from pytransferwise.webhooks import verify_signature
+from pywisetransfer.webhooks import verify_signature
 
 
 @pytest.fixture

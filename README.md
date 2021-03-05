@@ -1,8 +1,6 @@
-# pytransferwise
+# pywisetransfer
 
 An unofficial, experimental Python client library for the [TransferWise API](https://api-docs.transferwise.com).
-
-:warning: This package name is deprecated.  Please migrate to the [`pywisetransfer`](https://pypi.org/project/pywisetransfer/) package, which is a direct continuation of this library.
 
 :warning: The classes, functions and interfaces that this library provides are very much in-development and prone to change.
 
@@ -10,7 +8,7 @@ An unofficial, experimental Python client library for the [TransferWise API](htt
 
 ```bash
 # Within your project directory
-poetry add pytransferwise
+poetry add pywisetransfer
 ```
 
 ## Usage
@@ -18,12 +16,12 @@ poetry add pytransferwise
 ### API Requests
 
 ```python
-import pytransferwise
+import pywisetransfer
 
-pytransferwise.api_key = "your-api-key-here"
-# pytransferwise.environment = "live"
+pywisetransfer.api_key = "your-api-key-here"
+# pywisetransfer.environment = "live"
 
-client = pytransferwise.Client()
+client = pywisetransfer.Client()
 
 for profile in client.profiles.list():
     accounts = client.borderless_accounts.list(profile_id=profile.id)
@@ -35,10 +33,10 @@ for profile in client.profiles.list():
 ### Webhook signature verification
 
 ```python
-import pytransferwise
-from pytransferwise.webhooks import verify_signature
+import pywisetransfer
+from pywisetransfer.webhooks import verify_signature
 
-# pytransferwise.environment = "live"
+# pywisetransfer.environment = "live"
 
 payload = b"webhook-request-body-here"
 signature = "webhook-signature-data-here"
@@ -51,7 +49,7 @@ print(f"Valid webhook signature: {valid}")
 ## Run tests
 
 ```bash
-# Within the pytransferwise working directory
+# Within the pywisetransfer working directory
 poetry install
 poetry run pytest --forked
 ```

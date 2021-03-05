@@ -1,10 +1,10 @@
 [tool.poetry]
-name = "pytransferwise"
+name = "pywisetransfer"
 version = "0.1.4-dev"
 description = "Python library for the TransferWise API"
 authors = ["James Addison <jay@jp-hosting.net>"]
-homepage = "https://www.github.com/jayaddison/pytransferwise"
-repository = "https://www.github.com/jayaddison/pytransferwise"
+homepage = "https://www.github.com/jayaddison/pywisetransfer"
+repository = "https://www.github.com/jayaddison/pywisetransfer"
 license = "AGPL-3.0"
 readme = "README.md"
 

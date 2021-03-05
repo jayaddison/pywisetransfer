@@ -1,9 +1,9 @@
 def test_client_live_environment():
-    import pytransferwise
+    import pywisetransfer
 
-    pytransferwise.api_key = "live-key"
-    pytransferwise.environment = "live"
-    client = pytransferwise.Client()
+    pywisetransfer.api_key = "live-key"
+    pywisetransfer.environment = "live"
+    client = pywisetransfer.Client()
 
     domain = client.borderless_accounts.service.domain
     assert "api.sandbox.transferwise" not in domain

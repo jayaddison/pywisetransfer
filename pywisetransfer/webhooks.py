@@ -1,7 +1,7 @@
 from base64 import b64decode
 
-import pytransferwise
-from pytransferwise.keys import (
+import pywisetransfer
+from pywisetransfer.keys import (
     WEBHOOK_SIGNATURE_PUBLIC_KEY_LIVE,
     WEBHOOK_SIGNATURE_PUBLIC_KEY_SANDBOX,
 )
@@ -17,7 +17,7 @@ def verify_signature(payload, signature):
     signature = b64decode(signature)
     key_data = (
         WEBHOOK_SIGNATURE_PUBLIC_KEY_LIVE
-        if pytransferwise.environment == "live"
+        if pywisetransfer.environment == "live"
         else WEBHOOK_SIGNATURE_PUBLIC_KEY_SANDBOX
     )
     public_key = load_pem_public_key(key_data, backend=default_backend())
