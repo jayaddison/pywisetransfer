@@ -8,11 +8,13 @@ class Client(object):
         from pytransferwise.profile import Profile
         from pytransferwise.subscription import Subscription
         from pytransferwise.user import User
+        from pytransferwise.rates import Rates
 
         self.borderless_accounts = BorderlessAccount()
         self.profiles = Profile()
         self.subscriptions = Subscription()
         self.users = User()
+        self.rates = Rates()
 
     def __init__(self):
         if api_key is None:
