@@ -13,8 +13,8 @@ class BorderlessAccountService(Base):
 
 
 class BorderlessAccount(object):
-
-    service = BorderlessAccountService()
+    def __init__(self, client):
+        self.service = BorderlessAccountService(client=client)
 
     def list(self, profile_id):
         return munchify(self.service.list(params={"profileId": profile_id}))

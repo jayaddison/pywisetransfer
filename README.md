@@ -18,10 +18,7 @@ poetry add pywisetransfer
 ```python
 import pywisetransfer
 
-pywisetransfer.api_key = "your-api-key-here"
-# pywisetransfer.environment = "live"
-
-client = pywisetransfer.Client()
+client = pywisetransfer.Client(api_key="your-api-key-here")
 
 for profile in client.profiles.list():
     accounts = client.borderless_accounts.list(profile_id=profile.id)
@@ -36,8 +33,6 @@ for profile in client.profiles.list():
 import pywisetransfer
 from pywisetransfer.webhooks import verify_signature
 
-# pywisetransfer.environment = "live"
-
 payload = b"webhook-request-body-here"
 signature = "webhook-signature-data-here"
 
@@ -51,5 +46,5 @@ print(f"Valid webhook signature: {valid}")
 ```bash
 # Within the pywisetransfer working directory
 poetry install
-poetry run pytest --forked
+poetry run pytest
 ```

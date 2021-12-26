@@ -10,7 +10,8 @@ class ProfileService(Base):
 
 
 class Profile(object):
-    service = ProfileService()
+    def __init__(self, client):
+        self.service = ProfileService(client=client)
 
     def list(self, type=None):
         profiles = munchify(self.service.list())

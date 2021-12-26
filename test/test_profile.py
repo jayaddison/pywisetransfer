@@ -1,7 +1,7 @@
 import pytest
 import responses
 
-from pywisetransfer.profile import Profile
+from pywisetransfer import Client
 
 
 @pytest.fixture
@@ -52,7 +52,7 @@ def test_profile_list_unfiltered(profile_list_response):
         json=profile_list_response,
     )
 
-    endpoint = Profile()
+    endpoint = Client(api_key="test-key").profiles
     results = list(endpoint.list())
 
     assert len(results) == 2
@@ -66,7 +66,7 @@ def test_profile_list_type_filtered(profile_list_response):
         json=profile_list_response,
     )
 
-    endpoint = Profile()
+    endpoint = Client(api_key="test-key").profiles
     results = list(endpoint.list(type="business"))
 
     assert len(results) == 1
