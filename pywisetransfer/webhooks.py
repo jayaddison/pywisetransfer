@@ -1,6 +1,5 @@
 from base64 import b64decode
 
-import pywisetransfer
 from pywisetransfer.keys import (
     WEBHOOK_SIGNATURE_PUBLIC_KEY_LIVE,
     WEBHOOK_SIGNATURE_PUBLIC_KEY_SANDBOX,
@@ -13,11 +12,11 @@ from cryptography.hazmat.primitives.asymmetric import padding, utils
 from cryptography.hazmat.primitives.serialization import load_pem_public_key
 
 
-def verify_signature(payload, signature):
+def verify_signature(payload, signature, environment="sandbox"):
     signature = b64decode(signature)
     key_data = (
         WEBHOOK_SIGNATURE_PUBLIC_KEY_LIVE
-        if pywisetransfer.environment == "live"
+        if environment == "live"
         else WEBHOOK_SIGNATURE_PUBLIC_KEY_SANDBOX
     )
     public_key = load_pem_public_key(key_data, backend=default_backend())

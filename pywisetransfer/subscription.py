@@ -10,7 +10,8 @@ class SubscriptionService(Base):
 
 
 class Subscription(object):
-    service = SubscriptionService()
+    def __init__(self, client):
+        self.service = SubscriptionService(client=client)
 
     def list(self, profile_id):
         return munchify(self.service.list(profile_id=profile_id))

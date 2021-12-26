@@ -10,7 +10,8 @@ class UserService(Base):
 
 
 class User(object):
-    service = UserService()
+    def __init__(self, client):
+        self.service = UserService(client=client)
 
     def me(self):
         return munchify(self.service.me())
