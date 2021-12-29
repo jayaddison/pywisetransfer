@@ -1,16 +1,17 @@
+---
 name: tests
 on:
   pull_request:
   push:
     branches:
-    - main
+      - main
 
 jobs:
   test:
     runs-on: ubuntu-latest
     steps:
-    - uses: actions/checkout@v2
-    - uses: actions/setup-python@v2
-    - run: pip install poetry
-    - run: poetry install
-    - run: poetry run pytest
+      - uses: actions/checkout@v2
+      - uses: actions/setup-python@v2
+      - run: pip install poetry
+      - run: poetry install
+      - run: poetry run pytest
