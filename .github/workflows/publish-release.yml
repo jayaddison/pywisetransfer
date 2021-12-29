@@ -1,15 +1,16 @@
+---
 name: publish release
 on:
   release:
     types:
-    - published
+      - published
 
 jobs:
   test:
     runs-on: ubuntu-latest
     steps:
-    - uses: actions/checkout@v2
-    - uses: actions/setup-python@v2
-    - run: pip install poetry
-    - run: poetry install
-    - run: poetry publish --build
+      - uses: actions/checkout@v2
+      - uses: actions/setup-python@v2
+      - run: pip install poetry
+      - run: poetry install
+      - run: poetry publish --build
