@@ -14,7 +14,9 @@ class Profile(object):
 
     def list(self, type=None):
         profiles = munchify(self.service.list())
-        return filter(lambda p: type is None or p.type == type, profiles)
+        if type is None:
+            return profiles
+        return [p for p in profiles if p.type == type]
 
     def get(self, profile_id):
         return munchify(self.service.get(profile_id=profile_id))
