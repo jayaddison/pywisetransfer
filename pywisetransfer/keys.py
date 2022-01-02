@@ -21,3 +21,11 @@ z7KqoKUN0oHqWLr2U1A+7kqrl6O2nx3CKs1bj1hToT1+p4kcMoHXA7kA+VBLUpEs
 VwIDAQAB
 -----END PUBLIC KEY-----
 """
+
+
+def get_key_data(environment):
+    return (
+        WEBHOOK_SIGNATURE_PUBLIC_KEY_LIVE
+        if environment == "live"
+        else WEBHOOK_SIGNATURE_PUBLIC_KEY_SANDBOX
+    )
