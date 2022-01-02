@@ -2,11 +2,12 @@ from apiron import JsonEndpoint
 from munch import munchify
 
 from pywisetransfer.base import Base
+from pywisetransfer.endpoint import JsonEndpointWithSCA
 
 
 class BorderlessAccountService(Base):
     list = JsonEndpoint(path="/v1/borderless-accounts", required_params=["profileId"])
-    statement = JsonEndpoint(
+    statement = JsonEndpointWithSCA(
         path="/v3/profiles/{profile_id}/borderless-accounts/{account_id}/statement.json",
         required_params=["currency", "intervalStart", "intervalEnd"],
     )
