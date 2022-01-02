@@ -5,7 +5,7 @@ from apiron.endpoint import JsonEndpoint
 from functools import partial, update_wrapper, wraps
 from requests.exceptions import HTTPError
 
-from .signing import sign_sca_challenge
+from pywisetransfer.signing import sign_sca_challenge
 
 
 class JsonEndpointWithSCA(JsonEndpoint):

@@ -2,7 +2,7 @@ from apiron import JsonEndpoint
 from munch import munchify
 
 from pywisetransfer.base import Base
-from .endpoint import JsonEndpointWithSCA
+from pywisetransfer.endpoint import JsonEndpointWithSCA
 
 
 class BorderlessAccountService(Base):
