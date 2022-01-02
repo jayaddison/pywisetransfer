@@ -3,26 +3,18 @@ import pytest
 import pywisetransfer
 
 
-def setup_function(method):
-    pywisetransfer.api_key = None
-    pywisetransfer.environment = "sandbox"
-
-
 def test_client_missing_key():
     with pytest.raises(KeyError, match="pywisetransfer.api_key"):
-        pywisetransfer.Client()
+        pywisetransfer.Client(api_key=None)
 
 
 def test_client_invalid_environment():
-    pywisetransfer.api_key = "test-key"
-    pywisetransfer.environment = "test-environment"
     with pytest.raises(KeyError, match="pywisetransfer.environment"):
-        pywisetransfer.Client()
+        pywisetransfer.Client(api_key="test-key", environment="test-environment")
 
 
 def test_client_default_environment():
-    pywisetransfer.api_key = "test-key"
-    client = pywisetransfer.Client()
+    client = pywisetransfer.Client(api_key="test-key")
 
     domain = client.borderless_accounts.service.domain
     assert "api.sandbox.transferwise" in domain
@@ -30,10 +22,7 @@ def test_client_default_environment():
 
 
 def test_client_domain_immutable():
-    assert pywisetransfer.environment == "sandbox"
-
-    pywisetransfer.api_key = "test-key"
-    client = pywisetransfer.Client()
+    client = pywisetransfer.Client(api_key="test-key", environment="sandbox")
 
     domain = client.borderless_accounts.service.domain
     assert "api.sandbox.transferwise" in domain
