@@ -10,11 +10,8 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
-      # Ensure that the git tag is present for poetry-dynamic-versioning plugin to read
-      - run: git fetch origin ${{ github.ref_name }}
       - uses: actions/setup-python@v2
       - run: pip install poetry
-      - run: poetry install --no-root
       - run: poetry config repositories.testpypi https://test.pypi.org/legacy/
       - run: poetry config pypi-token.testpypi ${{ secrets.TEST_PYPI_API_KEY }}
       - run: poetry publish --build -r testpypi
