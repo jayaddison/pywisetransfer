@@ -11,9 +11,6 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
-      # Ensure that the git tag is present for poetry-dynamic-versioning plugin to read
-      # Credit: https://github.com/actions/checkout/issues/217#issuecomment-636481619
-      - run: git fetch --depth=1 origin +refs/tags/${{ github.ref_name }}:refs/tags/${{ github.ref_name }}
       - uses: actions/setup-python@v2
       - run: pip install black
       - run: black pywisetransfer test
