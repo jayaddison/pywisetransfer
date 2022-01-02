@@ -1,12 +1,11 @@
-from base64 import b64encode
 from typing import Dict, Optional
 
 import apiron
 from apiron.endpoint import JsonEndpoint
-from cryptography.hazmat.primitives import hashes
-from cryptography.hazmat.primitives.asymmetric import padding
 from functools import partial, update_wrapper, wraps
 from requests.exceptions import HTTPError
+
+from .signing import sign_sca_challenge
 
 
 class JsonEndpointWithSCA(JsonEndpoint):
@@ -36,15 +35,13 @@ class JsonEndpointWithSCA(JsonEndpoint):
                     and resp.headers["X-2FA-Approval-Result"] == "REJECTED"
                 ):
                     challenge = resp.headers["X-2FA-Approval"]
-                    if owner.client.private_key is None:
+                    if owner.client.private_key_data is None:
                         raise Exception(
-                            f"Please provide pytransferwise.private_key_file or private_key to perform SCA authentication"
+                            f"Please provide pytransferwise.private_key_file or private_key_data to perform SCA authentication"
                         ) from e
-                    signature = owner.client.private_key.sign(
-                        challenge.encode("ascii"), padding.PKCS1v15(), hashes.SHA256()
-                    )
-                    self.sca_headers["X-Signature"] = b64encode(signature).decode(
-                        "ascii"
+
+                    self.sca_headers["X-Signature"] = sign_sca_challenge(
+                        challenge, owner.client.private_key_data
                     )
                     self.sca_headers["X-2FA-Approval"] = challenge
                     return caller(*args, **kwargs)
