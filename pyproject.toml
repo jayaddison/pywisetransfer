@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "pywisetransfer"
-version = "0.0.0"
+version = "0.1.8"
 description = "Python library for the TransferWise API"
 authors = ["James Addison <jay@jp-hosting.net>"]
 homepage = "https://www.github.com/jayaddison/pywisetransfer"
