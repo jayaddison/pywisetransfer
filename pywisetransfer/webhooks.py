@@ -1,13 +1,13 @@
 from cryptography.exceptions import InvalidSignature
 
 from .exceptions import InvalidWebhookHeader, InvalidWebhookRequest, InvalidWebhookSignature
-from .keys import get_key_data
+from .keys import get_webhook_public_key
 from .signing import validate_sha1_signature, validate_sha256_signature
 
 
 def verify_signature(payload, signature, environment="sandbox"):
     try:
-        validate_sha1_signature(signature, payload, get_key_data(environment))
+        validate_sha1_signature(signature, payload, get_webhook_public_key(environment))
         return True
     except InvalidSignature:
         return False
@@ -28,6 +28,6 @@ def validate_request(request, environment="sandbox"):
         raise InvalidWebhookHeader("Cannot decode webhook signature") from e
 
     try:
-        validate_sha256_signature(signature, payload, get_key_data(environment))
+        validate_sha256_signature(signature, payload, get_webhook_public_key(environment))
     except InvalidSignature as e:
         raise InvalidWebhookSignature("Invalid webhook signature") from e
