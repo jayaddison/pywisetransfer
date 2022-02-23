@@ -21,7 +21,7 @@ def verify_signature(payload, signature, environment="sandbox"):
     )
     public_key = load_pem_public_key(key_data, backend=default_backend())
     try:
-        public_key.verify(signature, payload, padding.PKCS1v15(), hashes.SHA1())
+        public_key.verify(signature, payload, padding.PKCS1v15(), hashes.SHA256())
         return True
     except InvalidSignature:
         return False
