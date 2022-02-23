@@ -12,6 +12,5 @@ jobs:
     steps:
       - uses: actions/checkout@v2
       - uses: actions/setup-python@v2
-      - run: pip install poetry
-      - run: poetry install
-      - run: poetry run pytest
+      - run: pip install .[dev]
+      - run: pytest
