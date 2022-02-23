@@ -45,6 +45,6 @@ print(f"Valid webhook signature: {valid}")
 
 ```bash
 # Within the pywisetransfer working directory
-poetry install
-poetry run pytest
+pip install .[dev]
+pytest
 ```
