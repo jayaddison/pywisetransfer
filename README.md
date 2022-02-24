@@ -8,7 +8,7 @@ An unofficial, experimental Python client library for the [TransferWise API](htt
 
 ```bash
 # Within your project directory
-poetry add pywisetransfer
+pip install pywisetransfer
 ```
 
 ## Usage
