@@ -1,5 +1,6 @@
 from typing import Optional
 
+
 class Client(object):
     def add_resources(self) -> None:
         from pywisetransfer.borderless_account import BorderlessAccount
