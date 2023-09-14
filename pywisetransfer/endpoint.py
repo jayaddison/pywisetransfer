@@ -38,7 +38,7 @@ class JsonEndpointWithSCA(JsonEndpoint):
                     challenge = resp.headers["X-2FA-Approval"]
                     if owner.client.private_key_data is None:  # type: ignore[union-attr]
                         raise Exception(
-                            f"Please provide pytransferwise.private_key_file or private_key_data to perform SCA authentication"
+                            "Please provide pytransferwise.private_key_file or private_key_data to perform SCA authentication"
                         ) from e
 
                     self.sca_headers["X-Signature"] = sign_sca_challenge(
