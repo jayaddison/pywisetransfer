@@ -12,7 +12,7 @@ from cryptography.hazmat.primitives.asymmetric import padding, utils
 from cryptography.hazmat.primitives.serialization import load_pem_public_key
 
 
-def verify_signature(payload, signature, environment="sandbox"):
+def verify_signature(payload: bytes, signature: bytes, environment: str = "sandbox") -> bool:
     signature = b64decode(signature)
     key_data = (
         WEBHOOK_SIGNATURE_PUBLIC_KEY_LIVE

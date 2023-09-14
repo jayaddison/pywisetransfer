@@ -1,11 +1,15 @@
+from typing import Any, Dict, Optional
+
 from apiron import Service
+
+from pywisetransfer import Client
 
 
 class Base(Service):
 
-    client = None
+    client: Optional[Client] = None
 
-    def __init__(self, *args, **kwargs):
+    def __init__(self, *args: Any, **kwargs: Any):
         # TODO: It would be nice to make 'client' a required argument here
         # Currently apiron performs a zero-argument constructor call to the
         # service base class to retrieve the 'required_headers' property,
@@ -19,7 +23,7 @@ class Base(Service):
             Base.domain = "https://api.sandbox.transferwise.tech"
 
     @property
-    def required_headers(self):
+    def required_headers(self) -> Dict[str, str]:  # type: ignore[override]
         if self.client:
             return {"Authorization": f"Bearer {self.client.api_key}"}
         return {}
