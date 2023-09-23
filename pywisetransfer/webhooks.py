@@ -5,7 +5,7 @@ from .keys import get_webhook_public_key
 from .signing import validate_sha1_signature, validate_sha256_signature
 
 
-def verify_signature(payload, signature, environment="sandbox"):
+def verify_signature(payload: bytes, signature: str, environment: str ="sandbox") -> bool:
     try:
         validate_sha1_signature(signature, payload, get_webhook_public_key(environment))
         return True
@@ -13,7 +13,7 @@ def verify_signature(payload, signature, environment="sandbox"):
         return False
 
 
-def validate_request(request, environment="sandbox"):
+def validate_request(request: "requests.Request", environment: str = "sandbox") -> None:
     if request.json is None:
         raise InvalidWebhookRequest("Webhook request does not contain JSON")
 
