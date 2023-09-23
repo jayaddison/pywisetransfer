@@ -8,11 +8,11 @@ from pywisetransfer.keys import (
 from cryptography.exceptions import InvalidSignature
 from cryptography.hazmat.backends import default_backend
 from cryptography.hazmat.primitives import hashes
-from cryptography.hazmat.primitives.asymmetric import padding, utils
+from cryptography.hazmat.primitives.asymmetric import padding
 from cryptography.hazmat.primitives.serialization import load_pem_public_key
 
 
-def verify_signature(payload, signature, environment="sandbox"):
+def verify_signature(payload: bytes, signature: bytes, environment: str = "sandbox") -> bool:
     signature = b64decode(signature)
     key_data = (
         WEBHOOK_SIGNATURE_PUBLIC_KEY_LIVE

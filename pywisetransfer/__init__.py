@@ -1,5 +1,8 @@
+from typing import Optional
+
+
 class Client(object):
-    def add_resources(self):
+    def add_resources(self) -> None:
         from pywisetransfer.borderless_account import BorderlessAccount
         from pywisetransfer.profile import Profile
         from pywisetransfer.subscription import Subscription
@@ -12,10 +15,10 @@ class Client(object):
 
     def __init__(
         self,
-        api_key,
-        environment="sandbox",
-        private_key_file=None,
-        private_key_data=None,
+        api_key: str,
+        environment: str = "sandbox",
+        private_key_file: Optional[str] = None,
+        private_key_data: Optional[bytes] = None,
     ):
         if api_key is None:
             raise KeyError("You must provide a value for pywisetransfer.api_key")
