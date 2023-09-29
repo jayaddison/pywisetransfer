@@ -26,7 +26,6 @@ def corrupt_signature_header():
     return "EMRety5CM0VqStb6bIeB2DeQwdAO5Nm06ZSSGT0/8qW4+cbYDaPwFa5bL1Ylkn/E/JqKhZNtydeT1x+z+nkKCqlFx3Mt/K/WCSD9t+stoZa/Viv8GY8gVzt20A//2+mg0lqCdob5KFCBGHa7GRAwpO4WR5i5reBo17xubq6uVCB8/4hEUVDEstX1m32TU1OES1pFwWECCE/uFPoVJ+5h9BFqnVLSh2XnJde+9aHZ1N+nPBljZWCi9Z+iPpr1MFtHJdjGMPol8+i0VGzi02nhiHUNghmK4uIajB3rledPDZ0MgkQ3wfzJuzHcKGrb0iUMwAsOUNyEJT3b0/g4J7Ka+Q=="
 
 
-
 def test_correct_signature(valid_payload, valid_signature_header):
     valid_signature = b64decode(valid_signature_header)
     validate_signature(valid_payload, valid_signature)
