@@ -1,6 +1,7 @@
 from base64 import b64decode
 
 from pywisetransfer.exceptions import (
+    InvalidWebhookHeader,
     InvalidWebhookRequest,
     InvalidWebhookSignature,
 )
@@ -20,19 +21,19 @@ def validate_request(request: "requests.Request", environment: str = "sandbox") 
     if "X-Signature-SHA256" not in request.headers:
         raise InvalidWebhookRequest("X-Signature-SHA256 header not found")
 
+    try:
+        signature = b64decode(request.headers["X-Signature-SHA256"])
+    except Exception:
+        raise InvalidWebhookHeader("Failed to decode signature")
+
     validate_signature(
         payload=request.body,
-        signature=request.headers["X-Signature-SHA256"],
+        signature=signature,
         environment=environment,
     )
 
 
 def validate_signature(payload: bytes, signature: bytes, environment: str = "sandbox") -> None:
-    try:
-        signature = b64decode(signature)
-    except Exception:
-        raise InvalidWebhookSignature("Failed to decode signature")
-
     key_data = get_webhook_public_key(environment)
     public_key = load_pem_public_key(key_data, backend=default_backend())
     try:
