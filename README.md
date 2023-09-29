@@ -31,14 +31,13 @@ for profile in client.profiles.list():
 
 ```python
 import pywisetransfer
-from pywisetransfer.webhooks import verify_signature
+from pywisetransfer.webhooks import validate_signature
 
 payload = b"webhook-request-body-here"
-signature = "webhook-signature-data-here"
+signature = b"webhook-signature-data-here"
 
-valid = verify_signature(payload, signature)
-print(f"Valid webhook signature: {valid}")
-
+validate_signature(payload, signature)
+print(f"Valid webhook signature")
 ```
 
 ## Run tests
