@@ -2,8 +2,7 @@ from base64 import b64decode
 
 import pytest
 
-from pywisetransfer.exceptions import InvalidWebhookSignature
-from pywisetransfer.webhooks import validate_signature
+from pywisetransfer.webhooks import valid_signature
 
 
 @pytest.fixture
@@ -27,17 +26,12 @@ def corrupt_signature_header():
 
 
 def test_correct_signature(valid_payload, valid_signature_header):
-    valid_signature = b64decode(valid_signature_header)
-    validate_signature(valid_payload, valid_signature)
+    assert valid_signature(valid_payload, b64decode(valid_signature_header))
 
 
 def test_corrupt_payload(corrupt_payload, valid_signature_header):
-    valid_signature = b64decode(valid_signature_header)
-    with pytest.raises(InvalidWebhookSignature):
-        validate_signature(corrupt_payload, valid_signature)
+    assert not valid_signature(corrupt_payload, b64decode(valid_signature_header))
 
 
 def test_corrupt_signature(valid_payload, corrupt_signature_header):
-    corrupt_signature = b64decode(corrupt_signature_header)
-    with pytest.raises(InvalidWebhookSignature):
-        validate_signature(valid_payload, corrupt_signature)
+    assert not valid_signature(valid_payload, b64decode(corrupt_signature_header))

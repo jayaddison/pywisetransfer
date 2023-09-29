@@ -14,7 +14,7 @@ from cryptography.hazmat.primitives.asymmetric import padding
 from cryptography.hazmat.primitives.serialization import load_pem_public_key
 
 
-def validate_request(request: "requests.Request", environment: str = "sandbox") -> None:
+def valid_request(request: "requests.Request", environment: str = "sandbox") -> None:
     if request.json is None:
         raise InvalidWebhookRequest("JSON content not found")
 
@@ -26,17 +26,19 @@ def validate_request(request: "requests.Request", environment: str = "sandbox") 
     except Exception:
         raise InvalidWebhookHeader("Failed to decode signature")
 
-    validate_signature(
+    if not valid_signature(
         payload=request.body,
         signature=signature,
         environment=environment,
-    )
+    ):
+        raise InvalidWebhookSignature("Failed to verify signature")
 
 
-def validate_signature(payload: bytes, signature: bytes, environment: str = "sandbox") -> None:
+def valid_signature(payload: bytes, signature: bytes, environment: str = "sandbox") -> None:
     key_data = get_webhook_public_key(environment)
     public_key = load_pem_public_key(key_data, backend=default_backend())
     try:
         public_key.verify(signature, payload, padding.PKCS1v15(), hashes.SHA256())
+        return True
     except InvalidSignature:
-        raise InvalidWebhookSignature("Failed to verify signature")
+        return False
