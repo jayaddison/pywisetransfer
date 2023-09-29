@@ -1,11 +1,8 @@
-from base64 import b64decode, b64encode
+from base64 import b64encode
 
 from cryptography.hazmat.primitives import hashes
 from cryptography.hazmat.primitives.asymmetric import padding
-from cryptography.hazmat.primitives.serialization import (
-    load_pem_private_key,
-    load_pem_public_key,
-)
+from cryptography.hazmat.primitives.serialization import load_pem_private_key
 
 
 def sign_sca_challenge(challenge: str, private_key_data: bytes) -> str:

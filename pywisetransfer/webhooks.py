@@ -1,15 +1,10 @@
 from base64 import b64decode
 
 from pywisetransfer.exceptions import (
-    InvalidWebhookHeader,
     InvalidWebhookRequest,
     InvalidWebhookSignature,
 )
-from pywisetransfer.keys import (
-    WEBHOOK_SIGNATURE_PUBLIC_KEY_LIVE,
-    WEBHOOK_SIGNATURE_PUBLIC_KEY_SANDBOX,
-    get_webhook_public_key,
-)
+from pywisetransfer.keys import get_webhook_public_key
 
 from cryptography.exceptions import InvalidSignature
 from cryptography.hazmat.backends import default_backend
