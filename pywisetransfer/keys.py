@@ -23,7 +23,7 @@ VwIDAQAB
 """
 
 
-def get_webhook_public_key(environment):
+def get_webhook_public_key(environment: str) -> bytes:
     return (
         WEBHOOK_SIGNATURE_PUBLIC_KEY_LIVE
         if environment == "live"

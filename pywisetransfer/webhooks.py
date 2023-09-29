@@ -1,33 +1,46 @@
+from base64 import b64decode
+
+from pywisetransfer.exceptions import (
+    InvalidWebhookHeader,
+    InvalidWebhookRequest,
+    InvalidWebhookSignature,
+)
+from pywisetransfer.keys import (
+    WEBHOOK_SIGNATURE_PUBLIC_KEY_LIVE,
+    WEBHOOK_SIGNATURE_PUBLIC_KEY_SANDBOX,
+    get_webhook_public_key,
+)
+
 from cryptography.exceptions import InvalidSignature
-
-from .exceptions import InvalidWebhookHeader, InvalidWebhookRequest, InvalidWebhookSignature
-from .keys import get_webhook_public_key
-from .signing import validate_sha1_signature, validate_sha256_signature
-
-
-def verify_signature(payload: bytes, signature: str, environment: str ="sandbox") -> bool:
-    try:
-        validate_sha1_signature(signature, payload, get_webhook_public_key(environment))
-        return True
-    except InvalidSignature:
-        return False
+from cryptography.hazmat.backends import default_backend
+from cryptography.hazmat.primitives import hashes
+from cryptography.hazmat.primitives.asymmetric import padding
+from cryptography.hazmat.primitives.serialization import load_pem_public_key
 
 
 def validate_request(request: "requests.Request", environment: str = "sandbox") -> None:
     if request.json is None:
-        raise InvalidWebhookRequest("Webhook request does not contain JSON")
+        raise InvalidWebhookRequest("JSON content not found")
 
-    try:
-        signature = request.headers["X-Signature-SHA256"]
-    except KeyError:
-        raise InvalidWebhookRequest("Webhook request does not include SHA-256 signature")
+    if "X-Signature-SHA256" not in request.headers:
+        raise InvalidWebhookRequest("X-Signature-SHA256 header not found")
 
-    try:
-        b64decode(signature)
-    except Exception as e:
-        raise InvalidWebhookHeader("Cannot decode webhook signature") from e
+    validate_signature(
+        payload=request.body,
+        signature=request.headers["X-Signature-SHA256"],
+        environment=environment,
+    )
 
+
+def validate_signature(payload: bytes, signature: bytes, environment: str = "sandbox") -> None:
     try:
-        validate_sha256_signature(signature, payload, get_webhook_public_key(environment))
-    except InvalidSignature as e:
-        raise InvalidWebhookSignature("Invalid webhook signature") from e
+        signature = b64decode(signature)
+    except:
+        raise InvalidWebhookSignature("Failed to decode signature")
+
+    key_data = get_webhook_public_key(environment)
+    public_key = load_pem_public_key(key_data, backend=default_backend())
+    try:
+        public_key.verify(signature, payload, padding.PKCS1v15(), hashes.SHA256())
+    except InvalidSignature:
+        raise InvalidWebhookSignature("Failed to verify signature")

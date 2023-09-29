@@ -1,6 +1,7 @@
 import pytest
 
-from pywisetransfer.webhooks import verify_signature
+from pywisetransfer.exceptions import InvalidWebhookSignature
+from pywisetransfer.webhooks import validate_signature
 
 
 @pytest.fixture
@@ -23,16 +24,16 @@ def corrupt_signature():
     return "EMRety5CM0VqStb6bIeB2DeQwdAO5Nm06ZSSGT0/8qW4+cbYDaPwFa5bL1Ylkn/E/JqKhZNtydeT1x+z+nkKCqlFx3Mt/K/WCSD9t+stoZa/Viv8GY8gVzt20A//2+mg0lqCdob5KFCBGHa7GRAwpO4WR5i5reBo17xubq6uVCB8/4hEUVDEstX1m32TU1OES1pFwWECCE/uFPoVJ+5h9BFqnVLSh2XnJde+9aHZ1N+nPBljZWCi9Z+iPpr1MFtHJdjGMPol8+i0VGzi02nhiHUNghmK4uIajB3rledPDZ0MgkQ3wfzJuzHcKGrb0iUMwAsOUNyEJT3b0/g4J7Ka+Q=="
 
 
+
 def test_correct_signature(valid_payload, valid_signature):
-    result = verify_signature(valid_payload, valid_signature)
-    assert result is True
+    validate_signature(valid_payload, valid_signature)
 
 
 def test_corrupt_payload(corrupt_payload, valid_signature):
-    result = verify_signature(corrupt_payload, valid_signature)
-    assert result is False
+    with pytest.raises(InvalidWebhookSignature):
+        validate_signature(corrupt_payload, valid_signature)
 
 
 def test_corrupt_signature(valid_payload, corrupt_signature):
-    result = verify_signature(valid_payload, corrupt_signature)
-    assert result is False
+    with pytest.raises(InvalidWebhookSignature):
+        validate_signature(valid_payload, corrupt_signature)

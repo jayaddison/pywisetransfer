@@ -14,15 +14,3 @@ def sign_sca_challenge(challenge: str, private_key_data: bytes) -> str:
         challenge.encode("ascii"), padding.PKCS1v15(), hashes.SHA256()
     )
     return b64encode(signature).decode("ascii")
-
-
-def validate_sha1_signature(signature, payload, key_data):
-    public_key = load_pem_public_key(key_data)
-    public_key.verify(b64decode(signature), payload, padding.PKCS1v15(), hashes.SHA1())
-
-
-def validate_sha256_signature(signature, payload, key_data):
-    public_key = load_pem_public_key(key_data)
-    public_key.verify(
-        b64decode(signature), payload, padding.PKCS1v15(), hashes.SHA256()
-    )
