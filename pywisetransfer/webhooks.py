@@ -30,7 +30,7 @@ def validate_request(request: "requests.Request", environment: str = "sandbox") 
 def validate_signature(payload: bytes, signature: bytes, environment: str = "sandbox") -> None:
     try:
         signature = b64decode(signature)
-    except:
+    except Exception:
         raise InvalidWebhookSignature("Failed to decode signature")
 
     key_data = get_webhook_public_key(environment)
