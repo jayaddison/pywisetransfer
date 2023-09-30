@@ -16,22 +16,22 @@ from cryptography.hazmat.primitives.serialization import load_pem_public_key
 
 def validate_request(request: "flask.Request", environment: str = "sandbox") -> None:
     if request.json is None:
-        raise InvalidWebhookRequest("Webhook request does not contain JSON")
+        raise InvalidWebhookRequest("JSON content not found")
 
     if "X-Signature-SHA256" not in request.headers:
-        raise InvalidWebhookRequest("Webhook request does not include SHA-256 signature")
+        raise InvalidWebhookRequest("X-Signature-SHA256 header not found")
 
     try:
         signature = b64decode(request.headers["X-Signature-SHA256"])
     except Exception:
-        raise InvalidWebhookHeader("Cannot decode webhook signature") from e
+        raise InvalidWebhookHeader("Failed to decode signature")
 
     if not verify_signature(
         payload=request.data,
         signature=signature,
         environment=environment,
     ):
-        raise InvalidWebhookSignature("Invalid webhook signature") from e
+        raise InvalidWebhookSignature("Failed to verify signature")
 
 
 def verify_signature(payload: bytes, signature: bytes, environment: str = "sandbox") -> None:
