@@ -42,8 +42,7 @@ def test_corrupt_signature(valid_payload, corrupt_signature):
     assert result is False
 
 
-@pytest.fixture
-def valid_request(valid_payload, valid_signature):
+def _construct_request(valid_payload, valid_signature):
     # Note: we construct an HTTP _client_ requests.Request object here, for
     # the purposes of building a test fixture.  The argument received at
     # runtime by 'validate_request' will be the webserver's representation of
@@ -60,5 +59,6 @@ def valid_request(valid_payload, valid_signature):
     )
 
 
-def test_valid_request(valid_request):
-    validate_request(valid_request)
+def test_valid_request(valid_payload, valid_signature):
+    request = _construct_request(valid_payload, valid_signature)
+    validate_request(request)
