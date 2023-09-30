@@ -4,6 +4,7 @@ import json
 import pytest
 from requests import Request
 
+from pywisetransfer.exceptions import InvalidWebhookSignature
 from pywisetransfer.webhooks import validate_request, verify_signature
 
 
@@ -62,3 +63,15 @@ def _construct_request(valid_payload, valid_signature):
 def test_valid_request(valid_payload, valid_signature):
     request = _construct_request(valid_payload, valid_signature)
     validate_request(request)
+
+
+def test_corrupt_request_payload(corrupt_payload, valid_signature):
+    request = _construct_request(corrupt_payload, valid_signature)
+    with pytest.raises(InvalidWebhookSignature):
+        validate_request(request)
+
+
+def test_corrupt_request_signature(valid_payload, corrupt_signature):
+    request = _construct_request(valid_payload, corrupt_signature)
+    with pytest.raises(InvalidWebhookSignature):
+        validate_request(request)
