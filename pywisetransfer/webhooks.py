@@ -14,7 +14,7 @@ from cryptography.hazmat.primitives.asymmetric import padding
 from cryptography.hazmat.primitives.serialization import load_pem_public_key
 
 
-def valid_request(request: "requests.Request", environment: str = "sandbox") -> None:
+def valid_request(request: "flask.Request", environment: str = "sandbox") -> None:
     if request.json is None:
         raise InvalidWebhookRequest("JSON content not found")
 
@@ -27,7 +27,7 @@ def valid_request(request: "requests.Request", environment: str = "sandbox") -> 
         raise InvalidWebhookHeader("Failed to decode signature")
 
     if not valid_signature(
-        payload=request.body,
+        payload=request.data,
         signature=signature,
         environment=environment,
     ):
