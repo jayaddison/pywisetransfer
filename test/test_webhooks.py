@@ -4,7 +4,7 @@ import json
 import pytest
 from requests import Request
 
-from pywisetransfer.webhooks import valid_request, valid_signature
+from pywisetransfer.webhooks import validate_request, verify_signature
 
 
 @pytest.fixture
@@ -28,19 +28,19 @@ def corrupt_signature_header():
 
 
 def test_correct_signature(valid_payload, valid_signature_header):
-    assert valid_signature(valid_payload, b64decode(valid_signature_header))
+    assert verify_signature(valid_payload, b64decode(valid_signature_header))
 
 
 def test_corrupt_payload(corrupt_payload, valid_signature_header):
-    assert not valid_signature(corrupt_payload, b64decode(valid_signature_header))
+    assert not verify_signature(corrupt_payload, b64decode(valid_signature_header))
 
 
 def test_corrupt_signature(valid_payload, corrupt_signature_header):
-    assert not valid_signature(valid_payload, b64decode(corrupt_signature_header))
+    assert not verify_signature(valid_payload, b64decode(corrupt_signature_header))
 
 
 @pytest.fixture
-def valid_webhook_request(valid_payload, valid_signature_header):
+def valid_request(valid_payload, valid_signature_header):
     # Note: we construct an HTTP _client_ requests.Request object here; the
     # argument received at runtime will be the webserver's representation of
     # a request that it has received, and that interface may differ.
@@ -56,5 +56,5 @@ def valid_webhook_request(valid_payload, valid_signature_header):
     )
 
 
-def test_valid_request(valid_webhook_request):
-    valid_request(valid_webhook_request)
+def test_valid_request(valid_request):
+    validate_request(valid_request)
