@@ -44,9 +44,10 @@ def test_corrupt_signature(valid_payload, corrupt_signature):
 
 @pytest.fixture
 def valid_request(valid_payload, valid_signature):
-    # Note: we construct an HTTP _client_ requests.Request object here; the
-    # argument received at runtime will be the webserver's representation of
-    # a request that it has received, and that interface may differ.
+    # Note: we construct an HTTP _client_ requests.Request object here, for
+    # the purposes of building a test fixture.  The argument received at
+    # runtime by 'validate_request' will be the webserver's representation of
+    # a request that it has received, and that will be a different object type.
     return Request(
         method="GET",
         url="http://example.org",
