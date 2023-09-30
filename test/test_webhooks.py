@@ -1,6 +1,11 @@
-import pytest
+from base64 import b64decode
+import json
 
-from pywisetransfer.webhooks import verify_signature
+import pytest
+from requests import Request
+
+from pywisetransfer.exceptions import InvalidWebhookSignature
+from pywisetransfer.webhooks import validate_request, verify_signature
 
 
 @pytest.fixture
@@ -24,15 +29,49 @@ def corrupt_signature():
 
 
 def test_correct_signature(valid_payload, valid_signature):
-    result = verify_signature(valid_payload, valid_signature)
+    result = verify_signature(valid_payload, b64decode(valid_signature))
     assert result is True
 
 
 def test_corrupt_payload(corrupt_payload, valid_signature):
-    result = verify_signature(corrupt_payload, valid_signature)
+    result = verify_signature(corrupt_payload, b64decode(valid_signature))
     assert result is False
 
 
 def test_corrupt_signature(valid_payload, corrupt_signature):
-    result = verify_signature(valid_payload, corrupt_signature)
+    result = verify_signature(valid_payload, b64decode(corrupt_signature))
     assert result is False
+
+
+def _construct_request(valid_payload, valid_signature):
+    # Note: we construct an HTTP _client_ requests.Request object here, for
+    # the purposes of building a test fixture.  The argument received at
+    # runtime by 'validate_request' will be the webserver's representation of
+    # a request that it has received, and that will be a different object type.
+    return Request(
+        method="POST",
+        url="http://example.org",
+        headers={
+            "Content-Type": "application/json",
+            "X-Signature-SHA256": valid_signature,
+        },
+        data=valid_payload,
+        json=json.loads(valid_payload),
+    )
+
+
+def test_valid_request(valid_payload, valid_signature):
+    request = _construct_request(valid_payload, valid_signature)
+    validate_request(request)
+
+
+def test_corrupt_request_payload(corrupt_payload, valid_signature):
+    request = _construct_request(corrupt_payload, valid_signature)
+    with pytest.raises(InvalidWebhookSignature):
+        validate_request(request)
+
+
+def test_corrupt_request_signature(valid_payload, corrupt_signature):
+    request = _construct_request(valid_payload, corrupt_signature)
+    with pytest.raises(InvalidWebhookSignature):
+        validate_request(request)
