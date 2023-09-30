@@ -49,7 +49,7 @@ def valid_request(valid_payload, valid_signature):
     # runtime by 'validate_request' will be the webserver's representation of
     # a request that it has received, and that will be a different object type.
     return Request(
-        method="GET",
+        method="POST",
         url="http://example.org",
         headers={
             "Content-Type": "application/json",
