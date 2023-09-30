@@ -30,14 +30,18 @@ for profile in client.profiles.list():
 ### Webhook signature verification
 
 ```python
-import pywisetransfer
-from pywisetransfer.webhooks import verify_signature
+from flask import abort, request
+from pywisetransfer.webhooks import validate_request
 
-payload = b"request-body-here"
-signature = b"decoded-request-signature-here"
+@app.route("/payments/wise/webhooks")
+def handle_wise_webhook():
+    try:
+        validate_request(request)
+    except Exception as e:
+        logger.error(f"Wise webhook request validation failed: {e}")
+        abort(400)
 
-valid = verify_signature(payload, signature)
-print(f"Valid request signature: {valid}")
+    ...
 ```
 
 ## Run tests
