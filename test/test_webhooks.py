@@ -1,8 +1,10 @@
 from base64 import b64decode
+import json
 
 import pytest
+from requests import Request
 
-from pywisetransfer.webhooks import valid_signature
+from pywisetransfer.webhooks import valid_request, valid_signature
 
 
 @pytest.fixture
@@ -35,3 +37,24 @@ def test_corrupt_payload(corrupt_payload, valid_signature_header):
 
 def test_corrupt_signature(valid_payload, corrupt_signature_header):
     assert not valid_signature(valid_payload, b64decode(corrupt_signature_header))
+
+
+@pytest.fixture
+def valid_webhook_request(valid_payload, valid_signature_header):
+    # Note: we construct an HTTP _client_ requests.Request object here; the
+    # argument received at runtime will be the webserver's representation of
+    # a request that it has received, and that interface may differ.
+    return Request(
+        method="GET",
+        url="http://example.org",
+        headers={
+            "Content-Type": "application/json",
+            "X-Signature-SHA256": valid_signature_header,
+        },
+        data=valid_payload,
+        json=json.loads(valid_payload),
+    )
+
+
+def test_valid_request(valid_webhook_request):
+    valid_request(valid_webhook_request)
