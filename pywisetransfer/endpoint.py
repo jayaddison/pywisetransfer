@@ -1,4 +1,4 @@
-from typing import Any, Callable, Dict, Optional, Type
+from typing import Any, Callable, Optional
 
 import apiron
 from apiron.endpoint import JsonEndpoint
