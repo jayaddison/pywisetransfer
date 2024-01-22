@@ -23,7 +23,7 @@ class Base(Service):
             Base.domain = "https://api.sandbox.transferwise.tech"
 
     @property
-    def required_headers(self) -> Dict[str, str]:  # type: ignore[override]
+    def required_headers(self) -> dict[str, str]:  # type: ignore[override]
         if self.client:
             return {"Authorization": f"Bearer {self.client.api_key}"}
         return {}

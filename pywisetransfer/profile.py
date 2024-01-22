@@ -12,12 +12,12 @@ class ProfileService(Base):
     get = JsonEndpoint(path="/v1/profiles/{profile_id}")
 
 
-class Profile(object):
+class Profile:
     def __init__(self, client: Client):
         self.service = ProfileService(client=client)
 
-    def list(self, type: Optional[str] = None) -> List[Any]:
-        profiles: List[Any] = munchify(self.service.list())
+    def list(self, type: Optional[str] = None) -> list[Any]:
+        profiles: list[Any] = munchify(self.service.list())
         if type is None:
             return profiles
         return [p for p in profiles if p.type == type]

@@ -12,7 +12,7 @@ class SubscriptionService(Base):
     get = JsonEndpoint(path="/v3/profiles/{profile_id}/subscriptions/{subscription_id}")
 
 
-class Subscription(object):
+class Subscription:
     def __init__(self, client: Client):
         self.service = SubscriptionService(client=client)
 

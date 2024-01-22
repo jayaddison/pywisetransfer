@@ -1,7 +1,7 @@
 from typing import Optional
 
 
-class Client(object):
+class Client:
     def add_resources(self) -> None:
         from pywisetransfer.borderless_account import BorderlessAccount
         from pywisetransfer.profile import Profile

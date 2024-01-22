@@ -12,16 +12,16 @@ from pywisetransfer.signing import sign_sca_challenge
 class JsonEndpointWithSCA(JsonEndpoint):
     def __init__(self, *args: Any, **kwargs: Any):
         super().__init__(*args, **kwargs)
-        self.sca_headers: Dict[str, str] = {}
+        self.sca_headers: dict[str, str] = {}
 
     # apiron's required_headers should be called override_headers
     @property
-    def required_headers(self) -> Dict[str, str]:
+    def required_headers(self) -> dict[str, str]:
         # It looks like 2FA only needs to be performed every few minutes,
         # but there seems to be no harm in re-sending the signature.
         return {**super().required_headers, **self.sca_headers}
 
-    def __get__(self, instance: Optional[Base], owner: Type[Base]) -> Callable[..., Any]:
+    def __get__(self, instance: Optional[Base], owner: type[Base]) -> Callable[..., Any]:
         caller = partial(apiron.client.call, owner, self)
         update_wrapper(caller, apiron.client.call)
 

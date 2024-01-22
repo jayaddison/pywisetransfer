@@ -15,12 +15,12 @@ class BorderlessAccountService(Base):
     )
 
 
-class BorderlessAccount(object):
+class BorderlessAccount:
     def __init__(self, client: Client):
         self.service = BorderlessAccountService(client=client)
 
-    def list(self, profile_id: str) -> List[Any]:
-        accounts: List[Any] = self.service.list(params={"profileId": profile_id})
+    def list(self, profile_id: str) -> list[Any]:
+        accounts: list[Any] = self.service.list(params={"profileId": profile_id})
         return munchify(accounts)
 
     def statement(self, profile_id: str, account_id: str, currency: str, interval_start: str, interval_end: str) -> Any:

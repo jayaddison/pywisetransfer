@@ -12,7 +12,7 @@ class UserService(Base):
     get = JsonEndpoint(path="/v1/users/{userId}")
 
 
-class User(object):
+class User:
     def __init__(self, client: Client):
         self.service = UserService(client=client)
 
