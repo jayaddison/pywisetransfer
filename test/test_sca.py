@@ -39,7 +39,7 @@ def statement_url():
 @pytest.fixture
 def statement_forbidden(statement_url, sca_challenge, mocked_responses):
     url, _, qs = statement_url.partition("?")
-    return mocked_responses.add(
+    mocked_responses.add(
         responses.GET,
         url,
         match=[
