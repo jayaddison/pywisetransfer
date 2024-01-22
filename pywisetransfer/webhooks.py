@@ -34,7 +34,7 @@ def validate_request(request: "flask.Request", environment: str = "sandbox") -> 
         raise InvalidWebhookSignature("Invalid webhook signature")
 
 
-def verify_signature(payload: bytes, signature: bytes, environment: str = "sandbox") -> None:
+def verify_signature(payload: bytes, signature: bytes, environment: str = "sandbox") -> bool:
     key_data = get_webhook_public_key(environment)
     public_key = load_pem_public_key(key_data, backend=default_backend())
     try:
