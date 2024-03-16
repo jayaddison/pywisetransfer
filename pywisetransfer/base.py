@@ -1,4 +1,5 @@
-from typing import Any, Optional
+from __future__ import annotations
+from typing import Any
 
 from apiron import Service
 
@@ -7,7 +8,7 @@ from pywisetransfer import Client
 
 class Base(Service):
 
-    client: Optional[Client] = None
+    client: Client | None = None
 
     def __init__(self, *args: Any, **kwargs: Any):
         # TODO: It would be nice to make 'client' a required argument here

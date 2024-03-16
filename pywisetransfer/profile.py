@@ -1,4 +1,5 @@
-from typing import Any, Optional
+from __future__ import annotations
+from typing import Any
 
 from apiron import JsonEndpoint
 from munch import munchify
@@ -16,7 +17,7 @@ class Profile:
     def __init__(self, client: Client):
         self.service = ProfileService(client=client)
 
-    def list(self, type: Optional[str] = None) -> list[Any]:
+    def list(self, type: str | None = None) -> list[Any]:
         profiles: list[Any] = munchify(self.service.list())
         if type is None:
             return profiles

@@ -1,4 +1,5 @@
-from typing import Any, Callable, Optional
+from __future__ import annotations
+from typing import Any, Callable
 
 import apiron
 from apiron.endpoint import JsonEndpoint
@@ -21,7 +22,7 @@ class JsonEndpointWithSCA(JsonEndpoint):
         # but there seems to be no harm in re-sending the signature.
         return {**super().required_headers, **self.sca_headers}
 
-    def __get__(self, instance: Optional[Base], owner: type[Base]) -> Callable[..., Any]:
+    def __get__(self, instance: Base | None, owner: type[Base]) -> Callable[..., Any]:
         caller = partial(apiron.client.call, owner, self)
         update_wrapper(caller, apiron.client.call)
 

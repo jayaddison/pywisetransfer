@@ -1,4 +1,4 @@
-from typing import Optional
+from __future__ import annotations
 
 
 class Client:
@@ -17,8 +17,8 @@ class Client:
         self,
         api_key: str,
         environment: str = "sandbox",
-        private_key_file: Optional[str] = None,
-        private_key_data: Optional[bytes] = None,
+        private_key_file: str | None = None,
+        private_key_data: bytes | None = None,
     ):
         if api_key is None:
             raise KeyError("You must provide a value for pywisetransfer.api_key")
