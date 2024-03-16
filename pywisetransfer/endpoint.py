@@ -1,9 +1,10 @@
 from __future__ import annotations
+
+from functools import partial, update_wrapper, wraps
 from typing import Any, Callable
 
 import apiron
 from apiron.endpoint import JsonEndpoint
-from functools import partial, update_wrapper, wraps
 from requests.exceptions import HTTPError
 
 from pywisetransfer.base import Base

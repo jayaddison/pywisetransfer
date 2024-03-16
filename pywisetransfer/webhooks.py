@@ -1,17 +1,17 @@
 from base64 import b64decode
 
+from cryptography.exceptions import InvalidSignature
+from cryptography.hazmat.backends import default_backend
+from cryptography.hazmat.primitives import hashes
+from cryptography.hazmat.primitives.asymmetric import padding
+from cryptography.hazmat.primitives.serialization import load_pem_public_key
+
 from pywisetransfer.exceptions import (
     InvalidWebhookHeader,
     InvalidWebhookRequest,
     InvalidWebhookSignature,
 )
 from pywisetransfer.keys import get_webhook_public_key
-
-from cryptography.exceptions import InvalidSignature
-from cryptography.hazmat.backends import default_backend
-from cryptography.hazmat.primitives import hashes
-from cryptography.hazmat.primitives.asymmetric import padding
-from cryptography.hazmat.primitives.serialization import load_pem_public_key
 
 
 def validate_request(request: "flask.Request", environment: str = "sandbox") -> None:

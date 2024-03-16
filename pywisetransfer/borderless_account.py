@@ -1,4 +1,5 @@
 from typing import Any
+
 from apiron import JsonEndpoint
 from munch import munchify
 

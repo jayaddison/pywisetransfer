@@ -1,5 +1,5 @@
-from base64 import b64decode
 import json
+from base64 import b64decode
 
 import pytest
 from requests import Request
