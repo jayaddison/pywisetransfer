@@ -161,7 +161,7 @@ def test_sca_statement_without_private_key(statement_forbidden):
         )
 
 
-def test_sca_statement_with_private_key(statement_authorised):
+def test_sca_statement_with_private_key(statement_forbidden, statement_authorised):
     client = Client(api_key="test-key", private_key_file="test/test-sca.pem")
     statement = client.borderless_accounts.statement(
         0, 231, "GBP", "2021-12-28T00:00:00Z", "2021-12-29T00:00:00Z"
