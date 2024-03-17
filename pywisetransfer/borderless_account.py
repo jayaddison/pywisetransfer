@@ -27,7 +27,14 @@ class BorderlessAccount:
         return munchify(accounts)
 
     @deprecated(message='The borderless-accounts endpoint is deprecated; please use account-details instead')
-    def statement(self, profile_id: str, account_id: str, currency: str, interval_start: str, interval_end: str) -> Any:
+    def statement(
+        self,
+        profile_id: str,
+        account_id: str,
+        currency: str,
+        interval_start: str,
+        interval_end: str,
+    ) -> Any:
         return munchify(
             self.service.statement(
                 profile_id=profile_id,

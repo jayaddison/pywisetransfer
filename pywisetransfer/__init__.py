@@ -35,7 +35,8 @@ class Client:
                 raise ValueError(
                     "Please provide only one of pywisetransfer.private_key_file or private_key_data"
                 )
-            private_key_data = open(private_key_file, "rb").read()
+            with open(private_key_file, "rb") as f:
+                private_key_data = f.read()
 
         self.api_key = api_key
         self.environment = environment

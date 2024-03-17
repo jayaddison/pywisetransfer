@@ -33,10 +33,7 @@ class JsonEndpointWithSCA(JsonEndpoint):
                 return caller(*args, **kwargs)
             except HTTPError as e:
                 resp = e.response
-                if (
-                    resp.status_code == 403
-                    and resp.headers["X-2FA-Approval-Result"] == "REJECTED"
-                ):
+                if resp.status_code == 403 and resp.headers["X-2FA-Approval-Result"] == "REJECTED":
                     challenge = resp.headers["X-2FA-Approval"]
                     if owner.client.private_key_data is None:  # type: ignore[union-attr]
                         raise Exception(

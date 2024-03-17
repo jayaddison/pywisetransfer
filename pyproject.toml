@@ -21,6 +21,9 @@ responses = { version = "^0.25.0", optional = true }
 munch-stubs = { version = "^0.1.2", optional = true }
 types-cryptography = { version = "^3.3.23.2", optional = true }
 
+[tool.black]
+line-length = 100
+
 [tool.poetry.extras]
 dev = ["black", "munch-stubs", "pytest", "responses", "types-cryptography"]
 
