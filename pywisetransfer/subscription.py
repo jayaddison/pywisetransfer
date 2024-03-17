@@ -20,6 +20,4 @@ class Subscription:
         return munchify(self.service.list(profile_id=profile_id))
 
     def get(self, profile_id: str, subscription_id: str) -> Any:
-        return munchify(
-            self.service.get(profile_id=profile_id, subscription_id=subscription_id)
-        )
+        return munchify(self.service.get(profile_id=profile_id, subscription_id=subscription_id))

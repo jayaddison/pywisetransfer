@@ -24,7 +24,14 @@ class BorderlessAccount:
         accounts: list[Any] = self.service.list(params={"profileId": profile_id})
         return munchify(accounts)
 
-    def statement(self, profile_id: str, account_id: str, currency: str, interval_start: str, interval_end: str) -> Any:
+    def statement(
+        self,
+        profile_id: str,
+        account_id: str,
+        currency: str,
+        interval_start: str,
+        interval_end: str,
+    ) -> Any:
         return munchify(
             self.service.statement(
                 profile_id=profile_id,
