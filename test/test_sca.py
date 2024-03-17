@@ -31,8 +31,9 @@ def sca_challenge_signature():
 @pytest.fixture
 def statement_url():
     return (
-        "https://api.sandbox.transferwise.tech/v3/profiles/0/borderless-accounts/231/statement.json?"
-        "currency=GBP&intervalStart=2021-12-28T00%3A00%3A00Z&intervalEnd=2021-12-29T00%3A00%3A00Z"
+        "https://api.sandbox.transferwise.tech/v1/profiles/0/balance-statements/231/statement.json?"
+        "currency=GBP&intervalStart=2018-03-01T00%3A00%3A00Z&intervalEnd=2018-04-30T23%3A59%3A59.999Z&"
+        "type=FLAT"
     )
 
 
@@ -51,7 +52,7 @@ def statement_forbidden(statement_url, sca_challenge, mocked_responses):
             "status": 403,
             "error": "Forbidden",
             "message": "You are forbidden to send this request",
-            "path": "/v3/profiles/0/borderless-accounts/1001/statement.json",
+            "path": "/v1/profiles/0/balance-statements/1001/statement.json",
         },
         headers={
             "X-2FA-Approval-Result": "REJECTED",
@@ -65,6 +66,13 @@ def statement_success():
     return {
         "accountHolder": {
             "type": "PERSONAL",
+            "address": {
+                "addressFirstLine": "Veerenni 24",
+                "city": "Tallinn",
+                "postCode": "12112",
+                "stateCode": "",
+                "countryName": "Estonia",
+            },
             "firstName": "Oliver",
             "lastName": "Wilson",
         },
@@ -73,53 +81,78 @@ def statement_success():
             "firstLine": "56 Shoreditch High Street",
             "city": "London",
             "postCode": "E1 6JJ",
-            "stateCode": None,
+            "stateCode": "",
             "country": "United Kingdom",
         },
-        "bankDetails": [
+        "bankDetails": None,
+        "transactions": [
             {
-                "address": {
-                    "firstLine": "Wise Payments Limited",
-                    "secondLine": "56 Shoreditch High Street",
-                    "postCode": "E1 6JJ",
-                    "stateCode": None,
-                    "city": "London",
-                    "country": "United Kingdom",
+                "type": "DEBIT",
+                "date": "2018-04-30T08:47:05.832Z",
+                "amount": {"value": -7.76, "currency": "EUR"},
+                "totalFees": {"value": 0.04, "currency": "EUR"},
+                "details": {
+                    "type": "CARD",
+                    "description": "Card transaction of 6.80 GBP issued by Tfl.gov.uk/cp TFL TRAVEL CH",
+                    "amount": {"value": 6.8, "currency": "GBP"},
+                    "category": "Transportation Suburban and Loca",
+                    "merchant": {
+                        "name": "Tfl.gov.uk/cp",
+                        "firstLine": None,
+                        "postCode": "SW1H 0TL  ",
+                        "city": "TFL TRAVEL CH",
+                        "state": "   ",
+                        "country": "GB",
+                        "category": "Transportation Suburban and Loca",
+                    },
                 },
-                "accountNumbers": [
-                    {
-                        "accountType": "Account number",
-                        "accountNumber": "31926819",
-                    },
-                    {
-                        "accountType": "IBAN",
-                        "accountNumber": "GB29 NWBK 6016 1331 9268 19",
-                    },
-                ],
-                "bankCodes": [{"scheme": "UK sort code", "value": "60-16-13"}],
-                "deprecated": False,
-            }
+                "exchangeDetails": {
+                    "forAmount": {"value": 6.8, "currency": "GBP"},
+                    "rate": None,
+                },
+                "runningBalance": {"value": 16.01, "currency": "EUR"},
+                "referenceNumber": "CARD-249281",
+            },
+            {
+                "type": "CREDIT",
+                "date": "2018-04-17T07:47:00.227Z",
+                "amount": {"value": 200, "currency": "EUR"},
+                "totalFees": {"value": 0, "currency": "EUR"},
+                "details": {
+                    "type": "DEPOSIT",
+                    "description": "Received money from HEIN LAURI with reference SVWZ+topup card",
+                    "senderName": "HEIN LAURI",
+                    "senderAccount": "EE76 1700 0170 0049 6704 ",
+                    "paymentReference": "SVWZ+topup card",
+                },
+                "exchangeDetails": None,
+                "runningBalance": {"value": 207.69, "currency": "EUR"},
+                "referenceNumber": "TRANSFER-34188888",
+            },
+            {
+                "type": "CREDIT",
+                "date": "2018-04-10T05:58:34.681Z",
+                "amount": {"value": 9.94, "currency": "EUR"},
+                "totalFees": {"value": 0, "currency": "EUR"},
+                "details": {
+                    "type": "CONVERSION",
+                    "description": "Converted 8.69 GBP to 9.94 EUR",
+                    "sourceAmount": {"value": 8.69, "currency": "GBP"},
+                    "targetAmount": {"value": 9.94, "currency": "EUR"},
+                    "fee": {"value": 0.03, "currency": "GBP"},
+                    "rate": 1.147806,
+                },
+                "exchangeDetails": None,
+                "runningBalance": {"value": 9.94, "currency": "EUR"},
+                "referenceNumber": "CONVERSION-1511237",
+            },
         ],
-        "transactions": [],
-        "endOfStatementBalance": {"value": 100.00, "currency": "GBP", "zero": False},
-        "endOfStatementUnrealisedGainLoss": None,
+        "endOfStatementBalance": {"value": 9.94, "currency": "EUR"},
         "query": {
-            "intervalStart": "2021-12-28T00:00:00Z",
-            "intervalEnd": "2021-12-29T00:00:00Z",
-            "type": "COMPACT",
-            "currency": "GBP",
-            "profileId": 0,
-            "timezone": "Z",
-        },
-        "request": {
-            "id": "f847c6f9-691b-4213-b84d-2d60e018dc24",
-            "creationTime": "2021-12-31T19:22:42.650161Z",
-            "profileId": 0,
-            "currency": "GBP",
-            "balanceId": 121,
-            "balanceName": None,
-            "intervalStart": "2021-12-28T00:00:00Z",
-            "intervalEnd": "2021-12-29T00:00:00Z",
+            "intervalStart": "2018-03-01T00:00:00Z",
+            "intervalEnd": "2018-04-30T23:59:59.999Z",
+            "currency": "EUR",
+            "accountId": 64,
         },
     }
 
@@ -156,14 +189,24 @@ def statement_authorised(
 def test_sca_statement_without_private_key(statement_forbidden):
     client = Client(api_key="test-key")
     with pytest.raises(Exception, match="Please provide.*private_key.*"):
-        client.borderless_accounts.statement(
-            0, 231, "GBP", "2021-12-28T00:00:00Z", "2021-12-29T00:00:00Z"
+        client.balance_statements.statement(
+            profile_id=0,
+            balance_id=231,
+            currency="GBP",
+            interval_start="2018-03-01T00:00:00Z",
+            interval_end="2018-04-30T23:59:59.999Z",
+            type="FLAT",
         )
 
 
 def test_sca_statement_with_private_key(statement_forbidden, statement_authorised):
     client = Client(api_key="test-key", private_key_file="test/test-sca.pem")
-    statement = client.borderless_accounts.statement(
-        0, 231, "GBP", "2021-12-28T00:00:00Z", "2021-12-29T00:00:00Z"
+    statement = client.balance_statements.statement(
+        profile_id=0,
+        balance_id=231,
+        currency="GBP",
+        interval_start="2018-03-01T00:00:00Z",
+        interval_end="2018-04-30T23:59:59.999Z",
+        type="FLAT",
     )
     assert "endOfStatementBalance" in statement
