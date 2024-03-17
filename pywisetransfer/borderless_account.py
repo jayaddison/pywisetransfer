@@ -21,7 +21,9 @@ class BorderlessAccount:
     def __init__(self, client: Client):
         self.service = BorderlessAccountService(client=client)
 
-    @deprecated(message='The borderless-accounts endpoint is deprecated; please use account-details instead')
+    @deprecated(
+        message="The borderless-accounts endpoint is deprecated; please use account-details instead"
+    )
     def list(self, profile_id: str) -> list[Any]:
         accounts: list[Any] = self.service.list(params={"profileId": profile_id})
         return munchify(accounts)

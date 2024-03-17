@@ -18,7 +18,15 @@ class BalanceStatements:
     def __init__(self, client: Client):
         self.service = BalanceStatementsService(client=client)
 
-    def statement(self, profile_id: str, balance_id: str, currency: str, interval_start: str, interval_end: str, type: str = "COMPACT") -> Any:
+    def statement(
+        self,
+        profile_id: str,
+        balance_id: str,
+        currency: str,
+        interval_start: str,
+        interval_end: str,
+        type: str = "COMPACT",
+    ) -> Any:
         valid_types = ["COMPACT", "FLAT"]
         assert type in valid_types, f"Invalid type '{type}'; value values are: {valid_types}"
         return munchify(
