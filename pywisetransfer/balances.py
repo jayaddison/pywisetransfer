@@ -18,7 +18,9 @@ class Balances:
 
     def list(self, profile_id: str, type: str = "STANDARD") -> Any:
         valid_types = ["STANDARD", "SAVINGS"]
-        assert type in valid_types, f"Invalid type '{type}'; value values are: {valid_types}"
+        if type not in valid_types:
+            raise ValueError(f"Invalid type '{type}'; value values are: {valid_types}")
+
         return munchify(self.service.list(profile_id=profile_id, type=type))
 
     def get(self, profile_id: str, balance_id: str) -> Any:

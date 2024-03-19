@@ -28,7 +28,9 @@ class BalanceStatements:
         type: str = "COMPACT",
     ) -> Any:
         valid_types = ["COMPACT", "FLAT"]
-        assert type in valid_types, f"Invalid type '{type}'; value values are: {valid_types}"
+        if type not in valid_types:
+            raise ValueError(f"Invalid type '{type}'; value values are: {valid_types}")
+
         return munchify(
             self.service.statement(
                 profile_id=profile_id,
