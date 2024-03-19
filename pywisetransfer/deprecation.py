@@ -11,11 +11,6 @@ def deprecated(message, *args, **kwargs):
     https://blog.miguelgrinberg.com/post/the-ultimate-guide-to-python-decorators-part-iii-decorators-with-arguments
     """
 
-    # Special-case: a decorator with no arguments is called with a single argument
-    if not args and not kwargs and callable(message):
-        warnings.warn(message, DeprecationWarning, stacklevel=2)
-        return message
-
     # General-case: handle decorators with arguments; @deprecated(message='foo')
     def decorator(f):
 
