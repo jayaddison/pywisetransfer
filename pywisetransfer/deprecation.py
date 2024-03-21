@@ -27,3 +27,6 @@ class deprecated:
 
         warnings.warn(self.message, DeprecationWarning, stacklevel=2)
         return self.f(*args, **kwargs)
+
+    def __repr__(self):
+        return f"<deprecated {repr(self.f)}>"
