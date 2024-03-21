@@ -3,11 +3,17 @@ from __future__ import annotations
 
 class Client:
     def add_resources(self) -> None:
+        from pywisetransfer.account_details import AccountDetails
+        from pywisetransfer.balance_statements import BalanceStatements
+        from pywisetransfer.balances import Balances
         from pywisetransfer.borderless_account import BorderlessAccount
         from pywisetransfer.profile import Profile
         from pywisetransfer.subscription import Subscription
         from pywisetransfer.user import User
 
+        self.account_details = AccountDetails(client=self)
+        self.balance_statements = BalanceStatements(client=self)
+        self.balances = Balances(client=self)
         self.borderless_accounts = BorderlessAccount(client=self)
         self.profiles = Profile(client=self)
         self.subscriptions = Subscription(client=self)
