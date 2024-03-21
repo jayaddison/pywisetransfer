@@ -7,44 +7,54 @@ from pywisetransfer.deprecation import deprecated
 record_warnings = lambda: catch_warnings(record=True)
 
 
-def undecorated():
-    return 1
+def undecorated(n):
+    return n
 
 
 @deprecated
-def bare_decorator():
-    return 1
+def bare_decorator(n):
+    return n + 1
 
 
 @deprecated()
-def zero_args_decorator():
-    return 1
+def zero_args_decorator(n):
+    return n + 2
 
 
 @deprecated("positional")
-def posarg_decorator():
-    return 1
+def posarg_decorator(n):
+    return n + 3
 
 
 @deprecated(message="keyword")
-def kwarg_decorator():
-    return 1
+def kwarg_decorator(n):
+    return n + 4
+
+
+class Class:
+    @deprecated(message="keyword")
+    def method(self, n):
+        return n + 5
+
+
+instancemethod_decorator = Class().method
 
 
 @pytest.mark.parametrize(
-    "func, name, deprecated, message",
+    "func, name, deprecated, result, message",
     [
-        (undecorated, "undecorated", False, None),
-        (bare_decorator, "bare_decorator", True, None),
-        (zero_args_decorator, "zero_args_decorator", True, None),
-        (posarg_decorator, "posarg_decorator", True, "positional"),
-        (kwarg_decorator, "kwarg_decorator", True, "keyword"),
+        (undecorated, "undecorated", False, 0, None),
+        (bare_decorator, "bare_decorator", True, 1, None),
+        (zero_args_decorator, "zero_args_decorator", True, 2, None),
+        (posarg_decorator, "posarg_decorator", True, 3, "positional"),
+        (kwarg_decorator, "kwarg_decorator", True, 4, "keyword"),
+        (instancemethod_decorator, "instancemethod_decorator", True, 5, "keyword"),
     ],
 )
-def test_no_decorator(func, name, deprecated, message):
+def test_no_decorator(func, name, deprecated, result, message):
     actual_repr = repr(func)
     with record_warnings() as ws:
-        result = func()
+        actual_result = func(0)
 
     # Check the Python repr of the function
     assert name in actual_repr
@@ -52,7 +62,7 @@ def test_no_decorator(func, name, deprecated, message):
     assert deprecated == actual_deprecated
 
     # Check the behaviour of the function
-    assert result == 1
+    assert result == actual_result
 
     # Check the warnings emitted by the function
     assert ws if deprecated else not ws
