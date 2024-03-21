@@ -29,7 +29,7 @@ class BorderlessAccount:
         return munchify(accounts)
 
     @deprecated(
-        message="The borderless-accounts endpoint is deprecated; please use account-details instead"
+        message="The borderless-accounts statement endpoint is deprecated; please use balance-statements instead"
     )
     def statement(
         self,
