@@ -10,6 +10,7 @@ class deprecated:
     Written following guidance from:
     https://blog.miguelgrinberg.com/post/the-ultimate-guide-to-python-decorators-part-iii-decorators-with-arguments
     """
+
     def __init__(self, *args, **kwargs):
         if len(args) == 1 and callable(args[0]):
             self.f = args[0]
