@@ -23,7 +23,7 @@ class deprecated:
 
     def __call__(self, *args, **kwargs):
         if args and callable(args[0]) and not isinstance(args[0], deprecated):
-            return deprecated(message=self.message, *args, **kwargs)
+            return deprecated(*args, message=self.message, **kwargs)
 
         warnings.warn(self.message, DeprecationWarning, stacklevel=2)
         return self.f(*args, **kwargs)
