@@ -51,7 +51,7 @@ instancemethod_decorator = Class().method
         (instancemethod_decorator, "instancemethod_decorator", True, 5, "keyword"),
     ],
 )
-def test_no_decorator(func, name, deprecated, result, message):
+def test_decorator_variants(func, name, deprecated, result, message):
     actual_repr = repr(func)
     with record_warnings() as ws:
         actual_result = func(0)
