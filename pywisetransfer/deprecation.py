@@ -11,13 +11,18 @@ class deprecated:
     https://blog.miguelgrinberg.com/post/the-ultimate-guide-to-python-decorators-part-iii-decorators-with-arguments
     """
 
+    def _message(self, message=None, *args, **kwargs):
+        return message
+
     def __init__(self, *args, **kwargs):
-        if len(args) == 1 and callable(args[0]):
-            self.f = args[0]
-            message = args[1] if len(args) > 1 else None
+        if len(args) == 1:
+            self.f = None
+            if callable(args[0]):
+                self.f, args = args[0], args[1:]
+            message = self._message(*args, **kwargs)
         else:
             self.f = None
-            message = args[0] if len(args) == 1 else None
+            message = self._message(*args, **kwargs)
         self.message = kwargs.get("message", message)
 
     def __call__(self, *args, **kwargs):
