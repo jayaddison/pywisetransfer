@@ -33,11 +33,8 @@ def kwarg_decorator(n):
 
 class Class:
     @deprecated(message="instance")
-    def method(self, n):
+    def instancemethod_decorator(self, n):
         return n + 5
-
-
-instancemethod_decorator = Class().method
 
 
 @pytest.mark.parametrize(
@@ -48,7 +45,7 @@ instancemethod_decorator = Class().method
         (zero_args_decorator, "zero_args_decorator", True, 2, None),
         (posarg_decorator, "posarg_decorator", True, 3, "positional"),
         (kwarg_decorator, "kwarg_decorator", True, 4, "keyword"),
-        (instancemethod_decorator, "instancemethod_decorator", True, 5, "instance"),
+        (Class().instancemethod_decorator, "instancemethod_decorator", True, 5, "instance"),
     ],
 )
 def test_decorator_variants(func, name, deprecated, result, message):
