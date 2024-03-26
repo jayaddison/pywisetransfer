@@ -22,9 +22,8 @@ class deprecated:
         self.message = self._message(*args, **kwargs)
 
     def __call__(self, *args, **kwargs):
-        if self.f is None and len(args) == 1 and callable(args[0]):
-            self.f = args[0]
-            return self
+        if args and callable(args[0]) and not isinstance(args[0], deprecated):
+            return deprecated(message=self.message, *args, **kwargs)
 
         warnings.warn(self.message, DeprecationWarning, stacklevel=2)
         return self.f(*args, **kwargs)
