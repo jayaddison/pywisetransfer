@@ -11,7 +11,8 @@ class deprecated:
     https://blog.miguelgrinberg.com/post/the-ultimate-guide-to-python-decorators-part-iii-decorators-with-arguments
     """
 
-    def _message(self, message=None, *args, **kwargs):
+    @staticmethod
+    def _message(message=None, *args, **kwargs):
         return message
 
     def __init__(self, *args, **kwargs):
