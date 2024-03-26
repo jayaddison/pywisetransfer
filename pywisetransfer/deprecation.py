@@ -18,8 +18,7 @@ class deprecated:
         self.f = None
         if args and callable(args[0]):
             self.f, args = args[0], args[1:]
-        message = self._message(*args, **kwargs)
-        self.message = kwargs.get("message", message)
+        self.message = self._message(*args, **kwargs)
 
     def __call__(self, *args, **kwargs):
         if self.f is None and len(args) == 1 and callable(args[0]):
