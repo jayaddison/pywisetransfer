@@ -32,9 +32,11 @@ def kwarg_decorator(n):
 
 
 class Class:
+    base = 2
+
     @deprecated(message="instance")
     def instancemethod_decorator(self, n):
-        return n + 5
+        return self.base + n + 3
 
 
 @pytest.mark.parametrize(
