@@ -15,14 +15,10 @@ class deprecated:
         return message
 
     def __init__(self, *args, **kwargs):
-        if len(args) == 1:
-            self.f = None
-            if callable(args[0]):
-                self.f, args = args[0], args[1:]
-            message = self._message(*args, **kwargs)
-        else:
-            self.f = None
-            message = self._message(*args, **kwargs)
+        self.f = None
+        if args and callable(args[0]):
+            self.f, args = args[0], args[1:]
+        message = self._message(*args, **kwargs)
         self.message = kwargs.get("message", message)
 
     def __call__(self, *args, **kwargs):
