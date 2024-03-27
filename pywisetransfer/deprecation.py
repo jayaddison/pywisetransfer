@@ -31,9 +31,6 @@ class deprecated:
             exec(
                 f"""
 class deprecated(deprecated):
-    def __init__(self, *args, **kwargs):
-        super().__init__(*args, **kwargs)
-
     @staticmethod
     def {f.__name__}(*args, **kwargs):
         self._emit_warning()
