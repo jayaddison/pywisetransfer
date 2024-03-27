@@ -57,7 +57,7 @@ def test_decorator_variants(func, name, deprecated, result, message):
 
     # Check the Python repr of the function
     assert name in actual_repr
-    actual_deprecated = "deprecated" in actual_repr
+    actual_deprecated = "deprecated." in actual_repr
     assert deprecated == actual_deprecated
 
     # Check the behaviour of the function

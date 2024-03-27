@@ -23,10 +23,29 @@ class deprecated:
 
     def __call__(self, *args, **kwargs):
         if args and callable(args[0]) and not isinstance(args[0], deprecated):
-            return deprecated(args[0], message=self.message)
+            global f
+            f = orig = args[0]
+            exec(
+                f"""
+class deprecated(deprecated):
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+
+    @staticmethod
+    def {f.__name__}(*args, **kwargs):
+        import warnings
+        warnings.warn({self.message!r}, DeprecationWarning, stacklevel=2)
+        return orig(*args, **kwargs)
+
+f = deprecated.{f.__name__}
+""",
+                locals(),
+                globals(),
+            )
+            return f
 
         warnings.warn(self.message, DeprecationWarning, stacklevel=2)
         return self.f(*args, **kwargs)
 
     def __repr__(self):
-        return f"<deprecated {repr(self.f)}>"
+        return repr(self.f).replace("<function ", "<function deprecated.")
