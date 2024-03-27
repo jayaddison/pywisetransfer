@@ -64,5 +64,5 @@ def test_decorator_variants(func, name, deprecated, result, message):
     assert result == actual_result
 
     # Check the warnings emitted by the function
-    assert ws if deprecated else not ws
+    assert len(ws) == 1 if deprecated else not ws
     assert any([message in str(w.message) for w in ws] if message else [True])
