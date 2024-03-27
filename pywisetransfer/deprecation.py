@@ -16,13 +16,9 @@ class deprecated:
         return message
 
     def __init__(self, *args, **kwargs):
-        self.f = None
         if len(args) == 1 and callable(args[0]):
-            self.f, args = args[0], args[1:]
-        self.message = self._message(*args, **kwargs)
-        if self.f:
             global f
-            f = orig = self.f
+            f = orig = args[0]
             exec(
                 f"""
 class deprecated(deprecated):
@@ -37,6 +33,8 @@ f = deprecated.{f.__name__}
                 globals(),
             )
             self.f = f
+            args = args[1:]
+        self.message = self._message(*args, **kwargs)
 
     def _emit_warning(self):
         warnings.warn(self.message, DeprecationWarning, stacklevel=3)
