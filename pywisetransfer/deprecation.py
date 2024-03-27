@@ -21,7 +21,7 @@ class deprecated:
             orig, args = args[0], args[1:]
             exec(
                 f"""
-class deprecated(deprecated):
+class deprecated:
     @staticmethod
     def {orig.__name__}(*args, **kwargs):
         self._emit_warning()
@@ -30,7 +30,6 @@ class deprecated(deprecated):
 self.f = deprecated.{orig.__name__}
 """,
                 locals(),
-                globals(),
             )
         self.message = self._message(*args, **kwargs)
 
