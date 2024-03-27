@@ -47,4 +47,7 @@ f = deprecated.{f.__name__}
             return deprecated(args[0], message=self.message).f
 
     def __repr__(self):
-        return repr(self.f)
+        if self.f:
+            return repr(self.f)
+        else:
+            return f"<deprecation decorator ({self.message!r})>"

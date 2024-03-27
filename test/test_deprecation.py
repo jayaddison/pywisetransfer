@@ -68,3 +68,8 @@ def test_decorator_variants(func, name, deprecated, result, message):
     # Check the warnings emitted by the function
     assert len(ws) == 1 if deprecated else not ws
     assert any([message in str(w.message) for w in ws] if message else [True])
+
+
+def test_standalone_decorator_repr():
+    decorator = deprecated(message="standalone")
+    assert repr(decorator) == "<deprecation decorator ('standalone')>"
