@@ -21,6 +21,9 @@ class deprecated:
             self.f, args = args[0], args[1:]
         self.message = self._message(*args, **kwargs)
 
+    def _emit_warning(self):
+        warnings.warn(self.message, DeprecationWarning, stacklevel=3)
+
     def __call__(self, *args, **kwargs):
         if args and callable(args[0]) and not isinstance(args[0], deprecated):
             global f
@@ -33,8 +36,7 @@ class deprecated(deprecated):
 
     @staticmethod
     def {f.__name__}(*args, **kwargs):
-        import warnings
-        warnings.warn({self.message!r}, DeprecationWarning, stacklevel=2)
+        self._emit_warning()
         return orig(*args, **kwargs)
 
 f = deprecated.{f.__name__}
@@ -44,7 +46,7 @@ f = deprecated.{f.__name__}
             )
             return f
 
-        warnings.warn(self.message, DeprecationWarning, stacklevel=2)
+        self._emit_warning()
         return self.f(*args, **kwargs)
 
     def __repr__(self):
