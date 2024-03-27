@@ -20,14 +20,9 @@ class deprecated:
         if len(args) == 1 and callable(args[0]):
             self.f, args = args[0], args[1:]
         self.message = self._message(*args, **kwargs)
-
-    def _emit_warning(self):
-        warnings.warn(self.message, DeprecationWarning, stacklevel=3)
-
-    def __call__(self, *args, **kwargs):
-        if len(args) == 1 and callable(args[0]) and not isinstance(args[0], deprecated):
+        if self.f:
             global f
-            f = orig = args[0]
+            f = orig = self.f
             exec(
                 f"""
 class deprecated(deprecated):
@@ -41,10 +36,15 @@ f = deprecated.{f.__name__}
                 locals(),
                 globals(),
             )
-            return f
+            self.f = f
 
-        self._emit_warning()
+    def _emit_warning(self):
+        warnings.warn(self.message, DeprecationWarning, stacklevel=3)
+
+    def __call__(self, *args, **kwargs):
+        if len(args) == 1 and callable(args[0]) and not isinstance(args[0], deprecated):
+            return deprecated(args[0], message=self.message).f
         return self.f(*args, **kwargs)
 
     def __repr__(self):
-        return repr(self.f).replace("<function ", "<function deprecated.")
+        return repr(self.f)
