@@ -25,9 +25,9 @@ class deprecated:
     @staticmethod
     def {orig.__name__}(*args, **kwargs):
         self._emit_warning()
-        return orig(*args, **kwargs)
+        return orig(*args, **kwargs)  # may implicitly include 'self' instance argument
 
-self.f = deprecated.{orig.__name__}
+self.f = deprecated.{orig.__name__}  # adds a 'deprecated.' prefix to the function repr
                 """,
                 locals(),
             )
