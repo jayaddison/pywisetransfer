@@ -40,7 +40,7 @@ f = deprecated.{f.__name__}
         warnings.warn(self.message, DeprecationWarning, stacklevel=3)
 
     def __call__(self, *args, **kwargs):
-        if len(args) == 1 and callable(args[0]) and not isinstance(args[0], deprecated):
+        if len(args) == 1 and callable(args[0]):
             return deprecated(args[0], message=self.message).f
         return self.f(*args, **kwargs)
 
