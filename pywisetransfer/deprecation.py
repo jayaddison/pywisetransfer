@@ -44,6 +44,7 @@ f = deprecated.{f.__name__}
         if self.f:
             return self.f(*args, **kwargs)
         else:
+            assert len(args) == 1 and callable(args[0])
             return deprecated(args[0], message=self.message).f
 
     def __repr__(self):
