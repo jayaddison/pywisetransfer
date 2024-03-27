@@ -11,22 +11,44 @@ class deprecated:
     https://blog.miguelgrinberg.com/post/the-ultimate-guide-to-python-decorators-part-iii-decorators-with-arguments
     """
 
+    @staticmethod
+    def _message(message=None, *args, **kwargs):
+        return message
+
     def __init__(self, *args, **kwargs):
+        self.f = None
         if len(args) == 1 and callable(args[0]):
-            self.f = args[0]
-            message = args[1] if len(args) > 1 else None
-        else:
-            self.f = None
-            message = args[0] if len(args) == 1 else None
-        self.message = kwargs.get("message", message)
+            global f
+            f = orig = args[0]
+            exec(
+                f"""
+class deprecated(deprecated):
+    @staticmethod
+    def {f.__name__}(*args, **kwargs):
+        self._emit_warning()
+        return orig(*args, **kwargs)
+
+f = deprecated.{f.__name__}
+""",
+                locals(),
+                globals(),
+            )
+            self.f = f
+            args = args[1:]
+        self.message = self._message(*args, **kwargs)
+
+    def _emit_warning(self):
+        warnings.warn(self.message, DeprecationWarning, stacklevel=3)
 
     def __call__(self, *args, **kwargs):
-        if self.f is None and len(args) == 1 and callable(args[0]):
-            self.f = args[0]
-            return self
-
-        warnings.warn(self.message, DeprecationWarning, stacklevel=2)
-        return self.f(*args, **kwargs)
+        if self.f:
+            return self.f(*args, **kwargs)
+        else:
+            assert len(args) == 1 and callable(args[0])
+            return deprecated(args[0], message=self.message).f
 
     def __repr__(self):
-        return f"<deprecated {repr(self.f)}>"
+        if self.f:
+            return repr(self.f)
+        else:
+            return f"<deprecation decorator ({self.message!r})>"
