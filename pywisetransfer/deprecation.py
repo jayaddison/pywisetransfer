@@ -16,6 +16,7 @@ class deprecated:
         return message
 
     def __init__(self, *args, **kwargs):
+        self.f = None
         if len(args) == 1 and callable(args[0]):
             global f
             f = orig = args[0]
@@ -40,9 +41,10 @@ f = deprecated.{f.__name__}
         warnings.warn(self.message, DeprecationWarning, stacklevel=3)
 
     def __call__(self, *args, **kwargs):
-        if len(args) == 1 and callable(args[0]):
+        if self.f:
+            return self.f(*args, **kwargs)
+        else:
             return deprecated(args[0], message=self.message).f
-        return self.f(*args, **kwargs)
 
     def __repr__(self):
         return repr(self.f)
