@@ -28,7 +28,7 @@ class deprecated:
         return orig(*args, **kwargs)
 
 self.f = deprecated.{orig.__name__}
-""",
+                """,
                 locals(),
             )
         self.message = self._message(*args, **kwargs)
