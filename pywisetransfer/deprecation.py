@@ -18,22 +18,20 @@ class deprecated:
     def __init__(self, *args, **kwargs):
         self.f = None
         if len(args) == 1 and callable(args[0]):
-            global f
-            f = orig = args[0]
+            orig = args[0]
             exec(
                 f"""
 class deprecated(deprecated):
     @staticmethod
-    def {f.__name__}(*args, **kwargs):
+    def {orig.__name__}(*args, **kwargs):
         self._emit_warning()
         return orig(*args, **kwargs)
 
-f = deprecated.{f.__name__}
+self.f = deprecated.{orig.__name__}
 """,
                 locals(),
                 globals(),
             )
-            self.f = f
             args = args[1:]
         self.message = self._message(*args, **kwargs)
 
