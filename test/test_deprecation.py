@@ -4,7 +4,9 @@ import pytest
 
 from pywisetransfer.deprecation import deprecated
 
-record_warnings = lambda: catch_warnings(record=True)
+
+def record_warnings():
+    return catch_warnings(record=True)
 
 
 def undecorated(n):
@@ -34,8 +36,8 @@ def kwarg_decorator(n):
 class Class:
     base = 2
 
-    @deprecated(message="instance")
-    def instancemethod_decorator(self, n):
+    @deprecated(message="method")
+    def method_decorator(self, n):
         return self.base + n + 3
 
 
@@ -47,7 +49,7 @@ class Class:
         (zero_args_decorator, "zero_args_decorator", True, 2, None),
         (posarg_decorator, "posarg_decorator", True, 3, "positional"),
         (kwarg_decorator, "kwarg_decorator", True, 4, "keyword"),
-        (Class().instancemethod_decorator, "instancemethod_decorator", True, 5, "instance"),
+        (Class().method_decorator, "method_decorator", True, 5, "method"),
     ],
 )
 def test_decorator_variants(func, name, deprecated, result, message):
