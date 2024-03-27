@@ -17,7 +17,7 @@ class deprecated:
 
     def __init__(self, *args, **kwargs):
         self.f = None
-        if args and callable(args[0]):
+        if len(args) == 1 and callable(args[0]):
             self.f, args = args[0], args[1:]
         self.message = self._message(*args, **kwargs)
 
@@ -25,7 +25,7 @@ class deprecated:
         warnings.warn(self.message, DeprecationWarning, stacklevel=3)
 
     def __call__(self, *args, **kwargs):
-        if args and callable(args[0]) and not isinstance(args[0], deprecated):
+        if len(args) == 1 and callable(args[0]) and not isinstance(args[0], deprecated):
             global f
             f = orig = args[0]
             exec(
