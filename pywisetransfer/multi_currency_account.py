@@ -8,7 +8,9 @@ from pywisetransfer.base import Base
 
 
 class MultiCurrencyAccountService(Base):
-    available_currencies = JsonEndpoint(path="/v2/borderless-accounts-configuration/profiles/{profile_id}/available-currencies")
+    available_currencies = JsonEndpoint(
+        path="/v2/borderless-accounts-configuration/profiles/{profile_id}/available-currencies"
+    )
     get = JsonEndpoint(path="/v4/profiles/{profile_id}/multi-currency-account")
 
 
