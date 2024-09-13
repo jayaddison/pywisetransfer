@@ -10,8 +10,8 @@ readme = "README.md"
 keywords = ["payments", "transferwise"]
 
 [tool.poetry.dependencies]
-python = "^3.8"
-apiron = "^7.1.0"
+python = "^3.9"
+apiron = "^8.0.0"
 munch = "^4.0.0"
 cryptography = "^43.0.0"
 
