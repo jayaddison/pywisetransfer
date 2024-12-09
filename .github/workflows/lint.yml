@@ -8,9 +8,13 @@ on:
 
 jobs:
   test:
+    permissions:
+      contents: read
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
+        with:
+          persist-credentials: false
       - uses: actions/setup-python@v2
       - run: pip install black
       - run: black pywisetransfer test

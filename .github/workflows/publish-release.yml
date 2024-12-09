@@ -7,10 +7,14 @@ on:
 
 jobs:
   test:
+    permissions:
+      contents: read
     environment: release-live
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
+        with:
+          persist-credentials: false
       - uses: actions/setup-python@v2
       - run: pip install poetry
       - run: poetry config pypi-token.pypi ${{ secrets.PYPI_API_KEY }}
