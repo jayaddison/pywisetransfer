@@ -79,6 +79,11 @@ type: business
 name: Law and Daughters 6423
 ```
 
+### List accounts
+
+One profile can have several accounts in different currencies.
+This shows which currencies are accepted and how to receive money.
+
 ```python
 >>> for profile in client.profiles.list():
 ...     accounts = client.account_details.list(profile_id=profile.id)
