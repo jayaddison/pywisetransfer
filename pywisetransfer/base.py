@@ -29,3 +29,20 @@ class Base(Service):
         if self.client:
             return {"Authorization": f"Bearer {self.client.api_key}"}
         return {}
+
+    @staticmethod
+    def get_params_for_endpoint(**kw) -> dict[str, str]:
+        """Return the actual keyword arguments for the endpoint call.
+        
+        >>> Base.get_kw_for_endpoint(profile_id=1)
+        {profileId: '1'}
+        """
+        wise_call_args = {}
+        for py_arg, value in kw.items():
+            wise_arg = "".join(s[0].upper() + s[1:] for s in py_arg.split("_"))
+            wise_arg = wise_arg[0].lower() + wise_arg[1:]
+            if value is not None:
+                wise_call_args[wise_arg] = str(value)
+        return wise_call_args
+
+__all__ = ["Base"]
