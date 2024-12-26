@@ -30,6 +30,9 @@ To use the sandbox API, log into [sandbox.transferwise.tech].
 Then, go to Settings 🠚 Developer Tools 🠚 API-Tokens.
 Create and copy a new API key.
 
+To use your own account, log into [wise.com](https://wise.com).
+Then click on your account at the top right 🠚 Integrations and Tools 🠚 Developer Tools 🠚 API Tokens and add a new token.
+
 [sandbox.transferwise.tech]: https://sandbox.transferwise.tech
 
 ### API Requests
@@ -53,7 +56,7 @@ First of all, you create a `Client` object:
 
 This section provides a few examples of how to use this package.
 
-### List profiles
+### Profiles
 
 This library follows the **[Wise API Reference]**.
 So, if you find e.g. profile here, you can look up all the values of it in the [Wise API Reference].
@@ -79,7 +82,7 @@ type: business
 name: Law and Daughters 6423
 ```
 
-### List accounts
+### Receive Money
 
 One profile can have several accounts in different currencies.
 This shows which currencies are accepted and how to receive money.
@@ -123,6 +126,19 @@ type: business
 ```
 
 [Wise API Reference]: https://docs.wise.com/api-docs/api-reference
+
+### Balance
+
+This code retrieves the balance for each currency in each account.
+
+```python
+>>> for profile in client.profiles.list():
+...     print(f"type: {profile.type} {', '.join(f'{balance.totalWorth.value}{balance.totalWorth.currency}' for balance in client.balances.list(profile_id=profile.id))}")
+... 
+type: personal 1000000.0GBP, 1000000.0EUR, 1000000.0USD, 1000000.0AUD
+type: business 1000000.0GBP, 1000000.0EUR, 1000000.0USD, 1000000.0AUD
+
+```
 
 ### Webhook signature verification
 
