@@ -1,5 +1,6 @@
 """Test the transfer endpoint."""
 
+
 def test_list_and_limit_transfers(sandbox):
     """Test listing the transfers."""
     transfers = sandbox.transfers.list()
@@ -13,3 +14,9 @@ def test_list_and_limit_transfers(sandbox):
     assert transfers[1]["id"] == next_transfer[0]["id"]
     assert transfers[0] == first_transfer[0]
     assert transfers[1] == next_transfer[0]
+
+
+def test_get_transfer(sandbox):
+    """Test getting a transfer."""
+    transfer = sandbox.transfers.get(transfer_id=777791907)
+    assert transfer.id == 777791907

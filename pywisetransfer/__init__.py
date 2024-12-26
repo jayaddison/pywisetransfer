@@ -22,7 +22,7 @@ class Client:
         self.subscriptions = Subscription(client=self)
         self.transfers = Transfer(client=self)
         self.users = User(client=self)
-        
+
     def __init__(
         self,
         api_key: str,

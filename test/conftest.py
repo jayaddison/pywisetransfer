@@ -18,9 +18,9 @@ RESPONSES = HERE / "responses"
 @pytest.fixture
 def sandbox() -> Generator[Client, None, None]:
     """We return a sandbox client and dispatch all requests.
-    
+
     The responses are loaded from the RESPONSES directory.
-    
+
     """
     rsps = responses.RequestsMock()
     rsps.start()

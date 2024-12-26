@@ -33,7 +33,7 @@ class Base(Service):
     @staticmethod
     def get_params_for_endpoint(**kw) -> dict[str, str]:
         """Return the actual keyword arguments for the endpoint call.
-        
+
         >>> Base.get_kw_for_endpoint(profile_id=1)
         {profileId: '1'}
         """
@@ -44,5 +44,6 @@ class Base(Service):
             if value is not None:
                 wise_call_args[wise_arg] = str(value)
         return wise_call_args
+
 
 __all__ = ["Base"]

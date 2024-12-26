@@ -1,0 +1,58 @@
+responses:
+- response:
+    auto_calculate_content_length: false
+    body: '[{"id":942411557,"user":50372104,"targetAccount":425982826,"sourceAccount":null,"quote":null,"quoteUuid":"3560685e-4483-48de-a2dc-8144b2234d64","status":"outgoing_payment_sent","reference":"7394529010173945290101No
+      email present/07078000024350","rate":1.0,"created":"2024-01-24 08:06:42","business":null,"transferRequest":null,"details":{"reference":"7394529010173945290101No
+      email present/07078000024350"},"hasActiveIssues":false,"sourceCurrency":"EUR","sourceValue":209.85,"targetCurrency":"EUR","targetValue":209.85,"customerTransactionId":"0d106ac9-ebdb-e906-6a87-dea2282b5c00"}]'
+    content_type: text/plain
+    headers:
+      CF-Cache-Status: DYNAMIC
+      CF-RAY: 8f820b1b0ad8369a-LHR
+      Set-Cookie: __cf_bm=JiKIPrBfsTtOME0TDxBhWuoIUnvel.oC4m3HogqW.FA-1735226305-1.0.1.1-NrpxwjxEurTFlIyc7tQCgU03tn6IN9vAOT8jBKVKiidVzzYOEUicyuixqa5ibBGLKAjjIUt8LzezwOw4Q0oRZ6xVPj2SCAsA9gQVjVi_GEs;
+        path=/; expires=Thu, 26-Dec-24 15:48:25 GMT; domain=.transferwise.com; HttpOnly;
+        Secure; SameSite=None
+      Strict-Transport-Security: max-age=31536000
+      Transfer-Encoding: chunked
+      alt-svc: h3=":443"; ma=86400
+      cache-control: no-cache, no-store, max-age=0, must-revalidate
+      content-encoding: gzip
+      expires: '0'
+      pragma: no-cache
+      vary: origin,access-control-request-method,access-control-request-headers,accept-encoding
+      x-content-type-options: nosniff
+      x-envoy-attempt-count: '1'
+      x-envoy-upstream-service-time: '74'
+      x-frame-options: DENY
+      x-trace-id: 741136924d5430b
+      x-xss-protection: '0'
+    method: GET
+    status: 200
+    url: https://api.transferwise.com/v1/transfers?offset=1&limit=1
+- response:
+    auto_calculate_content_length: false
+    body: '{"id":777791907,"user":50372104,"targetAccount":425982826,"sourceAccount":null,"quote":null,"quoteUuid":"5792754a-c3b5-4ce1-98a8-f3fd7df8e344","status":"outgoing_payment_sent","reference":"","rate":1.0,"created":"2023-08-18
+      21:16:22","business":null,"transferRequest":null,"details":{"reference":""},"hasActiveIssues":false,"sourceCurrency":"GBP","sourceValue":20.00,"targetCurrency":"GBP","targetValue":20.00,"customerTransactionId":"c5589626-3c99-4e95-b205-2fd2f0a9857b"}'
+    content_type: text/plain
+    headers:
+      CF-Cache-Status: DYNAMIC
+      CF-RAY: 8f8216bd5d04ecff-LHR
+      Set-Cookie: __cf_bm=9T6ldeNauv4M4ZdZ60I64U_WWt_74onVEwdL0Gl9Tjk-1735226782-1.0.1.1-SSRnYGt0B3G5.fqwqy21yBUaskKOk5FG7dnUQAPQMkEMbRx7G2G7A97yYigQu.9Qluz._0F3BGA1rcJ2AznsYD1jYj2me5K6fsZOpiIzQIM;
+        path=/; expires=Thu, 26-Dec-24 15:56:22 GMT; domain=.transferwise.com; HttpOnly;
+        Secure; SameSite=None
+      Strict-Transport-Security: max-age=31536000
+      Transfer-Encoding: chunked
+      alt-svc: h3=":443"; ma=86400
+      cache-control: no-cache, no-store, max-age=0, must-revalidate
+      content-encoding: gzip
+      expires: '0'
+      pragma: no-cache
+      vary: origin,access-control-request-method,access-control-request-headers,accept-encoding
+      x-content-type-options: nosniff
+      x-envoy-attempt-count: '1'
+      x-envoy-upstream-service-time: '72'
+      x-frame-options: DENY
+      x-trace-id: 3ede1f4d6ce7401
+      x-xss-protection: '0'
+    method: GET
+    status: 200
+    url: https://api.transferwise.com/v1/transfers/777791907
