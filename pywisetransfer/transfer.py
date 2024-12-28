@@ -12,6 +12,42 @@ from munch import munchify
 
 from pywisetransfer import Client
 from pywisetransfer.base import Base
+from enum import Enum
+
+
+class TransferStatus(str, Enum):
+    """The transfer status
+
+    See https://docs.wise.com/api-docs/guides/send-money/tracking
+
+    You can use TransferStatusDescription to indicate the transfer status
+    to the user.
+    """
+
+    incoming_payment_waiting = "incoming_payment_waiting"
+    incoming_payment_initiated = "incoming_payment_initiated"
+    processing = "processing"
+    funds_converted = "funds_converted"
+    outgoing_payment_sent = "outgoing_payment_sent"
+    cancelled = "cancelled"
+    funds_refunded = "funds_refunded"
+    bounced_back = "bounced_back"
+    charged_back = "charged_back"
+    unknown = "unknown"
+
+
+TransferStatusDescription = {
+    TransferStatus.incoming_payment_waiting: "On its way to Wise",
+    TransferStatus.incoming_payment_initiated: "On its way to Wise",
+    TransferStatus.processing: "Processing",
+    TransferStatus.funds_converted: "Processing",
+    TransferStatus.outgoing_payment_sent: "Sent",
+    TransferStatus.cancelled: "Cancelled",
+    TransferStatus.funds_refunded: "Refunded",
+    TransferStatus.bounced_back: "Bounced back",
+    TransferStatus.charged_back: "Charged back",
+    TransferStatus.unknown: "Unknown",
+}
 
 
 class TransferService(Base):
@@ -82,4 +118,4 @@ class Transfer:
         return munchify(self.service.get(transfer_id=str(transfer_id)))
 
 
-__all__ = ["Transfer"]
+__all__ = ["Transfer", "TransferStatus", "TransferStatusDescription"]
