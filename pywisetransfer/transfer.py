@@ -46,7 +46,7 @@ class Transfer:
                 See Track transfer status for complete list of statuses:
                 https://api-docs.wise.com/api-docs/guides/send-money/tracking
 
-            offset: Starting record number
+            offset: Starting record number (must be a multiple of limit)
 
             limit: Maximum number of records to be returned in response
 
@@ -82,4 +82,4 @@ class Transfer:
         return munchify(self.service.get(transfer_id=str(transfer_id)))
 
 
-__all__ = ["Subscription"]
+__all__ = ["Transfer"]
