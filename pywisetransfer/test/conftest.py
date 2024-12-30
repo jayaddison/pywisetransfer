@@ -2,6 +2,11 @@
 
 You can add responses by running this in your codebase:
 
+    from pywisetransfer.test import record
+
+    record()
+    # do API requests
+    record("name-of-endpoint")
 
 """
 
@@ -9,10 +14,7 @@ from typing import Generator
 import pytest
 from pywisetransfer import Client
 import responses
-from pathlib import Path
-
-HERE = Path(__file__).parent
-RESPONSES = HERE / "responses"
+from pywisetransfer.test.record import RESPONSES
 
 
 @pytest.fixture

@@ -7,16 +7,19 @@ class Client:
         from pywisetransfer.balance_statements import BalanceStatements
         from pywisetransfer.balances import Balances
         from pywisetransfer.borderless_account import BorderlessAccount
+        from pywisetransfer.currency import Currency
         from pywisetransfer.multi_currency_account import MultiCurrencyAccount
         from pywisetransfer.profile import Profile
         from pywisetransfer.subscription import Subscription
         from pywisetransfer.transfer import Transfer
         from pywisetransfer.user import User
+        
 
         self.account_details = AccountDetails(client=self)
         self.balance_statements = BalanceStatements(client=self)
         self.balances = Balances(client=self)
         self.borderless_accounts = BorderlessAccount(client=self)
+        self.currencies = Currency(client=self)
         self.multi_currency_account = MultiCurrencyAccount(client=self)
         self.profiles = Profile(client=self)
         self.subscriptions = Subscription(client=self)
