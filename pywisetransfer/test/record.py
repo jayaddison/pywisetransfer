@@ -25,10 +25,15 @@ def record(name:Optional[str] = None) -> None:
         raise ImportError(ERROR_MESSAGE)
     if name is not None:
         file_name = RESPONSES / f"{name}.yaml"
+        i = 0
+        while file_name.exists():
+            i+= 1
+            file_name =  RESPONSES / f"{name}-{i}.yaml"
         _recorder.recorder.dump_to_file(
             file_path = file_name, 
             registered = _recorder.recorder.get_registry().registered)
         print(f"recorded to {file_name}")
+    _recorder.recorder.stop()
     _recorder.recorder.reset()
     _recorder.recorder.start()
 

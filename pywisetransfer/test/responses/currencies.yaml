@@ -1,1 +1,536 @@
-responses: []
+responses:
+- response:
+    auto_calculate_content_length: false
+    body: "[{\"code\":\"AED\",\"symbol\":\"\u062F.\u0625\",\"name\":\"United Arab\
+      \ Emirates dirham\",\"countryKeywords\":[\"AED\",\"AE\",\"are\",\"United Arab\
+      \ Emirates\"],\"supportsDecimals\":true},{\"code\":\"AFN\",\"symbol\":\"\u060B\
+      \",\"name\":\"Afghanistan afghani\",\"countryKeywords\":[\"Afghanistan\",\"\
+      afg\",\"AF\",\"AFN\"],\"supportsDecimals\":true},{\"code\":\"ALL\",\"symbol\"\
+      :\"Lek\",\"name\":\"Albanian lek\",\"countryKeywords\":[\"ALL\",\"alb\",\"AL\"\
+      ,\"Albania\"],\"supportsDecimals\":true},{\"code\":\"AMD\",\"symbol\":\"\u058F\
+      \",\"name\":\"Armenian dram\",\"countryKeywords\":[\"Armenia\",\"AMD\",\"AM\"\
+      ,\"arm\"],\"supportsDecimals\":true},{\"code\":\"ANG\",\"symbol\":\"\u0192\"\
+      ,\"name\":\"Netherlands Antillean guilder\",\"countryKeywords\":[\"CW\",\"cuw\"\
+      ,\"Sint Maarten (Dutch part)\",\"SX\",\"ant\",\"sxm\",\"Netherlands Antilles\"\
+      ,\"ANG\",\"Cura\xE7ao\",\"AN\"],\"supportsDecimals\":true},{\"code\":\"AOA\"\
+      ,\"symbol\":\"Kz\",\"name\":\"Angolan kwanza\",\"countryKeywords\":[\"AOA\"\
+      ,\"Angola\",\"ago\",\"AO\"],\"supportsDecimals\":true},{\"code\":\"ARS\",\"\
+      symbol\":\"$\",\"name\":\"Argentine peso\",\"countryKeywords\":[\"AR\",\"ARS\"\
+      ,\"Argentina\",\"arg\"],\"supportsDecimals\":true},{\"code\":\"AUD\",\"symbol\"\
+      :\"A$\",\"name\":\"Australian dollar\",\"countryKeywords\":[\"TV\",\"NR\",\"\
+      HM\",\"Christmas Island\",\"cck\",\"Kiribati\",\"AUD\",\"tuv\",\"kir\",\"Cocos\
+      \ (Keeling) Islands\",\"cxr\",\"KI\",\"CC\",\"Heard Island and McDonald Islands\"\
+      ,\"Tuvalu\",\"Norfolk Island\",\"nru\",\"nfk\",\"AU\",\"CX\",\"NF\",\"Nauru\"\
+      ,\"Australia\",\"aus\",\"hmd\"],\"supportsDecimals\":true},{\"code\":\"AWG\"\
+      ,\"symbol\":\"AWG\",\"name\":\"Aruban florin\",\"countryKeywords\":[\"AWG\"\
+      ,\"AW\",\"abw\",\"Aruba\"],\"supportsDecimals\":true},{\"code\":\"AZN\",\"symbol\"\
+      :\"man.\",\"name\":\"Azerbaijani manat\",\"countryKeywords\":[\"Azerbaijan\"\
+      ,\"AZN\",\"AZ\",\"aze\"],\"supportsDecimals\":true},{\"code\":\"BAM\",\"symbol\"\
+      :\"KM\",\"name\":\"Bosnia and Herzegovina convertible mark\",\"countryKeywords\"\
+      :[\"bih\",\"Bosnia and Herzegovina\",\"BAM\",\"BA\"],\"supportsDecimals\":true},{\"\
+      code\":\"BBD\",\"symbol\":\"BBD\",\"name\":\"Barbadian dollar\",\"countryKeywords\"\
+      :[\"BB\",\"brb\",\"Barbados\",\"BBD\"],\"supportsDecimals\":true},{\"code\"\
+      :\"BDT\",\"symbol\":\"Tk\",\"name\":\"Bangladeshi taka\",\"countryKeywords\"\
+      :[\"BD\",\"Bangladesh\",\"BDT\",\"bgd\"],\"supportsDecimals\":true},{\"code\"\
+      :\"BGN\",\"symbol\":\"\u043B\u0432\",\"name\":\"Bulgarian lev\",\"countryKeywords\"\
+      :[\"BG\",\"BGN\",\"bgr\",\"Bulgaria\"],\"supportsDecimals\":true},{\"code\"\
+      :\"BHD\",\"symbol\":\"BHD\",\"name\":\"Bahraini dinar\",\"countryKeywords\"\
+      :[\"BH\",\"bhr\",\"Bahrain\",\"BHD\"],\"supportsDecimals\":true},{\"code\":\"\
+      BIF\",\"symbol\":\"BIF\",\"name\":\"Burundian franc\",\"countryKeywords\":[\"\
+      Burundi\",\"bdi\",\"BI\",\"BIF\"],\"supportsDecimals\":false},{\"code\":\"BMD\"\
+      ,\"symbol\":\"BMD\",\"name\":\"Bermudian dollar\",\"countryKeywords\":[\"BMD\"\
+      ,\"Bermuda\",\"BM\",\"bmu\"],\"supportsDecimals\":true},{\"code\":\"BND\",\"\
+      symbol\":\"BND\",\"name\":\"Brunei dollar\",\"countryKeywords\":[\"BND\",\"\
+      BN\",\"Brunei Darussalam\",\"brn\"],\"supportsDecimals\":true},{\"code\":\"\
+      BOB\",\"symbol\":\"BOB\",\"name\":\"Bolivian boliviano\",\"countryKeywords\"\
+      :[\"BOB\",\"Bolivia\",\"BO\",\"bol\"],\"supportsDecimals\":true},{\"code\":\"\
+      BRL\",\"symbol\":\"R$\",\"name\":\"Brazilian real\",\"countryKeywords\":[\"\
+      BR\",\"bra\",\"Brazil\",\"BRL\"],\"supportsDecimals\":true},{\"code\":\"BSD\"\
+      ,\"symbol\":\"BSD\",\"name\":\"Bahamian dollar\",\"countryKeywords\":[\"BS\"\
+      ,\"BSD\",\"bhs\",\"Bahamas\"],\"supportsDecimals\":true},{\"code\":\"BTN\",\"\
+      symbol\":\"BTN\",\"name\":\"Bhutanese ngultrum\",\"countryKeywords\":[\"BT\"\
+      ,\"Bhutan\",\"BTN\",\"btn\"],\"supportsDecimals\":true},{\"code\":\"BWP\",\"\
+      symbol\":\"BWP\",\"name\":\"Botswana pula\",\"countryKeywords\":[\"BW\",\"Botswana\"\
+      ,\"BWP\",\"bwa\"],\"supportsDecimals\":true},{\"code\":\"BYN\",\"symbol\":\"\
+      BYN\",\"name\":\"Belarusian ruble\",\"countryKeywords\":[\"BYN\",\"BY\",\"blr\"\
+      ,\"Belarus\"],\"supportsDecimals\":true},{\"code\":\"BZD\",\"symbol\":\"BZ$\"\
+      ,\"name\":\"Belizean dollar\",\"countryKeywords\":[\"blz\",\"BZ\",\"Belize\"\
+      ,\"BZD\"],\"supportsDecimals\":true},{\"code\":\"CAD\",\"symbol\":\"C$\",\"\
+      name\":\"Canadian dollar\",\"countryKeywords\":[\"can\",\"Canada\",\"CAD\",\"\
+      CA\"],\"supportsDecimals\":true},{\"code\":\"CDF\",\"symbol\":\"CDF\",\"name\"\
+      :\"Congolese franc\",\"countryKeywords\":[\"CD\",\"CDF\",\"cod\",\"Congo, the\
+      \ Democratic Republic of the\"],\"supportsDecimals\":true},{\"code\":\"CHF\"\
+      ,\"symbol\":\"SFr.\",\"name\":\"Swiss franc\",\"countryKeywords\":[\"CHF\",\"\
+      che\",\"CH\",\"Liechtenstein\",\"lie\",\"LI\",\"Switzerland\"],\"supportsDecimals\"\
+      :true},{\"code\":\"CLP\",\"symbol\":\"$\",\"name\":\"Chilean peso\",\"countryKeywords\"\
+      :[\"CLP\",\"chl\",\"CL\",\"Chile\"],\"supportsDecimals\":false},{\"code\":\"\
+      CNH\",\"symbol\":\"\xA5\",\"name\":\"Chinese yuan\",\"countryKeywords\":[],\"\
+      supportsDecimals\":true},{\"code\":\"CNY\",\"symbol\":\"\xA5\",\"name\":\"Chinese\
+      \ yuan\",\"countryKeywords\":[\"China\",\"chn\",\"CN\",\"CNY\"],\"supportsDecimals\"\
+      :true},{\"code\":\"COP\",\"symbol\":\"$\",\"name\":\"Colombian peso\",\"countryKeywords\"\
+      :[\"col\",\"Colombia\",\"COP\",\"CO\"],\"supportsDecimals\":true},{\"code\"\
+      :\"CRC\",\"symbol\":\"\u20A1\",\"name\":\"Costa Rican col\xF3n\",\"countryKeywords\"\
+      :[\"CRC\",\"cri\",\"CR\",\"Costa Rica\"],\"supportsDecimals\":true},{\"code\"\
+      :\"CUC\",\"symbol\":\"CUC$\",\"name\":\"Cuban Convertible peso\",\"countryKeywords\"\
+      :[],\"supportsDecimals\":true},{\"code\":\"CUP\",\"symbol\":\"CUP\",\"name\"\
+      :\"Cuban peso\",\"countryKeywords\":[\"cub\",\"Cuba\",\"CU\",\"CUP\"],\"supportsDecimals\"\
+      :true},{\"code\":\"CVE\",\"symbol\":\"CVE\",\"name\":\"Cape Verdean escudo\"\
+      ,\"countryKeywords\":[\"Cape Verde\",\"CVE\",\"CV\",\"cpv\"],\"supportsDecimals\"\
+      :true},{\"code\":\"CZK\",\"symbol\":\"K\u010D\",\"name\":\"Czech koruna\",\"\
+      countryKeywords\":[\"Czech Republic\",\"CZK\",\"CZ\",\"cze\"],\"supportsDecimals\"\
+      :true},{\"code\":\"DJF\",\"symbol\":\"DJF\",\"name\":\"Djiboutian franc\",\"\
+      countryKeywords\":[\"Djibouti\",\"DJF\",\"dji\",\"DJ\"],\"supportsDecimals\"\
+      :false},{\"code\":\"DKK\",\"symbol\":\"kr\",\"name\":\"Danish krone\",\"countryKeywords\"\
+      :[\"dnk\",\"grl\",\"fro\",\"DKK\",\"GL\",\"DK\",\"Faroe Islands\",\"Denmark\"\
+      ,\"FO\",\"Greenland\"],\"supportsDecimals\":true},{\"code\":\"DOP\",\"symbol\"\
+      :\"$\",\"name\":\"Dominican peso\",\"countryKeywords\":[\"dom\",\"DOP\",\"Dominican\
+      \ Republic\",\"DO\"],\"supportsDecimals\":true},{\"code\":\"DZD\",\"symbol\"\
+      :\"DZD\",\"name\":\"Algerian dinar\",\"countryKeywords\":[\"DZ\",\"dza\",\"\
+      Algeria\",\"DZD\"],\"supportsDecimals\":true},{\"code\":\"EGP\",\"symbol\":\"\
+      E\xA3\",\"name\":\"Egyptian pound\",\"countryKeywords\":[\"EG\",\"egy\",\"Egypt\"\
+      ,\"EGP\"],\"supportsDecimals\":true},{\"code\":\"ERN\",\"symbol\":\"ERN\",\"\
+      name\":\"Eritrean nakfa\",\"countryKeywords\":[\"ERN\",\"Eritrea\",\"ER\",\"\
+      eri\"],\"supportsDecimals\":true},{\"code\":\"ETB\",\"symbol\":\"Br\",\"name\"\
+      :\"Ethiopian birr\",\"countryKeywords\":[\"ETB\",\"eth\",\"Ethiopia\",\"ET\"\
+      ],\"supportsDecimals\":true},{\"code\":\"EUR\",\"symbol\":\"\u20AC\",\"name\"\
+      :\"Euro\",\"countryKeywords\":[\"Cambodia\",\"cck\",\"fin\",\"Paraguay\",\"\
+      uga\",\"lux\",\"iot\",\"Solomon Islands\",\"Montserrat\",\"deu\",\"egy\",\"\
+      lva\",\"Guadeloupe\",\"hnd\",\"nzl\",\"AD\",\"fji\",\"AE\",\"Falkland Islands\"\
+      ,\"AG\",\"Seychelles\",\"AI\",\"glp\",\"AL\",\"AM\",\"Bahrain\",\"AO\",\"wlf\"\
+      ,\"AR\",\"AS\",\"AT\",\"AU\",\"AW\",\"Faroe Islands\",\"AX\",\"Finland\",\"\
+      AZ\",\"gmb\",\"BA\",\"BB\",\"BD\",\"BE\",\"BF\",\"BG\",\"mys\",\"BH\",\"BJ\"\
+      ,\"myt\",\"BL\",\"BM\",\"BN\",\"BO\",\"BS\",\"BT\",\"Cocos (Keeling) Islands\"\
+      ,\"BW\",\"Liechtenstein\",\"gnb\",\"Bulgaria\",\"sen\",\"CA\",\"CC\",\"irl\"\
+      ,\"flk\",\"qat\",\"CH\",\"CI\",\"CK\",\"C\xF4te d'Ivoire\",\"CL\",\"CN\",\"\
+      United Arab Emirates\",\"tha\",\"Kenya\",\"French Polynesia\",\"CR\",\"CV\"\
+      ,\"Saint Lucia\",\"CX\",\"CY\",\"abw\",\"CZ\",\"Mayotte\",\"San Marino\",\"\
+      Israel\",\"Tajikistan\",\"DE\",\"Gibraltar\",\"isl\",\"Cyprus\",\"DK\",\"bel\"\
+      ,\"kwt\",\"DM\",\"isr\",\"Malaysia\",\"ben\",\"DO\",\"Armenia\",\"DZ\",\"ita\"\
+      ,\"Turks and Caicos Islands\",\"pan\",\"bfa\",\"ukr\",\"sgp\",\"EC\",\"EE\"\
+      ,\"Ecuador\",\"che\",\"EG\",\"reu\",\"chl\",\"chn\",\"hrv\",\"ES\",\"ET\",\"\
+      vnm\",\"tjk\",\"shn\",\"Italy\",\"bgd\",\"Haiti\",\"FI\",\"FJ\",\"FK\",\"FM\"\
+      ,\"FO\",\"American Samoa\",\"FR\",\"bgr\",\"Vatican City\",\"civ\",\"grd\",\"\
+      grc\",\"GA\",\"GB\",\"hti\",\"GD\",\"GE\",\"Kyrgyzstan\",\"GF\",\"grl\",\"GG\"\
+      ,\"GH\",\"GI\",\"GL\",\"GM\",\"GN\",\"Uzbekistan\",\"GP\",\"GR\",\"bhs\",\"\
+      GT\",\"bhr\",\"GW\",\"GY\",\"dma\",\"tls\",\"Dominica\",\"hun\",\"bih\",\"Benin\"\
+      ,\"HK\",\"HN\",\"ago\",\"HR\",\"HT\",\"HU\",\"Portugal\",\"Grenada\",\"wsm\"\
+      ,\"Latvia\",\"Mongolia\",\"fra\",\"Morocco\",\"Guatemala\",\"ID\",\"nam\",\"\
+      per\",\"IE\",\"dnk\",\"gtm\",\"fro\",\"IL\",\"IM\",\"IN\",\"IO\",\"Tanzania\"\
+      ,\"slb\",\"IS\",\"Ghana\",\"IT\",\"sle\",\"India\",\"Canada\",\"Maldives\",\"\
+      Kosovo, Republic of\",\"Taiwan\",\"aia\",\"guf\",\"JE\",\"slv\",\"Germany\"\
+      ,\"fsm\",\"Fiji\",\"JM\",\"dom\",\"United States\",\"Guinea\",\"JP\",\"Micronesia,\
+      \ Federated States of\",\"Sao Tome and Principe\",\"guy\",\"mac\",\"Costa Rica\"\
+      ,\"Vietnam\",\"ton\",\"maf\",\"ncl\",\"smr\",\"KE\",\"KG\",\"KH\",\"mar\",\"\
+      blm\",\"KN\",\"Timor-Leste\",\"KR\",\"KW\",\"Switzerland\",\"Samoa\",\"KY\"\
+      ,\"KZ\",\"Spain\",\"LA\",\"phl\",\"LB\",\"LC\",\"Palau\",\"ury\",\"LI\",\"cok\"\
+      ,\"Estonia\",\"LK\",\"usa\",\"esp\",\"LR\",\"est\",\"LS\",\"LT\",\"LU\",\"LV\"\
+      ,\"bmu\",\"Niue\",\"Mozambique\",\"El Salvador\",\"MA\",\"vut\",\"MC\",\"alb\"\
+      ,\"MD\",\"ala\",\"ME\",\"eth\",\"mco\",\"MF\",\"ner\",\"lao\",\"MH\",\"Lesotho\"\
+      ,\"MK\",\"Tonga\",\"ML\",\"MN\",\"MO\",\"EUR\",\"MQ\",\"MR\",\"MS\",\"MT\",\"\
+      MU\",\"cpv\",\"MV\",\"MW\",\"MX\",\"mda\",\"MY\",\"Mauritius\",\"MZ\",\"Norfolk\
+      \ Island\",\"spm\",\"nfk\",\"NA\",\"NC\",\"NE\",\"NF\",\"lbn\",\"NI\",\"lbr\"\
+      ,\"bol\",\"mdv\",\"NL\",\"NO\",\"NP\",\"NR\",\"NU\",\"lca\",\"NZ\",\"Malta\"\
+      ,\"Cape Verde\",\"and\",\"Ireland\",\"rou\",\"cri\",\"France\",\"Lithuania\"\
+      ,\"OM\",\"mex\",\"srb\",\"kaz\",\"tto\",\"PA\",\"Nicaragua\",\"PE\",\"Norway\"\
+      ,\"PF\",\"Macao\",\"PG\",\"PH\",\"Uganda\",\"Mexico\",\"plw\",\"Suriname\",\"\
+      PL\",\"PM\",\"Greenland\",\"Saint Helena\",\"Papua New Guinea\",\"PT\",\"PW\"\
+      ,\"PY\",\"nic\",\"Kazakhstan\",\"tun\",\"\xC5land Islands\",\"Bahamas\",\"tur\"\
+      ,\"QA\",\"brb\",\"tuv\",\"Mali\",\"Marshall Islands\",\"Panama\",\"jam\",\"\
+      niu\",\"Laos\",\"zaf\",\"brn\",\"Argentina\",\"png\",\"Zambia\",\"stp\",\"mhl\"\
+      ,\"Guinea-Bissau\",\"RE\",\"Macedonia, Former Yugoslav Republic of\",\"Namibia\"\
+      ,\"Georgia\",\"RO\",\"Saint Kitts and Nevis\",\"RS\",\"RW\",\"Aruba\",\"twn\"\
+      ,\"pol\",\"SA\",\"SB\",\"SC\",\"sur\",\"omn\",\"SE\",\"Sweden\",\"SG\",\"are\"\
+      ,\"SH\",\"Malawi\",\"ken\",\"Andorra\",\"SI\",\"arg\",\"SK\",\"Poland\",\"SL\"\
+      ,\"SM\",\"SN\",\"uzb\",\"arm\",\"btn\",\"Tunisia\",\"SR\",\"ST\",\"SV\",\"nld\"\
+      ,\"svk\",\"svn\",\"Tuvalu\",\"TC\",\"Lebanon\",\"Azerbaijan\",\"TF\",\"Czech\
+      \ Republic\",\"Mauritania\",\"TH\",\"Guernsey\",\"TJ\",\"TL\",\"TN\",\"asm\"\
+      ,\"TO\",\"Australia\",\"TR\",\"TT\",\"swe\",\"TV\",\"TW\",\"TZ\",\"mkd\",\"\
+      lie\",\"dza\",\"UA\",\"Iceland\",\"Oman\",\"Gabon\",\"atf\",\"UG\",\"atg\",\"\
+      Luxembourg\",\"Algeria\",\"tza\",\"Jersey\",\"Slovenia\",\"cxr\",\"US\",\"jey\"\
+      ,\"kgz\",\"Antigua and Barbuda\",\"UY\",\"UZ\",\"Moldova\",\"mli\",\"VA\",\"\
+      VC\",\"bwa\",\"VG\",\"khm\",\"idn\",\"Vanuatu\",\"prt\",\"mlt\",\"pry\",\"cym\"\
+      ,\"VN\",\"Honduras\",\"cyp\",\"syc\",\"Nauru\",\"rwa\",\"aus\",\"VU\",\"aut\"\
+      ,\"lka\",\"Singapore\",\"French Guiana\",\"Christmas Island\",\"gab\",\"WF\"\
+      ,\"cze\",\"nor\",\"Netherlands\",\"China\",\"Martinique\",\"WS\",\"Saint Pierre\
+      \ and Miquelon\",\"Bhutan\",\"Romania\",\"mne\",\"Philippines\",\"mng\",\"npl\"\
+      ,\"XK\",\"gbr\",\"British Virgin Islands\",\"British Indian Ocean Territory\"\
+      ,\"Montenegro\",\"Indonesia\",\"Angola\",\"Brunei Darussalam\",\"New Caledonia\"\
+      ,\"Greece\",\"Cayman Islands\",\"Guyana\",\"moz\",\"YT\",\"Chile\",\"Nepal\"\
+      ,\"Isle of Man\",\"Ukraine\",\"ZA\",\"vat\",\"Anguilla\",\"nru\",\"Turkey\"\
+      ,\"ZM\",\"Belgium\",\"Trinidad and Tobago\",\"South Africa\",\"Bermuda\",\"\
+      Jamaica\",\"Peru\",\"Hong Kong\",\"Thailand\",\"aze\",\"geo\",\"Saint Martin\
+      \ (French part)\",\"Kuwait\",\"kna\",\"Croatia\",\"Cook Islands\",\"Uruguay\"\
+      ,\"Sri Lanka\",\"vct\",\"United Kingdom\",\"mrt\",\"Liberia\",\"Burkina Faso\"\
+      ,\"Saint Barth\xE9lemy\",\"pyf\",\"msr\",\"Wallis and Futuna\",\"zmb\",\"kor\"\
+      ,\"South Korea\",\"Austria\",\"Monaco\",\"ecu\",\"ggy\",\"gha\",\"R\xE9union\"\
+      ,\"Hungary\",\"Japan\",\"mtq\",\"Albania\",\"New Zealand\",\"Senegal\",\"Ethiopia\"\
+      ,\"gib\",\"hkg\",\"Egypt\",\"lso\",\"mus\",\"Sierra Leone\",\"imn\",\"Bolivia\"\
+      ,\"gin\",\"Saudi Arabia\",\"vgb\",\"can\",\"tca\",\"Gambia\",\"Qatar\",\"Slovakia\"\
+      ,\"Serbia\",\"Bosnia and Herzegovina\",\"ind\",\"xkx\",\"Niger\",\"sau\",\"\
+      Rwanda\",\"jpn\",\"French Southern Territories\",\"ltu\",\"Bangladesh\",\"Barbados\"\
+      ,\"Saint Vincent and the Grenadines\",\"Botswana\",\"Denmark\",\"Dominican Republic\"\
+      ,\"mwi\"],\"supportsDecimals\":true},{\"code\":\"FJD\",\"symbol\":\"FJD\",\"\
+      name\":\"Fijian dollar\",\"countryKeywords\":[\"FJD\",\"Fiji\",\"FJ\",\"fji\"\
+      ],\"supportsDecimals\":true},{\"code\":\"FKP\",\"symbol\":\"\xA3\",\"name\"\
+      :\"Falkland Islands pound\",\"countryKeywords\":[\"South Georgia and the South\
+      \ Sandwich Islands\",\"flk\",\"Falkland Islands\",\"FK\",\"FKP\",\"GS\",\"sgs\"\
+      ],\"supportsDecimals\":true},{\"code\":\"GBP\",\"symbol\":\"\xA3\",\"name\"\
+      :\"British pound\",\"countryKeywords\":[\"PT\",\"fin\",\"Kazakhstan\",\"tun\"\
+      ,\"lux\",\"tur\",\"QA\",\"deu\",\"lva\",\"AD\",\"AE\",\"Seychelles\",\"AL\"\
+      ,\"Bahrain\",\"stp\",\"AT\",\"Macedonia, Former Yugoslav Republic of\",\"Finland\"\
+      ,\"Faroe Islands\",\"AZ\",\"Georgia\",\"RO\",\"BA\",\"RS\",\"BE\",\"BG\",\"\
+      BH\",\"pol\",\"SA\",\"SC\",\"SE\",\"Sweden\",\"are\",\"SI\",\"Andorra\",\"Liechtenstein\"\
+      ,\"SK\",\"Poland\",\"SM\",\"Bulgaria\",\"Tunisia\",\"ST\",\"irl\",\"CH\",\"\
+      qat\",\"nld\",\"svk\",\"svn\",\"United Arab Emirates\",\"CR\",\"Lebanon\",\"\
+      Azerbaijan\",\"Czech Republic\",\"Saint Lucia\",\"Mauritania\",\"Guernsey\"\
+      ,\"CY\",\"CZ\",\"TL\",\"TN\",\"San Marino\",\"Israel\",\"TR\",\"swe\",\"DE\"\
+      ,\"isl\",\"Gibraltar\",\"Cyprus\",\"mkd\",\"DK\",\"bel\",\"kwt\",\"lie\",\"\
+      isr\",\"DO\",\"UA\",\"Iceland\",\"Luxembourg\",\"ita\",\"Jersey\",\"Slovenia\"\
+      ,\"ukr\",\"jey\",\"EE\",\"che\",\"Moldova\",\"hrv\",\"ES\",\"VG\",\"prt\",\"\
+      mlt\",\"Italy\",\"cyp\",\"syc\",\"aut\",\"FI\",\"FO\",\"FR\",\"bgr\",\"cze\"\
+      ,\"nor\",\"Netherlands\",\"GBP\",\"grc\",\"GB\",\"GE\",\"GG\",\"grl\",\"GI\"\
+      ,\"Romania\",\"mne\",\"GL\",\"GR\",\"GT\",\"bhr\",\"gbr\",\"British Virgin Islands\"\
+      ,\"tls\",\"Montenegro\",\"bih\",\"hun\",\"HR\",\"Portugal\",\"HU\",\"Greece\"\
+      ,\"Latvia\",\"fra\",\"Guatemala\",\"IE\",\"dnk\",\"gtm\",\"fro\",\"IL\",\"IM\"\
+      ,\"Isle of Man\",\"Ukraine\",\"IS\",\"IT\",\"Turkey\",\"Belgium\",\"JE\",\"\
+      Germany\",\"dom\",\"Sao Tome and Principe\",\"aze\",\"Costa Rica\",\"geo\",\"\
+      smr\",\"Kuwait\",\"Croatia\",\"Timor-Leste\",\"United Kingdom\",\"KW\",\"Switzerland\"\
+      ,\"mrt\",\"KZ\",\"Spain\",\"LB\",\"LC\",\"LI\",\"Estonia\",\"esp\",\"est\",\"\
+      LT\",\"LU\",\"LV\",\"Austria\",\"Monaco\",\"alb\",\"MC\",\"MD\",\"mco\",\"ggy\"\
+      ,\"ME\",\"MK\",\"Hungary\",\"MR\",\"MT\",\"MU\",\"mda\",\"Mauritius\",\"Albania\"\
+      ,\"lbn\",\"NL\",\"gib\",\"NO\",\"mus\",\"imn\",\"lca\",\"Malta\",\"vgb\",\"\
+      Saudi Arabia\",\"Ireland\",\"Qatar\",\"and\",\"rou\",\"Slovakia\",\"cri\",\"\
+      Lithuania\",\"France\",\"Serbia\",\"Bosnia and Herzegovina\",\"srb\",\"kaz\"\
+      ,\"sau\",\"ltu\",\"Norway\",\"Dominican Republic\",\"Denmark\",\"PL\",\"Greenland\"\
+      ],\"supportsDecimals\":true},{\"code\":\"GEL\",\"symbol\":\"GEL\",\"name\":\"\
+      Georgian lari\",\"countryKeywords\":[\"geo\",\"Georgia\",\"GE\",\"GEL\"],\"\
+      supportsDecimals\":true},{\"code\":\"GGP\",\"symbol\":\"\xA3\",\"name\":\"Guernsey\
+      \ pound\",\"countryKeywords\":[],\"supportsDecimals\":true},{\"code\":\"GHS\"\
+      ,\"symbol\":\"GH\xA2\",\"name\":\"Ghanaian cedi\",\"countryKeywords\":[\"GH\"\
+      ,\"gha\",\"GHS\",\"Ghana\"],\"supportsDecimals\":true},{\"code\":\"GIP\",\"\
+      symbol\":\"\xA3\",\"name\":\"Gibraltar pound\",\"countryKeywords\":[\"gib\"\
+      ,\"GI\",\"Gibraltar\",\"GIP\"],\"supportsDecimals\":true},{\"code\":\"GMD\"\
+      ,\"symbol\":\"GMD\",\"name\":\"Gambian dalasi\",\"countryKeywords\":[\"Gambia\"\
+      ,\"GM\",\"gmb\",\"GMD\"],\"supportsDecimals\":true},{\"code\":\"GNF\",\"symbol\"\
+      :\"GNF\",\"name\":\"Guinean franc\",\"countryKeywords\":[\"Guinea\",\"GN\",\"\
+      gin\",\"GNF\"],\"supportsDecimals\":false},{\"code\":\"GTQ\",\"symbol\":\"Q\"\
+      ,\"name\":\"Guatemalan quetzal\",\"countryKeywords\":[\"gtm\",\"GTQ\",\"Guatemala\"\
+      ,\"GT\"],\"supportsDecimals\":true},{\"code\":\"GYD\",\"symbol\":\"GYD\",\"\
+      name\":\"Guyanese dollar\",\"countryKeywords\":[\"GY\",\"GYD\",\"Guyana\",\"\
+      guy\"],\"supportsDecimals\":true},{\"code\":\"HKD\",\"symbol\":\"$\",\"name\"\
+      :\"Hong Kong dollar\",\"countryKeywords\":[\"HKD\",\"HK\",\"Hong Kong\",\"hkg\"\
+      ],\"supportsDecimals\":true},{\"code\":\"HNL\",\"symbol\":\"L\",\"name\":\"\
+      Honduran lempira\",\"countryKeywords\":[\"HN\",\"HNL\",\"Honduras\",\"hnd\"\
+      ],\"supportsDecimals\":true},{\"code\":\"HTG\",\"symbol\":\"HTG\",\"name\":\"\
+      Haitian gourde\",\"countryKeywords\":[\"Haiti\",\"HTG\",\"HT\",\"hti\"],\"supportsDecimals\"\
+      :true},{\"code\":\"HUF\",\"symbol\":\"Ft\",\"name\":\"Hungarian forint\",\"\
+      countryKeywords\":[\"hun\",\"Hungary\",\"HUF\",\"HU\"],\"supportsDecimals\"\
+      :false},{\"code\":\"IDR\",\"symbol\":\"Rp\",\"name\":\"Indonesian rupiah\",\"\
+      countryKeywords\":[\"idn\",\"IDR\",\"ID\",\"Indonesia\"],\"supportsDecimals\"\
+      :false},{\"code\":\"ILS\",\"symbol\":\"\u20AA\",\"name\":\"Israeli shekel\"\
+      ,\"countryKeywords\":[\"ILS\",\"PS\",\"pse\",\"IL\",\"isr\",\"Israel\",\"Palestine\"\
+      ],\"supportsDecimals\":true},{\"code\":\"IMP\",\"symbol\":\"\xA3\",\"name\"\
+      :\"Isle of Man pound\",\"countryKeywords\":[],\"supportsDecimals\":true},{\"\
+      code\":\"INR\",\"symbol\":\"\u20B9\",\"name\":\"Indian rupee\",\"countryKeywords\"\
+      :[\"IN\",\"INR\",\"ind\",\"India\"],\"supportsDecimals\":true},{\"code\":\"\
+      IQD\",\"symbol\":\"IQD\",\"name\":\"Iraqi dinar\",\"countryKeywords\":[\"IQ\"\
+      ,\"irq\",\"Iraq\",\"IQD\"],\"supportsDecimals\":true},{\"code\":\"IRR\",\"symbol\"\
+      :\"\uFDFC\",\"name\":\"Iranian rial\",\"countryKeywords\":[\"irn\",\"Iran\"\
+      ,\"IRR\",\"IR\"],\"supportsDecimals\":true},{\"code\":\"ISK\",\"symbol\":\"\
+      kr\",\"name\":\"Icelandic kr\xF3na\",\"countryKeywords\":[\"ISK\",\"isl\",\"\
+      IS\",\"Iceland\"],\"supportsDecimals\":false},{\"code\":\"JEP\",\"symbol\":\"\
+      \xA3\",\"name\":\"Jersey pound\",\"countryKeywords\":[],\"supportsDecimals\"\
+      :true},{\"code\":\"JMD\",\"symbol\":\"J$\",\"name\":\"Jamaican dollar\",\"countryKeywords\"\
+      :[\"JMD\",\"JM\",\"jam\",\"Jamaica\"],\"supportsDecimals\":true},{\"code\":\"\
+      JOD\",\"symbol\":\"JD\",\"name\":\"Jordanian dinar\",\"countryKeywords\":[\"\
+      JO\",\"jor\",\"Jordan\",\"JOD\"],\"supportsDecimals\":true},{\"code\":\"JPY\"\
+      ,\"symbol\":\"\xA5\",\"name\":\"Japanese yen\",\"countryKeywords\":[\"JPY\"\
+      ,\"JP\",\"Japan\",\"jpn\"],\"supportsDecimals\":false},{\"code\":\"KES\",\"\
+      symbol\":\"Ksh\",\"name\":\"Kenyan shilling\",\"countryKeywords\":[\"ken\",\"\
+      KES\",\"KE\",\"Kenya\"],\"supportsDecimals\":false},{\"code\":\"KGS\",\"symbol\"\
+      :\"KGS\",\"name\":\"Kyrgyzstani som\",\"countryKeywords\":[\"KGS\",\"KG\",\"\
+      Kyrgyzstan\",\"kgz\"],\"supportsDecimals\":true},{\"code\":\"KHR\",\"symbol\"\
+      :\"\u17DB\",\"name\":\"Cambodian riel\",\"countryKeywords\":[\"khm\",\"KHR\"\
+      ,\"Cambodia\",\"KH\"],\"supportsDecimals\":true},{\"code\":\"KMF\",\"symbol\"\
+      :\"KMF\",\"name\":\"Comorian franc\",\"countryKeywords\":[\"com\",\"KM\",\"\
+      KMF\",\"Comoros\"],\"supportsDecimals\":false},{\"code\":\"KPW\",\"symbol\"\
+      :\"KPW\",\"name\":\"North Korean won\",\"countryKeywords\":[\"KPW\",\"KP\",\"\
+      Korea, Democratic People's Republic of\",\"prk\"],\"supportsDecimals\":true},{\"\
+      code\":\"KRW\",\"symbol\":\"\u20A9\",\"name\":\"South Korean won\",\"countryKeywords\"\
+      :[\"KRW\",\"South Korea\",\"KR\",\"kor\"],\"supportsDecimals\":false},{\"code\"\
+      :\"KWD\",\"symbol\":\"\u0643\",\"name\":\"Kuwaiti dinar\",\"countryKeywords\"\
+      :[\"KWD\",\"kwt\",\"KW\",\"Kuwait\"],\"supportsDecimals\":true},{\"code\":\"\
+      KYD\",\"symbol\":\"$\",\"name\":\"Cayman Islands dollar\",\"countryKeywords\"\
+      :[\"Cayman Islands\",\"cym\",\"KYD\",\"KY\"],\"supportsDecimals\":true},{\"\
+      code\":\"KZT\",\"symbol\":\"\u20B8\",\"name\":\"Kazakhstani tenge\",\"countryKeywords\"\
+      :[\"KZT\",\"kaz\",\"Kazakhstan\",\"KZ\"],\"supportsDecimals\":true},{\"code\"\
+      :\"LAK\",\"symbol\":\"LAK\",\"name\":\"Lao kip\",\"countryKeywords\":[\"LA\"\
+      ,\"LAK\",\"lao\",\"Laos\"],\"supportsDecimals\":true},{\"code\":\"LBP\",\"symbol\"\
+      :\"LBP\",\"name\":\"Lebanon Pound\",\"countryKeywords\":[\"Lebanon\",\"LB\"\
+      ,\"lbn\",\"LBP\"],\"supportsDecimals\":true},{\"code\":\"LKR\",\"symbol\":\"\
+      Sr\",\"name\":\"Sri Lankan rupee\",\"countryKeywords\":[\"LKR\",\"lka\",\"Sri\
+      \ Lanka\",\"LK\"],\"supportsDecimals\":true},{\"code\":\"LRD\",\"symbol\":\"\
+      L$\",\"name\":\"Liberian dollar\",\"countryKeywords\":[\"Liberia\",\"LR\",\"\
+      lbr\",\"LRD\"],\"supportsDecimals\":true},{\"code\":\"LSL\",\"symbol\":\"LSL\"\
+      ,\"name\":\"Lesotho loti\",\"countryKeywords\":[\"LSL\",\"LS\",\"lso\",\"Lesotho\"\
+      ],\"supportsDecimals\":true},{\"code\":\"LYD\",\"symbol\":\"LYD\",\"name\":\"\
+      Libyan dinar\",\"countryKeywords\":[\"lby\",\"LYD\",\"LY\",\"Libya\"],\"supportsDecimals\"\
+      :true},{\"code\":\"MAD\",\"symbol\":\"\u062F.\u0645.\",\"name\":\"Moroccan dirham\"\
+      ,\"countryKeywords\":[\"MAD\",\"Western Sahara\",\"EH\",\"MA\",\"Morocco\",\"\
+      esh\",\"mar\"],\"supportsDecimals\":true},{\"code\":\"MDL\",\"symbol\":\"MDL\"\
+      ,\"name\":\"Moldovan leu\",\"countryKeywords\":[\"MDL\",\"MD\",\"Moldova\",\"\
+      mda\"],\"supportsDecimals\":true},{\"code\":\"MGA\",\"symbol\":\"MGA\",\"name\"\
+      :\"Malagasy ariary\",\"countryKeywords\":[\"mdg\",\"MGA\",\"MG\",\"Madagascar\"\
+      ],\"supportsDecimals\":true},{\"code\":\"MKD\",\"symbol\":\"\u0434\u0435\u043D\
+      \",\"name\":\"Macedonian denar\",\"countryKeywords\":[\"Macedonia, Former Yugoslav\
+      \ Republic of\",\"MKD\",\"mkd\",\"MK\"],\"supportsDecimals\":true},{\"code\"\
+      :\"MMK\",\"symbol\":\"K\",\"name\":\"Myanmar kyat\",\"countryKeywords\":[\"\
+      MM\",\"Myanmar\",\"mmr\",\"MMK\"],\"supportsDecimals\":true},{\"code\":\"MNT\"\
+      ,\"symbol\":\"MNT\",\"name\":\"Mongolian tugrik\",\"countryKeywords\":[\"MN\"\
+      ,\"MNT\",\"Mongolia\",\"mng\"],\"supportsDecimals\":true},{\"code\":\"MOP\"\
+      ,\"symbol\":\"MOP\",\"name\":\"Macanese pataca\",\"countryKeywords\":[\"MO\"\
+      ,\"Macao\",\"mac\",\"MOP\"],\"supportsDecimals\":true},{\"code\":\"MRU\",\"\
+      symbol\":\"UM\",\"name\":\"Ouguiya\",\"countryKeywords\":[\"MRU\",\"Mauritania\"\
+      ,\"MR\",\"mrt\"],\"supportsDecimals\":true},{\"code\":\"MUR\",\"symbol\":\"\u20A8\
+      \",\"name\":\"Mauritian rupee\",\"countryKeywords\":[\"MU\",\"mus\",\"MUR\"\
+      ,\"Mauritius\"],\"supportsDecimals\":true},{\"code\":\"MVR\",\"symbol\":\"MVR\"\
+      ,\"name\":\"Maldivian rufiyaa\",\"countryKeywords\":[\"Maldives\",\"MVR\",\"\
+      MV\",\"mdv\"],\"supportsDecimals\":true},{\"code\":\"MWK\",\"symbol\":\"MWK\"\
+      ,\"name\":\"Malawian kwacha\",\"countryKeywords\":[\"MWK\",\"Malawi\",\"MW\"\
+      ,\"mwi\"],\"supportsDecimals\":true},{\"code\":\"MXN\",\"symbol\":\"Mex$\",\"\
+      name\":\"Mexican peso\",\"countryKeywords\":[\"mex\",\"MXN\",\"Mexico\",\"MX\"\
+      ],\"supportsDecimals\":true},{\"code\":\"MYR\",\"symbol\":\"RM\",\"name\":\"\
+      Malaysian ringgit\",\"countryKeywords\":[\"mys\",\"MYR\",\"Malaysia\",\"MY\"\
+      ],\"supportsDecimals\":true},{\"code\":\"MZN\",\"symbol\":\"MT\",\"name\":\"\
+      Mozambican metical\",\"countryKeywords\":[\"MZN\",\"Mozambique\",\"moz\",\"\
+      MZ\"],\"supportsDecimals\":true},{\"code\":\"NAD\",\"symbol\":\"$\",\"name\"\
+      :\"Namibian dollar\",\"countryKeywords\":[\"NAD\",\"NA\",\"Namibia\",\"nam\"\
+      ],\"supportsDecimals\":true},{\"code\":\"NGN\",\"symbol\":\"\u20A6\",\"name\"\
+      :\"Nigerian naira\",\"countryKeywords\":[\"NGN\",\"NG\",\"nga\",\"Nigeria\"\
+      ],\"supportsDecimals\":true},{\"code\":\"NIO\",\"symbol\":\"NIO\",\"name\":\"\
+      Nicaraguan c\xF3rdoba\",\"countryKeywords\":[\"Nicaragua\",\"NIO\",\"nic\",\"\
+      NI\"],\"supportsDecimals\":true},{\"code\":\"NOK\",\"symbol\":\"kr\",\"name\"\
+      :\"Norwegian krone\",\"countryKeywords\":[\"nor\",\"NO\",\"bvt\",\"BV\",\"Norway\"\
+      ,\"SJ\",\"sjm\",\"NOK\",\"Bouvet Island\",\"Svalbard and Jan Mayen\"],\"supportsDecimals\"\
+      :true},{\"code\":\"NPR\",\"symbol\":\"\u20A8\",\"name\":\"Nepalese rupee\",\"\
+      countryKeywords\":[\"NPR\",\"NP\",\"npl\",\"Nepal\"],\"supportsDecimals\":false},{\"\
+      code\":\"NZD\",\"symbol\":\"$\",\"name\":\"New Zealand dollar\",\"countryKeywords\"\
+      :[\"nzl\",\"Tokelau\",\"Cook Islands\",\"NU\",\"CK\",\"Pitcairn Islands\",\"\
+      NZ\",\"Niue\",\"New Zealand\",\"tkl\",\"TK\",\"NZD\",\"pcn\",\"niu\",\"cok\"\
+      ,\"PN\"],\"supportsDecimals\":true},{\"code\":\"OMR\",\"symbol\":\"OMR\",\"\
+      name\":\"Omani rial\",\"countryKeywords\":[\"omn\",\"OMR\",\"OM\",\"Oman\"],\"\
+      supportsDecimals\":true},{\"code\":\"PAB\",\"symbol\":\"B/.\",\"name\":\"Panamanian\
+      \ balboa\",\"countryKeywords\":[\"PAB\",\"PA\",\"Panama\",\"pan\"],\"supportsDecimals\"\
+      :true},{\"code\":\"PEN\",\"symbol\":\"S/.\",\"name\":\"Peruvian sol\",\"countryKeywords\"\
+      :[\"PE\",\"PEN\",\"per\",\"Peru\"],\"supportsDecimals\":true},{\"code\":\"PGK\"\
+      ,\"symbol\":\"PGK\",\"name\":\"Papua New Guinean kina\",\"countryKeywords\"\
+      :[\"Papua New Guinea\",\"PGK\",\"PG\",\"png\"],\"supportsDecimals\":true},{\"\
+      code\":\"PHP\",\"symbol\":\"\u20B1\",\"name\":\"Philippine peso\",\"countryKeywords\"\
+      :[\"phl\",\"Philippines\",\"PH\",\"PHP\"],\"supportsDecimals\":true},{\"code\"\
+      :\"PKR\",\"symbol\":\"\u20A8\",\"name\":\"Pakistani rupee\",\"countryKeywords\"\
+      :[\"Pakistan\",\"PKR\",\"PK\",\"pak\"],\"supportsDecimals\":true},{\"code\"\
+      :\"PLN\",\"symbol\":\"z\u0142\",\"name\":\"Polish z\u0142oty\",\"countryKeywords\"\
+      :[\"PLN\",\"Poland\",\"PL\",\"pol\"],\"supportsDecimals\":true},{\"code\":\"\
+      PYG\",\"symbol\":\"\u20B2\",\"name\":\"Paraguay guaran\xED\",\"countryKeywords\"\
+      :[\"pry\",\"PY\",\"Paraguay\",\"PYG\"],\"supportsDecimals\":false},{\"code\"\
+      :\"QAR\",\"symbol\":\"QR\",\"name\":\"Qatari riyal\",\"countryKeywords\":[\"\
+      QA\",\"QAR\",\"qat\",\"Qatar\"],\"supportsDecimals\":true},{\"code\":\"RON\"\
+      ,\"symbol\":\"L\",\"name\":\"Romanian leu\",\"countryKeywords\":[\"RON\",\"\
+      Romania\",\"rou\",\"RO\"],\"supportsDecimals\":true},{\"code\":\"RSD\",\"symbol\"\
+      :\"\u0420\u0421\u0414\",\"name\":\"Serbian dinar\",\"countryKeywords\":[\"RS\"\
+      ,\"RSD\",\"srb\",\"Serbia\"],\"supportsDecimals\":true},{\"code\":\"RUB\",\"\
+      symbol\":\"\u0440\u0443\u0431\",\"name\":\"Russian rouble\",\"countryKeywords\"\
+      :[\"rus\",\"Russian Federation\",\"RU\",\"RUB\"],\"supportsDecimals\":true},{\"\
+      code\":\"RWF\",\"symbol\":\"RWF\",\"name\":\"Rwandan franc\",\"countryKeywords\"\
+      :[\"RWF\",\"RW\",\"Rwanda\",\"rwa\"],\"supportsDecimals\":false},{\"code\":\"\
+      SAR\",\"symbol\":\"SR\",\"name\":\"Saudi riyal\",\"countryKeywords\":[\"Saudi\
+      \ Arabia\",\"SAR\",\"sau\",\"SA\"],\"supportsDecimals\":true},{\"code\":\"SBD\"\
+      ,\"symbol\":\"SI$\",\"name\":\"Solomon Islands dollar\",\"countryKeywords\"\
+      :[\"SBD\",\"slb\",\"SB\",\"Solomon Islands\"],\"supportsDecimals\":true},{\"\
+      code\":\"SCR\",\"symbol\":\"\u20A8\",\"name\":\"Seychellois rupee\",\"countryKeywords\"\
+      :[\"SC\",\"SCR\",\"Seychelles\",\"syc\"],\"supportsDecimals\":true},{\"code\"\
+      :\"SDG\",\"symbol\":\"SDG\",\"name\":\"Sudanese Pound\",\"countryKeywords\"\
+      :[\"SD\",\"SDG\",\"Sudan\",\"sdn\"],\"supportsDecimals\":true},{\"code\":\"\
+      SEK\",\"symbol\":\"kr\",\"name\":\"Swedish krona\",\"countryKeywords\":[\"swe\"\
+      ,\"SE\",\"Sweden\",\"SEK\"],\"supportsDecimals\":true},{\"code\":\"SGD\",\"\
+      symbol\":\"S$\",\"name\":\"Singapore dollar\",\"countryKeywords\":[\"SGD\",\"\
+      Singapore\",\"SG\",\"sgp\"],\"supportsDecimals\":true},{\"code\":\"SHP\",\"\
+      symbol\":\"\xA3\",\"name\":\"Saint Helena pound\",\"countryKeywords\":[\"SH\"\
+      ,\"shn\",\"SHP\",\"Saint Helena\"],\"supportsDecimals\":true},{\"code\":\"SLL\"\
+      ,\"symbol\":\"SLL\",\"name\":\"Sierra Leonean leone\",\"countryKeywords\":[\"\
+      SLL\",\"SL\",\"Sierra Leone\",\"sle\"],\"supportsDecimals\":true},{\"code\"\
+      :\"SLE\",\"symbol\":\"SLE\",\"name\":\"Sierra Leonean leone\",\"countryKeywords\"\
+      :[],\"supportsDecimals\":true},{\"code\":\"SOS\",\"symbol\":\"Sh.So.\",\"name\"\
+      :\"Somali shilling\",\"countryKeywords\":[\"som\",\"SOS\",\"Somalia\",\"SO\"\
+      ],\"supportsDecimals\":true},{\"code\":\"SRD\",\"symbol\":\"$\",\"name\":\"\
+      Surinamese dollar\",\"countryKeywords\":[\"sur\",\"SRD\",\"Suriname\",\"SR\"\
+      ],\"supportsDecimals\":true},{\"code\":\"SSP\",\"symbol\":\"SSP\",\"name\":\"\
+      South Sudanese pound\",\"countryKeywords\":[\"SS\",\"SSP\",\"South Sudan\",\"\
+      ssd\"],\"supportsDecimals\":true},{\"code\":\"STD\",\"symbol\":\"STD\",\"name\"\
+      :\"S\xE3o Tom\xE9 & Pr\xEDncipe dobra\",\"countryKeywords\":[],\"supportsDecimals\"\
+      :true},{\"code\":\"STN\",\"symbol\":\"STN\",\"name\":\"Dobra\",\"countryKeywords\"\
+      :[\"ST\",\"Sao Tome and Principe\",\"STN\",\"stp\"],\"supportsDecimals\":true},{\"\
+      code\":\"SVC\",\"symbol\":\"\u20A1\",\"name\":\"Salvadoran col\xF3n\",\"countryKeywords\"\
+      :[],\"supportsDecimals\":true},{\"code\":\"SYP\",\"symbol\":\"\xA3\",\"name\"\
+      :\"Syrian pound\",\"countryKeywords\":[\"Syrian Arab Republic\",\"SY\",\"SYP\"\
+      ,\"syr\"],\"supportsDecimals\":true},{\"code\":\"SZL\",\"symbol\":\"SZL\",\"\
+      name\":\"Swazi lilangeni\",\"countryKeywords\":[\"SZL\",\"Swaziland\",\"SZ\"\
+      ,\"swz\"],\"supportsDecimals\":true},{\"code\":\"THB\",\"symbol\":\"\u0E3F\"\
+      ,\"name\":\"Thai baht\",\"countryKeywords\":[\"TH\",\"tha\",\"Thailand\",\"\
+      THB\"],\"supportsDecimals\":true},{\"code\":\"TJS\",\"symbol\":\"TJS\",\"name\"\
+      :\"Tajikistani somoni\",\"countryKeywords\":[\"tjk\",\"TJ\",\"TJS\",\"Tajikistan\"\
+      ],\"supportsDecimals\":true},{\"code\":\"TMT\",\"symbol\":\"TMT\",\"name\":\"\
+      Turkmenistani manat\",\"countryKeywords\":[\"tkm\",\"TM\",\"TMT\",\"Turkmenistan\"\
+      ],\"supportsDecimals\":true},{\"code\":\"TND\",\"symbol\":\"TND\",\"name\":\"\
+      Tunisian dinar\",\"countryKeywords\":[\"TN\",\"TND\",\"tun\",\"Tunisia\"],\"\
+      supportsDecimals\":true},{\"code\":\"TOP\",\"symbol\":\"TOP\",\"name\":\"Tongan\
+      \ pa'anga\",\"countryKeywords\":[\"ton\",\"TOP\",\"TO\",\"Tonga\"],\"supportsDecimals\"\
+      :true},{\"code\":\"TRY\",\"symbol\":\"TL\",\"name\":\"Turkish lira\",\"countryKeywords\"\
+      :[\"tur\",\"Turkey\",\"TRY\",\"TR\"],\"supportsDecimals\":true},{\"code\":\"\
+      TTD\",\"symbol\":\"TTD\",\"name\":\"Trinidad and Tobago dollar\",\"countryKeywords\"\
+      :[\"TT\",\"TTD\",\"Trinidad and Tobago\",\"tto\"],\"supportsDecimals\":true},{\"\
+      code\":\"TWD\",\"symbol\":\"NT$\",\"name\":\"Taiwanese New Taiwan dollar\",\"\
+      countryKeywords\":[\"TWD\",\"TW\",\"Taiwan\",\"twn\"],\"supportsDecimals\":true},{\"\
+      code\":\"TZS\",\"symbol\":\"tzs\",\"name\":\"Tanzanian shilling\",\"countryKeywords\"\
+      :[\"TZ\",\"Tanzania\",\"tza\",\"TZS\"],\"supportsDecimals\":true},{\"code\"\
+      :\"UAH\",\"symbol\":\"\u20B4\",\"name\":\"Ukrainian hryvnia\",\"countryKeywords\"\
+      :[\"Ukraine\",\"UA\",\"UAH\",\"ukr\"],\"supportsDecimals\":true},{\"code\":\"\
+      UGX\",\"symbol\":\"Ush\",\"name\":\"Ugandan shilling\",\"countryKeywords\":[\"\
+      UG\",\"UGX\",\"Uganda\",\"uga\"],\"supportsDecimals\":false},{\"code\":\"USD\"\
+      ,\"symbol\":\"$\",\"name\":\"United States dollar\",\"countryKeywords\":[\"\
+      Cambodia\",\"cck\",\"fin\",\"Paraguay\",\"uga\",\"lux\",\"iot\",\"Solomon Islands\"\
+      ,\"Montserrat\",\"deu\",\"lva\",\"Guadeloupe\",\"vir\",\"hnd\",\"nzl\",\"AD\"\
+      ,\"fji\",\"AE\",\"Falkland Islands\",\"AG\",\"Seychelles\",\"AI\",\"glp\",\"\
+      AL\",\"AM\",\"Bahrain\",\"AO\",\"wlf\",\"AQ\",\"AR\",\"AS\",\"AT\",\"AU\",\"\
+      Faroe Islands\",\"AX\",\"Finland\",\"AZ\",\"gmb\",\"BA\",\"BB\",\"Puerto Rico\"\
+      ,\"BE\",\"BF\",\"BG\",\"mys\",\"BH\",\"BJ\",\"myt\",\"BL\",\"BN\",\"BO\",\"\
+      BQ\",\"BS\",\"BT\",\"Cocos (Keeling) Islands\",\"BW\",\"Liechtenstein\",\"United\
+      \ States Virgin Islands\",\"gnb\",\"Bulgaria\",\"sen\",\"CA\",\"CC\",\"irl\"\
+      ,\"flk\",\"CH\",\"CI\",\"CK\",\"C\xF4te d'Ivoire\",\"CL\",\"CN\",\"United Arab\
+      \ Emirates\",\"tha\",\"Kenya\",\"French Polynesia\",\"CR\",\"Saint Lucia\",\"\
+      CX\",\"CY\",\"CZ\",\"Mayotte\",\"San Marino\",\"Israel\",\"Tajikistan\",\"DE\"\
+      ,\"Gibraltar\",\"isl\",\"Cyprus\",\"DK\",\"bel\",\"Northern Mariana Islands\"\
+      ,\"kwt\",\"DM\",\"isr\",\"Malaysia\",\"ben\",\"DO\",\"Armenia\",\"bes\",\"DZ\"\
+      ,\"ita\",\"Turks and Caicos Islands\",\"pan\",\"bfa\",\"ukr\",\"sgp\",\"EC\"\
+      ,\"sgs\",\"EE\",\"Ecuador\",\"che\",\"reu\",\"EH\",\"chl\",\"chn\",\"hrv\",\"\
+      ES\",\"ET\",\"United States Minor Outlying Islands\",\"vnm\",\"tjk\",\"shn\"\
+      ,\"Italy\",\"Haiti\",\"FI\",\"FJ\",\"FK\",\"FM\",\"FO\",\"American Samoa\",\"\
+      FR\",\"bgr\",\"Vatican City\",\"umi\",\"civ\",\"tkl\",\"grc\",\"GA\",\"pcn\"\
+      ,\"GB\",\"hti\",\"GE\",\"Kyrgyzstan\",\"GF\",\"grl\",\"GG\",\"GH\",\"GI\",\"\
+      GL\",\"GM\",\"GN\",\"Uzbekistan\",\"GP\",\"GR\",\"GS\",\"bhs\",\"GT\",\"bhr\"\
+      ,\"GU\",\"GW\",\"GY\",\"dma\",\"tls\",\"Dominica\",\"hun\",\"bih\",\"Benin\"\
+      ,\"HK\",\"HN\",\"ago\",\"HR\",\"HT\",\"HU\",\"Portugal\",\"wsm\",\"Latvia\"\
+      ,\"Mongolia\",\"fra\",\"Morocco\",\"Guatemala\",\"ID\",\"nam\",\"per\",\"IE\"\
+      ,\"dnk\",\"gtm\",\"fro\",\"IL\",\"IM\",\"IN\",\"IO\",\"Tanzania\",\"slb\",\"\
+      IS\",\"Ghana\",\"IT\",\"sle\",\"India\",\"Canada\",\"Taiwan\",\"aia\",\"guf\"\
+      ,\"JE\",\"slv\",\"gum\",\"Germany\",\"fsm\",\"Fiji\",\"JM\",\"dom\",\"United\
+      \ States\",\"Guinea\",\"JP\",\"Micronesia, Federated States of\",\"Sao Tome\
+      \ and Principe\",\"guy\",\"mac\",\"Costa Rica\",\"Vietnam\",\"ton\",\"ncl\"\
+      ,\"smr\",\"KE\",\"KG\",\"KH\",\"mar\",\"blm\",\"KN\",\"USD\",\"Timor-Leste\"\
+      ,\"KR\",\"KW\",\"Switzerland\",\"Samoa\",\"KY\",\"KZ\",\"Spain\",\"LA\",\"phl\"\
+      ,\"LB\",\"LC\",\"Palau\",\"esh\",\"ury\",\"LI\",\"cok\",\"Estonia\",\"LK\",\"\
+      usa\",\"esp\",\"LR\",\"est\",\"LT\",\"LU\",\"LV\",\"Niue\",\"El Salvador\",\"\
+      MA\",\"vut\",\"MC\",\"alb\",\"ala\",\"ME\",\"Guam\",\"eth\",\"mco\",\"ner\"\
+      ,\"lao\",\"MH\",\"MK\",\"Tonga\",\"ML\",\"Western Sahara\",\"MN\",\"MO\",\"\
+      MP\",\"MQ\",\"MR\",\"MS\",\"MT\",\"MU\",\"MW\",\"MX\",\"MY\",\"Mauritius\",\"\
+      Norfolk Island\",\"spm\",\"nfk\",\"NA\",\"Sint Maarten (Dutch part)\",\"NC\"\
+      ,\"NE\",\"NF\",\"lbn\",\"NI\",\"lbr\",\"bol\",\"NL\",\"NO\",\"NP\",\"NR\",\"\
+      NU\",\"lca\",\"NZ\",\"Malta\",\"and\",\"Ireland\",\"rou\",\"cri\",\"France\"\
+      ,\"Lithuania\",\"mex\",\"srb\",\"kaz\",\"tto\",\"PA\",\"Nicaragua\",\"PE\",\"\
+      Norway\",\"PF\",\"Macao\",\"PG\",\"PH\",\"Uganda\",\"Mexico\",\"plw\",\"Suriname\"\
+      ,\"PL\",\"PM\",\"Greenland\",\"Saint Helena\",\"PN\",\"PR\",\"Papua New Guinea\"\
+      ,\"PT\",\"PW\",\"PY\",\"nic\",\"Kazakhstan\",\"tun\",\"\xC5land Islands\",\"\
+      Bahamas\",\"tur\",\"brb\",\"tuv\",\"Mali\",\"Marshall Islands\",\"Panama\",\"\
+      jam\",\"niu\",\"Laos\",\"zaf\",\"brn\",\"Argentina\",\"png\",\"Zambia\",\"stp\"\
+      ,\"mhl\",\"Guinea-Bissau\",\"RE\",\"Macedonia, Former Yugoslav Republic of\"\
+      ,\"Namibia\",\"Georgia\",\"RO\",\"Saint Kitts and Nevis\",\"RS\",\"RW\",\"twn\"\
+      ,\"pol\",\"SB\",\"SC\",\"sur\",\"South Georgia and the South Sandwich Islands\"\
+      ,\"SE\",\"Sweden\",\"SG\",\"are\",\"SH\",\"Malawi\",\"ken\",\"Andorra\",\"SI\"\
+      ,\"arg\",\"SK\",\"Poland\",\"SL\",\"SM\",\"SN\",\"uzb\",\"arm\",\"btn\",\"Tunisia\"\
+      ,\"SR\",\"ST\",\"SV\",\"SX\",\"nld\",\"svk\",\"svn\",\"Tuvalu\",\"TC\",\"Lebanon\"\
+      ,\"Azerbaijan\",\"TF\",\"Czech Republic\",\"Mauritania\",\"TH\",\"Guernsey\"\
+      ,\"TJ\",\"TK\",\"TL\",\"TN\",\"asm\",\"TO\",\"Australia\",\"Bonaire\",\"TR\"\
+      ,\"TT\",\"swe\",\"TV\",\"TW\",\"TZ\",\"mkd\",\"lie\",\"dza\",\"UA\",\"Iceland\"\
+      ,\"ata\",\"Gabon\",\"atf\",\"UG\",\"atg\",\"Luxembourg\",\"UM\",\"Algeria\"\
+      ,\"tza\",\"Jersey\",\"Slovenia\",\"cxr\",\"US\",\"jey\",\"kgz\",\"Antigua and\
+      \ Barbuda\",\"UY\",\"UZ\",\"pri\",\"sxm\",\"mli\",\"VA\",\"VC\",\"bwa\",\"VG\"\
+      ,\"khm\",\"idn\",\"Vanuatu\",\"prt\",\"VI\",\"mlt\",\"pry\",\"cym\",\"VN\",\"\
+      Honduras\",\"Antarctica\",\"cyp\",\"syc\",\"Nauru\",\"rwa\",\"aus\",\"VU\",\"\
+      aut\",\"lka\",\"Singapore\",\"French Guiana\",\"Christmas Island\",\"gab\",\"\
+      WF\",\"cze\",\"nor\",\"Netherlands\",\"China\",\"Martinique\",\"WS\",\"Saint\
+      \ Pierre and Miquelon\",\"Bhutan\",\"Romania\",\"mne\",\"Philippines\",\"mng\"\
+      ,\"npl\",\"mnp\",\"gbr\",\"British Virgin Islands\",\"British Indian Ocean Territory\"\
+      ,\"Montenegro\",\"Indonesia\",\"Angola\",\"Brunei Darussalam\",\"New Caledonia\"\
+      ,\"Greece\",\"Cayman Islands\",\"Guyana\",\"YT\",\"Chile\",\"Nepal\",\"Isle\
+      \ of Man\",\"Ukraine\",\"ZA\",\"vat\",\"Anguilla\",\"nru\",\"Turkey\",\"ZM\"\
+      ,\"Belgium\",\"Trinidad and Tobago\",\"South Africa\",\"Jamaica\",\"Peru\",\"\
+      Tokelau\",\"Hong Kong\",\"Pitcairn Islands\",\"Thailand\",\"aze\",\"geo\",\"\
+      Kuwait\",\"kna\",\"Croatia\",\"Cook Islands\",\"Uruguay\",\"Sri Lanka\",\"vct\"\
+      ,\"United Kingdom\",\"mrt\",\"Liberia\",\"Burkina Faso\",\"Saint Barth\xE9lemy\"\
+      ,\"pyf\",\"msr\",\"Wallis and Futuna\",\"zmb\",\"kor\",\"South Korea\",\"Austria\"\
+      ,\"Monaco\",\"ecu\",\"ggy\",\"gha\",\"R\xE9union\",\"Hungary\",\"Japan\",\"\
+      mtq\",\"Albania\",\"New Zealand\",\"Senegal\",\"Ethiopia\",\"gib\",\"hkg\",\"\
+      mus\",\"Sierra Leone\",\"imn\",\"Bolivia\",\"gin\",\"vgb\",\"can\",\"tca\",\"\
+      Gambia\",\"Slovakia\",\"Serbia\",\"Bosnia and Herzegovina\",\"ind\",\"Niger\"\
+      ,\"Rwanda\",\"jpn\",\"French Southern Territories\",\"ltu\",\"Barbados\",\"\
+      Saint Vincent and the Grenadines\",\"Botswana\",\"Denmark\",\"Dominican Republic\"\
+      ,\"mwi\"],\"supportsDecimals\":true},{\"code\":\"UYU\",\"symbol\":\"$U\",\"\
+      name\":\"Uruguayan peso\",\"countryKeywords\":[\"UYU\",\"UY\",\"Uruguay\",\"\
+      ury\"],\"supportsDecimals\":true},{\"code\":\"UYW\",\"symbol\":\"UYW\",\"name\"\
+      :\"Unidad Previsional\",\"countryKeywords\":[],\"supportsDecimals\":true},{\"\
+      code\":\"UZS\",\"symbol\":\"UZS\",\"name\":\"Uzbekistani som\",\"countryKeywords\"\
+      :[\"UZ\",\"Uzbekistan\",\"uzb\",\"UZS\"],\"supportsDecimals\":true},{\"code\"\
+      :\"VES\",\"symbol\":\"Bs.\",\"name\":\"Venezuelan bol\xEDvar soberano\",\"countryKeywords\"\
+      :[],\"supportsDecimals\":true},{\"code\":\"VND\",\"symbol\":\"VND\",\"name\"\
+      :\"Vietnamese dong\",\"countryKeywords\":[\"Vietnam\",\"vnm\",\"VN\",\"VND\"\
+      ],\"supportsDecimals\":false},{\"code\":\"VUV\",\"symbol\":\"VUV\",\"name\"\
+      :\"Vanuatu vatu\",\"countryKeywords\":[\"Vanuatu\",\"vut\",\"VUV\",\"VU\"],\"\
+      supportsDecimals\":false},{\"code\":\"WST\",\"symbol\":\"WST\",\"name\":\"Samoan\
+      \ tala\",\"countryKeywords\":[\"wsm\",\"WST\",\"WS\",\"Samoa\"],\"supportsDecimals\"\
+      :true},{\"code\":\"XAF\",\"symbol\":\"XAF\",\"name\":\"Central African CFA franc\"\
+      ,\"countryKeywords\":[\"CF\",\"CG\",\"Cameroone\",\"Chad\",\"cmr\",\"caf\",\"\
+      gab\",\"CM\",\"GQ\",\"gnq\",\"Equatorial Guinea\",\"Congo\",\"TD\",\"Gabon\"\
+      ,\"tcd\",\"cog\",\"GA\",\"Central African Republic\",\"XAF\"],\"supportsDecimals\"\
+      :false},{\"code\":\"XCD\",\"symbol\":\"$\",\"name\":\"East Caribbean dollar\"\
+      ,\"countryKeywords\":[\"DM\",\"lca\",\"msr\",\"Grenada\",\"Montserrat\",\"atg\"\
+      ,\"grd\",\"GD\",\"kna\",\"Antigua and Barbuda\",\"KN\",\"vct\",\"MS\",\"AG\"\
+      ,\"AI\",\"Anguilla\",\"VC\",\"Saint Lucia\",\"Saint Vincent and the Grenadines\"\
+      ,\"LC\",\"XCD\",\"aia\",\"dma\",\"Saint Kitts and Nevis\",\"Dominica\"],\"supportsDecimals\"\
+      :true},{\"code\":\"XOF\",\"symbol\":\"XOF\",\"name\":\"West African CFA franc\"\
+      ,\"countryKeywords\":[\"Benin\",\"BF\",\"BJ\",\"nga\",\"ben\",\"civ\",\"Mali\"\
+      ,\"ner\",\"gnb\",\"SN\",\"bfa\",\"Nigeria\",\"sen\",\"tgo\",\"ML\",\"Togo\"\
+      ,\"Niger\",\"CI\",\"C\xF4te d'Ivoire\",\"mli\",\"XOF\",\"GW\",\"Guinea-Bissau\"\
+      ,\"Burkina Faso\",\"TG\",\"Senegal\",\"NE\",\"NG\"],\"supportsDecimals\":false},{\"\
+      code\":\"XPF\",\"symbol\":\"XPF\",\"name\":\"CFP franc\",\"countryKeywords\"\
+      :[\"wlf\",\"NC\",\"ncl\",\"PF\",\"pyf\",\"Wallis and Futuna\",\"New Caledonia\"\
+      ,\"XPF\",\"French Polynesia\",\"WF\"],\"supportsDecimals\":false},{\"code\"\
+      :\"YER\",\"symbol\":\"\uFDFC\",\"name\":\"Yemeni rial\",\"countryKeywords\"\
+      :[\"yem\",\"YER\",\"YE\",\"Yemen\"],\"supportsDecimals\":true},{\"code\":\"\
+      ZAR\",\"symbol\":\"R\",\"name\":\"South African rand\",\"countryKeywords\":[\"\
+      ZA\",\"South Africa\",\"ZAR\",\"zaf\"],\"supportsDecimals\":true},{\"code\"\
+      :\"ZMW\",\"symbol\":\"ZMW\",\"name\":\"Zambian kwacha\",\"countryKeywords\"\
+      :[\"ZM\",\"ZMW\",\"Zambia\",\"zmb\"],\"supportsDecimals\":true},{\"code\":\"\
+      ZWG\",\"symbol\":\"ZWG\",\"name\":\"Zimbabwe Gold\",\"countryKeywords\":[],\"\
+      supportsDecimals\":true}]"
+    content_type: text/plain; charset=utf-8
+    headers:
+      CF-Cache-Status: DYNAMIC
+      CF-RAY: 8fa4df2bab71cd60-LHR
+      Set-Cookie: __cf_bm=hUEEisFJeiEAIdAdnr7o28etkTatQCQ4yjzZt5xkqyo-1735591507-1.0.1.1-cX8bH5EpNwECpcVxgyoNIYsnVdmkJK65sj34LY5.7ZS31NH7UH5dEnHnSjIwc9RJf.mJmhPT6Luonhmyge.Dkg;
+        path=/; expires=Mon, 30-Dec-24 21:15:07 GMT; domain=.transferwise.tech; HttpOnly;
+        Secure; SameSite=None
+      Transfer-Encoding: chunked
+      alt-svc: h3=":443"; ma=86400
+      cache-control: no-cache, no-store, max-age=0, must-revalidate
+      expires: '0'
+      pragma: no-cache
+      vary: origin,access-control-request-method,access-control-request-headers,accept-encoding
+      x-content-type-options: nosniff
+      x-envoy-attempt-count: '1'
+      x-envoy-upstream-service-time: '23'
+      x-frame-options: DENY
+      x-trace-id: 46734aa87af18d81
+      x-xss-protection: '0'
+    method: GET
+    status: 200
+    url: https://api.sandbox.transferwise.tech/v1/currencies
