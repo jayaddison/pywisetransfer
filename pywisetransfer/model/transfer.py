@@ -1,11 +1,11 @@
 """The model classes for transfers."""
 
-from enum import Enum
+from .enum import StrEnum
 from typing import Optional
 from pydantic import BaseModel
 
 
-class TransferStatus(str, Enum):
+class TransferStatus(StrEnum):
     """The transfer status
 
     See https://docs.wise.com/api-docs/guides/send-money/tracking

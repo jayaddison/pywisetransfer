@@ -4,7 +4,7 @@ from pydantic import BaseModel, Field
 
 
 CODE_REGEX = "[A-Z][A-Z][A-Z]"
-CODE = Field(
+CURRENCY = Field(
     title="code",
     description="Currency code (ISO 4217 Alphabetic Code)",
     examples=["USD", "EUR"],
@@ -25,11 +25,11 @@ class Currency(BaseModel):
         supportsDecimals: Whether this currency supports decimal values or not
     """
 
-    code: str = CODE
+    code: str = CURRENCY
     symbol: str
     name: str
     countryKeywords: list[str]
     supportsDecimals: bool
 
 
-__all__ = ["Currency", "CODE"]
+__all__ = ["Currency", "CURRENCY"]
