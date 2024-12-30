@@ -1,3 +1,3 @@
-from pywisetransfer.test.record import record
+from pywisetransfer.test.record import record, TestClient
 
-__all__ = ["record"]
+__all__ = ["record", "TestClient"]
