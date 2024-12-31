@@ -1,3 +1,4 @@
+import os
 import pytest
 import responses
 from responses import matchers
@@ -199,8 +200,11 @@ def test_sca_statement_without_private_key(statement_forbidden):
         )
 
 
+HERE = os.path.abspath(os.path.dirname(__file__))
+PRIVATE_KEY = os.path.join(HERE, "test-sca.pem")
+
 def test_sca_statement_with_private_key(statement_forbidden, statement_authorised):
-    client = Client(api_key="test-key", private_key_file="test/test-sca.pem")
+    client = Client(api_key="test-key", private_key_file=PRIVATE_KEY)
     statement = client.balance_statements.statement(
         profile_id=0,
         balance_id=231,
