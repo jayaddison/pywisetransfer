@@ -1,0 +1,29 @@
+responses:
+- response:
+    auto_calculate_content_length: false
+    body: '{"type":"about:blank","title":"Unsupported Media Type","status":415,"detail":"Content-Type
+      ''null'' is not supported.","instance":"/public/v3/quotes"}'
+    content_type: text/plain
+    headers:
+      CF-Cache-Status: DYNAMIC
+      CF-RAY: 8fa5444f2b0871a5-LHR
+      Set-Cookie: __cf_bm=J1hKIExxTXFMgvfuYC6_mUz.BILIDK4IvbpscMiXBhg-1735595650-1.0.1.1-e_AjRzmjbhg5hZaHuZimzBaSgkwIDOqrsMaczYg4ABXHtQXep9rjKvHjX1f1fm8.VJZlaqnIIONuzkQC554rfQ;
+        path=/; expires=Mon, 30-Dec-24 22:24:10 GMT; domain=.transferwise.tech; HttpOnly;
+        Secure; SameSite=None
+      Transfer-Encoding: chunked
+      accept: application/json
+      access-control-allow-origin: https://gmo-aozora.com
+      alt-svc: h3=":443"; ma=86400
+      cache-control: no-cache, no-store, max-age=0, must-revalidate
+      expires: '0'
+      pragma: no-cache
+      vary: Origin,Access-Control-Request-Method,Access-Control-Request-Headers
+      x-content-type-options: nosniff
+      x-envoy-attempt-count: '1'
+      x-envoy-upstream-service-time: '19'
+      x-frame-options: DENY
+      x-trace-id: af6eb04f42c337e6
+      x-xss-protection: '0'
+    method: POST
+    status: 415
+    url: https://api.sandbox.transferwise.tech/v0/415

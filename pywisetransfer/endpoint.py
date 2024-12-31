@@ -1,14 +1,98 @@
 from __future__ import annotations
 
 from functools import partial, update_wrapper, wraps
+import functools
 from typing import Any, Callable
 
 import apiron
-from apiron.endpoint import JsonEndpoint
+from apiron.endpoint import JsonEndpoint as ApironJsonEndpoint
+from requests import JSONDecodeError
 from requests.exceptions import HTTPError
 
 from pywisetransfer.base import Base
 from pywisetransfer.signing import sign_sca_challenge
+from pywisetransfer.model.error import WiseAPIErrorResponse
+
+class WiseAPIError(HTTPError):
+    """This is a special error for HTTPRequests that includes information from the JSON response.
+    
+    Example response:
+    
+        {
+            "type":"about:blank",
+            "title":"Unsupported Media Type",
+            "status":415,
+            "detail":"Content-Type'null' is not supported.",
+            "instance":"/public/v3/quotes"
+        }
+    
+    """
+        
+    @classmethod
+    def from_http_error(cls, http_error:HTTPError) -> WiseAPIError:
+        error = cls(*http_error.args, response=http_error.response)
+        error.with_traceback(http_error.__traceback__)
+        return error
+    
+    def __init__(self, *args, request = ..., response = ...):
+        """Create a new API Error."""
+        super().__init__(*args, request=request, response=response) 
+        self.original_message = args[0] if args else ""
+
+    def __repr__(self) -> str:
+        """The error."""
+        return f"{self.__class__.__name__} {str(self)}"
+    
+    def __str__(self) -> str:
+        """The error description."""
+        json = self.json
+        return f"{json.status} at {json.instance}: {json.title}: {json.detail}"
+
+    @property
+    def json(self) -> WiseAPIErrorResponse:
+        """The JSON response from the API."""
+        error = {
+            "type": str(self.response.status_code),
+            "title": self.response.reason,
+            "status": self.response.status_code,
+            "detail": self.original_message,
+            "instance": self.response.url,
+        }
+        try:
+            json = self.response.json()
+            for k in error:
+                if k in json:
+                    error[k] = json[k]
+            error["json"] = json
+        except JSONDecodeError:
+            pass
+        return WiseAPIErrorResponse(**error)
+    
+    @classmethod
+    def replace_HTTPError(cls, func: Callable) -> Callable:
+        """A annotation to replace HTTPError with APIError."""
+        @functools.wraps(func)
+        def wrapper(*args: Any, **kwargs: Any) -> Any:
+            try:
+                return func(*args, **kwargs)
+            except HTTPError as e:
+                raise cls.from_http_error(e)
+        return wrapper
+
+class JsonEndpoint(ApironJsonEndpoint):
+    """A JSONEndpoint with customizations for this API."""
+    
+    def __get__(self, instance, owner):
+        """Return the callable endpoint."""
+        caller = super().__get__(instance, owner)
+        return WiseAPIError.replace_HTTPError(caller)
+    
+    @property
+    def required_headers(self) -> dict[str, str]:
+        headers = super().required_headers
+        if self.default_method == "POST":
+            headers["Content-Type"] = "application/json"
+        return headers
 
 
 class JsonEndpointWithSCA(JsonEndpoint):

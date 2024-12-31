@@ -2,7 +2,8 @@
 
 See https://docs.wise.com/api-docs/api-reference/quote#object
 """
-from typing import Optional
+from __future__ import annotations
+from typing import ClassVar, Optional
 from pywisetransfer.model.profile import ProfileType
 from .enum import StrEnum
 from pydantic import BaseModel
@@ -38,7 +39,7 @@ class Fee(BaseModel):
         fixed: The selected fixed fee (in source currency) that should be used in the pricingConfiguration
     """
     
-    type: FeeType
+    type: FeeType = FeeType.OVERRIDE
     variable: float
     fixed: float
 
@@ -51,6 +52,11 @@ class PricingConfiguration(BaseModel):
     """
     
     fee: Fee
+    
+    @classmethod
+    def no_fee(cls) -> PricingConfiguration:
+      """Return a PricingConfiguration with no fee."""
+      return cls(fee=Fee(type=FeeType.OVERRIDE, variable=0.0, fixed=0.0))
 
 
 class DeliveryDelay(BaseModel):
@@ -63,7 +69,7 @@ class DeliveryDelay(BaseModel):
 class PaymentOptionFee(BaseModel):
     """The fee of a payment option of a quote."""
     
-    EXAMPLE_JSON = """{
+    EXAMPLE_JSON : ClassVar = """{
         "transferwise": 3.04,
         "payIn": 0,
         "discount": 2.27,
@@ -81,7 +87,7 @@ class PaymentOptionFee(BaseModel):
 class PaymentOptionPrice(BaseModel):
     """The price of a payment option of a quote."""
     
-    EXAMPLE_JSON = """{
+    EXAMPLE_JSON : ClassVar = """{
         "priceSetId": 238,
         "total": {
           "type": "TOTAL",
@@ -149,7 +155,7 @@ class PaymentOption(BaseModel):
     See https://docs.wise.com/api-docs/api-reference/quote
     """
 
-    EXAMPLE_JSON = """{
+    EXAMPLE_JSON : ClassVar = """{
       "disabled": false,
       "estimatedDelivery": "2019-04-08T12:30:00Z",
       "formattedEstimatedDelivery": "by Apr 8",
@@ -257,7 +263,7 @@ class QuoteStatus(StrEnum):
     
     PENDING = "PENDING"
     ACCEPTED = "ACCEPTED"
-    EXPIRED = "EXPIRED"
+    FUNDED = "FUNDED"
     EXPIRED = "EXPIRED"
 
 
@@ -273,7 +279,7 @@ class NoticeType(StrEnum):
     
 class Notice(BaseModel):
     
-    EXAMPLE_JSON = """{
+    EXAMPLE_JSON :ClassVar = """{
       "text": "You can have a maximum of 3 open transfers with a guaranteed rate. After that, they'll be transferred using the live rate. Complete or cancel your other transfers to regain the use of guaranteed rate.",
       "link": null,
       "type": "WARNING"
@@ -282,7 +288,7 @@ class Notice(BaseModel):
     link: Optional[str]
     type: NoticeType
     
-class Quote(BaseModel):
+class   QuoteResponse(BaseModel):
     """The Quote object.
     
     See https://docs.wise.com/api-docs/api-reference/quote#object
@@ -306,9 +312,35 @@ class Quote(BaseModel):
     expirationTime: Timestamp
     notices: list[Notice]
     
+class QuoteRequest(BaseModel):
+    """The data that is required to create a quote.
+    
+    https://docs.wise.com/api-docs/api-reference/quote#create-not-authenticated
+    
+    >>> quote_request = QuoteRequest(sourceCurrency="GBP", targetCurrency="USD", sourceAmount=None, targetAmount=110
+    """
+    EXAMPLE_JSON :ClassVar = """{
+            "sourceCurrency": "GBP",
+            "targetCurrency": "USD",
+            "sourceAmount": null,
+            "targetAmount": 110,
+            "pricingConfiguration": {
+              "fee": {
+                "type": "OVERRIDE",
+                "variable": 0.011,
+                "fixed": 15.42
+              }
+            }
+         }
+    """
+    sourceCurrency: str = CURRENCY
+    targetCurrency: str = CURRENCY
+    sourceAmount: Optional[int|float] = None
+    targetAmount: Optional[int|float] = None
+    pricingConfiguration: PricingConfiguration = PricingConfiguration.no_fee()
 
 __all__ = [
-    "Quote",
+    "QuoteResponse",
     "QuoteStatus",
     "Notice",
     "NoticeType",
@@ -320,5 +352,6 @@ __all__ = [
     "RateType",
     "DeliveryDelay",
     "Fee",
-    "FeeType"
+    "FeeType",
+    "QuoteRequest"
 ]
