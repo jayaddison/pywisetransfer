@@ -2,6 +2,7 @@
 
 See https://docs.wise.com/api-docs/api-reference/currencies
 """
+
 from typing import Any
 
 from apiron import JsonEndpoint
@@ -29,5 +30,6 @@ class Currency:
             List of currencies.
         """
         return [CurrencyModel(**c) for c in self.service.list()]
+
 
 __all__ = ["Currency"]

@@ -1,7 +1,7 @@
 """The model classes for transfers."""
 
 from .enum import StrEnum
-from typing import Optional
+from typing import ClassVar, Optional
 from pydantic import BaseModel
 
 
@@ -89,7 +89,9 @@ class Transfer(BaseModel):
         customerTransactionId: This is required to perform idempotency check to avoid duplicate transfers in case of network failures or timeouts.
     """
 
-    EXAMPLE_JSON = """{
+    EXAMPLE_JSON: ClassVar[
+        str
+    ] = """{
         "sourceAccount": <refund recipient account ID>,
         "targetAccount": <recipient account ID>,
         "quoteUuid": <quote ID>,

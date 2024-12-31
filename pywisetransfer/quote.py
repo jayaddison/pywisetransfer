@@ -21,7 +21,10 @@ from pywisetransfer.model.quote import QuoteResponse, QuoteRequest
 
 
 class QuoteService(Base):
-    example = JsonEndpoint(default_method="POST", path="/v3/quotes")
+    example = JsonEndpoint(
+        default_method="POST",
+        path="/v3/quotes",
+    )
 
 
 class Quote:
@@ -29,6 +32,7 @@ class Quote:
         self.service = QuoteService(client=client)
 
     def example(self, quote: QuoteRequest) -> QuoteResponse:
-        return QuoteResponse(**self.service.example(mode="json", data=quote.model_dump()))
+        return QuoteResponse(**self.service.example(json=quote.model_dump()))
+
 
 __all__ = ["Quote", "QuoteService", "QuoteRequest", "QuoteResponse"]

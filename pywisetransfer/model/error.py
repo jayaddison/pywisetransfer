@@ -16,7 +16,7 @@ class WiseAPIErrorResponse(BaseModel):
         original_json: the original JSON response
     """
 
-    EXAMPLE_JSON : ClassVar = """{
+    EXAMPLE_JSON: ClassVar = """{
             "type":"about:blank",
             "title":"Unsupported Media Type",
             "status":415,
@@ -29,5 +29,6 @@ class WiseAPIErrorResponse(BaseModel):
     detail: str
     instance: str
     original_json: Optional[dict] = None
-    
+
+
 __all__ = ["WiseAPIErrorResponse"]

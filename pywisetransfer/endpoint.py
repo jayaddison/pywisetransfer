@@ -13,11 +13,12 @@ from pywisetransfer.base import Base
 from pywisetransfer.signing import sign_sca_challenge
 from pywisetransfer.model.error import WiseAPIErrorResponse
 
+
 class WiseAPIError(HTTPError):
     """This is a special error for HTTPRequests that includes information from the JSON response.
-    
+
     Example response:
-    
+
         {
             "type":"about:blank",
             "title":"Unsupported Media Type",
@@ -25,24 +26,24 @@ class WiseAPIError(HTTPError):
             "detail":"Content-Type'null' is not supported.",
             "instance":"/public/v3/quotes"
         }
-    
+
     """
-        
+
     @classmethod
-    def from_http_error(cls, http_error:HTTPError) -> WiseAPIError:
+    def from_http_error(cls, http_error: HTTPError) -> WiseAPIError:
         error = cls(*http_error.args, response=http_error.response)
         error.with_traceback(http_error.__traceback__)
         return error
-    
-    def __init__(self, *args, request = ..., response = ...):
+
+    def __init__(self, *args, request=..., response=...):
         """Create a new API Error."""
-        super().__init__(*args, request=request, response=response) 
+        super().__init__(*args, request=request, response=response)
         self.original_message = args[0] if args else ""
 
     def __repr__(self) -> str:
         """The error."""
         return f"{self.__class__.__name__} {str(self)}"
-    
+
     def __str__(self) -> str:
         """The error description."""
         json = self.json
@@ -67,26 +68,29 @@ class WiseAPIError(HTTPError):
         except JSONDecodeError:
             pass
         return WiseAPIErrorResponse(**error)
-    
+
     @classmethod
     def replace_HTTPError(cls, func: Callable) -> Callable:
         """A annotation to replace HTTPError with APIError."""
+
         @functools.wraps(func)
         def wrapper(*args: Any, **kwargs: Any) -> Any:
             try:
                 return func(*args, **kwargs)
             except HTTPError as e:
                 raise cls.from_http_error(e)
+
         return wrapper
+
 
 class JsonEndpoint(ApironJsonEndpoint):
     """A JSONEndpoint with customizations for this API."""
-    
+
     def __get__(self, instance, owner):
         """Return the callable endpoint."""
         caller = super().__get__(instance, owner)
         return WiseAPIError.replace_HTTPError(caller)
-    
+
     @property
     def required_headers(self) -> dict[str, str]:
         headers = super().required_headers

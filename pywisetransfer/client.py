@@ -3,6 +3,7 @@
 
 """
 
+
 class Client:
     """The client class to access the Wise API."""
 
@@ -57,5 +58,6 @@ class Client:
         self.private_key_file = private_key_file
         self.private_key_data = private_key_data
         self.add_resources()
+
 
 __all__ = ["Client"]
