@@ -31,7 +31,14 @@ def test_parse_requests(model_class: Type[BaseModel]):
     print("EXPECTED JSON:", repr(json))
     print("--------------------")
     print("Expected:")
-    print('    EXAMPLE_JSON : ClassVar[str] = """' + json + '"""')
+    print(
+        '''
+    EXAMPLE_JSON: ClassVar[
+        str
+    ] = """'''
+        + json
+        + '"""'
+    )
     print()
     print("in", import_module(model_class.__module__).__file__, "->", model_class.__name__)
     assert e.EXAMPLE_JSON == json

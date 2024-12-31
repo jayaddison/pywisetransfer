@@ -33,13 +33,21 @@ class FeeType(StrEnum):
     OVERRIDE = "OVERRIDE"
 
 
-class Fee(BaseModel):
+class PricingConfigurationFee(BaseModel):
     """The fee of a PricingConfiguration.
 
     Attributes:
         type: Identifies the type of fee that will be configured. Options include only OVERRIDE
         variable: The selected variable percentage (in decimal format) that should be used in the pricingConfiguration
         fixed: The selected fixed fee (in source currency) that should be used in the pricingConfiguration
+    """
+
+    EXAMPLE_JSON = """
+    {
+        "type": "OVERRIDE",
+        "variable": 0.011,
+        "fixed": 15.42
+    }
     """
 
     type: FeeType = FeeType.OVERRIDE
@@ -54,12 +62,24 @@ class PricingConfiguration(BaseModel):
     Mirrors what was sent in the request.
     """
 
-    fee: Fee
+    EXAMPLE_JSON: ClassVar[
+        str
+    ] = """
+    {
+        "fee": {
+            "type": "OVERRIDE",
+            "variable": 0.011,
+            "fixed": 15.42
+        }
+    }
+    """
+
+    fee: PricingConfigurationFee
 
     @classmethod
     def no_fee(cls) -> PricingConfiguration:
         """Return a PricingConfiguration with no fee."""
-        return cls(fee=Fee(type=FeeType.OVERRIDE, variable=0.0, fixed=0.0))
+        return cls(fee=PricingConfigurationFee(type=FeeType.OVERRIDE, variable=0.0, fixed=0.0))
 
 
 class DeliveryDelay(BaseModel):
@@ -75,17 +95,11 @@ class PaymentOptionFee(BaseModel):
         str
     ] = """
     {
-        "sourceCurrency": "GBP",
-        "targetCurrency": "USD",
-        "sourceAmount": null,
-        "targetAmount": 110,
-        "pricingConfiguration": {
-            "fee": {
-                "type": "OVERRIDE",
-                "variable": 0.011,
-                "fixed": 15.42
-            }
-        }
+        "transferwise": 3.04,
+        "payIn": 0.0,
+        "discount": 2.27,
+        "partner": 0.0,
+        "total": 0.77
     }
     """
     transferwise: float
@@ -98,62 +112,66 @@ class PaymentOptionFee(BaseModel):
 class PaymentOptionPrice(BaseModel):
     """The price of a payment option of a quote."""
 
-    EXAMPLE_JSON: ClassVar = """{
+    EXAMPLE_JSON: ClassVar[
+        str
+    ] = """
+    {
         "priceSetId": 238,
         "total": {
-          "type": "TOTAL",
-          "label": "Total fees",
-          "value": {
-            "amount": 0.77,
-            "currency": "GBP",
-            "label:": "0.77 GBP"
-          }
+            "type": "TOTAL",
+            "label": "Total fees",
+            "value": {
+                "amount": 0.77,
+                "currency": "GBP",
+                "label:": "0.77 GBP"
+            }
         },
         "items": [
-          {
-            "type": "FEE",
-            "label": "fee",
-            "value": {
-              "amount": 0,
-              "currency": "GBP",
-              "label": "0 GBP"
-            }
-          },
-          {
-            "type": "TRANSFERWISE",
-            "label": "Our fee",
-            "value": {
-              "amount": 3.04,
-              "currency": "GBP",
-              "label": "3.04 GBP"
-            }
-          },
-          {
-            "id": 123,
-            "type": "DISCOUNT",
-            "value": {
-              "amount": -2.27,
-              "currency": "GBP",
-              "label": "2.27 GBP"
+            {
+                "type": "FEE",
+                "label": "fee",
+                "value": {
+                    "amount": 0,
+                    "currency": "GBP",
+                    "label": "0 GBP"
+                }
             },
-            "label": "Discount applied",
-            "explanation": {
-              "plainText": "You can have a discount for a number of reasons..."
+            {
+                "type": "TRANSFERWISE",
+                "label": "Our fee",
+                "value": {
+                    "amount": 3.04,
+                    "currency": "GBP",
+                    "label": "3.04 GBP"
+                }
+            },
+            {
+                "id": 123,
+                "type": "DISCOUNT",
+                "value": {
+                    "amount": -2.27,
+                    "currency": "GBP",
+                    "label": "2.27 GBP"
+                },
+                "label": "Discount applied",
+                "explanation": {
+                    "plainText": "You can have a discount for a number of reasons..."
+                }
             }
-          }
         ],
         "deferredFee": {
-          "amount": 14.79,
-          "currency": "BRL"
+            "amount": 14.79,
+            "currency": "BRL"
         },
         "calculatedOn": {
-          "unroundedAmountToConvert": {
-            "amount": 179.97342,
-            "currency": "BRL"
-          }
+            "unroundedAmountToConvert": {
+                "amount": 179.97342,
+                "currency": "BRL"
+            }
         }
-      } 
+    }
     """
+
     priceSetId: int
     total: dict  # TODO: later
     items: list  # TODO: later
@@ -167,7 +185,9 @@ class PaymentOption(BaseModel):
     See https://docs.wise.com/api-docs/api-reference/quote
     """
 
-    EXAMPLE_JSON : ClassVar[str] = """
+    EXAMPLE_JSON: ClassVar[
+        str
+    ] = """
     {
         "disabled": false,
         "estimatedDelivery": "2019-04-08T10:30:00Z",
@@ -252,7 +272,7 @@ class PaymentOption(BaseModel):
         "payInProduct": "CHEAP",
         "feePercentage": 0.0092
     }
-    """    
+    """
     disabled: bool
     estimatedDelivery: Timestamp
     formattedEstimatedDelivery: str
@@ -376,7 +396,7 @@ __all__ = [
     "ProvidedAmountType",
     "RateType",
     "DeliveryDelay",
-    "Fee",
+    "PricingConfigurationFee",
     "FeeType",
     "QuoteRequest",
 ]

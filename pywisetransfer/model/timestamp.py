@@ -9,13 +9,16 @@ from pydantic import PlainSerializer, BeforeValidator
 
 DATETIME_FORMAT = "%Y-%m-%dT%H:%M:%SZ"
 
+
 def parse_timestamp(s: str) -> datetime:
     """Parse a timestamp as Wise specifies it."""
     return datetime.strptime(s, DATETIME_FORMAT).replace(tzinfo=timezone.utc)
 
-def serialize_timestamp(dt:datetime) -> str:
+
+def serialize_timestamp(dt: datetime) -> str:
     """Serialize a timestamp as Wise uses it."""
     return dt.strftime(DATETIME_FORMAT)
+
 
 Timestamp = Annotated[
     datetime,
