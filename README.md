@@ -44,6 +44,25 @@ def handle_wise_webhook():
     ...
 ```
 
+### Request an Example Quote
+
+You can request quote examples as stated in [Create an un-authenticated quote](https://docs.wise.com/api-docs/api-reference/quote#create-not-authenticated).
+
+In this example, we want to transfer `GBP` to `USD` and make sure we have `110USD` in the end.
+
+```python
+from pywisetransfer import *
+from pywisetransfer.test import *
+client = TestClient()
+qr = QuoteRequest(
+    sourceCurrency="GBP",
+    targetCurrency="USD",
+    sourceAmount=None,
+    targetAmount=110,
+)
+example_quotes = client.quotes.example(qr)
+```
+
 ## Run tests
 
 ```bash
