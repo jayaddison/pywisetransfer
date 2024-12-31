@@ -10,6 +10,7 @@ See https://docs.wise.com/api-docs/api-reference/quote
 
 from __future__ import annotations
 
+from pprint import pprint
 from typing import Any
 
 from .endpoint import JsonEndpoint
@@ -32,7 +33,9 @@ class Quote:
         self.service = QuoteService(client=client)
 
     def example(self, quote: QuoteRequest) -> QuoteResponse:
-        return QuoteResponse(**self.service.example(json=quote.model_dump()))
+        response = self.service.example(json=quote.model_dump())
+        # pprint(response)
+        return QuoteResponse(**response)
 
 
 __all__ = ["Quote", "QuoteService", "QuoteRequest", "QuoteResponse"]

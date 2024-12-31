@@ -1,6 +1,10 @@
-"""Base class for models based on pydantic."""
+"""Base class for models based on pydantic.
 
-from typing import ClassVar, Self
+Attributes:
+    DOCUMENTED_BUT_ABSENT: Alias of Optional to mark the absence of values from the documentation.
+"""
+
+from typing import ClassVar, Optional, Self
 from pydantic import BaseModel
 
 
@@ -22,4 +26,7 @@ class BaseModel(BaseModel):
         return cls.model_validate_json(cls.EXAMPLE_JSON)
 
 
-__all__ = ["BaseModel"]
+DOCUMENTED_BUT_ABSENT = Optional
+
+
+__all__ = ["BaseModel", "DOCUMENTED_BUT_ABSENT"]

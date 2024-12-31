@@ -7,7 +7,7 @@ from __future__ import annotations
 from typing import ClassVar, Optional
 from pywisetransfer.model.profile import ProfileType
 from .enum import StrEnum
-from .base import BaseModel
+from .base import DOCUMENTED_BUT_ABSENT, BaseModel
 from .uuid import UUID
 from .currency import CURRENCY
 from .timestamp import Timestamp
@@ -175,8 +175,8 @@ class PaymentOptionPrice(BaseModel):
     priceSetId: int
     total: dict  # TODO: later
     items: list  # TODO: later
-    deferredFee: dict
-    calculatedOn: dict
+    deferredFee: Optional[dict] = None
+    calculatedOn: Optional[dict] = None
 
 
 class PaymentOption(BaseModel):
@@ -335,17 +335,17 @@ class QuoteResponse(BaseModel):
     id: str = UUID
     sourceCurrency: str = CURRENCY
     targetCurrency: str = CURRENCY
-    sourceAmount: int | float
-    targetAmount: int | float
+    sourceAmount: DOCUMENTED_BUT_ABSENT[int | float] = None
+    targetAmount: DOCUMENTED_BUT_ABSENT[int | float] = None
     payOut: str
     rate: float | int
     createdTime: str
     user: int
-    profile: int
+    profile: DOCUMENTED_BUT_ABSENT[int] = None
     rateType: RateType
     rateExpirationTime: Timestamp
     providedAmountType: ProvidedAmountType
-    pricingConfiguration: PricingConfiguration
+    pricingConfiguration: DOCUMENTED_BUT_ABSENT[PricingConfiguration] = None
     paymentOptions: list[PaymentOption]
     status: QuoteStatus
     expirationTime: Timestamp
