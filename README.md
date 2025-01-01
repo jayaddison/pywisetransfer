@@ -52,6 +52,20 @@ First of all, you create a `Client` object:
     client = pywisetransfer.Client(api_key="your-api-key-here")
     ```
 
+- Create a `Client` object which interacts with the recorded API which is used for the tests:
+
+    ```python
+    from pywisetransfer.test import TestClient
+    client = pywisetransfer.TestClient()
+    ```
+
+    After this, all calls to the real Wise API are blocked by the `responses` library.
+    To stop using the recorded API:
+
+    ```python
+    client.stop()
+    ```
+
 ## Examples
 
 This section provides a few examples of how to use this package.
