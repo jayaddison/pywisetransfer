@@ -81,7 +81,7 @@ If you create a sandbox account, you should have two profiles: `business` and `p
 >>> for profile in client.profiles.list():
 ...     print(f"id: {profile.id}")
 ...     print(f"type: {profile.type}")
-...     if profile.type == "personal":
+...     if profile.is_personal():
 ...         print(f"name: {profile.details.firstName} {profile.details.lastName}")
 ...     else:
 ...         print(f"name: {profile.details.name}")

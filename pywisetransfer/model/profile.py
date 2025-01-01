@@ -82,6 +82,10 @@ class PersonalProfileDetails(BaseModel):
     firstNameInKana: Optional[str]
     lastNameInKana: Optional[str]
     
+    @property
+    def name(self) -> str:
+        return f"{self.firstName} {self.lastName}"
+    
 class CompanyType(StrEnum):
     """The type of a company."""
     
