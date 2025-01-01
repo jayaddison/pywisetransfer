@@ -11,27 +11,31 @@ from importlib import import_module
 from pywisetransfer.model.base import BaseModel
 import pywisetransfer
 import pywisetransfer.model
+from pywisetransfer.model.enum import StrEnum
 
-MODELS_WITH_EXAMPLES = []
-MODELS = []
-ENUMS = []
+MODELS_WITH_EXAMPLES = set()
+MODELS = set()
+ENUMS = set()
 
 MODEL_DIR = Path(pywisetransfer.model.__file__).parent
 for file in MODEL_DIR.iterdir():
     if file.suffix.lower() == ".py":
         module = import_module(f"pywisetransfer.model.{file.stem}")
+        print("collecting models from", module.__name__)
         for cls in module.__dict__.values():
             if isinstance(cls, type) and issubclass(cls, BaseModel):
                 if cls.EXAMPLE_JSON != BaseModel.EXAMPLE_JSON:
-                    MODELS_WITH_EXAMPLES.append(cls)
-                MODELS.append(cls)
+                    MODELS_WITH_EXAMPLES.add(cls)
+                MODELS.add(cls)
             elif isinstance(cls, type) and issubclass(cls, Enum):
-                ENUMS.append(cls)
+                ENUMS.add(cls)
 
 ENUMS.remove(Enum)
+ENUMS.remove(StrEnum)
+MODELS.remove(BaseModel)
 
-UPDATED_MODELS_ALL = list(sorted(set([cls.__name__ for cls in MODELS + ENUMS] + pywisetransfer.model.__all__)))
-UPDATED_PACKAGE_ALL = list(sorted(set([cls.__name__ for cls in MODELS + ENUMS] + pywisetransfer.__all__)))
+UPDATED_MODELS_ALL = list(sorted(set([cls.__name__ for cls in MODELS | ENUMS] + pywisetransfer.model.__all__)))
+UPDATED_PACKAGE_ALL = list(sorted(set([cls.__name__ for cls in MODELS | ENUMS] + pywisetransfer.__all__)))
 
 
 @pytest.mark.parametrize("model_class", MODELS_WITH_EXAMPLES)
@@ -57,7 +61,7 @@ def test_parse_requests(model_class: Type[BaseModel]):
     assert e.EXAMPLE_JSON == json
 
 
-@pytest.mark.parametrize("model_class", MODELS + ENUMS)
+@pytest.mark.parametrize("model_class", MODELS | ENUMS)
 def test_model_is_in_all(model_class: type):
     """Make sure we export all the models."""
     module = import_module(model_class.__module__)
@@ -65,7 +69,7 @@ def test_model_is_in_all(model_class: type):
 
 
 @pytest.mark.parametrize("depth", ["", ".model"])
-@pytest.mark.parametrize("model_class", MODELS + ENUMS)
+@pytest.mark.parametrize("model_class", MODELS | ENUMS)
 def test_export_all(model_class: type, depth: str):
     """Make sure we find those models in the base."""
     package_root = import_module(model_class.__module__.split(".")[0] + depth)
@@ -73,3 +77,8 @@ def test_export_all(model_class: type, depth: str):
     print("__all__ =", (UPDATED_PACKAGE_ALL if depth == "" else UPDATED_MODELS_ALL))
     assert model_class.__name__ in package_root.__all__
     assert getattr(package_root, model_class.__name__) is model_class
+
+def test_is_included():
+    from pywisetransfer.model import Transfer
+    assert Transfer in MODELS
+    assert Transfer in MODELS_WITH_EXAMPLES

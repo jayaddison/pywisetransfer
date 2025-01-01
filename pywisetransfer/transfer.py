@@ -12,8 +12,6 @@ from munch import munchify
 
 from pywisetransfer import Client
 from pywisetransfer.base import Base
-from enum import Enum
-from pydantic import BaseModel
 
 
 class TransferService(Base):

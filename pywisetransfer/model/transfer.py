@@ -2,7 +2,7 @@
 
 from .enum import StrEnum
 from typing import ClassVar, Optional
-from pydantic import BaseModel
+from .base import BaseModel
 
 
 class TransferStatus(StrEnum):
@@ -23,7 +23,12 @@ class TransferStatus(StrEnum):
     funds_refunded = "funds_refunded"
     bounced_back = "bounced_back"
     charged_back = "charged_back"
-    unknown = "unknown"
+    unknown = "unknown"\
+        
+    @property
+    def description(self) -> str:
+        """The description of the transfer status."""
+        return TransferStatusDescription[self]
 
 
 TransferStatusDescription = {
@@ -91,15 +96,16 @@ class Transfer(BaseModel):
 
     EXAMPLE_JSON: ClassVar[
         str
-    ] = """{
-        "sourceAccount": <refund recipient account ID>,
-        "targetAccount": <recipient account ID>,
-        "quoteUuid": <quote ID>,
-        "customerTransactionId": "<the unique identifier you generated for the transfer attempt>",
-        "details" : {
-            "reference" : "to my friend",
+    ] = """
+    {
+        "sourceAccount": 100000,
+        "targetAccount": 100001,
+        "quoteUuid": "00000000-0000-0000-0000-000000000000",
+        "customerTransactionId": "11111111-1111-1111-1111-111111111111",
+        "details": {
+            "reference": "to my friend",
             "transferPurpose": "verification.transfers.purpose.pay.bills",
-            "transferPurposeSubTransferPurpose": "verification.sub.transfers.purpose.pay.interpretation.service"
+            "transferPurposeSubTransferPurpose": "verification.sub.transfers.purpose.pay.interpretation.service",
             "sourceOfFunds": "verification.source.of.funds.other"
         }
     }
