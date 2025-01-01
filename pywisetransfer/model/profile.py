@@ -71,6 +71,7 @@ class PersonalProfileDetails(BaseModel):
     }
     """
 
+    type: ClassVar[str] = profile_type.personal
     firstName: str
     lastName: str
     dateOfBirth: date
@@ -150,6 +151,7 @@ class BusinessProfileDetails(BaseModel):
             See https://docs.wise.com/api-docs/api-reference/profile
     """
     
+    type: ClassVar[str] = profile_type.business
     name: str
     registrationNumber: str
     acn: Optional[str]
