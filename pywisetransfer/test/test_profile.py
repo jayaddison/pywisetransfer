@@ -1,3 +1,4 @@
+from datetime import date
 import pytest
 import responses
 
@@ -37,7 +38,7 @@ def profile_list_response():
                 "descriptionOfBusiness": "CHARITY_AND_NOT_FOR_PROFIT",
                 "webpage": "https://abc-logistics.com",
                 "primaryAddress": None,
-                "businessCategory": "CHARITY_AND_NOT_FOR_PROFIT",
+                "businessCategory": "CHARITY_NON_PROFIT",
                 "businessSubCategory": "CHARITY_ALL_ACTIVITIES",
             },
         },
@@ -70,3 +71,8 @@ def test_profile_list_type_filtered(profile_list_response):
     results = list(endpoint.list(type="business"))
 
     assert len(results) == 1
+
+
+def test_model_has_correct_date():
+    from pywisetransfer.model.profile import PersonalProfileDetails
+    assert PersonalProfileDetails.example().dateOfBirth == date(1977,7, 1)

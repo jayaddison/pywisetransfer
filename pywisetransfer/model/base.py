@@ -27,6 +27,6 @@ class BaseModel(BaseModel):
 
 
 DOCUMENTED_BUT_ABSENT = Optional
+DEPRECATED = Optional
 
-
-__all__ = ["BaseModel", "DOCUMENTED_BUT_ABSENT"]
+__all__ = ["BaseModel", "DOCUMENTED_BUT_ABSENT", "DEPRECATED"]

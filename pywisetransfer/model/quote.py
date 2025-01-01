@@ -5,7 +5,7 @@ See https://docs.wise.com/api-docs/api-reference/quote#object
 
 from __future__ import annotations
 from typing import ClassVar, Optional
-from pywisetransfer.model.profile import ProfileType
+from pywisetransfer.model.profile import PROFILE_TYPE
 from .enum import StrEnum
 from .base import DOCUMENTED_BUT_ABSENT, BaseModel
 from .uuid import UUID
@@ -285,7 +285,7 @@ class PaymentOption(BaseModel):
     targetCurrency: str = CURRENCY
     payIn: str
     payOut: str
-    allowedProfileTypes: list[ProfileType]
+    allowedProfileTypes: list[PROFILE_TYPE]
     payInProduct: str
     feePercentage: float
 

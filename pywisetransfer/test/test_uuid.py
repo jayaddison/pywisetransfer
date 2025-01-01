@@ -1,15 +1,11 @@
 """Test the UUID functionality."""
 
-import re
 from pydantic import BaseModel, ValidationError
 import pytest
-from pywisetransfer.model.uuid import new_uuid, UUID, UUID_REGEX
+from pywisetransfer.model.uuid import new_uuid, UUID
 
-
-def test_uuid_matches():
-    """Check that the UUID matches the regex."""
-    uuid = new_uuid()
-    assert re.match(UUID_REGEX, uuid)
+class M(BaseModel):
+    uuid: UUID
 
 
 def test_uuid_differs():
@@ -19,16 +15,21 @@ def test_uuid_differs():
 
 def test_uuid_is_str():
     """Check we have a string."""
-    assert isinstance(new_uuid(), str)
+    assert isinstance(new_uuid(), UUID)
 
 
-def test_model_vaidation():
+def test_model_validation():
     """Check that the model validation works."""
-
-    class M(BaseModel):
-        uuid: str = UUID
-
     m = M(uuid=new_uuid())
-    assert isinstance(m.uuid, str)
+    assert isinstance(m.uuid, UUID)
+    m.model_validate(m)
+
+
+def test_model_validation_str():
+    """Check that the model validation works."""
+    m = M(uuid=str(new_uuid()))
+    m.model_validate(m)
+
+def test_invalid_uuid():
     with pytest.raises(ValidationError):
         M(uuid="not a uuid")

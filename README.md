@@ -190,6 +190,17 @@ qr = QuoteRequest(
 example_quotes = client.quotes.example(qr)
 ```
 
+### Create a Recipient of a Transfer
+
+### Request a Quote
+
+To create a transfer, you first need a quote.
+You can read on how to create [Create an authenticated quote](https://docs.wise.com/api-docs/api-reference/quote#create-authenticated).
+
+```python
+
+```
+
 ## Run tests
 
 ```bash
