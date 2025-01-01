@@ -81,10 +81,7 @@ If you create a sandbox account, you should have two profiles: `business` and `p
 >>> for profile in client.profiles.list():
 ...     print(f"id: {profile.id}")
 ...     print(f"type: {profile.type}")
-...     if profile.is_personal():
-...         print(f"name: {profile.details.firstName} {profile.details.lastName}")
-...     else:
-...         print(f"name: {profile.details.name}")
+...     print(f"name: {profile.details.name}")
 ...     print()
 ... 
 id: 28577318
@@ -152,6 +149,21 @@ This code retrieves the balance for each currency in each account.
 type: personal 1000000.0GBP, 1000000.0EUR, 1000000.0USD, 1000000.0AUD
 type: business 1000000.0GBP, 1000000.0EUR, 1000000.0USD, 1000000.0AUD
 
+```
+
+### Currencies
+
+Wise supports many [currencies](https://docs.wise.com/api-docs/api-reference/currencies).
+
+```python
+>>> currencies = client.currencies.list()
+>>> AED = currencies[0]
+>>> AED.code
+'AED'
+>>> AED.name
+'United Arab Emirates dirham'
+>>> AED.symbol
+'د.إ'
 ```
 
 ### Webhook signature verification
