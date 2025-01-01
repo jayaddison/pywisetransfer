@@ -32,6 +32,7 @@ class QuoteService(Base):
     )
     patch = JsonEndpoint(
         default_method="PATCH",
+        # TODO: set content type
         path="/v3/profiles/{profile_id}/quotes/{quote_id}",
     )
     get = JsonEndpoint(
