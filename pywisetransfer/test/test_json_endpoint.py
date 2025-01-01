@@ -4,7 +4,7 @@ import pytest
 from pywisetransfer import Client
 from pywisetransfer.base import Base
 from pywisetransfer.endpoint import JsonEndpoint, WiseAPIError
-from pywisetransfer.model.quote import QuoteResponse, QuoteRequest
+from pywisetransfer.model.quote import QuoteResponse, ExampleQuoteRequest
 
 
 class MyService(Base):

@@ -40,7 +40,7 @@ TransferStatusDescription = {
 }
 
 
-class Details(BaseModel):
+class TransferDetails(BaseModel):
     """The details of a transfer.
 
     See https://docs.wise.com/api-docs/api-reference/transfer#create
@@ -109,7 +109,7 @@ class Transfer(BaseModel):
     targetAccount: int
     quoteUuid: str
     customerTransactionId: str
-    details: Details
+    details: TransferDetails
 
 
-__all__ = ["Transfer", "Details", "TransferStatus", "TransferStatusDescription"]
+__all__ = ["Transfer", "TransferDetails", "TransferStatus", "TransferStatusDescription"]

@@ -1,6 +1,6 @@
 """Tests for the quotes."""
 
-from pywisetransfer.model.quote import QuoteRequest, QuoteResponse
+from pywisetransfer.model.quote import ExampleQuoteRequest, QuoteResponse
 
 
 EXAMPLE_RESPONSE = {
@@ -749,6 +749,7 @@ EXAMPLE_RESPONSE = {
     "user": 12970746,
 }
 
+
 def test_parse_example():
     """Test the example response is without errors."""
     qr = QuoteResponse(**EXAMPLE_RESPONSE)
@@ -757,6 +758,8 @@ def test_parse_example():
 
 def test_request_a_quote(sandbox):
     """We request a quote from the API."""
-    q = QuoteRequest(sourceCurrency="GBP", targetCurrency="USD", sourceAmount=None, targetAmount=110)
+    q = ExampleQuoteRequest(
+        sourceCurrency="GBP", targetCurrency="USD", sourceAmount=None, targetAmount=110
+    )
     a = sandbox.quotes.example(q)
     assert QuoteResponse(**EXAMPLE_RESPONSE) == a

@@ -18,7 +18,7 @@ from munch import munchify
 
 from pywisetransfer import Client
 from pywisetransfer.base import Base
-from pywisetransfer.model.quote import QuoteResponse, QuoteRequest
+from pywisetransfer.model.quote import QuoteRequest, QuoteResponse, ExampleQuoteRequest, QuoteUpdate
 
 
 class QuoteService(Base):
@@ -26,16 +26,71 @@ class QuoteService(Base):
         default_method="POST",
         path="/v3/quotes",
     )
+    create = JsonEndpoint(
+        default_method="POST",
+        path="/v3/profiles/{profile_id}/quotes",
+    )
+    patch = JsonEndpoint(
+        default_method="PATCH",
+        path="/v3/profiles/{profile_id}/quotes/{quote_id}",
+    )
+    get = JsonEndpoint(
+        default_method="GET",
+        path="/v3/profiles/{profile_id}/quotes/{quote_id}",
+    )
 
 
 class Quote:
     def __init__(self, client: Client):
         self.service = QuoteService(client=client)
 
-    def example(self, quote: QuoteRequest) -> QuoteResponse:
+    def example(self, quote: ExampleQuoteRequest) -> QuoteResponse:
+        """Create an un-authenticated quote.
+
+        This quote cannot be used to create a transfer.
+
+        Use this endpoint to get example quotes for people to see the exchange
+        rate and fees Wise offers before a user has created or linked an account.
+        This can drive a version of the quote screen that shows the user what Wise
+        offers before they sign up. Note that this endpoint does not require a
+        token to create the resource, however, since it is just an example,
+        the returned quote has no ID so can't be used later to create a transfer.
+
+        See https://docs.wise.com/api-docs/api-reference/quote#create-not-authenticated
+        """
         response = self.service.example(json=quote.model_dump())
         # pprint(response)
         return QuoteResponse(**response)
 
+    def create(self, quote: QuoteRequest, profile: int) -> QuoteResponse:
+        """Create an authenticated quote.
 
-__all__ = ["Quote", "QuoteService", "QuoteRequest", "QuoteResponse"]
+        This quote can be used to create a transfer.
+
+        https://docs.wise.com/api-docs/api-reference/quote#create-authenticated
+        """
+        response = self.service.example(json=quote.model_dump(), profile_id=profile)
+        return QuoteResponse(**response)
+
+    def update(self, quote_update: QuoteUpdate, profile: int, quote: int) -> QuoteResponse:
+        """Update a quote.
+
+        See https://docs.wise.com/api-docs/api-reference/quote#update
+        """
+        response = self.service.example(
+            json=quote_update.model_dump(), profile_id=profile, quote_id=quote
+        )
+        return QuoteResponse(**response)
+
+    def get(self, quote: int):
+        """Get an existing quote.
+
+        Get quote info by ID. If the quote has expired (not used to create a transfer
+        within 30 minutes of quote creation), it will only be accessible for
+        approximately 48 hours via this endpoint.
+        """
+        response = self.service.get(quote_id=quote)
+        return QuoteResponse(**response)
+
+
+__all__ = ["Quote", "QuoteService", "ExampleQuoteRequest", "QuoteResponse"]

@@ -26,3 +26,6 @@ class Profile:
 
     def get(self, profile_id: str) -> Any:
         return munchify(self.service.get(profile_id=profile_id))
+
+
+__all__ = ["Profile"]
