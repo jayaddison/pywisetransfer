@@ -156,7 +156,7 @@ type: business 1000000.0GBP, 1000000.0EUR, 1000000.0USD, 1000000.0AUD
 Wise supports many [currencies](https://docs.wise.com/api-docs/api-reference/currencies).
 
 ```python
->>> currencies = client.currencies.list()code
+>>> currencies = client.currencies.list()
 >>> AED = currencies[0]
 >>> AED.code
 'AED'
@@ -164,6 +164,29 @@ Wise supports many [currencies](https://docs.wise.com/api-docs/api-reference/cur
 'United Arab Emirates dirham'
 >>> AED.symbol
 'د.إ'
+
+```
+
+Above are the up-to-date currencies.
+You can also use those in the package.
+
+```python
+>>> from pywisetransfer import Currency
+>>> Currency.AED.code
+'AED'
+>>> Currency.AED.name
+'United Arab Emirates dirham'
+>>> Currency.AED.symbol
+'د.إ'
+
+```
+
+### Recipient Account Requirements
+
+In this example, we get the requirements for a recipient account that should receive 100 GBP from us.
+
+```python
+requirements = client.recipient_accounts.get_requirements_for_currency(source=Currency.GBP, target=Currency.GBP, source_amount=100)
 ```
 
 ### Webhook signature verification
