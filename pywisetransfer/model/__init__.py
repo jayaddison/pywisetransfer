@@ -8,15 +8,19 @@ from .quote import *
 from .timestamp import *
 from .transfer import *
 from .uuid import *
+from .account import *
 
 __all__ = [
+    "AllowedValue",
     "BusinessCategory",
     "BusinessProfileDetails",
     "CURRENCY",
+    "CommonFieldMap",
     "CompanyRole",
     "CompanyType",
     "DATETIME_FORMAT",
     "DeliveryDelay",
+    "DisplayField",
     "ExampleQuoteRequest",
     "FeeType",
     "Notice",
@@ -39,6 +43,14 @@ __all__ = [
     "QuoteStatus",
     "QuoteUpdate",
     "RateType",
+    "RecipientAccountDetails",
+    "RecipientAccountRequest",
+    "RecipientAccountRequestDetails",
+    "RecipientAccountRequirement",
+    "RecipientAccountResponse",
+    "RecipientName",
+    "RequiredField",
+    "RequiredFieldType",
     "Timestamp",
     "Transfer",
     "TransferDetails",
@@ -48,4 +60,5 @@ __all__ = [
     "parse_timestamp",
     "profile_type",
     "serialize_timestamp",
+    "LegalType"
 ]

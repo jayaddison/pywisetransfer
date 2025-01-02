@@ -85,11 +85,15 @@ class WiseAPIError(HTTPError):
 
 class JsonEndpoint(ApironJsonEndpoint):
     """A JSONEndpoint with customizations for this API."""
-    
-    def __init__(self, *args: Any, additional_headers:Optional[dict[str, str]]=None, **kwargs: Any):
+
+    def __init__(
+        self, *args: Any, additional_headers: Optional[dict[str, str]] = None, **kwargs: Any
+    ):
         """Create a new endpoint."""
         super().__init__(*args, **kwargs)
-        self.additional_headers = additional_headers.copy() if additional_headers is not None else {}
+        self.additional_headers = (
+            additional_headers.copy() if additional_headers is not None else {}
+        )
 
     def __get__(self, instance, owner):
         """Return the callable endpoint."""

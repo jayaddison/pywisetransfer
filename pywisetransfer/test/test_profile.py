@@ -76,11 +76,11 @@ def test_profile_list_type_filtered(profile_list_response):
 def test_model_has_correct_date():
     from pywisetransfer.model.profile import PersonalProfileDetails
 
-    assert PersonalProfileDetails.example().dateOfBirth == date(1977, 7, 1)
+    assert PersonalProfileDetails.model_example().dateOfBirth == date(1977, 7, 1)
 
 
 def test_personal_profile_has_a_name():
     from pywisetransfer.model.profile import PersonalProfileDetails
 
-    e = PersonalProfileDetails.example()
+    e = PersonalProfileDetails.model_example()
     assert e.name == e.firstName + " " + e.lastName

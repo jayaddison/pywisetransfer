@@ -31,16 +31,15 @@ class RecipientName(BaseModel):
     EXAMPLE_JSON: ClassVar[
         str
     ] = """
-    
-    "fullName": "John Doe",
-    "givenName": null,
-    "familyName": null,
-    "middleName": null,
-    "patronymicName": null,
-    "cannotHavePatronymicName": null
-  }
+    {
+        "fullName": "John Doe",
+        "givenName": null,
+        "familyName": null,
+        "middleName": null,
+        "patronymicName": null,
+        "cannotHavePatronymicName": null
+    }
     """
-
     fullName: str
     givenName: Optional[str]
     familyName: Optional[str]
@@ -62,12 +61,13 @@ class RecipientAccountDetails(BaseModel):
     EXAMPLE_JSON: ClassVar[
         str
     ] = """
-{
-    "reference": null,
-    "accountNumber": "37778842",
-    "sortCode": "040075",
-    "hashedByLooseHashAlgorithm": "ad245621b974efa3ef870895c3wer419a3f01af18a8a5790b47645dba6304194"
-  }"""
+    {
+        "reference": null,
+        "accountNumber": "37778842",
+        "sortCode": "040075",
+        "hashedByLooseHashAlgorithm": "ad245621b974efa3ef870895c3wer419a3f01af18a8a5790b47645dba6304194"
+    }
+    """
 
     reference: Optional[str] = None
     accountNumber: Optional[str] = None
@@ -85,12 +85,11 @@ class CommonFieldMap(BaseModel):
     EXAMPLE_JSON: ClassVar[
         str
     ] = """
-{
-     "accountNumberField": "accountNumber",
-    "bankCodeField": "sortCode"
-  }
+    {
+        "accountNumberField": "accountNumber",
+        "bankCodeField": "sortCode"
+    }
     """
-
     accountNumberField: Optional[str] = None
     bankCodeField: Optional[str] = None
 
@@ -101,10 +100,12 @@ class DisplayField(BaseModel):
     EXAMPLE_JSON: ClassVar[
         str
     ] = """
-          "key": "details/sortCode",
-      "label": "UK sort code",
-      "value": "04-00-75"
-    }"""
+    {
+        "key": "details/sortCode",
+        "label": "UK sort code",
+        "value": "04-00-75"
+    }
+    """
 
     key: str
     label: str
@@ -153,53 +154,53 @@ class RecipientAccountResponse(BaseModel):
     EXAMPLE_JSON: ClassVar[
         str
     ] = """
-{
-  "id": 40000000,
-  "creatorId": 41000000,
-  "profileId": 30000000,
-  "name": {
-    "fullName": "John Doe",
-    "givenName": null,
-    "familyName": null,
-    "middleName": null,
-    "patronymicName": null,
-    "cannotHavePatronymicName": null
-  },
-  "currency": "GBP",
-  "country": "GB",
-  "type": "SortCode",
-  "legalEntityType": "PERSON",
-  "active": true,
-  "details": {
-    "reference": null,
-    "accountNumber": "37778842",
-    "sortCode": "040075",
-    "hashedByLooseHashAlgorithm": "ad245621b974efa3ef870895c3wer419a3f01af18a8a5790b47645dba6304194"
-  },
-  "commonFieldMap": {
-    "accountNumberField": "accountNumber",
-    "bankCodeField": "sortCode"
-  },
-  "hash": "666ef880f8aa6113fa112ba6531d3ed2c26dd9fgbd7de5136bfb827a6e800479",
-  "accountSummary": "(04-00-75) 37778842",
-  "longAccountSummary": "GBP account ending in 8842",
-  "displayFields": [
     {
-      "key": "details/sortCode",
-      "label": "UK sort code",
-      "value": "04-00-75"
-    },
-    {
-      "key": "details/accountNumber",
-      "label": "Account number",
-      "value": "37778842"
+        "id": 40000000,
+        "creatorId": 41000000,
+        "profileId": 30000000,
+        "name": {
+            "fullName": "John Doe",
+            "givenName": null,
+            "familyName": null,
+            "middleName": null,
+            "patronymicName": null,
+            "cannotHavePatronymicName": null
+        },
+        "currency": "GBP",
+        "country": "GB",
+        "type": "SortCode",
+        "legalEntityType": "PERSON",
+        "active": true,
+        "commonFieldMap": {
+            "accountNumberField": "accountNumber",
+            "bankCodeField": "sortCode"
+        },
+        "hash": "666ef880f8aa6113fa112ba6531d3ed2c26dd9fgbd7de5136bfb827a6e800479",
+        "accountSummary": "(04-00-75) 37778842",
+        "longAccountSummary": "GBP account ending in 8842",
+        "displayFields": [
+            {
+                "key": "details/sortCode",
+                "label": "UK sort code",
+                "value": "04-00-75"
+            },
+            {
+                "key": "details/accountNumber",
+                "label": "Account number",
+                "value": "37778842"
+            }
+        ],
+        "isInternal": false,
+        "ownedByCustomer": false
     }
-  ],
-  "isInternal": false,
-  "ownedByCustomer": false
-}
     """
     id: int
+
+
+class LegalType(StrEnum):
+    """The legal type of a recipient account."""
+    PRIVATE = "PRIVATE"
+    BUSINESS = "BUSINESS"
 
 
 class RecipientAccountRequestDetails(BaseModel):
@@ -216,19 +217,19 @@ class RecipientAccountRequestDetails(BaseModel):
         str
     ] = """
     {
-      "legalType": "PRIVATE",
-      "sortCode": "040075",
-      "accountNumber": "37778842",
-      "dateOfBirth": "1961-01-01"
+        "legalType": "PRIVATE",
+        "sortCode": "040075",
+        "accountNumber": "37778842",
+        "dateOfBirth": "1961-01-01"
     }
     """
-    legalType: PROFILE_TYPE
+    legalType: LegalType
     sortCode: Optional[str] = None
     accountNumber: Optional[str] = None
     dateOfBirth: Optional[date] = None
 
 
-ACCOUNT_HOLDER_NAME_REGEX = "[0-9A-Za-zÀ-ÖØ-öø-ÿ-_()'*,.\s]+"
+ACCOUNT_HOLDER_NAME_REGEX = r"[0-9A-Za-zÀ-ÖØ-öø-ÿ-_()'*,.\s]+"
 
 
 class RecipientAccountRequest(BaseModel):
@@ -250,30 +251,31 @@ class RecipientAccountRequest(BaseModel):
         str
     ] = """
     {
-          "currency": "GBP",
-          "type": "sort_code",
-          "profile": 30000000,
-          "ownedByCustomer": true,
-          "accountHolderName": "John Doe",
-           "details": {
-              "legalType": "PRIVATE",
-              "sortCode": "040075",
-              "accountNumber": "37778842",
-              "dateOfBirth": "1961-01-01"
-           }
-         }
-         """
+        "currency": "GBP",
+        "type": "sort_code",
+        "profile": 30000000,
+        "ownedByCustomer": true,
+        "accountHolderName": "John Doe",
+        "details": {
+            "legalType": "PRIVATE",
+            "sortCode": "040075",
+            "accountNumber": "37778842",
+            "dateOfBirth": "1961-01-01"
+        }
+    }
+    """
 
     currency: str = CURRENCY
     type: str
     profile: int
     ownedByCustomer: bool
     accountHolderName: str = Field(pattern=ACCOUNT_HOLDER_NAME_REGEX)
-    details: RecipientAccountDetails
+    details: RecipientAccountRequestDetails
+
 
 class RequiredFieldType(StrEnum):
     """Type of a recipient account requirement."""
-    
+
     text = "text"
     select = "select"
     date = "date"
@@ -282,15 +284,15 @@ class RequiredFieldType(StrEnum):
 
 class AllowedValue(BaseModel):
     """Allowed value for a recipient account requirement.
-    
+
     Attributes:
         key: JSON key
         name: Display name
     """
-    
+
     key: str
     name: str
-    
+
     def is_valid(self):
         """Whether you can use this key."""
         return self.key != ""
@@ -298,7 +300,7 @@ class AllowedValue(BaseModel):
 
 class RequiredField(BaseModel):
     """A single requirement to a recipient account.
-    
+
     Attributes:
         name: Field description
         key: Key is name of the field you should include in the JSON
@@ -313,81 +315,87 @@ class RequiredField(BaseModel):
         validationAsync: Validator URL and parameter name you should use when submitting the value for validation
         valuesAllowed: List of allowed values.
     """
-    
+
     key: str
     name: str
     type: RequiredFieldType
     refreshRequirementsOnChange: bool
     required: bool
-    displayFormat:Optional[str]
+    displayFormat: Optional[str]
     example: str
     minLength: Optional[int]
     maxLength: Optional[int]
     validationRegexp: Optional[str]
     validationAsync: Optional[str]
     valuesAllowed: Optional[list[AllowedValue]]
-    
 
-    
-    EXAMPLE_JSON: ClassVar[
-        str
-    ] = """
-              {
-              "key": "address.country",
-              "name": "Country",
-              "type": "select",
-              "refreshRequirementsOnChange": true,
-              "required": true,
-              "displayFormat": null,
-              "example": "Choose a country",
-              "minLength": null,
-              "maxLength": null,
-              "validationRegexp": null,
-              "validationAsync": null,
-              "valuesAllowed": [
-                  {
-                      key: "GB",
-                      name: "United Kingdom"
-                  }
-              ]
-          }
-          """
-    
-    
-
-class RecipientAccountRequirement(BaseModel):
-    """Requirements for a recipient account."""
-    
     EXAMPLE_JSON: ClassVar[
         str
     ] = """
     {
-      "name": "City",
-      "group": [
-          {
-              "key": "address.city",
-              "name": "City",
-              "type": "text",
-              "refreshRequirementsOnChange": false,
-              "required": true,
-              "displayFormat": null,
-              "example": "",
-              "minLength": 1,
-              "maxLength": 255,
-              "validationRegexp": "^.{1,255}$",
-              "validationAsync": null,
-              "valuesAllowed": null
-          }
-      ]
-  }"""
-  
+        "key": "address.country",
+        "name": "Country",
+        "type": "select",
+        "refreshRequirementsOnChange": true,
+        "required": true,
+        "displayFormat": null,
+        "example": "Choose a country",
+        "minLength": null,
+        "maxLength": null,
+        "validationRegexp": null,
+        "validationAsync": null,
+        "valuesAllowed": [
+            {
+                "key": "GB",
+                "name": "United Kingdom"
+            }
+        ]
+    }
+    """
+
+
+class RecipientAccountRequirement(BaseModel):
+    """Requirements for a recipient account."""
+
+    EXAMPLE_JSON: ClassVar[
+        str
+    ] = """
+    {
+        "name": "City",
+        "group": [
+            {
+                "key": "address.city",
+                "name": "City",
+                "type": "text",
+                "refreshRequirementsOnChange": false,
+                "required": true,
+                "displayFormat": null,
+                "example": "",
+                "minLength": 1,
+                "maxLength": 255,
+                "validationRegexp": "^.{1,255}$",
+                "validationAsync": null,
+                "valuesAllowed": null
+            }
+        ]
+    }
+    """
+
     name: str
     group: list[RequiredField]
 
+
 __all__ = [
     "RecipientAccountResponse",
+    "RecipientAccountRequest",
+    "RecipientAccountRequestDetails",
     "RecipientAccountDetails",
     "RecipientName",
     "CommonFieldMap",
     "DisplayField",
+    "RecipientAccountRequirement",
+    "RequiredField",
+    "RequiredFieldType",
+    "AllowedValue",
+    "LegalType",
 ]

@@ -4,12 +4,15 @@ from .model import *
 
 
 __all__ = [
+    "AllowedValue",
     "BusinessCategory",
     "BusinessProfileDetails",
     "Client",
+    "CommonFieldMap",
     "CompanyRole",
     "CompanyType",
     "DeliveryDelay",
+    "DisplayField",
     "ExampleQuoteRequest",
     "FeeType",
     "Notice",
@@ -32,8 +35,17 @@ __all__ = [
     "QuoteStatus",
     "QuoteUpdate",
     "RateType",
+    "RecipientAccountDetails",
+    "RecipientAccountRequest",
+    "RecipientAccountRequestDetails",
+    "RecipientAccountRequirement",
+    "RecipientAccountResponse",
+    "RecipientName",
+    "RequiredField",
+    "RequiredFieldType",
     "Transfer",
     "TransferDetails",
     "TransferStatus",
     "profile_type",
+    "LegalType"
 ]

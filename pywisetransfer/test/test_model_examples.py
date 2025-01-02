@@ -46,7 +46,7 @@ UPDATED_PACKAGE_ALL = list(
 def test_parse_requests(model_class: Type[BaseModel]):
     """Check that the example can be parsed."""
     print("checking", import_module(model_class.__module__).__file__, "->", model_class.__name__)
-    e = model_class.example()
+    e = model_class.model_example()
     json: str = "\n    " + "\n    ".join(e.model_dump_json(indent=4).splitlines()) + "\n    "
     print("EXAMPLE_JSON: ", repr(e.EXAMPLE_JSON))
     print("EXPECTED JSON:", repr(json))

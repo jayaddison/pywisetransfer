@@ -12,20 +12,29 @@ from typing import Optional
 from pywisetransfer.base import Base
 from pywisetransfer.client import Client
 from pywisetransfer.endpoint import JsonEndpoint
-from pywisetransfer.model.account import RecipientAccountRequest, RecipientAccountResponse, RecipientAccountRequirement
+from pywisetransfer.model.account import (
+    RecipientAccountRequest,
+    RecipientAccountResponse,
+    RecipientAccountRequirement,
+)
 from pywisetransfer.model.enum import StrEnum
 
 
-ACCEPT_MINOR_VERSION_1 = {
-    "Accept-Minor-Version": "1"
-}
+ACCEPT_MINOR_VERSION_1 = {"Accept-Minor-Version": "1"}
+
 
 class RecipientAccountService(Base):
     list = JsonEndpoint(path="/v2/accounts")  # ?profileId={{profileId}}&currency={{currency}}
     create_recipient = JsonEndpoint(default_method="POST", path="/v1/accounts")
     get = JsonEndpoint(path="/v2/accounts/{account_id}")
-    get_quote_requirements = JsonEndpoint(path="/v1/quotes/{quote_id}/account-requirements", additional_headers=ACCEPT_MINOR_VERSION_1)
-    get_requirements = JsonEndpoint(path="/v1/account-requirements", required_params=["source","target","sourceAmount"], additional_headers=ACCEPT_MINOR_VERSION_1)
+    get_quote_requirements = JsonEndpoint(
+        path="/v1/quotes/{quote_id}/account-requirements", additional_headers=ACCEPT_MINOR_VERSION_1
+    )
+    get_requirements = JsonEndpoint(
+        path="/v1/account-requirements",
+        required_params=["source", "target", "sourceAmount"],
+        additional_headers=ACCEPT_MINOR_VERSION_1,
+    )
 
 
 class SortRecipientAccounts(StrEnum):
@@ -87,9 +96,7 @@ class RecipientAccount:
             active=active,
         )
         response = self.service.list(params=params)
-        return [
-            RecipientAccountResponse(**account) for account in response
-        ]
+        return [RecipientAccountResponse(**account) for account in response]
 
     def create_recipient(
         self, recipient_account: RecipientAccountRequest
@@ -99,22 +106,26 @@ class RecipientAccount:
     def get(self, account_id: int) -> RecipientAccountResponse:
         return RecipientAccountResponse(**self.service.get(account_id=account_id))
 
-    def get_requirements_for_quote(self, quote: int)->list[RecipientAccountRequirement]:
+    def get_requirements_for_quote(self, quote: int) -> list[RecipientAccountRequirement]:
         """Get the requirements for a recipient account.
-        
+
         Args:
             quote: The quote id
         """
-        return [RecipientAccountRequirement(**requirement) for requirement in   self.service.get_quote_requirements(quote_id=quote)]
-    
-    def get_requirements_for_currency(self,
-                         source:str,
-                         target:str,
-                         source_amount=float|int,
-                         ) -> list[RecipientAccountRequirement]:
+        return [
+            RecipientAccountRequirement(**requirement)
+            for requirement in self.service.get_quote_requirements(quote_id=quote)
+        ]
+
+    def get_requirements_for_currency(
+        self,
+        source: str,
+        target: str,
+        source_amount=float | int,
+    ) -> list[RecipientAccountRequirement]:
         params = self.service.get_params_for_endpoint(
             source=source,
-            target=target,            
+            target=target,
             source_amount=source_amount,
         )
         """Get the requirements for a recipient account.
@@ -125,6 +136,10 @@ class RecipientAccount:
             target: The target currency (3 letters)
             source_amount: The source amount
         """
-        return [RecipientAccountRequirement(**requirement) for requirement in  self.service.get_requirements(params=params)]
+        return [
+            RecipientAccountRequirement(**requirement)
+            for requirement in self.service.get_requirements(params=params)
+        ]
+
 
 __all__ = ["RecipientAccount", "SortRecipientAccounts"]

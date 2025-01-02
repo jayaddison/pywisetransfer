@@ -18,7 +18,7 @@ class BaseModel(BaseModel):
     EXAMPLE_JSON: ClassVar[str] = "{}"
 
     @classmethod
-    def example(cls) -> Self:
+    def model_example(cls) -> Self:
         """Return an example of this model.
 
         If no example is set, this might well raise a ValidationError.

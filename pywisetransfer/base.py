@@ -30,8 +30,31 @@ class Base(Service):
             return {"Authorization": f"Bearer {self.client.api_key}"}
         return {}
 
-    @staticmethod
-    def get_params_for_endpoint(**kw) -> dict[str, str]:
+    @classmethod
+    def param_value_to_str(cls, value: Any) -> str:
+        """Turn a paramater value into a string.
+
+        >>> Base.param_value_to_str("test")
+        'test'
+        >>> Base.param_value_to_str(1)
+        '1'
+        >>> Base.param_value_to_str(True)
+        'true'
+        >>> Base.param_value_to_str(False)
+        'false'
+        """
+        if isinstance(value, bool):
+             return "true" if value else "false"
+        if isinstance(value, (str, int, float)):
+            return str(value)
+        if isinstance(value, list):
+            return ",".join(cls.param_value_to_str(v) for v in value)
+        if hasattr(value, "id"):
+            return cls.param_value_to_str(value.id)
+        raise ValueError(f"Unsupported parameter type: {type(value)}")
+
+    @classmethod
+    def get_params_for_endpoint(self, **kw) -> dict[str, str]:
         """Return the actual keyword arguments for the endpoint call.
 
         >>> Base.get_kw_for_endpoint(profile_id=1)
@@ -42,7 +65,7 @@ class Base(Service):
             wise_arg = "".join(s[0].upper() + s[1:] for s in py_arg.split("_"))
             wise_arg = wise_arg[0].lower() + wise_arg[1:]
             if value is not None:
-                wise_call_args[wise_arg] = str(value)
+                wise_call_args[wise_arg] = self.param_value_to_str(value)
         return wise_call_args
 
 
