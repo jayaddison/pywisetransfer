@@ -51,6 +51,8 @@ class Base(Service):
             return ",".join(cls.param_value_to_str(v) for v in value)
         if hasattr(value, "id"):
             return cls.param_value_to_str(value.id)
+        if hasattr(value, "as_parameter"):
+            return cls.param_value_to_str(value.as_parameter())
         raise ValueError(f"Unsupported parameter type: {type(value)}")
 
     @classmethod

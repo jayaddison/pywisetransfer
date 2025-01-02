@@ -34,6 +34,7 @@ def record(name: Optional[str] = None) -> None:
         _recorder.recorder.dump_to_file(
             file_path=file_name, registered=_recorder.recorder.get_registry().registered
         )
+        file_name.write_text(file_name.read_text().replace("content-encoding: gzip", ""))
         print(f"recorded to {file_name}")
     _recorder.recorder.stop()
     _recorder.recorder.reset()

@@ -9,6 +9,7 @@ __all__ = [
     "BusinessProfileDetails",
     "Client",
     "CommonFieldMap",
+    "Currency",
     "CompanyRole",
     "CompanyType",
     "DeliveryDelay",
@@ -49,6 +50,9 @@ __all__ = [
     "profile_type",
     "LegalType",
         "RecipientAccountList",
-    "RecipientAccountsSorting"
+    "RecipientAccountsSorting",
+        "RequirementType", 
+    "RequiredGroupElement",
+
 
 ]

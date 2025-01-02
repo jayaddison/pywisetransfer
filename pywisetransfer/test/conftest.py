@@ -14,6 +14,7 @@ from typing import Generator
 import pytest
 from pywisetransfer import Client
 from pywisetransfer.test.record import TestClient
+from pywisetransfer.model.currency import Currency
 
 
 @pytest.fixture(scope="package")
@@ -26,3 +27,7 @@ def sandbox() -> Generator[Client, None, None]:
     client = TestClient()
     yield client
     client.stop()
+
+@pytest.fixture(params=Currency.all_currencies())
+def currency(request):
+    return request.param

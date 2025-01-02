@@ -18,6 +18,7 @@ from pywisetransfer.model.account import (
     RecipientAccountResponse,
     RecipientAccountRequirement,
 )
+from pywisetransfer.model.currency import Currency
 from pywisetransfer.model.enum import StrEnum
 
 
@@ -120,8 +121,8 @@ class RecipientAccount:
 
     def get_requirements_for_currency(
         self,
-        source: str,
-        target: str,
+        source: str|Currency,
+        target: str|Currency,
         source_amount=float | int,
     ) -> List[RecipientAccountRequirement]:
         params = self.service.get_params_for_endpoint(
@@ -138,7 +139,7 @@ class RecipientAccount:
             source_amount: The source amount
         """
         response = self.service.get_requirements(params=params)
-        print(repr(response))
+        print([r["type"]   for r in response])
         return [
             RecipientAccountRequirement(**requirement)
             for requirement in response

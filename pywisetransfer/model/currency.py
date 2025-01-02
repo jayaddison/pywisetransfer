@@ -210,4 +210,8 @@ class Currency(BaseModel):
     def all_currencies(cls)->list[Currency]:
         return [getattr(cls, name) for name in cls.__dict__.keys() if re.match(CODE_REGEX, name)]
 
+    def as_parameter(self) -> str:
+        """Transform into a parameter."""
+        return self.code
+
 __all__ = ["Currency", "CURRENCY"]

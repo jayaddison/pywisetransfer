@@ -298,8 +298,8 @@ class AllowedValue(BaseModel):
         return self.key != ""
 
 
-class RequiredField(BaseModel):
-    """A single requirement to a recipient account.
+class RequiredGroupElement(BaseModel):
+    """An element of a group of requirements to a recipient account.
 
     Attributes:
         name: Field description
@@ -326,7 +326,7 @@ class RequiredField(BaseModel):
     minLength: Optional[int]
     maxLength: Optional[int]
     validationRegexp: Optional[str]
-    validationAsync: Optional[str]
+    validationAsync: Optional[str|dict]
     valuesAllowed: Optional[list[AllowedValue]]
 
     EXAMPLE_JSON: ClassVar[
@@ -354,7 +354,7 @@ class RequiredField(BaseModel):
     """
 
 
-class RecipientAccountRequirement(BaseModel):
+class RequiredField(BaseModel):
     """Requirements for a recipient account."""
 
     EXAMPLE_JSON: ClassVar[
@@ -374,7 +374,16 @@ class RecipientAccountRequirement(BaseModel):
                 "minLength": 1,
                 "maxLength": 255,
                 "validationRegexp": "^.{1,255}$",
-                "validationAsync": null,
+                "validationAsync": {
+                    "url": "https://api.sandbox.transferwise.tech/v1/validators/bsb-code",
+                    "      params": [
+                        {
+                            "key": "bsbCode",
+                            "parameterName": "bsbCode",
+                            "required": true
+                        }
+                    ]
+                },
                 "valuesAllowed": null
             }
         ]
@@ -382,8 +391,83 @@ class RecipientAccountRequirement(BaseModel):
     """
 
     name: str
-    group: list[RequiredField]
+    group: list[RequiredGroupElement]
 
+
+class RequirementType(StrEnum):
+    """Type of a recipient account requirement."""
+
+    aba = "aba"
+    argentina = "argentina"
+    australian = "australian"
+    australian_bpay = "australian_bpay"
+    bangladesh = "bangladesh"
+    bkash = "bkash"
+    brazil = "brazil"
+    brazil_business = "brazil_business"
+    canadian = "canadian"
+    chile = "chile"
+    chinese_alipay = "chinese_alipay"
+    chinese_wechatpay = "chinese_wechatpay"
+    colombia = "colombia"
+    costa_rica = "costa_rica"
+    czech = "czech"
+    email = "email"
+    emirates = "emirates"
+    fiji_mobile = "fiji_mobile"
+    hongkong = "hongkong"
+    hong_kong_fps = "hong_kong_fps"
+    hungarian = "hungarian"
+    iban = "iban"
+    indian = "indian"
+    indian_upi = "indian_upi"
+    indonesian = "indonesian"
+    interac = "interac"
+    israeli_local = "israeli_local"
+    japanese = "japanese"
+    kenya_local = "kenya_local"
+    kenya_mobile = "kenya_mobile"
+    malaysian = "malaysian"
+    malaysian_duitnow = "malaysian_duitnow"
+    mexican = "mexican"
+    morocco = "morocco"
+    mozambique_local = "mozambique_local"
+    namibia_local = "namibia_local"
+    nepal = "nepal"
+    newzealand = "newzealand"
+    nigeria = "nigeria"
+    peru = "peru"
+    philippines = "philippines"
+    philippinesmobile = "philippinesmobile"
+    polish = "polish"
+    privatbank = "privatbank"
+    russiarapida = "russiarapida"
+    singapore = "singapore"
+    singapore_paynow = "singapore_paynow"
+    sort_code = "sort_code"
+    southafrica = "southafrica"
+    south_korean_paygate = "south_korean_paygate"
+    south_korean_paygate_business = "south_korean_paygate_business"
+    srilanka = "srilanka"
+    tanzania_local = "tanzania_local"
+    thailand = "thailand"
+    turkish_earthport = "turkish_earthport"
+    uganda_local = "uganda_local"
+    uruguay = "uruguay"
+    vietname_earthport = "vietname_earthport"
+    fedwire_local = "fedwire_local"
+    swift_code = "swift_code"
+
+class RecipientAccountRequirement(BaseModel):
+    """A requirement for a recipient account.
+    
+    Attributes:
+    """
+    
+    type: RequirementType
+    title: str
+    usageInfo: Optional[object]
+    fields: list[RequiredField]
 
 class RecipientAccountsSorting(BaseModel):
     """Sorting configuration."""
@@ -438,5 +522,7 @@ __all__ = [
     "AllowedValue",
     "LegalType",
     "RecipientAccountList",
-    "RecipientAccountsSorting"
+    "RecipientAccountsSorting",
+    "RequirementType", 
+    "RequiredGroupElement",
 ]

@@ -1,6 +1,7 @@
 """Test the base methods."""
 
 from pywisetransfer.base import Base
+from pywisetransfer.model.currency import Currency
 
 
 def test_kw_conversion():
@@ -28,3 +29,6 @@ def test_id():
     class X:
         id = 1223
     assert Base.get_params_for_endpoint(profile_id=X) == {"profileId": "1223"}
+
+def test_code():
+    assert Base.get_params_for_endpoint(currency=Currency.AED) == {"currency": "AED"}

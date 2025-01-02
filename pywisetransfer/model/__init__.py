@@ -15,6 +15,7 @@ __all__ = [
     "BusinessCategory",
     "BusinessProfileDetails",
     "CURRENCY",
+    "Currency",
     "CommonFieldMap",
     "CompanyRole",
     "CompanyType",
@@ -62,6 +63,9 @@ __all__ = [
     "serialize_timestamp",
     "LegalType",
         "RecipientAccountList",
-    "RecipientAccountsSorting"
+    "RecipientAccountsSorting",
+        "RequirementType", 
+    "RequiredGroupElement",
+
 
 ]
