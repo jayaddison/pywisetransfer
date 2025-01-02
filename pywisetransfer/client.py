@@ -19,6 +19,7 @@ class Client:
         from pywisetransfer.transfer import Transfer
         from pywisetransfer.user import User
         from pywisetransfer.quote import Quote
+        from pywisetransfer.recipient_account import RecipientAccount
 
         self.account_details = AccountDetails(client=self)
         self.balance_statements = BalanceStatements(client=self)
@@ -31,6 +32,8 @@ class Client:
         self.transfers = Transfer(client=self)
         self.users = User(client=self)
         self.quotes = Quote(client=self)
+        self.recipient_accounts = RecipientAccount(client=self)
+        
 
     def __init__(
         self,

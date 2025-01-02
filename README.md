@@ -156,7 +156,7 @@ type: business 1000000.0GBP, 1000000.0EUR, 1000000.0USD, 1000000.0AUD
 Wise supports many [currencies](https://docs.wise.com/api-docs/api-reference/currencies).
 
 ```python
->>> currencies = client.currencies.list()
+>>> currencies = client.currencies.list()code
 >>> AED = currencies[0]
 >>> AED.code
 'AED'

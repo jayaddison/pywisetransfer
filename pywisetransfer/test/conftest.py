@@ -16,7 +16,7 @@ from pywisetransfer import Client
 from pywisetransfer.test.record import TestClient
 
 
-@pytest.fixture
+@pytest.fixture(scope="package")
 def sandbox() -> Generator[Client, None, None]:
     """We return a sandbox client and dispatch all requests.
 

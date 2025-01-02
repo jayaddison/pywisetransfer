@@ -47,5 +47,8 @@ __all__ = [
     "TransferDetails",
     "TransferStatus",
     "profile_type",
-    "LegalType"
+    "LegalType",
+        "RecipientAccountList",
+    "RecipientAccountsSorting"
+
 ]

@@ -385,6 +385,45 @@ class RecipientAccountRequirement(BaseModel):
     group: list[RequiredField]
 
 
+class RecipientAccountsSorting(BaseModel):
+    """Sorting configuration."""
+    
+    EXAMPLE_JSON: ClassVar[
+        str
+    ] = """
+    {
+        "empty": true,
+        "sorted": false,
+        "unsorted": true
+    }
+    """
+
+    empty: bool
+    sorted: bool
+    unsorted: bool
+
+class RecipientAccountList(BaseModel):
+    """A list paginated of recipient accounts."""
+    EXAMPLE_JSON: ClassVar[
+        str
+    ] = """
+    {
+        "content": [],
+        "sort": {
+            "empty": true,
+            "sorted": false,
+            "unsorted": true
+        },
+        "size": 0
+    }
+    """
+
+    content: list[RecipientAccountResponse]
+    sort: RecipientAccountsSorting
+    size: int
+
+
+
 __all__ = [
     "RecipientAccountResponse",
     "RecipientAccountRequest",
@@ -398,4 +437,6 @@ __all__ = [
     "RequiredFieldType",
     "AllowedValue",
     "LegalType",
+    "RecipientAccountList",
+    "RecipientAccountsSorting"
 ]

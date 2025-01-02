@@ -60,5 +60,8 @@ __all__ = [
     "parse_timestamp",
     "profile_type",
     "serialize_timestamp",
-    "LegalType"
+    "LegalType",
+        "RecipientAccountList",
+    "RecipientAccountsSorting"
+
 ]

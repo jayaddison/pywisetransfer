@@ -8,11 +8,12 @@ Attributes:
     ACCEPT_MINOR_VERSION_1: Please note that to use v1.1 Accept-Minor-Version: 1 request header must be set.
 """
 
-from typing import Optional
+from typing import List, Optional
 from pywisetransfer.base import Base
 from pywisetransfer.client import Client
 from pywisetransfer.endpoint import JsonEndpoint
 from pywisetransfer.model.account import (
+    RecipientAccountList,
     RecipientAccountRequest,
     RecipientAccountResponse,
     RecipientAccountRequirement,
@@ -69,7 +70,7 @@ class RecipientAccount:
         active: Optional[bool] = None,
         type: Optional[str] = None,
         owned_by_customer: Optional[bool] = None
-    ) -> list[RecipientAccountResponse]:
+    ) -> RecipientAccountList:
         """List existing recipient accounts.
 
         Args:
@@ -96,7 +97,7 @@ class RecipientAccount:
             active=active,
         )
         response = self.service.list(params=params)
-        return [RecipientAccountResponse(**account) for account in response]
+        return RecipientAccountList(**response)
 
     def create_recipient(
         self, recipient_account: RecipientAccountRequest
@@ -106,7 +107,7 @@ class RecipientAccount:
     def get(self, account_id: int) -> RecipientAccountResponse:
         return RecipientAccountResponse(**self.service.get(account_id=account_id))
 
-    def get_requirements_for_quote(self, quote: int) -> list[RecipientAccountRequirement]:
+    def get_requirements_for_quote(self, quote: int) -> List[RecipientAccountRequirement]:
         """Get the requirements for a recipient account.
 
         Args:
@@ -122,7 +123,7 @@ class RecipientAccount:
         source: str,
         target: str,
         source_amount=float | int,
-    ) -> list[RecipientAccountRequirement]:
+    ) -> List[RecipientAccountRequirement]:
         params = self.service.get_params_for_endpoint(
             source=source,
             target=target,
@@ -136,9 +137,11 @@ class RecipientAccount:
             target: The target currency (3 letters)
             source_amount: The source amount
         """
+        response = self.service.get_requirements(params=params)
+        print(repr(response))
         return [
             RecipientAccountRequirement(**requirement)
-            for requirement in self.service.get_requirements(params=params)
+            for requirement in response
         ]
 
 
