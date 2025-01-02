@@ -34,8 +34,12 @@ ENUMS.remove(Enum)
 ENUMS.remove(StrEnum)
 MODELS.remove(BaseModel)
 
-UPDATED_MODELS_ALL = list(sorted(set([cls.__name__ for cls in MODELS | ENUMS] + pywisetransfer.model.__all__)))
-UPDATED_PACKAGE_ALL = list(sorted(set([cls.__name__ for cls in MODELS | ENUMS] + pywisetransfer.__all__)))
+UPDATED_MODELS_ALL = list(
+    sorted(set([cls.__name__ for cls in MODELS | ENUMS] + pywisetransfer.model.__all__))
+)
+UPDATED_PACKAGE_ALL = list(
+    sorted(set([cls.__name__ for cls in MODELS | ENUMS] + pywisetransfer.__all__))
+)
 
 
 @pytest.mark.parametrize("model_class", MODELS_WITH_EXAMPLES)
@@ -78,7 +82,9 @@ def test_export_all(model_class: type, depth: str):
     assert model_class.__name__ in package_root.__all__
     assert getattr(package_root, model_class.__name__) is model_class
 
+
 def test_is_included():
     from pywisetransfer.model import Transfer
+
     assert Transfer in MODELS
     assert Transfer in MODELS_WITH_EXAMPLES

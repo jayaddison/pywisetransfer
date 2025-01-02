@@ -21,7 +21,7 @@ class Profile:
 
     def list(self, type: profile_type | None = None) -> Profiles:
         """List all the profiles.
-        
+
         Args:
             type: Filter by type.
         """

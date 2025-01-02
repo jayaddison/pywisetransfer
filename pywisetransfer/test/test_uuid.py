@@ -4,6 +4,7 @@ from pydantic import BaseModel, ValidationError
 import pytest
 from pywisetransfer.model.uuid import new_uuid, UUID
 
+
 class M(BaseModel):
     uuid: UUID
 
@@ -29,6 +30,7 @@ def test_model_validation_str():
     """Check that the model validation works."""
     m = M(uuid=str(new_uuid()))
     m.model_validate(m)
+
 
 def test_invalid_uuid():
     with pytest.raises(ValidationError):

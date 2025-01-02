@@ -12,3 +12,9 @@ def test_multiple_kw():
         "profileId": "1",
         "initialStart": "asd-asd",
     }
+
+
+def test_bool():
+    assert Base.get_params_for_endpoint(active=True) == {"active": "true"}
+    assert Base.get_params_for_endpoint(active=False) == {"active": "false"}
+    assert Base.get_params_for_endpoint(active=None) == {}

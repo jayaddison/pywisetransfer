@@ -532,7 +532,6 @@ class QuoteRequest(ExampleQuoteRequest):
     """
 
 
-
 class QuoteUpdate(BaseModel):
     """Data required to update a quote.
 

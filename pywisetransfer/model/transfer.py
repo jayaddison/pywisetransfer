@@ -23,8 +23,8 @@ class TransferStatus(StrEnum):
     funds_refunded = "funds_refunded"
     bounced_back = "bounced_back"
     charged_back = "charged_back"
-    unknown = "unknown"\
-        
+    unknown = "unknown"
+
     @property
     def description(self) -> str:
         """The description of the transfer status."""

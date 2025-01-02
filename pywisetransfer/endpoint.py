@@ -2,7 +2,7 @@ from __future__ import annotations
 
 from functools import partial, update_wrapper, wraps
 import functools
-from typing import Any, Callable
+from typing import Any, Callable, Optional
 
 import apiron
 from apiron.endpoint import JsonEndpoint as ApironJsonEndpoint
@@ -85,6 +85,11 @@ class WiseAPIError(HTTPError):
 
 class JsonEndpoint(ApironJsonEndpoint):
     """A JSONEndpoint with customizations for this API."""
+    
+    def __init__(self, *args: Any, additional_headers:Optional[dict[str, str]]=None, **kwargs: Any):
+        """Create a new endpoint."""
+        super().__init__(*args, **kwargs)
+        self.additional_headers = additional_headers.copy() if additional_headers is not None else {}
 
     def __get__(self, instance, owner):
         """Return the callable endpoint."""
@@ -93,7 +98,8 @@ class JsonEndpoint(ApironJsonEndpoint):
 
     @property
     def required_headers(self) -> dict[str, str]:
-        headers = super().required_headers
+        headers = super().required_headers.copy()
+        headers.update(self.additional_headers)
         if self.default_method == "POST":
             headers["Content-Type"] = "application/json"
         return headers

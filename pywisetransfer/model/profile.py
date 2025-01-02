@@ -13,6 +13,7 @@ class PROFILE_TYPE(StrEnum):
     PERSONAL = "PERSONAL"
     BUSINESS = "BUSINESS"
 
+
 class profile_type(StrEnum):
     """The type of profile."""
 
@@ -22,24 +23,25 @@ class profile_type(StrEnum):
 
 class OccupationFormat(StrEnum):
     """The format of an occupation."""
-    
+
     FREE_FORM = "FREE_FORM"
+
 
 class Occupation(BaseModel):
     """The occupation of a person.
-    
+
     Attributes:
         code: User occupation, any value permitted.
         format: Occupation format
     """
-    
+
     code: str
     format: OccupationFormat = OccupationFormat.FREE_FORM
-    
+
 
 class PersonalProfileDetails(BaseModel):
     """The details of a personal profile.
-    
+
     Attributes:
         firstName: First name
         lastName: Last name
@@ -51,7 +53,7 @@ class PersonalProfileDetails(BaseModel):
         primaryAddress: Address object ID
         firstNameInKana: First name in Katakana (required for from JPY personal transfers)
         lastNameInKana: Last name in Katakana (required for from JPY personal transfers)
-        
+
     """
 
     EXAMPLE_JSON: ClassVar[
@@ -82,14 +84,15 @@ class PersonalProfileDetails(BaseModel):
     primaryAddress: Optional[int]
     firstNameInKana: Optional[str]
     lastNameInKana: Optional[str]
-    
+
     @property
     def name(self) -> str:
         return f"{self.firstName} {self.lastName}"
-    
+
+
 class CompanyType(StrEnum):
     """The type of a company."""
-    
+
     LIMITED = "LIMITED"
     PARTNERSHIP = "PARTNERSHIP"
     SOLE_TRADER = "SOLE_TRADER"
@@ -109,7 +112,7 @@ class CompanyType(StrEnum):
 
 class CompanyRole(StrEnum):
     """Role of person in a company."""
-    
+
     OWNER = "OWNER"
     DIRECTOR = "DIRECTOR"
     OTHER = "OTHER"
@@ -117,7 +120,7 @@ class CompanyRole(StrEnum):
 
 class BusinessCategory(StrEnum):
     """The category of a business."""
-    
+
     CHARITY_NON_PROFIT = "CHARITY_NON_PROFIT"
     CONSULTING_IT_BUSINESS_SERVICES = "CONSULTING_IT_BUSINESS_SERVICES"
     DESIGN_MARKETING_COMMUNICATIONS = "DESIGN_MARKETING_COMMUNICATIONS"
@@ -132,9 +135,10 @@ class BusinessCategory(StrEnum):
     TRAVEL_TRANSPORT_TOUR_AGENCIES = "TRAVEL_TRANSPORT_TOUR_AGENCIES"
     OTHER = "OTHER"
 
+
 class BusinessProfileDetails(BaseModel):
     """The details of a business profile.
-    
+
     Attributes:
         name: Business name
         registrationNumber: Business registration number
@@ -142,7 +146,7 @@ class BusinessProfileDetails(BaseModel):
         abn: Australian Business Number (only for Australian businesses)
         arbn: Australian Registered Business Number (only for Australian businesses)
         companyType: Company type
-        companyRole: Business role  
+        companyRole: Business role
         descriptionOfBusiness: Business free form description. *Required if companyType is OTHER. If this is not provided for an OTHER companyType, the profile should not be allowed to create a transfer. For the rest of the companyType(s), it is highly recommended to always provide the business' description, to avoid payment issues such as suspensions.
         webpage: Business webpage. *Required if companyType is OTHER. If this is not provided for an OTHER companyType, the profile should not be allowed to create a transfer. For the rest of the companyTypes, it is highly recommended to always provide the business' website,to avoid payment issues such as suspensions.
         primaryAddress: Id of the primary address
@@ -150,7 +154,7 @@ class BusinessProfileDetails(BaseModel):
         businessSubCategory: Ensure when submitting a business profile that you submit a subcategory.
             See https://docs.wise.com/api-docs/api-reference/profile
     """
-    
+
     type: ClassVar[str] = profile_type.business
     name: str
     registrationNumber: str
@@ -165,7 +169,6 @@ class BusinessProfileDetails(BaseModel):
     businessCategory: BusinessCategory
     businessSubCategory: str
 
-   
     EXAMPLE_JSON: ClassVar[
         str
     ] = """
@@ -185,9 +188,10 @@ class BusinessProfileDetails(BaseModel):
     }
     """
 
+
 class Profile(BaseModel):
     """A profile."""
-    
+
     EXAMPLE_JSON: ClassVar[
         str
     ] = """
@@ -211,27 +215,31 @@ class Profile(BaseModel):
     id: int
     type: profile_type
     details: Annotated[
-    Union[PersonalProfileDetails, BusinessProfileDetails],
-    BeforeValidator(lambda d: PersonalProfileDetails(**d) if "firstName" in d else BusinessProfileDetails(**d))
+        Union[PersonalProfileDetails, BusinessProfileDetails],
+        BeforeValidator(
+            lambda d: (
+                PersonalProfileDetails(**d) if "firstName" in d else BusinessProfileDetails(**d)
+            )
+        ),
     ]
-    
+
     def is_personal(self) -> bool:
         """Whether the profile is personal."""
         return self.type == profile_type.personal
-    
+
     def is_business(self) -> bool:
         """Whether the profile is personal."""
         return self.type == profile_type.business
 
-    
+
 class Profiles(list[Profile]):
     """A list of profiles.
-    
+
     Attributes:
         personal: Personal profiles.
         business: Business profiles.
     """
-    
+
     @property
     def personal(self) -> list[Profile]:
         """Personal profiles."""
@@ -242,4 +250,17 @@ class Profiles(list[Profile]):
         """Business profiles."""
         return [p for p in self if p.type == profile_type.business]
 
-__all__ = ["PROFILE_TYPE", "Profile", "PersonalProfileDetails", "profile_type", "BusinessProfileDetails", "BusinessCategory", "CompanyType", "CompanyRole", "Profiles", "Occupation", "OccupationFormat"]
+
+__all__ = [
+    "PROFILE_TYPE",
+    "Profile",
+    "PersonalProfileDetails",
+    "profile_type",
+    "BusinessProfileDetails",
+    "BusinessCategory",
+    "CompanyType",
+    "CompanyRole",
+    "Profiles",
+    "Occupation",
+    "OccupationFormat",
+]
