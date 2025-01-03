@@ -12,6 +12,7 @@ from requests.exceptions import HTTPError
 from pywisetransfer.base import Base
 from pywisetransfer.signing import sign_sca_challenge
 from pywisetransfer.model.error import WiseAPIErrorResponse
+from apiron.client import call as apiron_call
 
 
 class WiseAPIError(HTTPError):
@@ -95,10 +96,27 @@ class JsonEndpoint(ApironJsonEndpoint):
             additional_headers.copy() if additional_headers is not None else {}
         )
 
-    def __get__(self, instance, owner):
+    def __get__(self, instance: JsonEndpoint, owner: type[Base]):
         """Return the callable endpoint."""
         caller = super().__get__(instance, owner)
-        return WiseAPIError.replace_HTTPError(caller)
+        caller = WiseAPIError.replace_HTTPError(caller)
+
+        @wraps(caller)
+        def wrapper(*args, **kwargs):
+            """Divide the arguments in those passed to replace the path and
+            those that are used by apiron.client.call.
+
+            Those for the path will undergo a replacement.
+            """
+            leave_untouched = apiron_call.__code__.co_varnames
+            for key, value in kwargs.items():
+                if key not in leave_untouched:
+                    kwargs[key] = owner.param_value_to_str(value, key)
+            if "params" in kwargs:
+                kwargs["params"] = owner.get_params_for_endpoint(**kwargs["params"])
+            return caller(*args, **kwargs)
+
+        return wrapper
 
     @property
     def required_headers(self) -> dict[str, str]:

@@ -33,7 +33,6 @@ class Client:
         self.users = User(client=self)
         self.quotes = Quote(client=self)
         self.recipient_accounts = RecipientAccount(client=self)
-        
 
     def __init__(
         self,

@@ -121,8 +121,8 @@ class RecipientAccount:
 
     def get_requirements_for_currency(
         self,
-        source: str|Currency,
-        target: str|Currency,
+        source: str | Currency,
+        target: str | Currency,
         source_amount=float | int,
     ) -> List[RecipientAccountRequirement]:
         params = self.service.get_params_for_endpoint(
@@ -139,11 +139,7 @@ class RecipientAccount:
             source_amount: The source amount
         """
         response = self.service.get_requirements(params=params)
-        print([r["type"]   for r in response])
-        return [
-            RecipientAccountRequirement(**requirement)
-            for requirement in response
-        ]
+        return [RecipientAccountRequirement(**requirement) for requirement in response]
 
 
 __all__ = ["RecipientAccount", "SortRecipientAccounts"]

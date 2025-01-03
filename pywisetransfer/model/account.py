@@ -199,6 +199,7 @@ class RecipientAccountResponse(BaseModel):
 
 class LegalType(StrEnum):
     """The legal type of a recipient account."""
+
     PRIVATE = "PRIVATE"
     BUSINESS = "BUSINESS"
 
@@ -326,7 +327,7 @@ class RequiredGroupElement(BaseModel):
     minLength: Optional[int]
     maxLength: Optional[int]
     validationRegexp: Optional[str]
-    validationAsync: Optional[str|dict]
+    validationAsync: Optional[str | dict]
     valuesAllowed: Optional[list[AllowedValue]]
 
     EXAMPLE_JSON: ClassVar[
@@ -458,20 +459,22 @@ class RequirementType(StrEnum):
     fedwire_local = "fedwire_local"
     swift_code = "swift_code"
 
+
 class RecipientAccountRequirement(BaseModel):
     """A requirement for a recipient account.
-    
+
     Attributes:
     """
-    
+
     type: RequirementType
     title: str
     usageInfo: Optional[object]
     fields: list[RequiredField]
 
+
 class RecipientAccountsSorting(BaseModel):
     """Sorting configuration."""
-    
+
     EXAMPLE_JSON: ClassVar[
         str
     ] = """
@@ -486,8 +489,10 @@ class RecipientAccountsSorting(BaseModel):
     sorted: bool
     unsorted: bool
 
+
 class RecipientAccountList(BaseModel):
     """A list paginated of recipient accounts."""
+
     EXAMPLE_JSON: ClassVar[
         str
     ] = """
@@ -507,7 +512,6 @@ class RecipientAccountList(BaseModel):
     size: int
 
 
-
 __all__ = [
     "RecipientAccountResponse",
     "RecipientAccountRequest",
@@ -523,6 +527,6 @@ __all__ = [
     "LegalType",
     "RecipientAccountList",
     "RecipientAccountsSorting",
-    "RequirementType", 
+    "RequirementType",
     "RequiredGroupElement",
 ]

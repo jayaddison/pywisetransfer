@@ -22,13 +22,15 @@ def test_bool():
 
 
 def test_list_of_string():
-    assert Base.get_params_for_endpoint(type=["iban","swift_code"]) == {"type": "iban,swift_code"}
+    assert Base.get_params_for_endpoint(type=["iban", "swift_code"]) == {"type": "iban,swift_code"}
 
 
 def test_id():
     class X:
         id = 1223
+
     assert Base.get_params_for_endpoint(profile_id=X) == {"profileId": "1223"}
+
 
 def test_code():
     assert Base.get_params_for_endpoint(currency=Currency.AED) == {"currency": "AED"}

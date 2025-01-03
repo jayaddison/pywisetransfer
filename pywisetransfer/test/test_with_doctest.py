@@ -39,6 +39,7 @@ def test_docstring_of_python_file(module_name):
 # This collection needs to exclude .tox and other subdirectories
 DOCUMENT_PATHS = [PROJECT_PATH / ".." / "README.md"] + PYTHON_FILES
 
+
 def test_this_file_is_also_tested():
     """Check we recurse."""
     paths = list(map(str, DOCUMENT_PATHS))

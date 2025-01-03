@@ -369,6 +369,932 @@ class QuoteResponse(BaseModel):
 
     """
 
+    EXAMPLE_JSON: ClassVar[
+        str
+    ] = """
+    {
+        "id": "476e55ac-de76-4712-909b-5e6f44beb5ad",
+        "sourceCurrency": "GBP",
+        "targetCurrency": "USD",
+        "sourceAmount": null,
+        "targetAmount": 110.0,
+        "payOut": "BANK_TRANSFER",
+        "rate": 1.24256,
+        "createdTime": "2025-01-03T21:29:16Z",
+        "user": 12970746,
+        "profile": null,
+        "rateType": "FIXED",
+        "rateExpirationTime": "2025-01-06T08:59:59Z",
+        "providedAmountType": "TARGET",
+        "pricingConfiguration": null,
+        "paymentOptions": [
+            {
+                "disabled": false,
+                "estimatedDelivery": "2025-01-06T17:30:00Z",
+                "formattedEstimatedDelivery": "by Monday, January 6",
+                "estimatedDeliveryDelays": [],
+                "fee": {
+                    "transferwise": 1.4,
+                    "payIn": 0.59,
+                    "discount": 0.0,
+                    "partner": 0.0,
+                    "total": 1.99
+                },
+                "price": {
+                    "priceSetId": 384,
+                    "total": {
+                        "type": "TOTAL",
+                        "label": "Total fees",
+                        "value": {
+                            "amount": 1.99,
+                            "currency": "GBP",
+                            "label": "1.99 GBP"
+                        }
+                    },
+                    "items": [
+                        {
+                            "type": "TRANSFERWISE",
+                            "label": "Our fee",
+                            "value": {
+                                "amount": 1.99,
+                                "currency": "GBP",
+                                "label": "1.99 GBP"
+                            }
+                        }
+                    ],
+                    "deferredFee": null,
+                    "calculatedOn": null
+                },
+                "sourceAmount": 90.52,
+                "targetAmount": 110.0,
+                "sourceCurrency": "GBP",
+                "targetCurrency": "USD",
+                "payIn": "DEBIT",
+                "payOut": "BANK_TRANSFER",
+                "allowedProfileTypes": [
+                    "PERSONAL",
+                    "BUSINESS"
+                ],
+                "payInProduct": "FAST",
+                "feePercentage": 0.022
+            },
+            {
+                "disabled": false,
+                "estimatedDelivery": "2025-01-06T17:30:00Z",
+                "formattedEstimatedDelivery": "by Monday, January 6",
+                "estimatedDeliveryDelays": [],
+                "fee": {
+                    "transferwise": 1.4,
+                    "payIn": 2.05,
+                    "discount": 0.0,
+                    "partner": 0.0,
+                    "total": 3.45
+                },
+                "price": {
+                    "priceSetId": 384,
+                    "total": {
+                        "type": "TOTAL",
+                        "label": "Total fees",
+                        "value": {
+                            "amount": 3.45,
+                            "currency": "GBP",
+                            "label": "3.45 GBP"
+                        }
+                    },
+                    "items": [
+                        {
+                            "type": "TRANSFERWISE",
+                            "label": "Our fee",
+                            "value": {
+                                "amount": 3.45,
+                                "currency": "GBP",
+                                "label": "3.45 GBP"
+                            }
+                        }
+                    ],
+                    "deferredFee": null,
+                    "calculatedOn": null
+                },
+                "sourceAmount": 91.98,
+                "targetAmount": 110.0,
+                "sourceCurrency": "GBP",
+                "targetCurrency": "USD",
+                "payIn": "CREDIT",
+                "payOut": "BANK_TRANSFER",
+                "allowedProfileTypes": [
+                    "PERSONAL",
+                    "BUSINESS"
+                ],
+                "payInProduct": "FAST",
+                "feePercentage": 0.0375
+            },
+            {
+                "disabled": false,
+                "estimatedDelivery": "2025-01-06T17:30:00Z",
+                "formattedEstimatedDelivery": "by Monday, January 6",
+                "estimatedDeliveryDelays": [],
+                "fee": {
+                    "transferwise": 1.4,
+                    "payIn": 0.0,
+                    "discount": 0.0,
+                    "partner": 0.0,
+                    "total": 1.4
+                },
+                "price": {
+                    "priceSetId": 384,
+                    "total": {
+                        "type": "TOTAL",
+                        "label": "Total fees",
+                        "value": {
+                            "amount": 1.4,
+                            "currency": "GBP",
+                            "label": "1.40 GBP"
+                        }
+                    },
+                    "items": [
+                        {
+                            "type": "TRANSFERWISE",
+                            "label": "Our fee",
+                            "value": {
+                                "amount": 1.4,
+                                "currency": "GBP",
+                                "label": "1.40 GBP"
+                            }
+                        }
+                    ],
+                    "deferredFee": null,
+                    "calculatedOn": null
+                },
+                "sourceAmount": 89.93,
+                "targetAmount": 110.0,
+                "sourceCurrency": "GBP",
+                "targetCurrency": "USD",
+                "payIn": "BANK_TRANSFER",
+                "payOut": "BANK_TRANSFER",
+                "allowedProfileTypes": [
+                    "PERSONAL",
+                    "BUSINESS"
+                ],
+                "payInProduct": "CHEAP",
+                "feePercentage": 0.0156
+            },
+            {
+                "disabled": false,
+                "estimatedDelivery": "2025-01-06T17:30:00Z",
+                "formattedEstimatedDelivery": "by Monday, January 6",
+                "estimatedDeliveryDelays": [],
+                "fee": {
+                    "transferwise": 1.4,
+                    "payIn": 0.0,
+                    "discount": 0.0,
+                    "partner": 0.0,
+                    "total": 1.4
+                },
+                "price": {
+                    "priceSetId": 384,
+                    "total": {
+                        "type": "TOTAL",
+                        "label": "Total fees",
+                        "value": {
+                            "amount": 1.4,
+                            "currency": "GBP",
+                            "label": "1.40 GBP"
+                        }
+                    },
+                    "items": [
+                        {
+                            "type": "TRANSFERWISE",
+                            "label": "Our fee",
+                            "value": {
+                                "amount": 1.4,
+                                "currency": "GBP",
+                                "label": "1.40 GBP"
+                            }
+                        }
+                    ],
+                    "deferredFee": null,
+                    "calculatedOn": null
+                },
+                "sourceAmount": 89.93,
+                "targetAmount": 110.0,
+                "sourceCurrency": "GBP",
+                "targetCurrency": "USD",
+                "payIn": "PISP",
+                "payOut": "BANK_TRANSFER",
+                "allowedProfileTypes": [
+                    "PERSONAL",
+                    "BUSINESS"
+                ],
+                "payInProduct": "CHEAP",
+                "feePercentage": 0.0156
+            },
+            {
+                "disabled": false,
+                "estimatedDelivery": "2025-01-07T17:30:00Z",
+                "formattedEstimatedDelivery": "by Tuesday, January 7",
+                "estimatedDeliveryDelays": [],
+                "fee": {
+                    "transferwise": 1.4,
+                    "payIn": 0.0,
+                    "discount": 0.0,
+                    "partner": 0.0,
+                    "total": 1.4
+                },
+                "price": {
+                    "priceSetId": 384,
+                    "total": {
+                        "type": "TOTAL",
+                        "label": "Total fees",
+                        "value": {
+                            "amount": 1.4,
+                            "currency": "GBP",
+                            "label": "1.40 GBP"
+                        }
+                    },
+                    "items": [
+                        {
+                            "type": "TRANSFERWISE",
+                            "label": "Our fee",
+                            "value": {
+                                "amount": 1.4,
+                                "currency": "GBP",
+                                "label": "1.40 GBP"
+                            }
+                        }
+                    ],
+                    "deferredFee": null,
+                    "calculatedOn": null
+                },
+                "sourceAmount": 89.93,
+                "targetAmount": 110.0,
+                "sourceCurrency": "GBP",
+                "targetCurrency": "USD",
+                "payIn": "SWIFT",
+                "payOut": "BANK_TRANSFER",
+                "allowedProfileTypes": [
+                    "PERSONAL",
+                    "BUSINESS"
+                ],
+                "payInProduct": "ADVANCED",
+                "feePercentage": 0.0156
+            },
+            {
+                "disabled": false,
+                "estimatedDelivery": "2025-01-06T17:30:00Z",
+                "formattedEstimatedDelivery": "by Monday, January 6",
+                "estimatedDeliveryDelays": [],
+                "fee": {
+                    "transferwise": 1.4,
+                    "payIn": 0.33,
+                    "discount": 0.0,
+                    "partner": 0.0,
+                    "total": 1.73
+                },
+                "price": {
+                    "priceSetId": 384,
+                    "total": {
+                        "type": "TOTAL",
+                        "label": "Total fees",
+                        "value": {
+                            "amount": 1.73,
+                            "currency": "GBP",
+                            "label": "1.73 GBP"
+                        }
+                    },
+                    "items": [
+                        {
+                            "type": "TRANSFERWISE",
+                            "label": "Our fee",
+                            "value": {
+                                "amount": 1.73,
+                                "currency": "GBP",
+                                "label": "1.73 GBP"
+                            }
+                        }
+                    ],
+                    "deferredFee": null,
+                    "calculatedOn": null
+                },
+                "sourceAmount": 90.26,
+                "targetAmount": 110.0,
+                "sourceCurrency": "GBP",
+                "targetCurrency": "USD",
+                "payIn": "VISA_DEBIT_OR_PREPAID",
+                "payOut": "BANK_TRANSFER",
+                "allowedProfileTypes": [
+                    "PERSONAL",
+                    "BUSINESS"
+                ],
+                "payInProduct": "FAST",
+                "feePercentage": 0.0192
+            },
+            {
+                "disabled": false,
+                "estimatedDelivery": "2025-01-06T17:30:00Z",
+                "formattedEstimatedDelivery": "by Monday, January 6",
+                "estimatedDeliveryDelays": [],
+                "fee": {
+                    "transferwise": 1.4,
+                    "payIn": 4.93,
+                    "discount": 0.0,
+                    "partner": 0.0,
+                    "total": 6.33
+                },
+                "price": {
+                    "priceSetId": 384,
+                    "total": {
+                        "type": "TOTAL",
+                        "label": "Total fees",
+                        "value": {
+                            "amount": 6.33,
+                            "currency": "GBP",
+                            "label": "6.33 GBP"
+                        }
+                    },
+                    "items": [
+                        {
+                            "type": "TRANSFERWISE",
+                            "label": "Our fee",
+                            "value": {
+                                "amount": 6.33,
+                                "currency": "GBP",
+                                "label": "6.33 GBP"
+                            }
+                        }
+                    ],
+                    "deferredFee": null,
+                    "calculatedOn": null
+                },
+                "sourceAmount": 94.86,
+                "targetAmount": 110.0,
+                "sourceCurrency": "GBP",
+                "targetCurrency": "USD",
+                "payIn": "INTERNATIONAL_DEBIT",
+                "payOut": "BANK_TRANSFER",
+                "allowedProfileTypes": [
+                    "PERSONAL",
+                    "BUSINESS"
+                ],
+                "payInProduct": "FAST",
+                "feePercentage": 0.0667
+            },
+            {
+                "disabled": false,
+                "estimatedDelivery": "2025-01-06T17:30:00Z",
+                "formattedEstimatedDelivery": "by Monday, January 6",
+                "estimatedDeliveryDelays": [],
+                "fee": {
+                    "transferwise": 1.4,
+                    "payIn": 3.69,
+                    "discount": 0.0,
+                    "partner": 0.0,
+                    "total": 5.09
+                },
+                "price": {
+                    "priceSetId": 384,
+                    "total": {
+                        "type": "TOTAL",
+                        "label": "Total fees",
+                        "value": {
+                            "amount": 5.09,
+                            "currency": "GBP",
+                            "label": "5.09 GBP"
+                        }
+                    },
+                    "items": [
+                        {
+                            "type": "TRANSFERWISE",
+                            "label": "Our fee",
+                            "value": {
+                                "amount": 5.09,
+                                "currency": "GBP",
+                                "label": "5.09 GBP"
+                            }
+                        }
+                    ],
+                    "deferredFee": null,
+                    "calculatedOn": null
+                },
+                "sourceAmount": 93.62,
+                "targetAmount": 110.0,
+                "sourceCurrency": "GBP",
+                "targetCurrency": "USD",
+                "payIn": "MC_BUSINESS_CREDIT",
+                "payOut": "BANK_TRANSFER",
+                "allowedProfileTypes": [
+                    "PERSONAL",
+                    "BUSINESS"
+                ],
+                "payInProduct": "FAST",
+                "feePercentage": 0.0544
+            },
+            {
+                "disabled": false,
+                "estimatedDelivery": "2025-01-06T17:30:00Z",
+                "formattedEstimatedDelivery": "by Monday, January 6",
+                "estimatedDeliveryDelays": [],
+                "fee": {
+                    "transferwise": 1.4,
+                    "payIn": 0.59,
+                    "discount": 0.0,
+                    "partner": 0.0,
+                    "total": 1.99
+                },
+                "price": {
+                    "priceSetId": 384,
+                    "total": {
+                        "type": "TOTAL",
+                        "label": "Total fees",
+                        "value": {
+                            "amount": 1.99,
+                            "currency": "GBP",
+                            "label": "1.99 GBP"
+                        }
+                    },
+                    "items": [
+                        {
+                            "type": "TRANSFERWISE",
+                            "label": "Our fee",
+                            "value": {
+                                "amount": 1.99,
+                                "currency": "GBP",
+                                "label": "1.99 GBP"
+                            }
+                        }
+                    ],
+                    "deferredFee": null,
+                    "calculatedOn": null
+                },
+                "sourceAmount": 90.52,
+                "targetAmount": 110.0,
+                "sourceCurrency": "GBP",
+                "targetCurrency": "USD",
+                "payIn": "MC_DEBIT_OR_PREPAID",
+                "payOut": "BANK_TRANSFER",
+                "allowedProfileTypes": [
+                    "PERSONAL",
+                    "BUSINESS"
+                ],
+                "payInProduct": "FAST",
+                "feePercentage": 0.022
+            },
+            {
+                "disabled": false,
+                "estimatedDelivery": "2025-01-06T17:30:00Z",
+                "formattedEstimatedDelivery": "by Monday, January 6",
+                "estimatedDeliveryDelays": [],
+                "fee": {
+                    "transferwise": 1.4,
+                    "payIn": 1.13,
+                    "discount": 0.0,
+                    "partner": 0.0,
+                    "total": 2.53
+                },
+                "price": {
+                    "priceSetId": 384,
+                    "total": {
+                        "type": "TOTAL",
+                        "label": "Total fees",
+                        "value": {
+                            "amount": 2.53,
+                            "currency": "GBP",
+                            "label": "2.53 GBP"
+                        }
+                    },
+                    "items": [
+                        {
+                            "type": "TRANSFERWISE",
+                            "label": "Our fee",
+                            "value": {
+                                "amount": 2.53,
+                                "currency": "GBP",
+                                "label": "2.53 GBP"
+                            }
+                        }
+                    ],
+                    "deferredFee": null,
+                    "calculatedOn": null
+                },
+                "sourceAmount": 91.06,
+                "targetAmount": 110.0,
+                "sourceCurrency": "GBP",
+                "targetCurrency": "USD",
+                "payIn": "MC_CREDIT",
+                "payOut": "BANK_TRANSFER",
+                "allowedProfileTypes": [
+                    "PERSONAL",
+                    "BUSINESS"
+                ],
+                "payInProduct": "FAST",
+                "feePercentage": 0.0278
+            },
+            {
+                "disabled": false,
+                "estimatedDelivery": "2025-01-06T17:30:00Z",
+                "formattedEstimatedDelivery": "by Monday, January 6",
+                "estimatedDeliveryDelays": [],
+                "fee": {
+                    "transferwise": 1.4,
+                    "payIn": 0.59,
+                    "discount": 0.0,
+                    "partner": 0.0,
+                    "total": 1.99
+                },
+                "price": {
+                    "priceSetId": 384,
+                    "total": {
+                        "type": "TOTAL",
+                        "label": "Total fees",
+                        "value": {
+                            "amount": 1.99,
+                            "currency": "GBP",
+                            "label": "1.99 GBP"
+                        }
+                    },
+                    "items": [
+                        {
+                            "type": "TRANSFERWISE",
+                            "label": "Our fee",
+                            "value": {
+                                "amount": 1.99,
+                                "currency": "GBP",
+                                "label": "1.99 GBP"
+                            }
+                        }
+                    ],
+                    "deferredFee": null,
+                    "calculatedOn": null
+                },
+                "sourceAmount": 90.52,
+                "targetAmount": 110.0,
+                "sourceCurrency": "GBP",
+                "targetCurrency": "USD",
+                "payIn": "CARD",
+                "payOut": "BANK_TRANSFER",
+                "allowedProfileTypes": [
+                    "PERSONAL",
+                    "BUSINESS"
+                ],
+                "payInProduct": "FAST",
+                "feePercentage": 0.022
+            },
+            {
+                "disabled": false,
+                "estimatedDelivery": "2025-01-06T17:30:00Z",
+                "formattedEstimatedDelivery": "by Monday, January 6",
+                "estimatedDeliveryDelays": [],
+                "fee": {
+                    "transferwise": 1.4,
+                    "payIn": 0.59,
+                    "discount": 0.0,
+                    "partner": 0.0,
+                    "total": 1.99
+                },
+                "price": {
+                    "priceSetId": 384,
+                    "total": {
+                        "type": "TOTAL",
+                        "label": "Total fees",
+                        "value": {
+                            "amount": 1.99,
+                            "currency": "GBP",
+                            "label": "1.99 GBP"
+                        }
+                    },
+                    "items": [
+                        {
+                            "type": "TRANSFERWISE",
+                            "label": "Our fee",
+                            "value": {
+                                "amount": 1.99,
+                                "currency": "GBP",
+                                "label": "1.99 GBP"
+                            }
+                        }
+                    ],
+                    "deferredFee": null,
+                    "calculatedOn": null
+                },
+                "sourceAmount": 90.52,
+                "targetAmount": 110.0,
+                "sourceCurrency": "GBP",
+                "targetCurrency": "USD",
+                "payIn": "MAESTRO",
+                "payOut": "BANK_TRANSFER",
+                "allowedProfileTypes": [
+                    "PERSONAL",
+                    "BUSINESS"
+                ],
+                "payInProduct": "FAST",
+                "feePercentage": 0.022
+            },
+            {
+                "disabled": false,
+                "estimatedDelivery": "2025-01-06T17:30:00Z",
+                "formattedEstimatedDelivery": "by Monday, January 6",
+                "estimatedDeliveryDelays": [],
+                "fee": {
+                    "transferwise": 1.4,
+                    "payIn": 2.94,
+                    "discount": 0.0,
+                    "partner": 0.0,
+                    "total": 4.34
+                },
+                "price": {
+                    "priceSetId": 384,
+                    "total": {
+                        "type": "TOTAL",
+                        "label": "Total fees",
+                        "value": {
+                            "amount": 4.34,
+                            "currency": "GBP",
+                            "label": "4.34 GBP"
+                        }
+                    },
+                    "items": [
+                        {
+                            "type": "TRANSFERWISE",
+                            "label": "Our fee",
+                            "value": {
+                                "amount": 4.34,
+                                "currency": "GBP",
+                                "label": "4.34 GBP"
+                            }
+                        }
+                    ],
+                    "deferredFee": null,
+                    "calculatedOn": null
+                },
+                "sourceAmount": 92.87,
+                "targetAmount": 110.0,
+                "sourceCurrency": "GBP",
+                "targetCurrency": "USD",
+                "payIn": "MC_BUSINESS_DEBIT",
+                "payOut": "BANK_TRANSFER",
+                "allowedProfileTypes": [
+                    "PERSONAL",
+                    "BUSINESS"
+                ],
+                "payInProduct": "FAST",
+                "feePercentage": 0.0467
+            },
+            {
+                "disabled": false,
+                "estimatedDelivery": "2025-01-06T17:30:00Z",
+                "formattedEstimatedDelivery": "by Monday, January 6",
+                "estimatedDeliveryDelays": [],
+                "fee": {
+                    "transferwise": 1.4,
+                    "payIn": 3.69,
+                    "discount": 0.0,
+                    "partner": 0.0,
+                    "total": 5.09
+                },
+                "price": {
+                    "priceSetId": 384,
+                    "total": {
+                        "type": "TOTAL",
+                        "label": "Total fees",
+                        "value": {
+                            "amount": 5.09,
+                            "currency": "GBP",
+                            "label": "5.09 GBP"
+                        }
+                    },
+                    "items": [
+                        {
+                            "type": "TRANSFERWISE",
+                            "label": "Our fee",
+                            "value": {
+                                "amount": 5.09,
+                                "currency": "GBP",
+                                "label": "5.09 GBP"
+                            }
+                        }
+                    ],
+                    "deferredFee": null,
+                    "calculatedOn": null
+                },
+                "sourceAmount": 93.62,
+                "targetAmount": 110.0,
+                "sourceCurrency": "GBP",
+                "targetCurrency": "USD",
+                "payIn": "VISA_BUSINESS_CREDIT",
+                "payOut": "BANK_TRANSFER",
+                "allowedProfileTypes": [
+                    "PERSONAL",
+                    "BUSINESS"
+                ],
+                "payInProduct": "FAST",
+                "feePercentage": 0.0544
+            },
+            {
+                "disabled": false,
+                "estimatedDelivery": "2025-01-06T17:30:00Z",
+                "formattedEstimatedDelivery": "by Monday, January 6",
+                "estimatedDeliveryDelays": [],
+                "fee": {
+                    "transferwise": 1.4,
+                    "payIn": 1.39,
+                    "discount": 0.0,
+                    "partner": 0.0,
+                    "total": 2.79
+                },
+                "price": {
+                    "priceSetId": 384,
+                    "total": {
+                        "type": "TOTAL",
+                        "label": "Total fees",
+                        "value": {
+                            "amount": 2.79,
+                            "currency": "GBP",
+                            "label": "2.79 GBP"
+                        }
+                    },
+                    "items": [
+                        {
+                            "type": "TRANSFERWISE",
+                            "label": "Our fee",
+                            "value": {
+                                "amount": 2.79,
+                                "currency": "GBP",
+                                "label": "2.79 GBP"
+                            }
+                        }
+                    ],
+                    "deferredFee": null,
+                    "calculatedOn": null
+                },
+                "sourceAmount": 91.32,
+                "targetAmount": 110.0,
+                "sourceCurrency": "GBP",
+                "targetCurrency": "USD",
+                "payIn": "VISA_BUSINESS_DEBIT",
+                "payOut": "BANK_TRANSFER",
+                "allowedProfileTypes": [
+                    "PERSONAL",
+                    "BUSINESS"
+                ],
+                "payInProduct": "FAST",
+                "feePercentage": 0.0306
+            },
+            {
+                "disabled": false,
+                "estimatedDelivery": "2025-01-06T17:30:00Z",
+                "formattedEstimatedDelivery": "by Monday, January 6",
+                "estimatedDeliveryDelays": [],
+                "fee": {
+                    "transferwise": 1.4,
+                    "payIn": 4.93,
+                    "discount": 0.0,
+                    "partner": 0.0,
+                    "total": 6.33
+                },
+                "price": {
+                    "priceSetId": 384,
+                    "total": {
+                        "type": "TOTAL",
+                        "label": "Total fees",
+                        "value": {
+                            "amount": 6.33,
+                            "currency": "GBP",
+                            "label": "6.33 GBP"
+                        }
+                    },
+                    "items": [
+                        {
+                            "type": "TRANSFERWISE",
+                            "label": "Our fee",
+                            "value": {
+                                "amount": 6.33,
+                                "currency": "GBP",
+                                "label": "6.33 GBP"
+                            }
+                        }
+                    ],
+                    "deferredFee": null,
+                    "calculatedOn": null
+                },
+                "sourceAmount": 94.86,
+                "targetAmount": 110.0,
+                "sourceCurrency": "GBP",
+                "targetCurrency": "USD",
+                "payIn": "INTERNATIONAL_CREDIT",
+                "payOut": "BANK_TRANSFER",
+                "allowedProfileTypes": [
+                    "PERSONAL",
+                    "BUSINESS"
+                ],
+                "payInProduct": "FAST",
+                "feePercentage": 0.0667
+            },
+            {
+                "disabled": false,
+                "estimatedDelivery": "2025-01-06T17:30:00Z",
+                "formattedEstimatedDelivery": "by Monday, January 6",
+                "estimatedDeliveryDelays": [],
+                "fee": {
+                    "transferwise": 1.4,
+                    "payIn": 2.05,
+                    "discount": 0.0,
+                    "partner": 0.0,
+                    "total": 3.45
+                },
+                "price": {
+                    "priceSetId": 384,
+                    "total": {
+                        "type": "TOTAL",
+                        "label": "Total fees",
+                        "value": {
+                            "amount": 3.45,
+                            "currency": "GBP",
+                            "label": "3.45 GBP"
+                        }
+                    },
+                    "items": [
+                        {
+                            "type": "TRANSFERWISE",
+                            "label": "Our fee",
+                            "value": {
+                                "amount": 3.45,
+                                "currency": "GBP",
+                                "label": "3.45 GBP"
+                            }
+                        }
+                    ],
+                    "deferredFee": null,
+                    "calculatedOn": null
+                },
+                "sourceAmount": 91.98,
+                "targetAmount": 110.0,
+                "sourceCurrency": "GBP",
+                "targetCurrency": "USD",
+                "payIn": "VISA_CREDIT",
+                "payOut": "BANK_TRANSFER",
+                "allowedProfileTypes": [
+                    "PERSONAL",
+                    "BUSINESS"
+                ],
+                "payInProduct": "FAST",
+                "feePercentage": 0.0375
+            },
+            {
+                "disabled": true,
+                "estimatedDelivery": "2025-01-06T17:30:00Z",
+                "formattedEstimatedDelivery": "by Monday, January 6",
+                "estimatedDeliveryDelays": [],
+                "fee": {
+                    "transferwise": 1.23,
+                    "payIn": 0.0,
+                    "discount": 0.0,
+                    "partner": 0.0,
+                    "total": 1.23
+                },
+                "price": {
+                    "priceSetId": 381,
+                    "total": {
+                        "type": "TOTAL",
+                        "label": "Total fees",
+                        "value": {
+                            "amount": 1.23,
+                            "currency": "GBP",
+                            "label": "1.23 GBP"
+                        }
+                    },
+                    "items": [
+                        {
+                            "type": "TRANSFERWISE",
+                            "label": "Our fee",
+                            "value": {
+                                "amount": 1.23,
+                                "currency": "GBP",
+                                "label": "1.23 GBP"
+                            }
+                        }
+                    ],
+                    "deferredFee": null,
+                    "calculatedOn": null
+                },
+                "sourceAmount": 89.76,
+                "targetAmount": 110.0,
+                "sourceCurrency": "GBP",
+                "targetCurrency": "USD",
+                "payIn": "BALANCE",
+                "payOut": "BANK_TRANSFER",
+                "allowedProfileTypes": [
+                    "PERSONAL",
+                    "BUSINESS"
+                ],
+                "payInProduct": "BALANCE",
+                "feePercentage": 0.0137
+            }
+        ],
+        "status": "PENDING",
+        "expirationTime": "2025-01-03T21:59:16Z",
+        "notices": []
+    }
+    """
+
     id: str = UUID
     sourceCurrency: str = CURRENCY
     targetCurrency: str = CURRENCY
@@ -376,7 +1302,7 @@ class QuoteResponse(BaseModel):
     targetAmount: DOCUMENTED_BUT_ABSENT[int | float] = None
     payOut: PaymentMethod
     rate: float | int
-    createdTime: str
+    createdTime: Timestamp
     user: int
     profile: DOCUMENTED_BUT_ABSENT[int] = None
     rateType: RateType

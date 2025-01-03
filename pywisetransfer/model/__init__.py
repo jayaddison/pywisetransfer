@@ -62,10 +62,8 @@ __all__ = [
     "profile_type",
     "serialize_timestamp",
     "LegalType",
-        "RecipientAccountList",
+    "RecipientAccountList",
     "RecipientAccountsSorting",
-        "RequirementType", 
+    "RequirementType",
     "RequiredGroupElement",
-
-
 ]

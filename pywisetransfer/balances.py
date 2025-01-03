@@ -17,7 +17,7 @@ class Balances:
     def __init__(self, client: Client):
         self.service = BalancesService(client=client)
 
-    def list(self, profile: int|Profile, types: str | list[str] = "STANDARD") -> list[Munch]:
+    def list(self, profile: int | Profile, types: str | list[str] = "STANDARD") -> list[Munch]:
         params = self.service.get_params_for_endpoint(types=types)
         kw = self.service.get_params_for_endpoint(profile_id=profile)
         return munchify(self.service.list(params=params, **kw))

@@ -11,7 +11,9 @@ See https://docs.wise.com/api-docs/api-reference/quote
 from __future__ import annotations
 
 from pprint import pprint
-from typing import Any
+from typing import Any, Optional
+
+from pywisetransfer.model.profile import Profile
 
 from .endpoint import JsonEndpoint
 from munch import munchify
@@ -63,7 +65,7 @@ class Quote:
         # pprint(response)
         return QuoteResponse(**response)
 
-    def create(self, quote: QuoteRequest, profile: int) -> QuoteResponse:
+    def create(self, quote: QuoteRequest, profile: int | Profile) -> QuoteResponse:
         """Create an authenticated quote.
 
         This quote can be used to create a transfer.
@@ -73,7 +75,9 @@ class Quote:
         response = self.service.example(json=quote.model_dump(), profile_id=profile)
         return QuoteResponse(**response)
 
-    def update(self, quote_update: QuoteUpdate, profile: int, quote: int) -> QuoteResponse:
+    def update(
+        self, quote_update: QuoteUpdate, profile: int | Profile, quote: int | QuoteResponse
+    ) -> QuoteResponse:
         """Update a quote.
 
         See https://docs.wise.com/api-docs/api-reference/quote#update
@@ -83,14 +87,23 @@ class Quote:
         )
         return QuoteResponse(**response)
 
-    def get(self, quote: int):
+    def get(self, quote: int | QuoteResponse, profile: Optional[int | Profile] = None):
         """Get an existing quote.
 
         Get quote info by ID. If the quote has expired (not used to create a transfer
         within 30 minutes of quote creation), it will only be accessible for
         approximately 48 hours via this endpoint.
+
+        Args:
+            quote: The quote to get. If you provie the id only, also provide the profile.
+            profile: The profile to get the quote for. This is not required if the quote response provides the profile id.
+
+        Returns:
+            QuoteResponse: The quote
         """
-        response = self.service.get(quote_id=quote)
+        if not profile and isinstance(quote, QuoteResponse):
+            profile = quote.profile
+        response = self.service.get(quote_id=quote, profile_id=profile)
         return QuoteResponse(**response)
 
 

@@ -145,7 +145,7 @@ This code retrieves the balance for each currency in each account.
 
 ```python
 >>> for profile in client.profiles.list():
-...     print(f"type: {profile.type} {', '.join(f'{balance.totalWorth.value}{balance.totalWorth.currency}' for balance in client.balances.list(profile_id=profile.id))}")
+...     print(f"type: {profile.type} {', '.join(f'{balance.totalWorth.value}{balance.totalWorth.currency}' for balance in client.balances.list(profile=profile))}")
 ... 
 type: personal 1000000.0GBP, 1000000.0EUR, 1000000.0USD, 1000000.0AUD
 type: business 1000000.0GBP, 1000000.0EUR, 1000000.0USD, 1000000.0AUD
@@ -187,7 +187,10 @@ You can also use those in the package.
 In this example, we get the requirements for a recipient account that should receive 100 GBP from us.
 
 ```python
-requirements = client.recipient_accounts.get_requirements_for_currency(source=Currency.GBP, target=Currency.GBP, source_amount=100)
+>>> requirements = client.recipient_accounts.get_requirements_for_currency(source=Currency.GBP, target=Currency.GBP, source_amount=100)
+>>> list(sorted([requirement.type for requirement in requirements]))
+[email, iban, sort_code]
+
 ```
 
 ### Webhook signature verification
@@ -212,18 +215,26 @@ def handle_wise_webhook():
 You can request quote examples as stated in [Create an un-authenticated quote](https://docs.wise.com/api-docs/api-reference/quote#create-not-authenticated).
 
 In this example, we want to transfer `GBP` to `USD` and make sure we have `110USD` in the end.
+The example quote requires less information than a real quote.
 
 ```python
-from pywisetransfer import *
-from pywisetransfer.test import *
-client = TestClient()
-qr = QuoteRequest(
-    sourceCurrency="GBP",
-    targetCurrency="USD",
-    sourceAmount=None,
-    targetAmount=110,
-)
-example_quotes = client.quotes.example(qr)
+>>> from pywisetransfer import ExampleQuoteRequest
+>>> quote_request = ExampleQuoteRequest(
+...     sourceCurrency="GBP",
+...     targetCurrency="USD",
+...     sourceAmount=None,
+...     targetAmount=110,
+... )
+>>> example_quote = client.quotes.example(quote_request)
+>>> example_quote.rate
+1.25155
+>>> example_quote.rateExpirationTime
+datetime.datetime(2024, 12, 31, 19, 21, 44, tzinfo=datetime.timezone.utc)
+>>> example_quote.profile == None  # Example quotes are not bound to a profile
+True
+>>> example_quote.rateType
+FIXED
+
 ```
 
 ### Create a Recipient of a Transfer
