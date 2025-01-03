@@ -11,9 +11,9 @@ class MyService(Base):
     error_415 = JsonEndpoint(default_method="POST", path="/v0/415")
 
 
-def test_error_description(sandbox):
+def test_error_description(client):
     """Make sure we see the error and it is nice!"""
-    s = MyService(client=sandbox)
+    s = MyService(client=client)
     with pytest.raises(WiseAPIError) as e:
         s.error_415(data={})
 

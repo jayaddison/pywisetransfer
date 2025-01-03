@@ -756,10 +756,10 @@ def test_parse_example():
     assert qr.user == 12970746
 
 
-def test_request_a_quote(sandbox):
+def test_request_a_quote(client):
     """We request a quote from the API."""
     q = ExampleQuoteRequest(
         sourceCurrency="GBP", targetCurrency="USD", sourceAmount=None, targetAmount=110
     )
-    a = sandbox.quotes.example(q)
+    a = client.quotes.example(q)
     assert QuoteResponse(**EXAMPLE_RESPONSE) == a

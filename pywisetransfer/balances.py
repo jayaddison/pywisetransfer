@@ -1,34 +1,27 @@
 from typing import Any
 
 from apiron import JsonEndpoint
-from munch import munchify
+from munch import Munch, munchify
 
 from pywisetransfer import Client
 from pywisetransfer.base import Base
+from pywisetransfer.model.profile import Profile
 
 
 class BalancesService(Base):
-    list = JsonEndpoint(path="/v4/profiles/{profile_id}/balances", required_params=["types"])
-    get = JsonEndpoint(path="/v4/profiles/{profile_id}/balances/{balance_id}")
+    list = JsonEndpoint(path="/v4/profiles/{profileId}/balances", required_params=["types"])
+    get = JsonEndpoint(path="/v4/profiles/{profileId}/balances/{balanceId}")
 
 
 class Balances:
     def __init__(self, client: Client):
         self.service = BalancesService(client=client)
 
-    def list(self, profile_id: str, types: str | list[str] = "STANDARD") -> Any:
-        if not isinstance(types, list):
-            assert isinstance(types, str)
-            types = [types]
+    def list(self, profile: int|Profile, types: str | list[str] = "STANDARD") -> list[Munch]:
+        params = self.service.get_params_for_endpoint(types=types)
+        kw = self.service.get_params_for_endpoint(profile_id=profile)
+        return munchify(self.service.list(params=params, **kw))
 
-        valid_types = ["STANDARD", "SAVINGS"]
-        for value in types:
-            assert isinstance(value, str)
-            if value not in valid_types:
-                raise ValueError(f"Invalid type '{type}'; value values are: {valid_types}")
-
-        params = {"types": ",".join(types)}
-        return munchify(self.service.list(profile_id=profile_id, params=params))
-
-    def get(self, profile_id: str, balance_id: str) -> Any:
-        return munchify(self.service.get(profile_id=profile_id, balance_id=balance_id))
+    def get(self, profile: str, balance: str) -> Any:
+        kw = self.service.get_params_for_endpoint(profile_id=profile, balance_id=balance)
+        return munchify(self.service.get(**kw))
