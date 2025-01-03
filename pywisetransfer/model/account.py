@@ -470,6 +470,14 @@ class RecipientAccountRequirement(BaseModel):
     title: str
     usageInfo: Optional[object]
     fields: list[RequiredField]
+    
+    @property
+    def required_fields(self) -> list[RequiredField]:
+        return [field for field in self.fields if any(group.required for group in field.group)]
+
+    @property
+    def optional_fields(self) -> list[RequiredField]:
+        return [field for field in self.fields if not any(group.required for group in field.group)]
 
 
 class RecipientAccountsSorting(BaseModel):

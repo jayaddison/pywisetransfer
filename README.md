@@ -284,6 +284,66 @@ True
 
 ```
 
+### Get Recipient Requirements
+
+The quote above lacks the recipient information.
+The reason is that there are requirements to the recipient account that
+depend on the quote.
+We can get these requirements using `get_requirements_for_quote`.
+
+```python
+>>> requirements = client.recipient_accounts.get_requirements_for_quote(quote.id)
+>>> [requirement.type for requirement in requirements]
+['aba', 'fedwire_local', 'swift_code', 'email']
+
+```
+
+In the example above, we see different requirements for transferring money to a bank account
+in the USA. We can use `aba`, `fedwire_local`, `swift_code` and `email`.
+
+If we look at the first requirement, we see that we require 10 fields.
+
+```python
+>>> ach = requirements[0]
+>>> ach.title
+'ACH'
+>>> len(requirements[0].fields)
+10
+>>> ach.fields[0].name
+'Recipient type'
+>>> ach.fields[0].group[0].required
+True
+>>> ach.fields[0].group[0].type  # the fields are grouped and this is a select with values
+'select'
+>>> [v.key for v in ach.fields[0].group[0].valuesAllowed]  # the JSON value for the details
+['PRIVATE', 'BUSINESS']
+>>> [v.name for v in ach.fields[0].group[0].valuesAllowed]  # what to show to the user
+['Person', 'Business']
+
+```
+
+### Create an Email Recipient
+
+> Wise: Please contact us before attempting to use email recipients. We do not recommend using this feature except for certain uses cases.
+
+Because `email` is` in the requirements, we can create an email recipient.
+
+```pyton
+>>> email = requirements[-1]
+>>> len(email.required_fields)
+2
+>>> email.required_fields[0].group[0].key
+'email'
+>>> email.required_fields[0].group[0].name
+'Email (Optional)'
+>>> email.required_fields[1].group[0].key
+'accountHolderName'
+>>> email.required_fields[1].group[0].name
+'Full name of the account holder'
+
+```
+
+
 ## Run tests
 
 ```bash
