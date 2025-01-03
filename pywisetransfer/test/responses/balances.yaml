@@ -1,0 +1,53 @@
+responses:
+- response:
+    auto_calculate_content_length: false
+    body: '[{"id":236839,"currency":"GBP","amount":{"value":1000000.00,"currency":"GBP"},"reservedAmount":{"value":0.00,"currency":"GBP"},"cashAmount":{"value":1000000.00,"currency":"GBP"},"totalWorth":{"value":1000000.00,"currency":"GBP"},"type":"STANDARD","name":null,"icon":null,"investmentState":"NOT_INVESTED","creationTime":"2024-12-24T18:32:50.433814Z","modificationTime":"2024-12-24T18:32:50.610285Z","visible":true,"primary":true,"groupId":null,"recipientId":700594731},{"id":236923,"currency":"EUR","amount":{"value":1000000.00,"currency":"EUR"},"reservedAmount":{"value":0.00,"currency":"EUR"},"cashAmount":{"value":1000000.00,"currency":"EUR"},"totalWorth":{"value":1000000.00,"currency":"EUR"},"type":"STANDARD","name":null,"icon":null,"investmentState":"NOT_INVESTED","creationTime":"2024-12-24T18:32:51.215204Z","modificationTime":"2024-12-24T18:32:51.357746Z","visible":true,"primary":true,"groupId":null,"recipientId":700594734},{"id":236924,"currency":"USD","amount":{"value":1000000.00,"currency":"USD"},"reservedAmount":{"value":0.00,"currency":"USD"},"cashAmount":{"value":1000000.00,"currency":"USD"},"totalWorth":{"value":1000000.00,"currency":"USD"},"type":"STANDARD","name":null,"icon":null,"investmentState":"NOT_INVESTED","creationTime":"2024-12-24T18:32:51.764832Z","modificationTime":"2024-12-24T18:32:51.932206Z","visible":true,"primary":true,"groupId":null,"recipientId":700594736},{"id":236842,"currency":"AUD","amount":{"value":1000000.00,"currency":"AUD"},"reservedAmount":{"value":0.00,"currency":"AUD"},"cashAmount":{"value":1000000.00,"currency":"AUD"},"totalWorth":{"value":1000000.00,"currency":"AUD"},"type":"STANDARD","name":null,"icon":null,"investmentState":"NOT_INVESTED","creationTime":"2024-12-24T18:32:52.274878Z","modificationTime":"2024-12-24T18:32:52.407401Z","visible":true,"primary":true,"groupId":null,"recipientId":700594738}]'
+    content_type: text/plain
+    headers:
+      CF-Cache-Status: DYNAMIC
+      CF-RAY: 8fc44068aef8652a-LHR
+      Set-Cookie: __cf_bm=QQTwgm5_msCuySGEj4wyXfaRMmCDNOdDBmDqPQZoSts-1735920549-1.0.1.1-tfwgpwMyKhrXXdz_t6vM2hIJ1AvJp6oS8fauj_frSppgHrzhYU73tG0QfrLA8ctv1UH7.8aOqBPg_bBoLeBSbg;
+        path=/; expires=Fri, 03-Jan-25 16:39:09 GMT; domain=.transferwise.tech; HttpOnly;
+        Secure; SameSite=None
+      Transfer-Encoding: chunked
+      alt-svc: h3=":443"; ma=86400
+      cache-control: no-cache, no-store, max-age=0, must-revalidate
+      
+      expires: '0'
+      pragma: no-cache
+      vary: origin,access-control-request-method,access-control-request-headers,accept-encoding
+      x-content-type-options: nosniff
+      x-envoy-attempt-count: '1'
+      x-envoy-upstream-service-time: '98'
+      x-frame-options: DENY
+      x-trace-id: 12e77ed207219d02
+      x-xss-protection: '0'
+    method: GET
+    status: 200
+    url: https://api.sandbox.transferwise.tech/v4/profiles/28577318/balances?types=STANDARD
+- response:
+    auto_calculate_content_length: false
+    body: '[{"id":236840,"currency":"GBP","amount":{"value":1000000.00,"currency":"GBP"},"reservedAmount":{"value":0.00,"currency":"GBP"},"cashAmount":{"value":1000000.00,"currency":"GBP"},"totalWorth":{"value":1000000.00,"currency":"GBP"},"type":"STANDARD","name":null,"icon":null,"investmentState":"NOT_INVESTED","creationTime":"2024-12-24T18:32:50.862668Z","modificationTime":"2024-12-24T18:32:51.025696Z","visible":true,"primary":true,"groupId":null,"recipientId":700594733},{"id":236841,"currency":"EUR","amount":{"value":1000000.00,"currency":"EUR"},"reservedAmount":{"value":0.00,"currency":"EUR"},"cashAmount":{"value":1000000.00,"currency":"EUR"},"totalWorth":{"value":1000000.00,"currency":"EUR"},"type":"STANDARD","name":null,"icon":null,"investmentState":"NOT_INVESTED","creationTime":"2024-12-24T18:32:51.476170Z","modificationTime":"2024-12-24T18:32:51.628820Z","visible":true,"primary":true,"groupId":null,"recipientId":700594735},{"id":236925,"currency":"USD","amount":{"value":1000000.00,"currency":"USD"},"reservedAmount":{"value":0.00,"currency":"USD"},"cashAmount":{"value":1000000.00,"currency":"USD"},"totalWorth":{"value":1000000.00,"currency":"USD"},"type":"STANDARD","name":null,"icon":null,"investmentState":"NOT_INVESTED","creationTime":"2024-12-24T18:32:52.023874Z","modificationTime":"2024-12-24T18:32:52.189330Z","visible":true,"primary":true,"groupId":null,"recipientId":700594737},{"id":236926,"currency":"AUD","amount":{"value":1000000.00,"currency":"AUD"},"reservedAmount":{"value":0.00,"currency":"AUD"},"cashAmount":{"value":1000000.00,"currency":"AUD"},"totalWorth":{"value":1000000.00,"currency":"AUD"},"type":"STANDARD","name":null,"icon":null,"investmentState":"NOT_INVESTED","creationTime":"2024-12-24T18:32:52.527499Z","modificationTime":"2024-12-24T18:32:52.673963Z","visible":true,"primary":true,"groupId":null,"recipientId":700594739}]'
+    content_type: text/plain
+    headers:
+      CF-Cache-Status: DYNAMIC
+      CF-RAY: 8fc44069ea0bcdad-LHR
+      Set-Cookie: __cf_bm=ZMS1iMxhY8vJBnpsmlxjWIBDAKACV0TkdllFdyc3Qjw-1735920549-1.0.1.1-Lh9woya5tnA9.857teTugXkO8zC.Pz5pq6w4AMYLQaUH9Rgy6gIIYBDvdZ3P5FGnOeBqkBZtEICjVK1ySg3NDQ;
+        path=/; expires=Fri, 03-Jan-25 16:39:09 GMT; domain=.transferwise.tech; HttpOnly;
+        Secure; SameSite=None
+      Transfer-Encoding: chunked
+      alt-svc: h3=":443"; ma=86400
+      cache-control: no-cache, no-store, max-age=0, must-revalidate
+      
+      expires: '0'
+      pragma: no-cache
+      vary: origin,access-control-request-method,access-control-request-headers,accept-encoding
+      x-content-type-options: nosniff
+      x-envoy-attempt-count: '1'
+      x-envoy-upstream-service-time: '103'
+      x-frame-options: DENY
+      x-trace-id: 1de46c161705105c
+      x-xss-protection: '0'
+    method: GET
+    status: 200
+    url: https://api.sandbox.transferwise.tech/v4/profiles/28577319/balances?types=STANDARD

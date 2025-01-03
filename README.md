@@ -13,7 +13,8 @@ pip install pywisetransfer
 After installation, you should be able to import the package.
 
 ```python
-import pywisetransfer
+>>> from pywisetransfer import Client
+
 ```
 
 ## Usage
@@ -43,20 +44,23 @@ First of all, you create a `Client` object:
 - Create a `Client` object with your API key for the `live` environment:
 
     ```python
-    client = pywisetransfer.Client(api_key="your-api-key-here", environment="live")
+    >>> client = Client(api_key="your-api-key-here", environment="live")
+
     ```
 
 - Create a `Client` object with your API key for the `sandbox` environment:
 
     ```python
-    client = pywisetransfer.Client(api_key="your-api-key-here")
+    >>> client = Client(api_key="your-api-key-here")
+
     ```
 
 - Create a `Client` object which interacts with the recorded API which is used for the tests:
 
     ```python
-    from pywisetransfer.test import TestClient
-    client = pywisetransfer.TestClient()
+    >>> from pywisetransfer.test import TestClient
+    >>> client = TestClient()
+
     ```
 
     After this, all calls to the real Wise API are blocked by the `responses` library.
@@ -82,15 +86,14 @@ If you create a sandbox account, you should have two profiles: `business` and `p
 ...     print(f"id: {profile.id}")
 ...     print(f"type: {profile.type}")
 ...     print(f"name: {profile.details.name}")
-...     print()
 ... 
 id: 28577318
 type: personal
 name: Teresa Adams
-
 id: 28577319
 type: business
 name: Law and Daughters 6423
+
 ```
 
 ### Receive Money
@@ -101,13 +104,12 @@ This shows which currencies are accepted and how to receive money.
 ```python
 >>> for profile in client.profiles.list():
 ...     accounts = client.account_details.list(profile_id=profile.id)
-...     print(f"\ntype: {profile.type}")
+...     print(f"type: {profile.type}")
 ...     for account in accounts:
 ...         print(
 ...             f"    currency: {account.currency.code}"
 ...             f" receive with: {', '.join(feature.title for feature in account.bankFeatures if feature.supported)}")
 ... 
-
 type: personal
     currency: EUR receive with: Receive locally, Receive internationally (Swift), Set up Direct Debits, Receive from PayPal and Stripe
     currency: GBP receive with: Receive locally, Receive internationally (Swift), Set up Direct Debits, Receive from PayPal and Stripe
@@ -116,11 +118,10 @@ type: personal
     currency: NZD receive with: Receive locally
     currency: CAD receive with: Receive locally, Set up Direct Debits
     currency: HUF receive with: Receive locally
-    currency: MYR receive with: 
+    currency: MYR receive with:
     currency: RON receive with: Receive locally
     currency: SGD receive with: Receive locally
     currency: TRY receive with: Receive locally
-
 type: business
     currency: EUR receive with: Receive locally, Receive internationally (Swift), Set up Direct Debits, Receive from PayPal and Stripe
     currency: GBP receive with: Receive locally, Receive internationally (Swift), Set up Direct Debits, Receive from PayPal and Stripe
@@ -129,7 +130,7 @@ type: business
     currency: NZD receive with: Receive locally
     currency: CAD receive with: Receive locally, Set up Direct Debits
     currency: HUF receive with: Receive locally
-    currency: MYR receive with: 
+    currency: MYR receive with:
     currency: RON receive with: Receive locally
     currency: SGD receive with: Receive locally
     currency: TRY receive with: Receive locally

@@ -394,6 +394,7 @@ class ExampleQuoteRequest(BaseModel):
 
     https://docs.wise.com/api-docs/api-reference/quote#create-not-authenticated
 
+    >>> from pywisetransfer import ExampleQuoteRequest
     >>> quote_request = ExampleQuoteRequest(
     ...     sourceCurrency="GBP",
     ...     targetCurrency="USD",
@@ -468,6 +469,7 @@ class QuoteRequest(ExampleQuoteRequest):
 
     This quote is authenticated and can be used to create a transfer.
 
+    >>> from pywisetransfer import QuoteRequest
     >>> quote_request = QuoteRequest(
     ...     sourceCurrency="GBP",
     ...     targetCurrency="USD",

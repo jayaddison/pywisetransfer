@@ -34,6 +34,7 @@ class Base(Service):
     def param_value_to_str(cls, value: Any) -> str:
         """Turn a paramater value into a string.
 
+        >>> from pywisetransfer.base import Base
         >>> Base.param_value_to_str("test")
         'test'
         >>> Base.param_value_to_str(1)
@@ -42,6 +43,7 @@ class Base(Service):
         'true'
         >>> Base.param_value_to_str(False)
         'false'
+
         """
         if isinstance(value, bool):
              return "true" if value else "false"
@@ -56,18 +58,20 @@ class Base(Service):
         raise ValueError(f"Unsupported parameter type: {type(value)}")
 
     @classmethod
-    def get_params_for_endpoint(self, **kw) -> dict[str, str]:
+    def get_params_for_endpoint(cls, **kw) -> dict[str, str]:
         """Return the actual keyword arguments for the endpoint call.
 
-        >>> Base.get_kw_for_endpoint(profile_id=1)
-        {profileId: '1'}
+        >>> from pywisetransfer.base import Base
+        >>> Base.get_params_for_endpoint(profile_id=1)
+        {'profileId': '1'}
+        
         """
         wise_call_args = {}
         for py_arg, value in kw.items():
             wise_arg = "".join(s[0].upper() + s[1:] for s in py_arg.split("_"))
             wise_arg = wise_arg[0].lower() + wise_arg[1:]
             if value is not None:
-                wise_call_args[wise_arg] = self.param_value_to_str(value)
+                wise_call_args[wise_arg] = cls.param_value_to_str(value)
         return wise_call_args
 
 

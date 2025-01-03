@@ -1,0 +1,28 @@
+responses:
+- response:
+    auto_calculate_content_length: false
+    body: '[{"id":28577318,"type":"personal","details":{"firstName":"Teresa","lastName":"Adams","dateOfBirth":"1996-09-07","phoneNumber":"+38263075896","avatar":null,"occupation":null,"occupations":null,"primaryAddress":49612126,"firstNameInKana":null,"lastNameInKana":null,"localizedInformation":[]}},{"id":28577319,"type":"business","details":{"name":"Law
+      and Daughters 6423","registrationNumber":"72673886","acn":null,"abn":null,"arbn":null,"companyType":"LIMITED","companyRole":"OWNER","descriptionOfBusiness":"DESIGN","primaryAddress":49612127,"webpage":"https://lawanddaughters6423.com","businessCategory":"CONSULTING_IT_BUSINESS_SERVICES","businessSubCategory":"DESIGN","localizedInformation":[]}}]'
+    content_type: text/plain
+    headers:
+      CF-Cache-Status: DYNAMIC
+      CF-RAY: 8fc435abfb4bed01-LHR
+      Set-Cookie: __cf_bm=HK7BKA64Uug5FlXeT369KrEEiuJXFuhbbrH0Ct2EhVU-1735920109-1.0.1.1-qNdWY4IGdceJq1.sVkehg8N4yLzrq1wgd0_5vQ9HV5drxSozleQMP.YpIkWe_9r5KKBbDUU6PmmDxrFnmPaajw;
+        path=/; expires=Fri, 03-Jan-25 16:31:49 GMT; domain=.transferwise.tech; HttpOnly;
+        Secure; SameSite=None
+      Transfer-Encoding: chunked
+      alt-svc: h3=":443"; ma=86400
+      cache-control: no-cache, no-store, max-age=0, must-revalidate
+      
+      expires: '0'
+      pragma: no-cache
+      vary: origin,access-control-request-method,access-control-request-headers,accept-encoding
+      x-content-type-options: nosniff
+      x-envoy-attempt-count: '1'
+      x-envoy-upstream-service-time: '208'
+      x-frame-options: DENY
+      x-trace-id: 917b679881fbe581
+      x-xss-protection: '0'
+    method: GET
+    status: 200
+    url: https://api.sandbox.transferwise.tech/v1/profiles
