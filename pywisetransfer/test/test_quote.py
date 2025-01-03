@@ -1,6 +1,7 @@
 """Tests for the quotes."""
 
-from pywisetransfer.model.quote import ExampleQuoteRequest, QuoteResponse
+from pywisetransfer.client import Client
+from pywisetransfer.model.quote import ExampleQuoteRequest, PaymentMethod, QuoteRequest, QuoteResponse
 
 
 EXAMPLE_RESPONSE = {
@@ -763,3 +764,19 @@ def test_request_a_quote(client):
     )
     a = client.quotes.example(q)
     assert QuoteResponse(**EXAMPLE_RESPONSE) == a
+
+
+def test_create_a_quote(client:Client, quote_request:QuoteRequest):
+    """We create a quote from the API."""
+    quote = client.quotes.create(quote_request, profile=28577318)
+    assert quote.user == 12970746
+    assert quote.status == "PENDING"
+    assert quote.sourceCurrency == "GBP"
+    assert quote.targetCurrency == "USD"
+    assert quote.sourceAmount is None
+    assert quote.targetAmount == 110
+    assert quote.rate == 1.24232
+    assert quote.rateType == "FIXED"
+    assert quote.payOut == PaymentMethod.BANK_TRANSFER
+    assert len(quote.paymentOptions) > 1
+    

@@ -72,7 +72,7 @@ class Quote:
 
         https://docs.wise.com/api-docs/api-reference/quote#create-authenticated
         """
-        response = self.service.example(json=quote.model_dump(), profile_id=profile)
+        response = self.service.create(json=quote.model_dump(), profile_id=profile)
         return QuoteResponse(**response)
 
     def update(

@@ -11,12 +11,13 @@ You can add responses by running this in your codebase:
 """
 
 from typing import Generator
+from unittest.mock import MagicMock
 from munch import Munch
 import pytest
 from pywisetransfer import Client
 from pywisetransfer.model.account import RecipientAccountRequirement
 from pywisetransfer.model.profile import Profile, Profiles
-from pywisetransfer.model.quote import ExampleQuoteRequest, QuoteRequest
+from pywisetransfer.model.quote import ExampleQuoteRequest, PaymentMethod, QuoteRequest
 from pywisetransfer.test.record import TestClient
 from pywisetransfer.model.currency import Currency
 
@@ -104,7 +105,7 @@ def sandbox_requirements_gbp(sandbox_client: Client) -> list[RecipientAccountReq
 
 
 @pytest.fixture(scope="session")
-def sandbox_example_quote_request() -> ExampleQuoteRequest:
+def example_quote_request() -> ExampleQuoteRequest:
     """An example quote request."""
     return ExampleQuoteRequest(
         sourceCurrency="GBP",
@@ -115,8 +116,27 @@ def sandbox_example_quote_request() -> ExampleQuoteRequest:
 
 
 @pytest.fixture(scope="session")
+def quote_request() -> QuoteRequest:
+    """An example quote request."""
+    return QuoteRequest(
+        sourceCurrency="GBP",
+        targetCurrency="USD",
+        sourceAmount=None,
+        targetAmount=110,
+        targetAccount=None,
+        payOut=PaymentMethod.BANK_TRANSFER,
+        preferredPayIn=PaymentMethod.BANK_TRANSFER,
+    )
+
+
+@pytest.fixture(scope="session")
 def sandbox_example_quote(
-    sandbox_client: Client, sandbox_example_quote_request: ExampleQuoteRequest
+    sandbox_client: Client, example_quote_request: ExampleQuoteRequest
 ) -> QuoteRequest:
     """An example quote request."""
-    return sandbox_client.quotes.example(sandbox_example_quote_request)
+    return sandbox_client.quotes.example(example_quote_request)
+
+
+@pytest.fixture
+def mock():
+    return MagicMock()

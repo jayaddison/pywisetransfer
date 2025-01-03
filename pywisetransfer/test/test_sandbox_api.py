@@ -61,13 +61,13 @@ def test_requirements(sandbox_requirements_gbp: list[RecipientAccountRequirement
 
 
 def test_example_quote(
-    sandbox_example_quote: QuoteResponse, sandbox_example_quote_request: ExampleQuoteRequest
+    sandbox_example_quote: QuoteResponse, example_quote_request: ExampleQuoteRequest
 ):
     """Check that the example quote matches the request."""
-    assert sandbox_example_quote.sourceCurrency == sandbox_example_quote_request.sourceCurrency
-    assert sandbox_example_quote.targetCurrency == sandbox_example_quote_request.targetCurrency
-    assert sandbox_example_quote.sourceAmount == sandbox_example_quote_request.sourceAmount
-    assert sandbox_example_quote.targetAmount == sandbox_example_quote_request.targetAmount
+    assert sandbox_example_quote.sourceCurrency == example_quote_request.sourceCurrency
+    assert sandbox_example_quote.targetCurrency == example_quote_request.targetCurrency
+    assert sandbox_example_quote.sourceAmount == example_quote_request.sourceAmount
+    assert sandbox_example_quote.targetAmount == example_quote_request.targetAmount
     print(sandbox_example_quote.id)
     assert sandbox_example_quote.status == QuoteStatus.PENDING
 

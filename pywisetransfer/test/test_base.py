@@ -1,7 +1,9 @@
 """Test the base methods."""
 
+from pytest import MonkeyPatch
 from pywisetransfer.base import Base
 from pywisetransfer.model.currency import Currency
+from pywisetransfer.model.quote import QuoteResponse
 
 
 def test_kw_conversion():
@@ -34,3 +36,18 @@ def test_id():
 
 def test_code():
     assert Base.get_params_for_endpoint(currency=Currency.AED) == {"currency": "AED"}
+
+
+def test_call_args_are_converted(client, monkeypatch: MonkeyPatch, mock, quote_request):
+    """Check that we call the client with the correct arguments."""
+    from apiron import client as apiron_client
+
+    monkeypatch.setattr(apiron_client, "call", mock)
+    example = QuoteResponse.model_example().model_dump()
+    mock.return_value = example
+    client.quotes.create(quote_request, profile='100')
+    assert mock.call_count == 1
+    call = mock.mock_calls[0]
+    assert call.kwargs == dict(profile_id='100',
+        json=quote_request.model_dump(),
+    )
