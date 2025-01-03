@@ -8,9 +8,12 @@ class StrEnum(str, Enum):
 
     def __repr__(self) -> str:
         """Return only the value of the enum."""
+        return repr(self.value)
+
+    def __str__(self) -> str:
+        """Return only the value of the enum."""
         return self.value
 
-    __str__ = __repr__
 
 
 __all__ = ["StrEnum"]

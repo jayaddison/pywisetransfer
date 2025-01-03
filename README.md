@@ -190,7 +190,7 @@ In this example, we get the requirements for a recipient account that should rec
 ```python
 >>> requirements = client.recipient_accounts.get_requirements_for_currency(source=Currency.GBP, target=Currency.GBP, source_amount=100)
 >>> list(sorted([requirement.type for requirement in requirements]))
-[email, iban, sort_code]
+['email', 'iban', 'sort_code']
 
 ```
 
@@ -234,7 +234,7 @@ datetime.datetime(2024, 12, 31, 19, 21, 44, tzinfo=datetime.timezone.utc)
 >>> example_quote.profile == None  # Example quotes are not bound to a profile
 True
 >>> example_quote.rateType
-FIXED
+'FIXED'
 
 ```
 
@@ -264,7 +264,7 @@ The `targetAccount` is None because we don't know the recipient yet.
 >>> quote.user
 12970746
 >>> quote.status
-PENDING
+'PENDING'
 >>> quote.sourceCurrency
 'GBP'
 >>> quote.targetCurrency 
@@ -276,9 +276,9 @@ True
 >>> quote.rate
 1.24232
 >>> quote.rateType
-FIXED
+'FIXED'
 >>> quote.payOut
-BANK_TRANSFER
+'BANK_TRANSFER'
 >>> len(quote.paymentOptions)  # we have many payment options
 20
 
