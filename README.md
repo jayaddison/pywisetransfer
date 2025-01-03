@@ -144,7 +144,8 @@ type: business
 This code retrieves the balance for each currency in each account.
 
 ```python
->>> for profile in client.profiles.list():
+>>> profiles = client.profiles.list()
+>>> for profile in profiles:
 ...     print(f"type: {profile.type} {', '.join(f'{balance.totalWorth.value}{balance.totalWorth.currency}' for balance in client.balances.list(profile=profile))}")
 ... 
 type: personal 1000000.0GBP, 1000000.0EUR, 1000000.0USD, 1000000.0AUD
@@ -244,7 +245,42 @@ FIXED
 To create a transfer, you first need a quote.
 You can read on how to create [Create an authenticated quote](https://docs.wise.com/api-docs/api-reference/quote#create-authenticated).
 
+In this example, we create a quote for the personal account. This is the same quote as the one above.
+We also provide pay-out and pay-in information.
+The `targetAccount` is None because we don't know the recipient yet.
+
 ```python
+>>> from pywisetransfer import QuoteRequest, PaymentMethod
+>>> quote_request = QuoteRequest(
+...        sourceCurrency="GBP",
+...        targetCurrency="USD",
+...        sourceAmount=None,
+...        targetAmount=110,
+...        targetAccount=None,
+...        payOut=PaymentMethod.BANK_TRANSFER,
+...        preferredPayIn=PaymentMethod.BANK_TRANSFER,
+...    )
+>>> quote = client.quotes.create(quote_request, profile=profiles.personal[0])
+>>> quote.user
+12970746
+>>> quote.status
+PENDING
+>>> quote.sourceCurrency
+'GBP'
+>>> quote.targetCurrency 
+'USD'
+>>> quote.sourceAmount is None  # the source amount depends on the payment option
+True
+>>> quote.targetAmount
+110.0
+>>> quote.rate
+1.24232
+>>> quote.rateType
+FIXED
+>>> quote.payOut
+BANK_TRANSFER
+>>> len(quote.paymentOptions)  # we have many payment options
+20
 
 ```
 
