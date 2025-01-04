@@ -381,6 +381,8 @@ False
 
 ```
 
+![](img/email-recipient.png)
+
 
 ## Run tests
 
