@@ -1,3 +1,5 @@
+import re
+from typing import Self
 from pywisetransfer.model.enum import StrEnum
 
 
@@ -64,6 +66,25 @@ class RequirementType(StrEnum):
     vietname_earthport = "vietname_earthport"
     fedwire_local = "fedwire_local"
     swift_code = "swift_code"
+
+
+    @classmethod
+    def from_camel_case(cls:type[Self], string:str) -> Self:
+        """Return a RequirementType from a camelCase string.
+        
+        >>> from pywisetransfer import RequirementType
+        >>> RequirementType.sort_code
+        'sort_code'
+        >>> RequirementType.from_camel_case('sort_code')
+        'sort_code'
+        >>> RequirementType.from_camel_case('sortCode')
+        'sort_code'
+        >>> RequirementType.from_camel_case('Iban')
+        'iban'
+        
+        """
+        return "_".join(s.lower() for s in re.findall(r'^[a-z_]+|[a-z_]+$|[A-Z][a-z_]*', string))
+
 
 
 __all__ = ["RequirementType"]

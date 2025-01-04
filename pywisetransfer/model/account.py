@@ -133,7 +133,7 @@ class RecipientAccountResponse(BaseModel):
     name: Optional[RecipientName] = None
     currency: str = CURRENCY
     # country: Optional[str] = COUNTRY_CODE
-    type: Annotated[RequirementType, BeforeValidator(lambda s: RequirementType(s.lower()))]
+    type: Annotated[RequirementType, BeforeValidator(RequirementType.from_camel_case)]
     legalEntityType: DOCUMENTED_BUT_ABSENT[LegalEntityType] = None
     active: bool
     commonFieldMap: Optional[CommonFieldMap] = None
@@ -161,7 +161,7 @@ class RecipientAccountResponse(BaseModel):
             "cannotHavePatronymicName": null
         },
         "currency": "GBP",
-        "type": "SortCode",
+        "type": "sort_code",
         "legalEntityType": "PERSON",
         "active": true,
         "commonFieldMap": {

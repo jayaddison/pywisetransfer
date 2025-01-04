@@ -74,4 +74,5 @@ __all__ = [
     "Payment",
     "PaymentType",
     "PaymentResponse",
+    "PaymentStatus"
 ]

@@ -188,6 +188,6 @@ def sandbox_iban_recipient_request(sandbox_business_profile: Profile) -> Recipie
 def sandbox_iban_recipient(
     sandbox_client: Client, sandbox_iban_recipient_request: Recipient
 ) -> RecipientAccountResponse:
-    """Create an email recipient."""
+    """Create an iban recipient."""
     answer = sandbox_client.recipient_accounts.create_recipient(sandbox_iban_recipient_request)
     return sandbox_client.recipient_accounts.get(answer)
