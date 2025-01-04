@@ -14,6 +14,7 @@ __all__ = [
     "Country",
     "Currency",
     "CurrencyCode",
+    "RecipientAccountRequirements",
     "DeliveryDelay",
     "DisplayField",
     "EmailDetails",

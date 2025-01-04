@@ -292,7 +292,7 @@ depend on the quote.
 We can get these requirements using `get_requirements_for_quote`.
 
 ```python
->>> requirements = client.recipient_accounts.get_requirements_for_quote(quote.id)
+>>> requirements = client.recipient_accounts.get_requirements_for_quote(quote)
 >>> [requirement.type for requirement in requirements]
 ['aba', 'fedwire_local', 'swift_code', 'email']
 
@@ -382,6 +382,58 @@ False
 ```
 
 ![](img/email-recipient.png)
+
+### Create an IBAN recipient
+
+Email is discouraged. We can do better!
+Belows we go through the flow of creating an IBAN recipient and updating the quote.
+
+We use the business profile for this.
+
+```python
+>>> business_profile = profiles.business[0]
+
+```
+
+1. Create an EUR/IBAN quote. We transfer 1000 GBP to EUR.
+
+    ```python
+    >>> quote_request = QuoteRequest(sourceCurrency="GBP",targetCurrency="EUR", sourceAmount=1000)
+    >>> quote = client.quotes.create(quote_request, business_profile)
+
+    ```
+
+2. Get the recipient requirements for the quote.
+
+    ```python
+    >>> requirements = client.recipient_accounts.get_requirements_for_quote(quote)
+    >>> requirements.iban.required_keys
+    ['IBAN', 'accountHolderName', 'legalType']
+
+    ```
+
+3. Create an IBAN recipient.
+
+    ```python
+    >>> from pywisetransfer import Recipient, RecipientDetails, CurrencyCode, RequirementType, LegalType
+    >>> iban_recipient = Recipient(
+    ...     currency=CurrencyCode.EUR,
+    ...     type=RequirementType.iban,
+    ...     profile=business_profile.id,
+    ...     accountHolderName="Max Mustermann",
+    ...     ownedByCustomer=False,
+    ...     details=RecipientDetails(
+    ...         legalType=LegalType.PRIVATE,
+    ...         IBAN="DE12345678901234567890"
+    ...     )
+    ... )
+    >>> created_iban_recipient = client.recipient_accounts.create_recipient(iban_recipient)
+    >>> iban_display = client.recipient_accounts.get(created_iban_recipient)
+    >>> iban_display.id
+    700614969
+
+    ```
+
 
 
 ## Run tests

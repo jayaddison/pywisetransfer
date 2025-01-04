@@ -17,6 +17,7 @@ from pywisetransfer.model.account import (
     FilledInRecipientAccountRequest,
     RecipientAccountList,
     RecipientAccountRequest,
+    RecipientAccountRequirements,
     RecipientAccountResponse,
     RecipientAccountRequirement,
 )
@@ -123,23 +124,23 @@ class RecipientAccount:
 
     def get_requirements_for_quote(
         self, quote: int | QuoteResponse
-    ) -> List[RecipientAccountRequirement]:
+    ) -> RecipientAccountRequirements:
         """Get the requirements for a recipient account.
 
         Args:
             quote: The quote id
         """
-        return [
+        return RecipientAccountRequirements(
             RecipientAccountRequirement(**requirement)
             for requirement in self.service.get_quote_requirements(quote_id=quote)
-        ]
+        )
 
     def get_requirements_for_currency(
         self,
         source: str | Currency,
         target: str | Currency,
         source_amount=float | int,
-    ) -> List[RecipientAccountRequirement]:
+    ) -> RecipientAccountRequirements:
         params = self.service.get_params_for_endpoint(
             source=source,
             target=target,

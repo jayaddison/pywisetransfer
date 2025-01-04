@@ -123,7 +123,7 @@ def quote_request() -> QuoteRequest:
     """An example quote request."""
     return QuoteRequest(
         sourceCurrency="GBP",
-        targetCurrency="USD",
+        targetCurrency="EUR",
         sourceAmount=None,
         targetAmount=110,
         targetAccount=None,
@@ -146,7 +146,7 @@ def mock():
 
 
 @pytest.fixture(scope="session")
-def sandbox_email_recipient_request(sandbox_personal_profile: Profile)-> Recipient:
+def sandbox_iban_recipient_request(sandbox_personal_profile: Profile)-> Recipient:
     """The data to request creating a new email recipient."""
     return Recipient(
         currency=CurrencyCode.EUR,
@@ -159,9 +159,30 @@ def sandbox_email_recipient_request(sandbox_personal_profile: Profile)-> Recipie
 
 
 @pytest.fixture(scope="session")
-def sandbox_email_recipient(sandbox_client: Client, sandbox_email_recipient_request:Recipient) -> RecipientAccountResponse:
+def sandbox_email_recipient(sandbox_client: Client, sandbox_iban_recipient_request:Recipient) -> RecipientAccountResponse:
     """Create an email recipient."""
-    answer = sandbox_client.recipient_accounts.create_recipient(sandbox_email_recipient_request)
+    answer = sandbox_client.recipient_accounts.create_recipient(sandbox_iban_recipient_request)
     return sandbox_client.recipient_accounts.get(answer)
 
     
+@pytest.fixture(scope="session")
+def sandbox_iban_recipient_request(sandbox_business_profile: Profile)-> Recipient:
+    """The data to request creating a new email recipient."""
+    return Recipient(
+        currency=CurrencyCode.EUR,
+        type=RequirementType.iban,
+        profile=sandbox_business_profile,
+        accountHolderName="John Doe",
+        ownedByCustomer=False,
+        details=RecipientDetails(
+            email="john@doe.com",
+            iban="DE89370400440532013000",
+        ),
+    )
+
+@pytest.fixture(scope="session")
+def sandbox_iban_recipient(sandbox_client: Client, sandbox_iban_recipient_request:Recipient) -> RecipientAccountResponse:
+    """Create an email recipient."""
+    answer = sandbox_client.recipient_accounts.create_recipient(sandbox_iban_recipient_request)
+    return sandbox_client.recipient_accounts.get(answer)
+

@@ -87,6 +87,14 @@ def test_get_the_quote_again(
     assert quote.id == sandbox_example_quote.id
 
 
-def test_email_recipient(sandbox_email_recipient: RecipientAccountResponse, sandbox_email_recipient_request:Recipient):
+def test_email_recipient(sandbox_email_recipient: RecipientAccountResponse, sandbox_iban_recipient_request:Recipient):
     """Check tha the data matches."""
-    assert sandbox_email_recipient.email == sandbox_email_recipient_request.details.email
+    assert sandbox_email_recipient.email == sandbox_iban_recipient_request.details.email
+
+
+def test_iban_recipient(sandbox_iban_recipient: RecipientAccountResponse, sandbox_iban_recipient_request:Recipient):
+    """Check tha the data matches."""
+    assert sandbox_iban_recipient.email is None
+    assert sandbox_iban_recipient.type == "IBAN"
+    assert not sandbox_iban_recipient.ownedByCustomer
+    assert sandbox_iban_recipient.currency == sandbox_iban_recipient_request.details.currency

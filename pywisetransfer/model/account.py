@@ -429,20 +429,43 @@ class RecipientAccountRequirement(BaseModel):
     """A requirement for a recipient account.
 
     Attributes:
+        type: Type of requirement
+        title: Display name
+        usageInfo: UNKNOWN - Usage information
+        fields: List of fields required, grouped together
     """
 
     type: RequirementType
     title: str
     usageInfo: Optional[object]
     fields: list[RequiredField]
+    
+    @property
+    def required_keys(self) -> list[str]:
+        """All keys that are required.
+        
+        This is a shortcut for the required fields for easier validation.
+        """
+        return list(sorted({group.key for field in self.required_fields for group in field.group}))
 
     @property
     def required_fields(self) -> list[RequiredField]:
+        """All required fields."""
         return [field for field in self.fields if any(group.required for group in field.group)]
 
     @property
     def optional_fields(self) -> list[RequiredField]:
+        """All fields that are not required."""
         return [field for field in self.fields if not any(group.required for group in field.group)]
+        
+    @property
+    def requires_update(self) -> bool:
+        """Whether there is a field which requires one more API interaction to get new requirements.
+        
+        This refers to refreshRequirementsOnChange:
+        Sometimes settings a field creates new requirements.
+        """
+        return any(group.refreshRequirementsOnChange for field in self.fields for group in field.group)
 
 
 class RecipientAccountsSorting(BaseModel):
@@ -485,6 +508,19 @@ class RecipientAccountList(BaseModel):
     size: int
 
 
+class RecipientAccountRequirements(list[RecipientAccountRequirement]):
+    """An easy access to all the requirements."""
+
+for requirement_type in RequirementType:
+    def get_requirement(self:RecipientAccountRequirements, requirement_type:RequirementType=requirement_type) -> Optional[RecipientAccountRequirement]:
+        for requirement in self:
+            if requirement.type == requirement_type:
+                return requirement
+        return None
+    setattr(RecipientAccountRequirements, str(requirement_type), property(get_requirement, doc=f"Get the {requirement_type} requirement if present."))
+
+del requirement_type
+
 __all__ = [
     "RecipientAccountResponse",
     "RecipientAccountRequest",
@@ -503,4 +539,5 @@ __all__ = [
     "RequiredGroupElement",
     "FilledInRecipientAccountRequest",
     "LegalEntityType",
+    "RecipientAccountRequirements",
 ]
