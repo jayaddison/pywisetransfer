@@ -326,9 +326,9 @@ True
 
 > Wise: Please contact us before attempting to use email recipients. We do not recommend using this feature except for certain uses cases.
 
-Because `email` is` in the requirements, we can create an email recipient for the quote.
+Because `email` is in the requirements, we can create an email recipient for the quote.
 
-```pyton
+```python
 >>> email = requirements[-1]
 >>> len(email.required_fields)
 2
