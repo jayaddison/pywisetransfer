@@ -3,7 +3,7 @@ from typing import Self
 from pywisetransfer.model.enum import StrEnum
 
 
-class RequirementType(StrEnum):
+class AccountRequirementType(StrEnum):
     """Type of a recipient account requirement."""
 
     aba = "aba"
@@ -67,24 +67,22 @@ class RequirementType(StrEnum):
     fedwire_local = "fedwire_local"
     swift_code = "swift_code"
 
-
     @classmethod
-    def from_camel_case(cls:type[Self], string:str) -> Self:
-        """Return a RequirementType from a camelCase string.
-        
-        >>> from pywisetransfer import RequirementType
-        >>> RequirementType.sort_code
+    def from_camel_case(cls: type[Self], string: str) -> Self:
+        """Return a AccountRequirementType from a camelCase string.
+
+        >>> from pywisetransfer import AccountRequirementType
+        >>> AccountRequirementType.sort_code
         'sort_code'
-        >>> RequirementType.from_camel_case('sort_code')
+        >>> AccountRequirementType.from_camel_case('sort_code')
         'sort_code'
-        >>> RequirementType.from_camel_case('sortCode')
+        >>> AccountRequirementType.from_camel_case('sortCode')
         'sort_code'
-        >>> RequirementType.from_camel_case('Iban')
+        >>> AccountRequirementType.from_camel_case('Iban')
         'iban'
-        
+
         """
-        return "_".join(s.lower() for s in re.findall(r'^[a-z_]+|[a-z_]+$|[A-Z][a-z_]*', string))
+        return "_".join(s.lower() for s in re.findall(r"^[a-z_]+|[a-z_]+$|[A-Z][a-z_]*", string))
 
 
-
-__all__ = ["RequirementType"]
+__all__ = ["AccountRequirementType"]

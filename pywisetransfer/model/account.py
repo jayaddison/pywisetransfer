@@ -9,13 +9,21 @@ from datetime import date
 from typing import Annotated, ClassVar, Optional
 
 from pydantic import BeforeValidator, Field
+from pywisetransfer.model.annotations import WithoutNone
 from pywisetransfer.model.base import DOCUMENTED_BUT_ABSENT, BaseModel
 from pywisetransfer.model.country import COUNTRY_CODE
 from pywisetransfer.model.currency import CURRENCY
 from pywisetransfer.model.enum import StrEnum
 from pywisetransfer.model.profile import PROFILE_TYPE
-from pywisetransfer.model.recipient.details import RecipientDetails
-from pywisetransfer.model.requirement_type import RequirementType
+from pywisetransfer.model.recipient.details import (
+    RecipientDetails as RecipientAccountRequestDetails,
+)
+from pywisetransfer.model.account_requirement_type import AccountRequirementType
+from pywisetransfer.model.requirements import (
+    AccountRequirement,
+    RequiredField,
+    RequirementsList,
+)
 
 
 class RecipientName(BaseModel):
@@ -43,11 +51,11 @@ class RecipientName(BaseModel):
     }
     """
     fullName: str
-    givenName: Optional[str]
-    familyName: Optional[str]
-    middleName: Optional[str]
-    patronymicName: Optional[str]
-    cannotHavePatronymicName: object
+    givenName: Optional[str] = None
+    familyName: Optional[str] = None
+    middleName: Optional[str] = None
+    patronymicName: Optional[str] = None
+    cannotHavePatronymicName: object = None
 
 
 class CommonFieldMap(BaseModel):
@@ -133,8 +141,11 @@ class RecipientAccountResponse(BaseModel):
     name: Optional[RecipientName] = None
     currency: str = CURRENCY
     # country: Optional[str] = COUNTRY_CODE
-    type: Annotated[RequirementType, BeforeValidator(RequirementType.from_camel_case)]
-    legalEntityType: DOCUMENTED_BUT_ABSENT[LegalEntityType] = None
+    type: Annotated[
+        AccountRequirementType,
+        BeforeValidator(AccountRequirementType.from_camel_case),
+    ]
+    legalEntityType: DOCUMENTED_BUT_ABSENT[LegalEntityType | LegalType] = None
     active: bool
     commonFieldMap: Optional[CommonFieldMap] = None
     hash: str
@@ -190,32 +201,6 @@ class RecipientAccountResponse(BaseModel):
     """
 
 
-class RecipientAccountRequestDetails(BaseModel):
-    """Details to create a recipient account.
-
-    Attributes:
-        legalType: Recipient legal type: PRIVATE or BUSINESS
-        sortCode: Recipient bank sort code (GBP)
-        accountNumber: Recipient bank account no (GBP)
-        dateOfBirth: Recipient Date of Birth in ISO 8601 date format.
-    """
-
-    EXAMPLE_JSON: ClassVar[
-        str
-    ] = """
-    {
-        "legalType": "PRIVATE",
-        "sortCode": "040075",
-        "accountNumber": "37778842",
-        "dateOfBirth": "1961-01-01"
-    }
-    """
-    legalType: LegalType
-    sortCode: Optional[str] = None
-    accountNumber: Optional[str] = None
-    dateOfBirth: Optional[date] = None
-
-
 ACCOUNT_HOLDER_NAME_REGEX = r"[0-9A-Za-zÀ-ÖØ-öø-ÿ-_()'*,.\s]+"
 
 
@@ -244,20 +229,20 @@ class RecipientAccountRequest(BaseModel):
         "ownedByCustomer": true,
         "accountHolderName": "John Doe",
         "details": {
+            "dateOfBirth": "1961-01-01",
             "legalType": "PRIVATE",
-            "sortCode": "040075",
             "accountNumber": "37778842",
-            "dateOfBirth": "1961-01-01"
+            "sortCode": "040075"
         }
     }
     """
 
     currency: str = CURRENCY
-    type: RequirementType
+    type: AccountRequirementType
     profile: int
     ownedByCustomer: bool
     accountHolderName: str = Field(pattern=ACCOUNT_HOLDER_NAME_REGEX)
-    details: RecipientAccountRequestDetails
+    details: WithoutNone[RecipientAccountRequestDetails]
 
 
 class FilledInRecipientAccountRequest(RecipientAccountRequest):
@@ -276,198 +261,32 @@ class FilledInRecipientAccountRequest(RecipientAccountRequest):
         str
     ] = """
     {
-        "currency": "EUR",
-        "type": "email",
-        "profile": 28577318,
-        "ownedByCustomer": false,
+        "currency": "GBP",
+        "type": "sort_code",
+        "profile": 30000000,
+        "ownedByCustomer": true,
         "accountHolderName": "John Doe",
         "details": {
+            "dateOfBirth": "1961-01-01",
             "legalType": "PRIVATE",
-            "sortCode": null,
-            "accountNumber": null,
-            "dateOfBirth": null
+            "accountNumber": "37778842",
+            "sortCode": "040075"
         },
-        "id": 700614969,
-        "business": null,
+        "id": 40000000,
+        "business": 30000000,
         "confirmations": null,
-        "country": null,
-        "user": 12970746,
+        "country": "GB",
+        "user": 41000000,
         "active": true
     }
     """
 
     id: int
     business: Optional[int] = None
-    confirmations: object  # TODO: What is this?
+    confirmations: object # TODO: What is this?
     country: Optional[str] = COUNTRY_CODE
     user: Optional[int] = None
     active: bool
-
-
-class RequiredFieldType(StrEnum):
-    """Type of a recipient account requirement."""
-
-    text = "text"
-    select = "select"
-    date = "date"
-    radio = "radio"
-
-
-class AllowedValue(BaseModel):
-    """Allowed value for a recipient account requirement.
-
-    Attributes:
-        key: JSON key
-        name: Display name
-    """
-
-    key: str
-    name: str
-
-    def is_valid(self):
-        """Whether you can use this key."""
-        return self.key != ""
-
-
-class RequiredGroupElement(BaseModel):
-    """An element of a group of requirements to a recipient account.
-
-    Attributes:
-        name: Field description
-        key: Key is name of the field you should include in the JSON
-        type: Display type of field. Can be text, select, radio or date
-        refreshRequirementsOnChange: Tells you whether you should call POST account-requirements once the field value is set to discover required lower level fields.
-        required: Whether the field is required or not
-        displayFormat: Display format pattern.
-        example: Example value
-        minLength: Minimum length
-        maxLength: Maximum length
-        validationRegexp: Regexp validation pattern.
-        validationAsync: Validator URL and parameter name you should use when submitting the value for validation
-        valuesAllowed: List of allowed values.
-    """
-
-    key: str
-    name: str
-    type: RequiredFieldType
-    refreshRequirementsOnChange: bool
-    required: bool
-    displayFormat: Optional[str]
-    example: str
-    minLength: Optional[int]
-    maxLength: Optional[int]
-    validationRegexp: Optional[str]
-    validationAsync: Optional[str | dict]
-    valuesAllowed: Optional[list[AllowedValue]]
-
-    EXAMPLE_JSON: ClassVar[
-        str
-    ] = """
-    {
-        "key": "address.country",
-        "name": "Country",
-        "type": "select",
-        "refreshRequirementsOnChange": true,
-        "required": true,
-        "displayFormat": null,
-        "example": "Choose a country",
-        "minLength": null,
-        "maxLength": null,
-        "validationRegexp": null,
-        "validationAsync": null,
-        "valuesAllowed": [
-            {
-                "key": "GB",
-                "name": "United Kingdom"
-            }
-        ]
-    }
-    """
-
-
-class RequiredField(BaseModel):
-    """Requirements for a recipient account."""
-
-    EXAMPLE_JSON: ClassVar[
-        str
-    ] = """
-    {
-        "name": "City",
-        "group": [
-            {
-                "key": "address.city",
-                "name": "City",
-                "type": "text",
-                "refreshRequirementsOnChange": false,
-                "required": true,
-                "displayFormat": null,
-                "example": "",
-                "minLength": 1,
-                "maxLength": 255,
-                "validationRegexp": "^.{1,255}$",
-                "validationAsync": {
-                    "url": "https://api.sandbox.transferwise.tech/v1/validators/bsb-code",
-                    "      params": [
-                        {
-                            "key": "bsbCode",
-                            "parameterName": "bsbCode",
-                            "required": true
-                        }
-                    ]
-                },
-                "valuesAllowed": null
-            }
-        ]
-    }
-    """
-
-    name: str
-    group: list[RequiredGroupElement]
-
-
-class RecipientAccountRequirement(BaseModel):
-    """A requirement for a recipient account.
-
-    Attributes:
-        type: Type of requirement
-        title: Display name
-        usageInfo: UNKNOWN - Usage information
-        fields: List of fields required, grouped together
-    """
-
-    type: RequirementType
-    title: str
-    usageInfo: Optional[object]
-    fields: list[RequiredField]
-
-    @property
-    def required_keys(self) -> list[str]:
-        """All keys that are required.
-
-        This is a shortcut for the required fields for easier validation.
-        """
-        return list(sorted({group.key for field in self.required_fields for group in field.group}))
-
-    @property
-    def required_fields(self) -> list[RequiredField]:
-        """All required fields."""
-        return [field for field in self.fields if any(group.required for group in field.group)]
-
-    @property
-    def optional_fields(self) -> list[RequiredField]:
-        """All fields that are not required."""
-        return [field for field in self.fields if not any(group.required for group in field.group)]
-
-    @property
-    def requires_update(self) -> bool:
-        """Whether there is a field which requires one more API interaction to get new requirements.
-
-        This refers to refreshRequirementsOnChange:
-        Sometimes settings a field creates new requirements.
-        """
-        return any(
-            group.refreshRequirementsOnChange for field in self.fields for group in field.group
-        )
 
 
 class RecipientAccountsSorting(BaseModel):
@@ -510,27 +329,11 @@ class RecipientAccountList(BaseModel):
     size: int
 
 
-class RecipientAccountRequirements(list[RecipientAccountRequirement]):
+class RecipientAccountRequirements(RequirementsList[AccountRequirement]):
     """An easy access to all the requirements."""
 
 
-for requirement_type in RequirementType:
-
-    def get_requirement(
-        self: RecipientAccountRequirements, requirement_type: RequirementType = requirement_type
-    ) -> Optional[RecipientAccountRequirement]:
-        for requirement in self:
-            if requirement.type == requirement_type:
-                return requirement
-        return None
-
-    setattr(
-        RecipientAccountRequirements,
-        str(requirement_type),
-        property(get_requirement, doc=f"Get the {requirement_type} requirement if present."),
-    )
-
-del requirement_type
+RecipientAccountRequirements._add_getters_from_type(AccountRequirementType, AccountRequirement)
 
 __all__ = [
     "RecipientAccountResponse",
@@ -539,15 +342,12 @@ __all__ = [
     "RecipientName",
     "CommonFieldMap",
     "DisplayField",
-    "RecipientAccountRequirement",
+    "AccountRequirement",
     "RequiredField",
-    "RequiredFieldType",
-    "AllowedValue",
     "LegalType",
     "RecipientAccountList",
     "RecipientAccountsSorting",
-    "RequirementType",
-    "RequiredGroupElement",
+    "AccountRequirementType",
     "FilledInRecipientAccountRequest",
     "LegalEntityType",
     "RecipientAccountRequirements",

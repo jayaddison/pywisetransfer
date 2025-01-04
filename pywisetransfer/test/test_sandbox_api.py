@@ -9,9 +9,9 @@ pytest --api_token <token>
 from pywisetransfer.client import Client
 from pywisetransfer.model.account import (
     LegalEntityType,
-    RecipientAccountRequirement,
+    AccountRequirement,
     RecipientAccountResponse,
-    RequirementType,
+    AccountRequirementType,
 )
 from pywisetransfer.model.currency import Currency, CurrencyCode
 from pywisetransfer.model.profile import Profile, Profiles
@@ -55,14 +55,15 @@ def test_list_balance(sandbox_personal_balances):
     assert "AUD" in currencies
 
 
-def test_requirements(sandbox_requirements_gbp: list[RecipientAccountRequirement]):
+def test_requirements(sandbox_requirements_gbp: list[AccountRequirement]):
     """Check that we can create the right requirements.
 
     We make sure that GBP sort code is in the requirements.
     """
     assert len(sandbox_requirements_gbp) > 0
     assert any(
-        requirement.type == RequirementType.sort_code for requirement in sandbox_requirements_gbp
+        requirement.type == AccountRequirementType.sort_code
+        for requirement in sandbox_requirements_gbp
     )
 
 
@@ -94,7 +95,7 @@ def test_email_recipient(
     """Check tha the data matches."""
     print(sandbox_email_recipient.model_dump_json(indent=4))
     assert sandbox_email_recipient.currency == CurrencyCode.EUR
-    assert sandbox_email_recipient.type == RequirementType.email
+    assert sandbox_email_recipient.type == AccountRequirementType.email
     assert sandbox_email_recipient.legalEntityType == LegalEntityType.PERSON
     assert sandbox_email_recipient.email == "john@doe.com"
 
@@ -104,6 +105,6 @@ def test_iban_recipient(
 ):
     """Check tha the data matches."""
     assert sandbox_iban_recipient.email == "max@mustermann.de"
-    assert sandbox_iban_recipient.type == RequirementType.iban
+    assert sandbox_iban_recipient.type == AccountRequirementType.iban
     assert not sandbox_iban_recipient.ownedByCustomer
     assert sandbox_iban_recipient.currency == sandbox_iban_recipient_request.currency

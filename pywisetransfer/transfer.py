@@ -6,9 +6,11 @@ See https://docs.wise.com/api-docs/api-reference/transfer
 
 """
 
-from typing import Optional
-from apiron import JsonEndpoint
-from munch import munchify
+from typing import List, Optional
+
+from pywisetransfer.model.requirements import TransferRequirement, TransferRequirements
+from pywisetransfer.model.transfer import TransferRequest, TransferResponse
+from .endpoint import JsonEndpoint
 
 from pywisetransfer import Client
 from pywisetransfer.base import Base
@@ -17,6 +19,8 @@ from pywisetransfer.base import Base
 class TransferService(Base):
     list = JsonEndpoint(path="/v1/transfers")
     get = JsonEndpoint(path="/v1/transfers/{transfer_id}")
+    create = JsonEndpoint(default_method="POST", path="/v1/transfers")
+    get_requirements = JsonEndpoint(default_method="POST", path="/v1/transfer-requirements")
 
 
 class Transfer:
@@ -33,7 +37,7 @@ class Transfer:
         created_date_end: Optional[str] = None,
         target_currency: Optional[str] = None,
         source_currency: Optional[str] = None,
-    ) -> list[dict]:
+    ) -> List[TransferResponse]:
         """Get transfers for a profile.
 
         See https://docs.wise.com/api-docs/api-reference/transfer#list
@@ -76,10 +80,29 @@ class Transfer:
             target_currency=target_currency,
             source_currency=source_currency,
         )
-        return munchify(self.service.list(params=params))
+        return [TransferResponse(**transfer) for transfer in self.service.list(params=params)]
 
-    def get(self, transfer_id: int | str) -> dict:
-        return munchify(self.service.get(transfer_id=str(transfer_id)))
+    def get(self, transfer: int | str | TransferResponse) -> TransferResponse:
+        response = self.service.get(transfer_id=transfer)
+        return TransferResponse(**response)
+
+    def create(self, transfer: TransferRequest) -> TransferResponse:
+        """Create a new transfer.
+
+        See https://docs.wise.com/api-docs/api-reference/transfer#create
+
+        Check the requirements first with get_requirements(transfer).
+        """
+        response = self.service.create(json=transfer)
+        return TransferResponse(**response)
+
+    def get_requirements(self, transfer: TransferRequest) -> TransferRequirements:
+        """Return a list of transfer requirements.
+
+        See https://docs.wise.com/api-docs/api-reference/transfer#transfer-requirements
+        """
+        response = self.service.get_requirements(json=transfer)
+        return TransferRequirements(TransferRequirement(**requirement) for requirement in response)
 
 
-__all__ = ["Transfer", "TransferStatus", "TransferStatusDescription"]
+__all__ = ["Transfer"]

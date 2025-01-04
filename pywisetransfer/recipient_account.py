@@ -19,11 +19,11 @@ from pywisetransfer.model.account import (
     RecipientAccountRequest,
     RecipientAccountRequirements,
     RecipientAccountResponse,
-    RecipientAccountRequirement,
 )
 from pywisetransfer.model.currency import Currency
 from pywisetransfer.model.enum import StrEnum
 from pywisetransfer.model.quote import QuoteResponse
+from pywisetransfer.model.requirements import AccountRequirement
 
 
 ACCEPT_MINOR_VERSION_1 = {"Accept-Minor-Version": "1"}
@@ -135,7 +135,7 @@ class RecipientAccount:
             quote: The quote id
         """
         return RecipientAccountRequirements(
-            RecipientAccountRequirement(**requirement)
+            AccountRequirement(**requirement)
             for requirement in self.service.get_quote_requirements(quote_id=quote)
         )
 
@@ -159,7 +159,7 @@ class RecipientAccount:
             source_amount: The source amount
         """
         response = self.service.get_requirements(params=params)
-        return [RecipientAccountRequirement(**requirement) for requirement in response]
+        return [AccountRequirement(**requirement) for requirement in response]
 
 
 __all__ = ["RecipientAccount", "SortRecipientAccounts"]

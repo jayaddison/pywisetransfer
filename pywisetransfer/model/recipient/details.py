@@ -1,6 +1,7 @@
 # generated file
 #    python -m pywisetransfer.model.recipient && black .
 
+from pywisetransfer.model.timestamp import Date
 from .address import AddressDetails
 from pydantic import BaseModel, Field
 from typing import Literal, Optional
@@ -24,7 +25,7 @@ class RecipientDetails(BaseModel):
     See https://docs.wise.com/api-docs/api-reference/recipient
     """
 
-    dateOfBirth: Optional[date] = None
+    dateOfBirth: Optional[date] = Field(description="Date of birth", default=None)
     address: Optional[AddressDetails] = None
 
     accountType: Optional[ACCOUNTTYPE] = None
@@ -162,13 +163,6 @@ class RecipientDetails(BaseModel):
         min_length=2,
         max_length=20,
         pattern="(^(\\s*(?:\\d\\s*){2,20})$)",
-        default=None,
-    )
-    dateOfBirth: Optional[date] = Field(
-        examples=["yyyy-MM-dd"],
-        min_length=None,
-        max_length=None,
-        pattern="(^\\d{4}\\-\\d{2}\\-\\d{2}$)",
         default=None,
     )
     email: Optional[str] = Field(

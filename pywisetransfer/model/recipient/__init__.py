@@ -3,8 +3,11 @@
 See https://docs.wise.com/api-docs/api-reference/recipient
 """
 
-from typing import ClassVar, Optional
-from pywisetransfer.model.requirement_type import RequirementType
+from typing import Annotated, ClassVar, Optional
+
+from pydantic import PlainSerializer
+from pywisetransfer.model.account_requirement_type import AccountRequirementType
+from pywisetransfer.model.annotations import WithoutNone
 from pywisetransfer.model.base import BaseModel
 from pywisetransfer.model.currency import CURRENCY, CurrencyCode
 from .details import RecipientDetails
@@ -52,29 +55,28 @@ class Recipient(BaseModel):
             These are subject to the requirements of a quote.
     """
 
-    #     EXAMPLE_JSON : ClassVar[str] = """
-    # {
-    #             "currency": "GBP",
-    #             "country": "GB",
-    #             "type": "sort_code",
-    #             "profile": 30000000,
-    #             "legalEntityType": "PERSON",
-    #             "name": {
-    #                 "fullName": "John Doe"
-    #             },
-    #             "details": {
-    #                 "sortCode": "040075",
-    #                 "accountNumber": "37778842"
-    #             }
-    #          }
-    #     """
+    EXAMPLE_JSON: ClassVar[
+        str
+    ] = """
+    {
+        "currency": "GBP",
+        "type": "sort_code",
+        "profile": 30000000,
+        "accountHolderName": null,
+        "ownedByCustomer": false,
+        "details": {
+            "accountNumber": "37778842",
+            "sortCode": "040075"
+        }
+    }
+    """
 
     currency: str = CURRENCY
-    type: RequirementType
+    type: AccountRequirementType
     profile: int
-    accountHolderName: str
-    ownedByCustomer: bool
-    details: RecipientDetails
+    accountHolderName: Optional[str] = None
+    ownedByCustomer: bool = False
+    details: WithoutNone[RecipientDetails]
 
 
 __all__ = ["RecipientDetails", "Recipient", "EmailDetails", "AddressDetails"]

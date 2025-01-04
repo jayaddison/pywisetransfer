@@ -1,7 +1,7 @@
 from collections import defaultdict, namedtuple
 
 from pydantic import Field
-from pywisetransfer.model.account import RequiredFieldType
+from pywisetransfer.model.requirements import RequiredFieldType
 from pywisetransfer.test import TestClient
 from pywisetransfer import Currency
 from requests.exceptions import ConnectionError
@@ -58,7 +58,7 @@ def generate_recipient_details():
                                 else group.validationRegexp
                             )
                         text[key] = TEXT(start, examples, min_length, max_length, pattern)
-
+    text.pop("dateOfBirth")
     for key, value in text.copy().items():
         pattern = "(" + ")|(".join(sorted(value[4])) + ")" if value[4] else None
         examples = list(sorted(value[1])) if value[1] else None
@@ -97,6 +97,7 @@ from typing import Literal
 # generated file
 #    python -m pywisetransfer.model.recipient && black .
 
+from pywisetransfer.model.timestamp import Date
 from .address import AddressDetails
 from pydantic import BaseModel, Field
 from typing import Literal, Optional
@@ -108,7 +109,7 @@ class RecipientDetails(BaseModel):
 
     See https://docs.wise.com/api-docs/api-reference/recipient
     """
-    dateOfBirth: Optional[date] = None
+    dateOfBirth: Optional[date] = Field(description="Date of birth", default=None)
     address: Optional[AddressDetails] = None
     ''',
             file=f,
@@ -129,16 +130,45 @@ __all__ = ["RecipientDetails"]
 
     with (HERE / "address.py").open("w") as f:
         print(
-            """
+            '''
 # generated file
 #    python -m pywisetransfer.model.recipient && black .
 
 from pydantic import BaseModel, Field
-from typing import Optional
+from typing import Optional, ClassVar
 from .literals import ADDRESS_COUNTRY
               
 class AddressDetails(BaseModel):
-""",
+    """The address details of a transfer or recipient.
+
+    Attributes:
+        firstLine: address first line
+        city: address city
+        stateCode: address state code
+        countryCode: address country code
+        postCode: address zip code
+    """
+    
+    EXAMPLE_JSON : ClassVar[
+        str
+    ] = """
+    {
+        "firstLine": "Salu tee 14",
+        "city": "Tallinn",
+        "stateCode": null,
+        "countryCode": "EE",
+        "postCode": "12112"
+    }
+    """
+    
+    stateCode: Optional[str] = None
+    countryCode: Optional[ADDRESS_COUNTRY] = None
+    
+    @property
+    def country_code(self) -> ADDRESS_COUNTRY:
+        """The country code."""
+        return self.countryCode or self.country
+''',
             file=f,
         )
         for key, value in sorted(text.items()):

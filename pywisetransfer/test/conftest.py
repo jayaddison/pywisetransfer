@@ -15,12 +15,12 @@ from unittest.mock import MagicMock
 from munch import Munch
 import pytest
 from pywisetransfer import Client
-from pywisetransfer.model.account import RecipientAccountRequirement, RecipientAccountResponse
+from pywisetransfer.model.account import AccountRequirement, RecipientAccountResponse
 from pywisetransfer.model.profile import Profile, Profiles
 from pywisetransfer.model.quote import ExampleQuoteRequest, PaymentMethod, QuoteRequest
 from pywisetransfer.model.recipient import Recipient
 from pywisetransfer.model.recipient.details import RecipientDetails
-from pywisetransfer.model.requirement_type import RequirementType
+from pywisetransfer.model.account_requirement_type import AccountRequirementType
 from pywisetransfer.test.record import TestClient
 from pywisetransfer.model.currency import Currency, CurrencyCode
 
@@ -101,7 +101,7 @@ def sandbox_personal_balances(
 
 
 @pytest.fixture(scope="session")
-def sandbox_requirements_gbp(sandbox_client: Client) -> list[RecipientAccountRequirement]:
+def sandbox_requirements_gbp(sandbox_client: Client) -> list[AccountRequirement]:
     return sandbox_client.recipient_accounts.get_requirements_for_currency(
         source=Currency.GBP, target=Currency.GBP, source_amount=100
     )
@@ -150,7 +150,7 @@ def sandbox_email_recipient_request(sandbox_personal_profile: Profile) -> Recipi
     """The data to request creating a new email recipient."""
     return Recipient(
         currency=CurrencyCode.EUR,
-        type=RequirementType.email,
+        type=AccountRequirementType.email,
         profile=sandbox_personal_profile.id,
         accountHolderName="John Doe",
         ownedByCustomer=False,
@@ -173,7 +173,7 @@ def sandbox_iban_recipient_request(sandbox_business_profile: Profile) -> Recipie
     """The data to request creating a new email recipient."""
     return Recipient(
         currency=CurrencyCode.EUR,
-        type=RequirementType.iban,
+        type=AccountRequirementType.iban,
         profile=sandbox_business_profile.id,
         accountHolderName="Max Mustermann",
         ownedByCustomer=False,

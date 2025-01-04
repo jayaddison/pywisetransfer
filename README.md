@@ -347,10 +347,10 @@ Below, we create the recipient and get a response.
 The response includes all the data that we sent and optional fields.
 
 ```python
->>> from pywisetransfer import Recipient, RecipientDetails, CurrencyCode, RequirementType
+>>> from pywisetransfer import Recipient, RecipientDetails, CurrencyCode, AccountRequirementType
 >>> email_recipient = Recipient(
 ...     currency=CurrencyCode.EUR,
-...     type=RequirementType.email,
+...     type=AccountRequirementType.email,
 ...     profile=profiles.personal[0].id,
 ...     accountHolderName="John Doe",
 ...     ownedByCustomer=False,
@@ -415,10 +415,10 @@ We use the business profile for this.
 3. Create an IBAN recipient.
 
     ```python
-    >>> from pywisetransfer import Recipient, RecipientDetails, CurrencyCode, RequirementType, LegalType
+    >>> from pywisetransfer import Recipient, RecipientDetails, CurrencyCode, AccountRequirementType, LegalType
     >>> iban_recipient = Recipient(
     ...     currency=CurrencyCode.EUR,
-    ...     type=RequirementType.iban,
+    ...     type=AccountRequirementType.iban,
     ...     profile=business_profile.id,
     ...     accountHolderName="Max Mustermann",
     ...     ownedByCustomer=False,

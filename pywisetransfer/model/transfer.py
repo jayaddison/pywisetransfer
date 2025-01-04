@@ -1,5 +1,16 @@
 """The model classes for transfers."""
 
+from datetime import date
+from uuid import UUID
+
+from pydantic import Field
+
+from pywisetransfer.model.account import LegalEntityType, LegalType, RecipientName
+from pywisetransfer.model.annotations import WithoutNone
+from pywisetransfer.model.currency import CURRENCY
+from pywisetransfer.model.recipient.address import AddressDetails
+from pywisetransfer.model.timestamp import Timestamp
+from pywisetransfer.model.uuid import new_uuid
 from .enum import StrEnum
 from typing import ClassVar, Optional
 from .base import BaseModel
@@ -76,12 +87,12 @@ class TransferDetails(BaseModel):
     """
 
     reference: str
-    transferPurpose: Optional[str]
-    transferPurposeSubTransferPurpose: Optional[str]
-    sourceOfFunds: Optional[str]
+    transferPurpose: Optional[str] = None
+    transferPurposeSubTransferPurpose: Optional[str] = None
+    sourceOfFunds: Optional[str] = None
 
 
-class Transfer(BaseModel):
+class TransferRequest(BaseModel):
     """A transfer object to create transfers on Wise.
 
     See https://docs.wise.com/api-docs/api-reference/transfer#create
@@ -111,11 +122,103 @@ class Transfer(BaseModel):
     }
     """
 
-    sourceAccount: int
+    sourceAccount: Optional[int] = None
     targetAccount: int
-    quoteUuid: str
-    customerTransactionId: str
+    quoteUuid: UUID
+    customerTransactionId: UUID = Field(default_factory=new_uuid)
     details: TransferDetails
 
 
-__all__ = ["Transfer", "TransferDetails", "TransferStatus", "TransferStatusDescription"]
+class OriginatorGroup(BaseModel):
+    """Data block to capture payment originator details.
+
+    Attributes:
+        legalEntityType: Legal entity type
+    """
+
+    EXAMPLE_JSON: ClassVar[
+        str
+    ] = """
+    {
+        "legalEntityType": "PRIVATE",
+        "name": {
+            "fullName": "John Godspeed",
+            "givenName": "John",
+            "familyName": "Godspeed"
+        },
+        "reference": "CST-2991992",
+        "dateOfBirth": "1977-07-01",
+        "businessRegistrationCode": null,
+        "address": {
+            "countryCode": "EE",
+            "city": "Tallinn",
+            "firstLine": "Salu tee 14",
+            "postCode": "12112"
+        }
+    }
+    """
+    
+    legalEntityType: LegalEntityType | LegalType
+    name: Optional[WithoutNone[RecipientName]] = None
+    reference: Optional[str] = None
+    dateOfBirth: Optional[date] = None
+    businessRegistrationCode: Optional[str] = None
+    address: Optional[WithoutNone[AddressDetails]] = None
+
+
+class TransferResponse(BaseModel):
+    """A response from a created transfer.
+
+    See https://docs.wise.com/api-docs/api-reference/transfer#object
+
+    Attributes:
+        id: Transfer ID
+        user: Your User ID
+        targetAccount: Recipient account ID
+        sourceAccount: Refund recipient account ID
+        quote: v1 quote ID (where applicable)
+        quoteUuid: v2 quote ID
+        status: Transfer status
+        rate: Exchange rate value
+        created: Date and time when the transfer was created
+        business: Business ID of the source profile
+        details: Transfer details
+        hasActiveIssues: Are there any pending issues which stop executing the transfer?
+        sourceCurrency: Source (sending) currency code.
+        targetCurrency: Target (receiving) currency code.
+        sourceValue: Source (sending) amount.
+        targetValue: Target (receiving) amount.
+        customerTransactionId: Unique identifier randomly generated per transfer request by the calling client
+        originator: Data block to capture payment originator details
+    """
+
+    id: int
+    user: int
+    targetAccount: int
+    sourceAccount: Optional[int] = None
+    quote: Optional[int] = None
+    quoteUuid: Optional[UUID] = None
+    status: TransferStatus
+    reference: Optional[str] = Field(deprecated=True, alias="details.reference", default=None)
+    rate: float
+    created: Timestamp
+    business: Optional[int]
+    transferRequest: Optional[int] = Field(deprecated=True, default=None)
+    details: TransferDetails
+    hasActiveIssues: bool
+    sourceCurrency: str = CURRENCY
+    sourceValue: float | int
+    targetCurrency: str = CURRENCY
+    targetValue: float | int
+    customerTransactionId: UUID
+    originator: Optional[WithoutNone[OriginatorGroup]] = None
+
+
+__all__ = [
+    "TransferRequest",
+    "TransferResponse",
+    "TransferDetails",
+    "TransferStatus",
+    "TransferStatusDescription",
+    "OriginatorGroup",
+]

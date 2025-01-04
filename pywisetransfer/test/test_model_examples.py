@@ -1,5 +1,6 @@
 """Test all the examples."""
 
+from datetime import date
 from enum import Enum
 from pathlib import Path
 from typing import Type
@@ -12,6 +13,7 @@ from pywisetransfer.model.base import BaseModel
 import pywisetransfer
 import pywisetransfer.model
 from pywisetransfer.model.enum import StrEnum
+from pywisetransfer.model.recipient.details import RecipientDetails
 
 MODELS_WITH_EXAMPLES = set()
 MODELS = set()
@@ -84,7 +86,21 @@ def test_export_all(model_class: type, depth: str):
 
 
 def test_is_included():
-    from pywisetransfer.model import Transfer
+    from pywisetransfer.model import TransferRequest
 
-    assert Transfer in MODELS
-    assert Transfer in MODELS_WITH_EXAMPLES
+    assert TransferRequest in MODELS
+    assert TransferRequest in MODELS_WITH_EXAMPLES
+
+
+# @pytest.mark.parametrize("dt", ["1990-10-12", "1970-01-01"])
+# def test_details_with_date(dt: str):
+#     r = RecipientDetails.model_validate_json(f'{{"dateOfBirth":"{dt}"}}')
+#     assert r.dateOfBirth == date(*map(lambda x: int(x.lstrip("0")), dt.split("-")))
+
+
+# def test_date_to_string():
+#     r = RecipientDetails()
+#     r.dateOfBirth = date(1990, 10, 1)
+#     d = r.model_dump()
+#     print(d)
+#     assert d["dateOfBirth"] == "1990-10-01"
