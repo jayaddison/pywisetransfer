@@ -214,7 +214,7 @@ responses:
       x-xss-protection: '0'
     method: POST
     status: 200
-    url: https://api.sandbox.transferwise.tech/v1/accounts
+    url: https://api.sandbox.transferwise.tech/v1/accounts?profileId=28577319
 - response:
     auto_calculate_content_length: false
     body: '{"id":700615308,"creatorId":12970746,"profileId":28577319,"name":{"fullName":"Max

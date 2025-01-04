@@ -6,9 +6,9 @@ See https://docs.wise.com/api-docs/api-reference/recipient
 """
 
 from datetime import date
-from typing import ClassVar, Optional
+from typing import Annotated, ClassVar, Optional
 
-from pydantic import Field
+from pydantic import BeforeValidator, Field
 from pywisetransfer.model.base import DOCUMENTED_BUT_ABSENT, BaseModel
 from pywisetransfer.model.country import COUNTRY_CODE
 from pywisetransfer.model.currency import CURRENCY
@@ -133,7 +133,7 @@ class RecipientAccountResponse(BaseModel):
     name: Optional[RecipientName] = None
     currency: str = CURRENCY
     # country: Optional[str] = COUNTRY_CODE
-    type: str
+    type: Annotated[RequirementType, BeforeValidator(lambda s: RequirementType(s.lower()))]
     legalEntityType: DOCUMENTED_BUT_ABSENT[LegalEntityType] = None
     active: bool
     commonFieldMap: Optional[CommonFieldMap] = None

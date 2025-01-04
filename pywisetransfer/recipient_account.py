@@ -111,7 +111,11 @@ class RecipientAccount:
 
         You can use client.recipient_account.get() to get the recipient.
         """
-        response = self.service.create_recipient(json=recipient_account)
+        # We use the params here to dispatch the recorded test API.
+        # The params are not needed.
+        response = self.service.create_recipient(
+            json=recipient_account, params={"profile_id": recipient_account.profile}
+        )
         # print(response)
         return FilledInRecipientAccountRequest(**response)
 

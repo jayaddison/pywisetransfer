@@ -12,6 +12,10 @@ __all__ = [
     "CompanyRole",
     "CompanyType",
     "Country",
+        "Payment",
+    "PaymentType",
+    "PaymentResponse",
+
     "Currency",
     "CurrencyCode",
     "RecipientAccountRequirements",

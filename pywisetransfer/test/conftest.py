@@ -146,12 +146,12 @@ def mock():
 
 
 @pytest.fixture(scope="session")
-def sandbox_iban_recipient_request(sandbox_personal_profile: Profile) -> Recipient:
+def sandbox_email_recipient_request(sandbox_personal_profile: Profile) -> Recipient:
     """The data to request creating a new email recipient."""
     return Recipient(
         currency=CurrencyCode.EUR,
         type=RequirementType.email,
-        profile=sandbox_personal_profile,
+        profile=sandbox_personal_profile.id,
         accountHolderName="John Doe",
         ownedByCustomer=False,
         details=RecipientDetails(email="john@doe.com"),
@@ -160,10 +160,11 @@ def sandbox_iban_recipient_request(sandbox_personal_profile: Profile) -> Recipie
 
 @pytest.fixture(scope="session")
 def sandbox_email_recipient(
-    sandbox_client: Client, sandbox_iban_recipient_request: Recipient
+    sandbox_client: Client, sandbox_email_recipient_request: Recipient
 ) -> RecipientAccountResponse:
     """Create an email recipient."""
-    answer = sandbox_client.recipient_accounts.create_recipient(sandbox_iban_recipient_request)
+    answer = sandbox_client.recipient_accounts.create_recipient(sandbox_email_recipient_request)
+    print(answer.model_dump_json(indent=4))
     return sandbox_client.recipient_accounts.get(answer)
 
 
@@ -173,12 +174,12 @@ def sandbox_iban_recipient_request(sandbox_business_profile: Profile) -> Recipie
     return Recipient(
         currency=CurrencyCode.EUR,
         type=RequirementType.iban,
-        profile=sandbox_business_profile,
-        accountHolderName="John Doe",
+        profile=sandbox_business_profile.id,
+        accountHolderName="Max Mustermann",
         ownedByCustomer=False,
         details=RecipientDetails(
-            email="john@doe.com",
-            iban="DE89370400440532013000",
+            email="max@mustermann.de",
+            IBAN="BE19967722383012",
         ),
     )
 

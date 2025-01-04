@@ -11,6 +11,7 @@ from .uuid import *
 from .account import *
 from .recipient import RecipientDetails, Recipient, EmailDetails, AddressDetails
 from .country_codes import Country
+from .fund import *
 
 __all__ = [
     "AddressDetails",
@@ -62,6 +63,10 @@ __all__ = [
     "RecipientAccountResponse",
     "RecipientAccountsSorting",
     "RecipientDetails",
+    "Payment",
+    "PaymentType",
+    "PaymentResponse",
+
     "RecipientName",
     "RequiredField",
     "RequiredFieldType",

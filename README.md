@@ -429,7 +429,7 @@ We use the business profile for this.
     ... )
     >>> created_iban_recipient = client.recipient_accounts.create_recipient(iban_recipient)
     >>> created_iban_recipient.id
-    700614969
+    700615308
 
     ```
 
@@ -439,8 +439,11 @@ We use the business profile for this.
     >>> quote = client.quotes.update(created_iban_recipient, quote)
     >>> quote.status
     'PENDING'
-    
+
     ```
+
+5. [Fund the transfer]().
+
 
 
 ## Run tests

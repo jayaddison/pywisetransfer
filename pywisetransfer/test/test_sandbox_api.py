@@ -8,11 +8,12 @@ pytest --api_token <token>
 
 from pywisetransfer.client import Client
 from pywisetransfer.model.account import (
+    LegalEntityType,
     RecipientAccountRequirement,
     RecipientAccountResponse,
     RequirementType,
 )
-from pywisetransfer.model.currency import Currency
+from pywisetransfer.model.currency import Currency, CurrencyCode
 from pywisetransfer.model.profile import Profile, Profiles
 from pywisetransfer.model.quote import ExampleQuoteRequest, QuoteResponse, QuoteStatus
 from pywisetransfer.model.recipient import Recipient
@@ -91,14 +92,18 @@ def test_email_recipient(
     sandbox_email_recipient: RecipientAccountResponse, sandbox_iban_recipient_request: Recipient
 ):
     """Check tha the data matches."""
-    assert sandbox_email_recipient.email == sandbox_iban_recipient_request.details.email
+    print(sandbox_email_recipient.model_dump_json(indent=4))
+    assert sandbox_email_recipient.currency == CurrencyCode.EUR
+    assert sandbox_email_recipient.type == RequirementType.email
+    assert sandbox_email_recipient.legalEntityType == LegalEntityType.PERSON
+    assert sandbox_email_recipient.email == "john@doe.com"
 
 
 def test_iban_recipient(
     sandbox_iban_recipient: RecipientAccountResponse, sandbox_iban_recipient_request: Recipient
 ):
     """Check tha the data matches."""
-    assert sandbox_iban_recipient.email is None
-    assert sandbox_iban_recipient.type == "IBAN"
+    assert sandbox_iban_recipient.email == "max@mustermann.de"
+    assert sandbox_iban_recipient.type == RequirementType.iban
     assert not sandbox_iban_recipient.ownedByCustomer
-    assert sandbox_iban_recipient.currency == sandbox_iban_recipient_request.details.currency
+    assert sandbox_iban_recipient.currency == sandbox_iban_recipient_request.currency
