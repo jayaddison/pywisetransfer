@@ -56,7 +56,7 @@ class RequiredGroupElement(BaseModel):
     refreshRequirementsOnChange: bool
     required: bool
     displayFormat: Optional[str]
-    example: str
+    example: str|None
     minLength: Optional[int]
     maxLength: Optional[int]
     validationRegexp: Optional[str]
@@ -146,10 +146,10 @@ class RequirementsList(list):
             str(requirement_type),
             property(get_requirement, doc=f"Get the {requirement_type} requirement if present."),
         )
-        cls.__annotations__[str(requirement_type)] = result_type
+        cls.__annotations__[str(requirement_type)] = Optional[result_type]
 
     @classmethod
-    def _add_getters_from_type(cls, type: type[StrEnum], result_type: type) -> None:
+    def _add_getters_from_enum(cls, type: type[StrEnum], result_type: type) -> None:
         for requirement_type in type:
             cls._add_getter(requirement_type, result_type)
 
@@ -166,6 +166,11 @@ class RequirementBase(BaseModel):
 
     type: str
     fields: list[RequiredField]
+
+    @property
+    def keys(self) -> list[str]:
+        """All keys to add to the JSON data."""
+        return list(sorted({group.key for field in self.fields for group in field.group}))
 
     @property
     def required_keys(self) -> list[str]:
@@ -227,9 +232,10 @@ class TransferRequirement(RequirementBase):
 
 class TransferRequirements(RequirementsList[TransferRequirement]):
     """An easy access to all the requirements."""
+    
+    transfer: Optional[TransferRequirement]
 
-
-TransferRequirements._add_getter("transfer", AccountRequirement)
+TransferRequirements._add_getter("transfer", TransferRequirement)
 
 
 __all__ = [

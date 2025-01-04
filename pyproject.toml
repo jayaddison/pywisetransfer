@@ -2,7 +2,7 @@
 name = "pywisetransfer"
 version = "0.3.4"
 description = "Python library for the TransferWise API"
-authors = ["James Addison <jay@jp-hosting.net>"]
+authors = ["James Addison <jay@jp-hosting.net>", "Nicco Kunzmann <niccokunzmann@rambler.ru>"]
 homepage = "https://www.github.com/jayaddison/pywisetransfer"
 repository = "https://www.github.com/jayaddison/pywisetransfer"
 license = "AGPL-3.0"
@@ -10,7 +10,7 @@ readme = "README.md"
 keywords = ["payments", "transferwise"]
 
 [tool.poetry.dependencies]
-python = "^3.9"
+python = "^3.12"
 apiron = "^8.0.0"
 munch = "^4.0.0"
 cryptography = "^43.0.0"
@@ -26,7 +26,7 @@ types-cryptography = { version = "^3.3.23.2", optional = true }
 line-length = 100
 
 [tool.poetry.extras]
-dev = ["black", "munch-stubs", "pytest", "responses", "types-cryptography"]
+dev = ["black", "munch-stubs", "pytest", "responses", "types-cryptography", "pytest-order"]
 
 [build-system]
 requires = ["poetry>=0.12"]

@@ -9,6 +9,7 @@ from datetime import date
 from typing import Annotated, ClassVar, Optional
 
 from pydantic import BeforeValidator, Field
+from pywisetransfer.model.legal_type import LegalType
 from pywisetransfer.model.annotations import WithoutNone
 from pywisetransfer.model.base import DOCUMENTED_BUT_ABSENT, BaseModel
 from pywisetransfer.model.country import COUNTRY_CODE
@@ -93,13 +94,6 @@ class DisplayField(BaseModel):
     key: str
     label: str
     value: str
-
-
-class LegalType(StrEnum):
-    """The legal type of a recipient account."""
-
-    PRIVATE = "PRIVATE"
-    BUSINESS = "BUSINESS"
 
 
 class LegalEntityType(StrEnum):
@@ -331,9 +325,68 @@ class RecipientAccountList(BaseModel):
 
 class RecipientAccountRequirements(RequirementsList[AccountRequirement]):
     """An easy access to all the requirements."""
+    aba : Optional[AccountRequirement]
+    argentina : Optional[AccountRequirement]
+    australian : Optional[AccountRequirement]
+    australian_bpay : Optional[AccountRequirement]
+    bangladesh : Optional[AccountRequirement]
+    bkash : Optional[AccountRequirement]
+    brazil : Optional[AccountRequirement]
+    brazil_business : Optional[AccountRequirement]
+    canadian : Optional[AccountRequirement]
+    chile : Optional[AccountRequirement]
+    chinese_alipay : Optional[AccountRequirement]
+    chinese_wechatpay : Optional[AccountRequirement]
+    colombia : Optional[AccountRequirement]
+    costa_rica : Optional[AccountRequirement]
+    czech : Optional[AccountRequirement]
+    email : Optional[AccountRequirement]
+    emirates : Optional[AccountRequirement]
+    fiji_mobile : Optional[AccountRequirement]
+    hongkong : Optional[AccountRequirement]
+    hong_kong_fps : Optional[AccountRequirement]
+    hungarian : Optional[AccountRequirement]
+    iban : Optional[AccountRequirement]
+    indian : Optional[AccountRequirement]
+    indian_upi : Optional[AccountRequirement]
+    indonesian : Optional[AccountRequirement]
+    interac : Optional[AccountRequirement]
+    israeli_local : Optional[AccountRequirement]
+    japanese : Optional[AccountRequirement]
+    kenya_local : Optional[AccountRequirement]
+    kenya_mobile : Optional[AccountRequirement]
+    malaysian : Optional[AccountRequirement]
+    malaysian_duitnow : Optional[AccountRequirement]
+    mexican : Optional[AccountRequirement]
+    morocco : Optional[AccountRequirement]
+    mozambique_local : Optional[AccountRequirement]
+    namibia_local : Optional[AccountRequirement]
+    nepal : Optional[AccountRequirement]
+    newzealand : Optional[AccountRequirement]
+    nigeria : Optional[AccountRequirement]
+    peru : Optional[AccountRequirement]
+    philippines : Optional[AccountRequirement]
+    philippinesmobile : Optional[AccountRequirement]
+    polish : Optional[AccountRequirement]
+    privatbank : Optional[AccountRequirement]
+    russiarapida : Optional[AccountRequirement]
+    singapore : Optional[AccountRequirement]
+    singapore_paynow : Optional[AccountRequirement]
+    sort_code : Optional[AccountRequirement]
+    southafrica : Optional[AccountRequirement]
+    south_korean_paygate : Optional[AccountRequirement]
+    south_korean_paygate_business : Optional[AccountRequirement]
+    srilanka : Optional[AccountRequirement]
+    tanzania_local : Optional[AccountRequirement]
+    thailand : Optional[AccountRequirement]
+    turkish_earthport : Optional[AccountRequirement]
+    uganda_local : Optional[AccountRequirement]
+    uruguay : Optional[AccountRequirement]
+    vietname_earthport : Optional[AccountRequirement]
+    fedwire_local : Optional[AccountRequirement]
+    swift_code : Optional[AccountRequirement]
 
-
-RecipientAccountRequirements._add_getters_from_type(AccountRequirementType, AccountRequirement)
+RecipientAccountRequirements._add_getters_from_enum(AccountRequirementType, AccountRequirement)
 
 __all__ = [
     "RecipientAccountResponse",
@@ -344,7 +397,6 @@ __all__ = [
     "DisplayField",
     "AccountRequirement",
     "RequiredField",
-    "LegalType",
     "RecipientAccountList",
     "RecipientAccountsSorting",
     "AccountRequirementType",

@@ -1,7 +1,7 @@
 # generated file
 #    python -m pywisetransfer.model.recipient && black .
 
-from typing import Literal
+from typing import Literal, TypeAlias
 
 
 ACCOUNTTYPE_VALUES = [
@@ -2474,7 +2474,7 @@ LANGUAGE_VALUES = [
 ]
 LANGUAGE = Literal[*LANGUAGE_VALUES]
 LEGALTYPE_VALUES = ["BUSINESS", "PRIVATE"]
-LEGALTYPE = Literal[*LEGALTYPE_VALUES]
+LEGALTYPE : TypeAlias = Literal[*LEGALTYPE_VALUES]
 NATIONALITY_VALUES = [
     "abw",
     "afg",

@@ -13,6 +13,7 @@ from .recipient import RecipientDetails, Recipient, EmailDetails, AddressDetails
 from .country_codes import Country
 from .payment import *
 from .requirements import *
+from .legal_type import LegalType
 
 __all__ = [
     "AccountRequirementType",

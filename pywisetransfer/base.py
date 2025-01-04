@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 from typing import Any
+from uuid import UUID
 
 from apiron import Service
 
@@ -47,14 +48,14 @@ class Base(Service):
         """
         if isinstance(value, bool):
             return "true" if value else "false"
-        if isinstance(value, (str, int, float)):
+        if isinstance(value, (str, int, float, UUID)):
             return str(value)
         if isinstance(value, list):
             return ",".join(cls.param_value_to_str(v) for v in value)
-        if hasattr(value, "id"):
-            return cls.param_value_to_str(value.id)
         if hasattr(value, "as_parameter"):
             return cls.param_value_to_str(value.as_parameter())
+        if hasattr(value, "id"):
+            return cls.param_value_to_str(value.id)
         raise ValueError(
             f"Unsupported parameter type: {type(value)} value: {value}"
             + (f" key: {key}" if key else "")

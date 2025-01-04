@@ -6,11 +6,16 @@ See https://docs.wise.com/api-docs/api-reference/transfer
 
 """
 
+from pprint import pprint
 from typing import List, Optional
 
+from apiron import Timeout
+
+from pywisetransfer.model.payment import PaymentResponse
+from pywisetransfer.model.profile import Profile
 from pywisetransfer.model.requirements import TransferRequirement, TransferRequirements
 from pywisetransfer.model.transfer import TransferRequest, TransferResponse
-from .endpoint import JsonEndpoint
+from .endpoint import JsonEndpoint, JsonEndpointWithSCA
 
 from pywisetransfer import Client
 from pywisetransfer.base import Base
@@ -21,7 +26,8 @@ class TransferService(Base):
     get = JsonEndpoint(path="/v1/transfers/{transfer_id}")
     create = JsonEndpoint(default_method="POST", path="/v1/transfers")
     get_requirements = JsonEndpoint(default_method="POST", path="/v1/transfer-requirements")
-
+    get_requirements.timeout_spec = Timeout(1, 10)  # requirements take a bit longer
+    fund = JsonEndpointWithSCA(default_method="POST", path="/v3/profiles/{profile_id}/transfers/{transfer_id}/payments")
 
 class Transfer:
     def __init__(self, client: Client):
@@ -102,7 +108,35 @@ class Transfer:
         See https://docs.wise.com/api-docs/api-reference/transfer#transfer-requirements
         """
         response = self.service.get_requirements(json=transfer)
+        pprint(response)
         return TransferRequirements(TransferRequirement(**requirement) for requirement in response)
 
+    def fund(self, transfer: TransferResponse|int, profile: int | Profile |None = None) -> PaymentResponse:
+        """Fund a transfer. (Pay for it)
+
+        See https://docs.wise.com/api-docs/api-reference/transfer#fund
+        
+        This endpoint is SCA protected when it applies.
+        If your profile is registered within the UK and/or EEA,
+        SCA most likely applies to you. Please read more about implementing SCA below.
+        
+        You must pass a private key file to the client in order to use this functinality.
+        
+        Args:
+            transfer: Transfer ID or Transfer object
+            profile: Profile ID or Profile object
+                If this is not provided, the business profile will be used if given
+                by the transfer. If the transfer has no business profile information,
+                we assume that the first personal profile is used.
+        """
+        if not profile and isinstance(transfer, TransferResponse):
+            profile = transfer.business
+            if profile is None:
+                profile = self.service.client.profiles.list().personal[0]
+        else:
+            raise ValueError("You must provide a profile")
+        response = self.service.fund(transfer_id=transfer, profile_id=profile)
+        pprint(response)
+        return PaymentResponse(**response)
 
 __all__ = ["Transfer"]

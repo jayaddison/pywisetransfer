@@ -119,6 +119,7 @@ class JsonEndpoint(ApironJsonEndpoint):
             if "params" in kwargs:
                 kwargs["params"] = owner.get_params_for_endpoint(**kwargs["params"])
             if "json" in kwargs and isinstance(kwargs["json"], BaseModel):
+                print("base model", type(kwargs["json"]))
                 kwargs["json"] = kwargs["json"].model_dump()
             return caller(*args, **kwargs)
 

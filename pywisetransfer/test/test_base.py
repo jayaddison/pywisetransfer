@@ -1,7 +1,11 @@
 """Test the base methods."""
 
+from typing import Annotated
+from uuid import UUID
+from pydantic import PlainSerializer
 from pytest import MonkeyPatch
 from pywisetransfer.base import Base
+from pywisetransfer.model.base import BaseModel
 from pywisetransfer.model.currency import Currency
 from pywisetransfer.model.quote import QuoteResponse
 
@@ -52,3 +56,12 @@ def test_call_args_are_converted(client, monkeypatch: MonkeyPatch, mock, quote_r
         profile_id="100",
         json=quote_request.model_dump(),
     )
+
+
+class ID(BaseModel):
+    id: Annotated[UUID, PlainSerializer(str)]
+
+
+def test_serialize_uid():
+    m = ID(id=UUID("00000000-0000-0000-0000-000000000000"))
+    assert m.model_dump() == {"id": "00000000-0000-0000-0000-000000000000"}

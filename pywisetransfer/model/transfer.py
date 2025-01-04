@@ -3,16 +3,17 @@
 from datetime import date
 from uuid import UUID
 
-from pydantic import Field
+from pydantic import Field, PlainSerializer
 
-from pywisetransfer.model.account import LegalEntityType, LegalType, RecipientName
+from pywisetransfer.model.legal_type import LegalType
+from pywisetransfer.model.account import LegalEntityType, RecipientName
 from pywisetransfer.model.annotations import WithoutNone
 from pywisetransfer.model.currency import CURRENCY
 from pywisetransfer.model.recipient.address import AddressDetails
 from pywisetransfer.model.timestamp import Timestamp
 from pywisetransfer.model.uuid import new_uuid
 from .enum import StrEnum
-from typing import ClassVar, Optional
+from typing import Annotated, ClassVar, Optional
 from .base import BaseModel
 
 
@@ -103,6 +104,7 @@ class TransferRequest(BaseModel):
         targetAccount: Recipient account ID. You can create multiple transfers to same recipient account.
         quoteUuid: V2 quote ID. You can only create one transfer per one quote. You cannot use same quote ID to create multiple transfers.
         customerTransactionId: This is required to perform idempotency check to avoid duplicate transfers in case of network failures or timeouts.
+        details: Transfer details
     """
 
     EXAMPLE_JSON: ClassVar[
@@ -124,8 +126,8 @@ class TransferRequest(BaseModel):
 
     sourceAccount: Optional[int] = None
     targetAccount: int
-    quoteUuid: UUID
-    customerTransactionId: UUID = Field(default_factory=new_uuid)
+    quoteUuid: Annotated[UUID, PlainSerializer(str)]
+    customerTransactionId: Annotated[UUID, PlainSerializer(str)] = Field(default_factory=new_uuid)
     details: TransferDetails
 
 
