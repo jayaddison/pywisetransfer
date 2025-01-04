@@ -424,16 +424,23 @@ We use the business profile for this.
     ...     ownedByCustomer=False,
     ...     details=RecipientDetails(
     ...         legalType=LegalType.PRIVATE,
-    ...         IBAN="DE12345678901234567890"
+    ...         IBAN="DE75512108001245126199"
     ...     )
     ... )
     >>> created_iban_recipient = client.recipient_accounts.create_recipient(iban_recipient)
-    >>> iban_display = client.recipient_accounts.get(created_iban_recipient)
-    >>> iban_display.id
+    >>> created_iban_recipient.id
     700614969
 
     ```
 
+4. Update the quote so that it works with the IBAN recipient.
+
+    ```python
+    >>> quote = client.quotes.update(created_iban_recipient, quote)
+    >>> quote.status
+    'PENDING'
+    
+    ```
 
 
 ## Run tests

@@ -146,7 +146,7 @@ def mock():
 
 
 @pytest.fixture(scope="session")
-def sandbox_iban_recipient_request(sandbox_personal_profile: Profile)-> Recipient:
+def sandbox_iban_recipient_request(sandbox_personal_profile: Profile) -> Recipient:
     """The data to request creating a new email recipient."""
     return Recipient(
         currency=CurrencyCode.EUR,
@@ -159,14 +159,16 @@ def sandbox_iban_recipient_request(sandbox_personal_profile: Profile)-> Recipien
 
 
 @pytest.fixture(scope="session")
-def sandbox_email_recipient(sandbox_client: Client, sandbox_iban_recipient_request:Recipient) -> RecipientAccountResponse:
+def sandbox_email_recipient(
+    sandbox_client: Client, sandbox_iban_recipient_request: Recipient
+) -> RecipientAccountResponse:
     """Create an email recipient."""
     answer = sandbox_client.recipient_accounts.create_recipient(sandbox_iban_recipient_request)
     return sandbox_client.recipient_accounts.get(answer)
 
-    
+
 @pytest.fixture(scope="session")
-def sandbox_iban_recipient_request(sandbox_business_profile: Profile)-> Recipient:
+def sandbox_iban_recipient_request(sandbox_business_profile: Profile) -> Recipient:
     """The data to request creating a new email recipient."""
     return Recipient(
         currency=CurrencyCode.EUR,
@@ -180,9 +182,11 @@ def sandbox_iban_recipient_request(sandbox_business_profile: Profile)-> Recipien
         ),
     )
 
+
 @pytest.fixture(scope="session")
-def sandbox_iban_recipient(sandbox_client: Client, sandbox_iban_recipient_request:Recipient) -> RecipientAccountResponse:
+def sandbox_iban_recipient(
+    sandbox_client: Client, sandbox_iban_recipient_request: Recipient
+) -> RecipientAccountResponse:
     """Create an email recipient."""
     answer = sandbox_client.recipient_accounts.create_recipient(sandbox_iban_recipient_request)
     return sandbox_client.recipient_accounts.get(answer)
-

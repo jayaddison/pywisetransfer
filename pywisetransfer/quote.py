@@ -13,6 +13,7 @@ from __future__ import annotations
 from pprint import pprint
 from typing import Any, Optional
 
+from pywisetransfer.model.account import FilledInRecipientAccountRequest, RecipientAccountResponse
 from pywisetransfer.model.profile import Profile
 
 from .endpoint import JsonEndpoint
@@ -34,7 +35,7 @@ class QuoteService(Base):
     )
     patch = JsonEndpoint(
         default_method="PATCH",
-        # TODO: set content type
+        additional_headers={"Content-Type": "application/merge-patch+json"},
         path="/v3/profiles/{profile_id}/quotes/{quote_id}",
     )
     get = JsonEndpoint(
@@ -76,13 +77,27 @@ class Quote:
         return QuoteResponse(**response)
 
     def update(
-        self, quote_update: QuoteUpdate, profile: int | Profile, quote: int | QuoteResponse
+        self,
+        quote_update: QuoteUpdate | FilledInRecipientAccountRequest | RecipientAccountResponse,
+        quote: int | QuoteResponse,
+        profile: int | Profile | None = None,
     ) -> QuoteResponse:
         """Update a quote.
 
         See https://docs.wise.com/api-docs/api-reference/quote#update
+
+        Args:
+            quote_update: An update to the quote.
+                This can be a QuoteUpdate or a recipient account.
+            quote: The quote to update. If you provie the id only, also provide the profile.
+            profile: The profile to update the quote for.
+                This is not required if the quote provides the profile id.
         """
-        response = self.service.example(json=quote_update, profile_id=profile, quote_id=quote)
+        if isinstance(quote_update, (RecipientAccountResponse, FilledInRecipientAccountRequest)):
+            quote_update = QuoteUpdate(targetAccount=quote_update.id)
+        if not profile and isinstance(quote, QuoteResponse):
+            profile = quote.profile
+        response = self.service.patch(json=quote_update, profile_id=profile, quote_id=quote)
         return QuoteResponse(**response)
 
     def get(self, quote: int | QuoteResponse, profile: Optional[int | Profile] = None):

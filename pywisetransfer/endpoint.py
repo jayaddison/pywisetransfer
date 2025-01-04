@@ -67,6 +67,9 @@ class WiseAPIError(HTTPError):
                 if k in json:
                     error[k] = json[k]
             error["json"] = json
+            if "errors" in json:
+                # [{'code': 'NOT_VALID', 'message': 'Please specify a valid IBAN.', 'path': 'IBAN', 'arguments': ['IBAN', 'DE12345678901234567890']}]
+                error["detail"] += ": " + str(json["errors"])
         except JSONDecodeError:
             pass
         return WiseAPIErrorResponse(**error)
@@ -126,7 +129,7 @@ class JsonEndpoint(ApironJsonEndpoint):
         headers = super().required_headers.copy()
         headers.update(self.additional_headers)
         if self.default_method == "POST":
-            headers["Content-Type"] = "application/json"
+            headers.setdefault("Content-Type", "application/json")
         return headers
 
 
