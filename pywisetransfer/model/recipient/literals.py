@@ -12,6 +12,7 @@ ACCOUNTTYPE = Literal[
     "CURRENT",
     "MOBILE_NUMBER",
     "NRIC",
+    "SAVING",
     "SAVINGS",
 ]
 ADDRESS_COUNTRY = Literal[

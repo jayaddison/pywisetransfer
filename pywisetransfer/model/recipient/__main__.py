@@ -1,4 +1,4 @@
-from collections import defaultdict
+from collections import defaultdict, namedtuple
 
 from pydantic import Field
 from pywisetransfer.model.account import RequiredFieldType
@@ -7,11 +7,16 @@ from pywisetransfer import Currency
 from requests.exceptions import ConnectionError
 from pathlib import Path
 
+#   SchemaError: regex parse error:
+# error: backreferences are not supported
+BACK_REFERENCES = ["(?!", r"\1", r"\2", r"\3", r"\4", r"\5"]
+
 
 def generate_recipient_details():
     HERE = Path(__file__).parent
     client = TestClient()
     select = defaultdict(set)
+    TEXT = namedtuple("TEXT", ["start", "examples", "min_length", "max_length", "pattern"])
     text = dict()
     for currency in Currency.all_currencies():
         try:
@@ -24,24 +29,47 @@ def generate_recipient_details():
             for field in requirement.fields:
                 for group in field.group:
                     key = group.key
-                    if group.type in [RequiredFieldType.select, RequiredFieldType.radio] and group.valuesAllowed:
+                    added = False
+                    if (
+                        group.type in [RequiredFieldType.select, RequiredFieldType.radio]
+                        and group.valuesAllowed
+                    ):
                         for value in group.valuesAllowed:
                             select[key].add(value.key)
                         added = True
-                    if not added: #group.type == RequiredFieldType.text or group.type == RequiredFieldType.date:
-                        Field(examples=[group.example])
-                        t = f"{group.key} : Optional[{'str' if group.type == RequiredFieldType.text else 'date'}] = Field("
+                    if (
+                        not added
+                    ):  # group.type == RequiredFieldType.text or group.type == RequiredFieldType.date:
+                        start, examples, min_length, max_length, pattern = text.get(
+                            key, TEXT("", set(), None, None, set())
+                        )
+                        if not start:
+                            start = f"{group.key} : Optional[{'str' if group.type != RequiredFieldType.date else 'date'}] = Field("
                         if group.example:
-                            t += f"examples=[{group.example!r}], "
-                        if group.minLength:
-                            t += f"min_length={group.minLength}, "
-                        if group.maxLength:
-                            t += f"max_length={group.maxLength}, "
-                        if group.validationRegexp and not "(?!" in group.validationRegexp:
-                            t += f"pattern={group.validationRegexp!r}, "
-                        t += "default=None)"
-                        text[key] = t
-                        
+                            examples.add(group.example)
+                        if group.minLength and (min_length is None or group.minLength < min_length):
+                            min_length = group.minLength
+                        if group.maxLength and (max_length is None or group.maxLength > max_length):
+                            max_length = group.maxLength
+                        if group.validationRegexp:
+                            pattern.add(
+                                ".*"
+                                if any(br in group.validationRegexp for br in BACK_REFERENCES)
+                                else group.validationRegexp
+                            )
+                        text[key] = TEXT(start, examples, min_length, max_length, pattern)
+
+    for key, value in text.copy().items():
+        pattern = "(" + ")|(".join(sorted(value[4])) + ")" if value[4] else None
+        examples = list(sorted(value[1])) if value[1] else None
+        text[key] = (
+            value[0]
+            + f"examples={examples!r}, "
+            + f"min_length={value[2]}, "
+            + f"max_length={value[3]}, "
+            + f"pattern={pattern!r}"
+            + ", default=None)"
+        )
 
     with (HERE / "literals.py").open("w") as f:
         print(
@@ -86,7 +114,7 @@ class RecipientDetails(BaseModel):
         )
         for key, values in sorted(select.items()):
             if not key.startswith("address"):
-                print(f"    {key}: {key.upper().replace(".", "_")} = None", file=f)
+                print(f"    {key}: Optional[{key.upper().replace(".", "_")}] = None", file=f)
         for key, value in sorted(text.items()):
             if not key.startswith("address"):
                 print(f"    {value}", file=f)
@@ -113,7 +141,7 @@ class AddressDetails(BaseModel):
             file=f,
         )
         for key, value in sorted(text.items()):
-            if key.startswith("address."):
+            if key.startswith("address"):
                 print(f"    {value[8:]}", file=f)
         for key, values in sorted(select.items()):
             if key.startswith("address"):
