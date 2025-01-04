@@ -6,6 +6,7 @@ from typing import Any, Callable, Optional
 
 import apiron
 from apiron.endpoint import JsonEndpoint as ApironJsonEndpoint
+from pydantic import BaseModel
 from requests import JSONDecodeError
 from requests.exceptions import HTTPError
 
@@ -114,6 +115,8 @@ class JsonEndpoint(ApironJsonEndpoint):
                     kwargs[key] = owner.param_value_to_str(value, key)
             if "params" in kwargs:
                 kwargs["params"] = owner.get_params_for_endpoint(**kwargs["params"])
+            if "json" in kwargs and isinstance(kwargs["json"], BaseModel):
+                kwargs["json"] = kwargs["json"].model_dump()
             return caller(*args, **kwargs)
 
         return wrapper

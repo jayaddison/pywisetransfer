@@ -85,7 +85,8 @@ from typing import Literal
         literals = []
         for key, values in sorted(select.copy().items()):
             k = key.upper().replace(".", "_")
-            print(f"{k} = Literal[{', '.join(map(repr, sorted(values)))}]", file=f)
+            print(f"{k}_VALUES = {list(sorted(values))}", file=f)
+            print(f"{k} = Literal[*{k}_VALUES]", file=f)
             literals.append(k)
         literals = list(sorted(literals))
         print(f"__all__ = {literals}", file=f)

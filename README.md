@@ -326,7 +326,7 @@ True
 
 > Wise: Please contact us before attempting to use email recipients. We do not recommend using this feature except for certain uses cases.
 
-Because `email` is` in the requirements, we can create an email recipient.
+Because `email` is` in the requirements, we can create an email recipient for the quote.
 
 ```pyton
 >>> email = requirements[-1]
@@ -340,6 +340,44 @@ Because `email` is` in the requirements, we can create an email recipient.
 'accountHolderName'
 >>> email.required_fields[1].group[0].name
 'Full name of the account holder'
+
+```
+
+Below, we create the recipient and get a response.
+The response includes all the data that we sent and optional fields.
+
+```python
+>>> from pywisetransfer import Recipient, RecipientDetails, CurrencyCode, RequirementType
+>>> email_recipient = Recipient(
+...     currency=CurrencyCode.EUR,
+...     type=RequirementType.email,
+...     profile=profiles.personal[0].id,
+...     accountHolderName="John Doe",
+...     ownedByCustomer=False,
+...     details=RecipientDetails(email="john@doe.com")
+... )
+>>> created_response = client.recipient_accounts.create_recipient(email_recipient)
+>>> created_response.id  # the response has an id
+700614969
+
+```
+
+In the following, we get the actual recipient account as the user sees it e.g. in the app.
+
+```python
+>>> recipient = client.recipient_accounts.get(created_response)
+>>> recipient.id
+700614969
+>>> recipient.accountSummary
+'john@doe.com'
+>>> recipient.currency
+'EUR'
+>>> recipient.email
+'john@doe.com'
+>>> recipient.legalEntityType
+'PERSON'
+>>> recipient.ownedByCustomer
+False
 
 ```
 

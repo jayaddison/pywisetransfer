@@ -4,7 +4,7 @@
 from typing import Literal
 
 
-ACCOUNTTYPE = Literal[
+ACCOUNTTYPE_VALUES = [
     "ARMY_OR_POLICE_NUMBER",
     "BUSINESS_REGISTRATION_NUMBER",
     "CHECKING",
@@ -15,7 +15,8 @@ ACCOUNTTYPE = Literal[
     "SAVING",
     "SAVINGS",
 ]
-ADDRESS_COUNTRY = Literal[
+ACCOUNTTYPE = Literal[*ACCOUNTTYPE_VALUES]
+ADDRESS_COUNTRY_VALUES = [
     "AD",
     "AE",
     "AG",
@@ -247,7 +248,8 @@ ADDRESS_COUNTRY = Literal[
     "ZM",
     "ZW",
 ]
-BANKCODE = Literal[
+ADDRESS_COUNTRY = Literal[*ADDRESS_COUNTRY_VALUES]
+BANKCODE_VALUES = [
     "000000",
     "000001",
     "000002",
@@ -2440,14 +2442,40 @@ BANKCODE = Literal[
     "YUANTA_209",
     "ZTI",
 ]
-IDDOCUMENTTYPE = Literal[
-    "BUSINESS_ID", "C_EXT", "DNI", "FOREIGN_ID", "NATIONAL_ID", "NATIONAL_ID_CARD", "PASSP", "RUC"
+BANKCODE = Literal[*BANKCODE_VALUES]
+IDDOCUMENTTYPE_VALUES = [
+    "BUSINESS_ID",
+    "C_EXT",
+    "DNI",
+    "FOREIGN_ID",
+    "NATIONAL_ID",
+    "NATIONAL_ID_CARD",
+    "PASSP",
+    "RUC",
 ]
-LANGUAGE = Literal[
-    "cs", "de", "en", "es", "fr", "hu", "id", "it", "ja", "nl", "pl", "pt", "ro", "ru", "tr", "zh"
+IDDOCUMENTTYPE = Literal[*IDDOCUMENTTYPE_VALUES]
+LANGUAGE_VALUES = [
+    "cs",
+    "de",
+    "en",
+    "es",
+    "fr",
+    "hu",
+    "id",
+    "it",
+    "ja",
+    "nl",
+    "pl",
+    "pt",
+    "ro",
+    "ru",
+    "tr",
+    "zh",
 ]
-LEGALTYPE = Literal["BUSINESS", "PRIVATE"]
-NATIONALITY = Literal[
+LANGUAGE = Literal[*LANGUAGE_VALUES]
+LEGALTYPE_VALUES = ["BUSINESS", "PRIVATE"]
+LEGALTYPE = Literal[*LEGALTYPE_VALUES]
+NATIONALITY_VALUES = [
     "abw",
     "afg",
     "ago",
@@ -2700,7 +2728,8 @@ NATIONALITY = Literal[
     "zmb",
     "zwe",
 ]
-RUSSIAREGION = Literal[
+NATIONALITY = Literal[*NATIONALITY_VALUES]
+RUSSIAREGION_VALUES = [
     "ADYGEA",
     "ALTAIKRAI",
     "ALTAIREPUBLIC",
@@ -2786,7 +2815,8 @@ RUSSIAREGION = Literal[
     "YAROSLAVLOBLAST",
     "ZABAYKALSKYKRAI",
 ]
-SWIFTCODE = Literal[
+RUSSIAREGION = Literal[*RUSSIAREGION_VALUES]
+SWIFTCODE_VALUES = [
     " ABNAMYKL",
     "ABBKVNVX",
     "ABSAZAJJ",
@@ -2901,6 +2931,7 @@ SWIFTCODE = Literal[
     "WBVNVNVX",
     "YOUBZAJJ",
 ]
+SWIFTCODE = Literal[*SWIFTCODE_VALUES]
 __all__ = [
     "ACCOUNTTYPE",
     "ADDRESS_COUNTRY",

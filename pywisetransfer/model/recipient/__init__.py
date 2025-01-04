@@ -3,10 +3,10 @@
 See https://docs.wise.com/api-docs/api-reference/recipient
 """
 
-from typing import Optional
-from pywisetransfer.model.account import RequirementType
+from typing import ClassVar, Optional
+from pywisetransfer.model.requirement_type import RequirementType
 from pywisetransfer.model.base import BaseModel
-from pywisetransfer.model.currency import CURRENCY
+from pywisetransfer.model.currency import CURRENCY, CurrencyCode
 from .details import RecipientDetails
 from .address import AddressDetails
 from .literals import LANGUAGE
@@ -19,12 +19,20 @@ class EmailDetails(RecipientDetails):
         email: Email address
     """
 
+    EXAMPLE_JSON: ClassVar[
+        str
+    ] = """
+{ 
+          { 
+              "email": "john.doe@transfer-world.com"
+           
+         }"""
     email: str
     language: Optional[LANGUAGE] = None
 
 
 class Recipient(BaseModel):
-    """The recipient model.
+    """The recipient model that is posted to the API.
 
     See https://docs.wise.com/api-docs/api-reference/recipient
 
@@ -44,12 +52,29 @@ class Recipient(BaseModel):
             These are subject to the requirements of a quote.
     """
 
+    #     EXAMPLE_JSON : ClassVar[str] = """
+    # {
+    #             "currency": "GBP",
+    #             "country": "GB",
+    #             "type": "sort_code",
+    #             "profile": 30000000,
+    #             "legalEntityType": "PERSON",
+    #             "name": {
+    #                 "fullName": "John Doe"
+    #             },
+    #             "details": {
+    #                 "sortCode": "040075",
+    #                 "accountNumber": "37778842"
+    #             }
+    #          }
+    #     """
+
     currency: str = CURRENCY
     type: RequirementType
     profile: int
     accountHolderName: str
     ownedByCustomer: bool
-    details: dict
+    details: RecipientDetails
 
 
 __all__ = ["RecipientDetails", "Recipient", "EmailDetails", "AddressDetails"]

@@ -61,7 +61,7 @@ class Quote:
 
         See https://docs.wise.com/api-docs/api-reference/quote#create-not-authenticated
         """
-        response = self.service.example(json=quote.model_dump())
+        response = self.service.example(json=quote)
         # pprint(response)
         return QuoteResponse(**response)
 
@@ -72,7 +72,7 @@ class Quote:
 
         https://docs.wise.com/api-docs/api-reference/quote#create-authenticated
         """
-        response = self.service.create(json=quote.model_dump(), profile_id=profile)
+        response = self.service.create(json=quote, profile_id=profile)
         return QuoteResponse(**response)
 
     def update(
@@ -82,9 +82,7 @@ class Quote:
 
         See https://docs.wise.com/api-docs/api-reference/quote#update
         """
-        response = self.service.example(
-            json=quote_update.model_dump(), profile_id=profile, quote_id=quote
-        )
+        response = self.service.example(json=quote_update, profile_id=profile, quote_id=quote)
         return QuoteResponse(**response)
 
     def get(self, quote: int | QuoteResponse, profile: Optional[int | Profile] = None):

@@ -5,6 +5,8 @@ from typing import ClassVar
 from pydantic import BaseModel, Field
 import re
 
+from pywisetransfer.model.enum import StrEnum
+
 
 CODE_REGEX = "^[A-Z][A-Z][A-Z]$"
 CURRENCY = Field(
@@ -542,5 +544,12 @@ class Currency(BaseModel):
         """Transform into a parameter."""
         return self.code
 
+    codes: ClassVar[list[str]] = [
+        code for code in locals() if len(code) == 3 and code.upper() == code
+    ]
+    del code
 
-__all__ = ["Currency", "CURRENCY"]
+
+CurrencyCode = StrEnum("CurrencyCode", {code: code for code in Currency.codes})
+
+__all__ = ["Currency", "CURRENCY", "CurrencyCode"]

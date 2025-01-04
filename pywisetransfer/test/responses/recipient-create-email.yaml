@@ -1,0 +1,56 @@
+responses:
+- response:
+    auto_calculate_content_length: false
+    body: '{"id":700614969,"business":null,"profile":28577318,"accountHolderName":"John
+      Doe","currency":"EUR","country":null,"type":"email","details":{"address":null,"email":"john@doe.com","legalType":"PRIVATE","accountHolderName":null,"accountNumber":null,"sortCode":null,"abartn":null,"accountType":null,"bankgiroNumber":null,"ifscCode":null,"bsbCode":null,"institutionNumber":null,"transitNumber":null,"phoneNumber":null,"bankCode":null,"russiaRegion":null,"routingNumber":null,"branchCode":null,"cpf":null,"cardToken":null,"idType":null,"idNumber":null,"idCountryIso3":null,"idValidFrom":null,"idValidTo":null,"clabe":null,"swiftCode":null,"dateOfBirth":null,"clearingNumber":null,"bankName":null,"branchName":null,"businessNumber":null,"province":null,"city":null,"rut":null,"token":null,"cnpj":null,"payinReference":null,"pspReference":null,"orderId":null,"idDocumentType":null,"idDocumentNumber":null,"identificationNumber":null,"targetProfile":null,"targetUserId":null,"taxId":null,"job":null,"nationality":null,"interacAccount":null,"bban":null,"town":null,"postCode":null,"language":null,"billerCode":null,"customerReferenceNumber":null,"prefix":null,"relationship":null,"IBAN":null,"iban":null,"bic":null,"BIC":null},"user":12970746,"active":true,"ownedByCustomer":false,"confirmations":null}'
+    content_type: text/plain
+    headers:
+      CF-Cache-Status: DYNAMIC
+      CF-RAY: 8fc82c6a2e627780-LHR
+      Set-Cookie: __cf_bm=A7jgiz0M8IA1IlSz14BSnIoMQGxD8VLzh59urHnsnLI-1735961673-1.0.1.1-6_CfuPd9ibsvvzkd82hBYgBcGKWqNekD_LQwl8mct2RpQGo7z4gTNg0mMOLt3oilRZWrFoctRbU9hIYdGE.VCA;
+        path=/; expires=Sat, 04-Jan-25 04:04:33 GMT; domain=.transferwise.tech; HttpOnly;
+        Secure; SameSite=None
+      Transfer-Encoding: chunked
+      alt-svc: h3=":443"; ma=86400
+      cache-control: no-cache, no-store, max-age=0, must-revalidate
+      
+      expires: '0'
+      pragma: no-cache
+      vary: origin,access-control-request-method,access-control-request-headers,accept-encoding
+      x-content-type-options: nosniff
+      x-envoy-attempt-count: '1'
+      x-envoy-upstream-service-time: '134'
+      x-frame-options: DENY
+      x-trace-id: 19ac99039f0bb080
+      x-xss-protection: '0'
+    method: POST
+    status: 200
+    url: https://api.sandbox.transferwise.tech/v1/accounts
+- response:
+    auto_calculate_content_length: false
+    body: '{"id":700614969,"creatorId":12970746,"profileId":28577318,"name":{"fullName":"John
+      Doe","givenName":null,"familyName":null,"middleName":null,"patronymicName":null,"cannotHavePatronymicName":null},"currency":"EUR","type":"Email","legalEntityType":"PERSON","email":"john@doe.com","active":true,"details":{"hashedByLooseHashAlgorithm":"9ba00348d31cf14f26b1ba5fbe16166797713a2764467e9287445d9a697c28f8"},"commonFieldMap":{},"hash":"3038f9347ed20e5daf6851131efddddc10f6855d4cb41de505e38b650a48ab55","accountSummary":"john@doe.com","longAccountSummary":"john@doe.com","displayFields":[{"key":"email","label":"Email
+      (Optional)","value":"john@doe.com"}],"isInternal":false,"ownedByCustomer":false}'
+    content_type: text/plain
+    headers:
+      CF-Cache-Status: DYNAMIC
+      CF-RAY: 8fc82cb6fb47949f-LHR
+      Set-Cookie: __cf_bm=0KfJmvLHiMlNLSi285nEShycQYwliaJPNJVHOyLCC3E-1735961685-1.0.1.1-C8oPzpn5rsN4mEwyBKvHkdQFDCof8ZcgttF_BuxnmWH0iYImc7FZF.h68n2A6C.QCZWhPiSZqydqjlMoJFhY3A;
+        path=/; expires=Sat, 04-Jan-25 04:04:45 GMT; domain=.transferwise.tech; HttpOnly;
+        Secure; SameSite=None
+      Transfer-Encoding: chunked
+      alt-svc: h3=":443"; ma=86400
+      cache-control: no-cache, no-store, max-age=0, must-revalidate
+      
+      expires: '0'
+      pragma: no-cache
+      vary: origin,access-control-request-method,access-control-request-headers,accept-encoding
+      x-content-type-options: nosniff
+      x-envoy-attempt-count: '1'
+      x-envoy-upstream-service-time: '39'
+      x-frame-options: DENY
+      x-trace-id: 3d5c0aec0850f84f
+      x-xss-protection: '0'
+    method: GET
+    status: 200
+    url: https://api.sandbox.transferwise.tech/v2/accounts/700614969

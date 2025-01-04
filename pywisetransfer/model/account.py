@@ -9,11 +9,13 @@ from datetime import date
 from typing import ClassVar, Optional
 
 from pydantic import Field
-from pywisetransfer.model.base import BaseModel
+from pywisetransfer.model.base import DOCUMENTED_BUT_ABSENT, BaseModel
 from pywisetransfer.model.country import COUNTRY_CODE
 from pywisetransfer.model.currency import CURRENCY
 from pywisetransfer.model.enum import StrEnum
 from pywisetransfer.model.profile import PROFILE_TYPE
+from pywisetransfer.model.recipient.details import RecipientDetails
+from pywisetransfer.model.requirement_type import RequirementType
 
 
 class RecipientName(BaseModel):
@@ -46,33 +48,6 @@ class RecipientName(BaseModel):
     middleName: Optional[str]
     patronymicName: Optional[str]
     cannotHavePatronymicName: object
-
-
-class RecipientAccountDetails(BaseModel):
-    """The recipient account details.
-
-    Attributes:
-        reference: Recipient will see this reference text in their bank statement.
-        accountNumber: Recipient account number
-        sortCode: Recipient sort code
-        hashedByLooseHashAlgorithm: Recipient account hash
-    """
-
-    EXAMPLE_JSON: ClassVar[
-        str
-    ] = """
-    {
-        "reference": null,
-        "accountNumber": "37778842",
-        "sortCode": "040075",
-        "hashedByLooseHashAlgorithm": "ad245621b974efa3ef870895c3wer419a3f01af18a8a5790b47645dba6304194"
-    }
-    """
-
-    reference: Optional[str] = None
-    accountNumber: Optional[str] = None
-    sortCode: Optional[str] = None
-    hashedByLooseHashAlgorithm: str
 
 
 class CommonFieldMap(BaseModel):
@@ -112,17 +87,34 @@ class DisplayField(BaseModel):
     value: str
 
 
+class LegalType(StrEnum):
+    """The legal type of a recipient account."""
+
+    PRIVATE = "PRIVATE"
+    BUSINESS = "BUSINESS"
+
+
+class LegalEntityType(StrEnum):
+    """The legal type of a recipient account."""
+
+    PERSON = "PERSON"
+    BUSINESS = "BUSINESS"
+
+
 class RecipientAccountResponse(BaseModel):
-    """The recipient account.
+    """The recipient account as received from the API.
 
     Attributes:
         id: The ID of the recipient account.
-        creatorId: Account entity that owns the recipient account
+        profileId: ABSENT - replaced by profile
+            Personal or business profile ID.
+        creatorId: ABSENT - replaced by user.
+            Account entity that owns the recipient account
         name: Recipient name details
         currency: 3 character currency code
-        country: 2 character country code
         type: Recipient type
-        legalEntityType: Entity type of recipient
+        legalEntityType: ABSENT - replaced by details.legalType.
+            Legal Entity type of recipient
         active: Whether the recipient account is active - Status of the recipient
         details: Recipient account details
         commonFieldMap: Map of key lookup fields on the account
@@ -132,24 +124,26 @@ class RecipientAccountResponse(BaseModel):
         displayFields: Lookup fields
         isInternal: Whether the recipient account is internal
         ownedByCustomer: If recipient account belongs to profile owner
+
     """
 
     id: int
-    creatorId: int
-    profileId: int
-    name: RecipientName
+    creatorId: DOCUMENTED_BUT_ABSENT[int] = None
+    profileId: DOCUMENTED_BUT_ABSENT[int] = None
+    name: Optional[RecipientName] = None
     currency: str = CURRENCY
-    country: str = COUNTRY_CODE
+    # country: Optional[str] = COUNTRY_CODE
     type: str
-    legalEntityType: str
+    legalEntityType: DOCUMENTED_BUT_ABSENT[LegalEntityType] = None
     active: bool
-    commonFieldMap: CommonFieldMap
+    commonFieldMap: Optional[CommonFieldMap] = None
     hash: str
     accountSummary: str
     longAccountSummary: str
     displayFields: list[DisplayField]
     isInternal: bool
     ownedByCustomer: bool
+    email: Optional[str] = None
 
     EXAMPLE_JSON: ClassVar[
         str
@@ -167,7 +161,6 @@ class RecipientAccountResponse(BaseModel):
             "cannotHavePatronymicName": null
         },
         "currency": "GBP",
-        "country": "GB",
         "type": "SortCode",
         "legalEntityType": "PERSON",
         "active": true,
@@ -191,17 +184,10 @@ class RecipientAccountResponse(BaseModel):
             }
         ],
         "isInternal": false,
-        "ownedByCustomer": false
+        "ownedByCustomer": false,
+        "email": null
     }
     """
-    id: int
-
-
-class LegalType(StrEnum):
-    """The legal type of a recipient account."""
-
-    PRIVATE = "PRIVATE"
-    BUSINESS = "BUSINESS"
 
 
 class RecipientAccountRequestDetails(BaseModel):
@@ -267,11 +253,55 @@ class RecipientAccountRequest(BaseModel):
     """
 
     currency: str = CURRENCY
-    type: str
+    type: RequirementType
     profile: int
     ownedByCustomer: bool
     accountHolderName: str = Field(pattern=ACCOUNT_HOLDER_NAME_REGEX)
     details: RecipientAccountRequestDetails
+
+
+class FilledInRecipientAccountRequest(RecipientAccountRequest):
+    """The result of creating a recipient.
+
+    Attributes:
+        id: Recipient account ID
+        business: unclear
+        confirmations: unclear
+        country: Recipient country code
+        user: User ID
+        active: Whether the recipient account is active
+    """
+
+    EXAMPLE_JSON: ClassVar[
+        str
+    ] = """
+    {
+        "currency": "EUR",
+        "type": "email",
+        "profile": 28577318,
+        "ownedByCustomer": false,
+        "accountHolderName": "John Doe",
+        "details": {
+            "legalType": "PRIVATE",
+            "sortCode": null,
+            "accountNumber": null,
+            "dateOfBirth": null
+        },
+        "id": 700614969,
+        "business": null,
+        "confirmations": null,
+        "country": null,
+        "user": 12970746,
+        "active": true
+    }
+    """
+
+    id: int
+    business: object  # TODO: What is this?
+    confirmations: object  # TODO: What is this?
+    country: Optional[str] = COUNTRY_CODE
+    user: Optional[int] = None
+    active: bool
 
 
 class RequiredFieldType(StrEnum):
@@ -395,71 +425,6 @@ class RequiredField(BaseModel):
     group: list[RequiredGroupElement]
 
 
-class RequirementType(StrEnum):
-    """Type of a recipient account requirement."""
-
-    aba = "aba"
-    argentina = "argentina"
-    australian = "australian"
-    australian_bpay = "australian_bpay"
-    bangladesh = "bangladesh"
-    bkash = "bkash"
-    brazil = "brazil"
-    brazil_business = "brazil_business"
-    canadian = "canadian"
-    chile = "chile"
-    chinese_alipay = "chinese_alipay"
-    chinese_wechatpay = "chinese_wechatpay"
-    colombia = "colombia"
-    costa_rica = "costa_rica"
-    czech = "czech"
-    email = "email"
-    emirates = "emirates"
-    fiji_mobile = "fiji_mobile"
-    hongkong = "hongkong"
-    hong_kong_fps = "hong_kong_fps"
-    hungarian = "hungarian"
-    iban = "iban"
-    indian = "indian"
-    indian_upi = "indian_upi"
-    indonesian = "indonesian"
-    interac = "interac"
-    israeli_local = "israeli_local"
-    japanese = "japanese"
-    kenya_local = "kenya_local"
-    kenya_mobile = "kenya_mobile"
-    malaysian = "malaysian"
-    malaysian_duitnow = "malaysian_duitnow"
-    mexican = "mexican"
-    morocco = "morocco"
-    mozambique_local = "mozambique_local"
-    namibia_local = "namibia_local"
-    nepal = "nepal"
-    newzealand = "newzealand"
-    nigeria = "nigeria"
-    peru = "peru"
-    philippines = "philippines"
-    philippinesmobile = "philippinesmobile"
-    polish = "polish"
-    privatbank = "privatbank"
-    russiarapida = "russiarapida"
-    singapore = "singapore"
-    singapore_paynow = "singapore_paynow"
-    sort_code = "sort_code"
-    southafrica = "southafrica"
-    south_korean_paygate = "south_korean_paygate"
-    south_korean_paygate_business = "south_korean_paygate_business"
-    srilanka = "srilanka"
-    tanzania_local = "tanzania_local"
-    thailand = "thailand"
-    turkish_earthport = "turkish_earthport"
-    uganda_local = "uganda_local"
-    uruguay = "uruguay"
-    vietname_earthport = "vietname_earthport"
-    fedwire_local = "fedwire_local"
-    swift_code = "swift_code"
-
-
 class RecipientAccountRequirement(BaseModel):
     """A requirement for a recipient account.
 
@@ -524,7 +489,6 @@ __all__ = [
     "RecipientAccountResponse",
     "RecipientAccountRequest",
     "RecipientAccountRequestDetails",
-    "RecipientAccountDetails",
     "RecipientName",
     "CommonFieldMap",
     "DisplayField",
@@ -537,4 +501,6 @@ __all__ = [
     "RecipientAccountsSorting",
     "RequirementType",
     "RequiredGroupElement",
+    "FilledInRecipientAccountRequest",
+    "LegalEntityType",
 ]

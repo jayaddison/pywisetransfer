@@ -11,6 +11,7 @@ COUNTRY_CODE = Field(
     pattern=COUNTRY_CODE_REGEX,
 )
 
+
 __all__ = [
     "COUNTRY_CODE",
 ]

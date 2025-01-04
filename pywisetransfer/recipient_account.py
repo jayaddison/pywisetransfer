@@ -8,11 +8,13 @@ Attributes:
     ACCEPT_MINOR_VERSION_1: Please note that to use v1.1 Accept-Minor-Version: 1 request header must be set.
 """
 
+from pprint import pprint
 from typing import List, Optional
 from pywisetransfer.base import Base
 from pywisetransfer.client import Client
 from pywisetransfer.endpoint import JsonEndpoint
 from pywisetransfer.model.account import (
+    FilledInRecipientAccountRequest,
     RecipientAccountList,
     RecipientAccountRequest,
     RecipientAccountResponse,
@@ -103,11 +105,21 @@ class RecipientAccount:
 
     def create_recipient(
         self, recipient_account: RecipientAccountRequest
-    ) -> RecipientAccountResponse:
-        return RecipientAccountResponse(**self.service.create_recipient(json=recipient_account))
+    ) -> FilledInRecipientAccountRequest:
+        """Create a recipient account and return the filled in values of the request.
 
-    def get(self, account_id: int) -> RecipientAccountResponse:
-        return RecipientAccountResponse(**self.service.get(account_id=account_id))
+        You can use client.recipient_account.get() to get the recipient.
+        """
+        response = self.service.create_recipient(json=recipient_account)
+        # print(response)
+        return FilledInRecipientAccountRequest(**response)
+
+    def get(
+        self, account: int | RecipientAccountResponse | FilledInRecipientAccountRequest
+    ) -> RecipientAccountResponse:
+        response = self.service.get(account_id=account)
+        # pprint(response)
+        return RecipientAccountResponse(**response)
 
     def get_requirements_for_quote(
         self, quote: int | QuoteResponse
