@@ -15,5 +15,4 @@ class StrEnum(str, Enum):
         return self.value
 
 
-
 __all__ = ["StrEnum"]

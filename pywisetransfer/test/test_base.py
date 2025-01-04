@@ -45,9 +45,10 @@ def test_call_args_are_converted(client, monkeypatch: MonkeyPatch, mock, quote_r
     monkeypatch.setattr(apiron_client, "call", mock)
     example = QuoteResponse.model_example().model_dump()
     mock.return_value = example
-    client.quotes.create(quote_request, profile='100')
+    client.quotes.create(quote_request, profile="100")
     assert mock.call_count == 1
     call = mock.mock_calls[0]
-    assert call.kwargs == dict(profile_id='100',
+    assert call.kwargs == dict(
+        profile_id="100",
         json=quote_request.model_dump(),
     )

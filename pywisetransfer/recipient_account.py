@@ -109,7 +109,9 @@ class RecipientAccount:
     def get(self, account_id: int) -> RecipientAccountResponse:
         return RecipientAccountResponse(**self.service.get(account_id=account_id))
 
-    def get_requirements_for_quote(self, quote: int|QuoteResponse) -> List[RecipientAccountRequirement]:
+    def get_requirements_for_quote(
+        self, quote: int | QuoteResponse
+    ) -> List[RecipientAccountRequirement]:
         """Get the requirements for a recipient account.
 
         Args:

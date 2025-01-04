@@ -3,28 +3,33 @@
 See https://docs.wise.com/api-docs/api-reference/recipient
 """
 
+from typing import Optional
 from pywisetransfer.model.account import RequirementType
 from pywisetransfer.model.base import BaseModel
 from pywisetransfer.model.currency import CURRENCY
-from pywisetransfer.model.profile import PROFILE_TYPE
+from .details import RecipientDetails
+from .address import AddressDetails
+from .literals import LANGUAGE
 
-class RecipientDetails(BaseModel):
-    """The recipient details model.
 
-    See https://docs.wise.com/api-docs/api-reference/recipient
+class EmailDetails(RecipientDetails):
+    """Details for an email recipient.
+
+    Attributes:
+        email: Email address
     """
-    
-    legalType: PROFILE_TYPE
-    sortCode: 
+
+    email: str
+    language: Optional[LANGUAGE] = None
 
 
 class Recipient(BaseModel):
     """The recipient model.
 
     See https://docs.wise.com/api-docs/api-reference/recipient
-    
+
     Please note that the recipient information is subject to requirements of a quote.
-    
+
     Attributes:
         currency: 3 character currency code
         type: Recipient type
@@ -44,4 +49,7 @@ class Recipient(BaseModel):
     profile: int
     accountHolderName: str
     ownedByCustomer: bool
-    details: RecipientDetails
+    details: dict
+
+
+__all__ = ["RecipientDetails", "Recipient", "EmailDetails", "AddressDetails"]
