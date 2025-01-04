@@ -7,10 +7,15 @@ pytest --api_token <token>
 """
 
 from pywisetransfer.client import Client
-from pywisetransfer.model.account import RecipientAccountRequirement, RequirementType
+from pywisetransfer.model.account import (
+    RecipientAccountRequirement,
+    RecipientAccountResponse,
+    RequirementType,
+)
 from pywisetransfer.model.currency import Currency
 from pywisetransfer.model.profile import Profile, Profiles
 from pywisetransfer.model.quote import ExampleQuoteRequest, QuoteResponse, QuoteStatus
+from pywisetransfer.model.recipient import Recipient
 
 
 def test_two_profile_types(sandbox_profiles: Profiles):
@@ -80,3 +85,8 @@ def test_get_the_quote_again(
         sandbox_example_quote, sandbox_business_profile
     )
     assert quote.id == sandbox_example_quote.id
+
+
+def test_email_recipient(sandbox_email_recipient: RecipientAccountResponse, sandbox_email_recipient_request:Recipient):
+    """Check tha the data matches."""
+    assert sandbox_email_recipient.email == sandbox_email_recipient_request.details.email

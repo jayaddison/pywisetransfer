@@ -15,11 +15,14 @@ from unittest.mock import MagicMock
 from munch import Munch
 import pytest
 from pywisetransfer import Client
-from pywisetransfer.model.account import RecipientAccountRequirement
+from pywisetransfer.model.account import RecipientAccountRequirement, RecipientAccountResponse
 from pywisetransfer.model.profile import Profile, Profiles
 from pywisetransfer.model.quote import ExampleQuoteRequest, PaymentMethod, QuoteRequest
+from pywisetransfer.model.recipient import Recipient
+from pywisetransfer.model.recipient.details import RecipientDetails
+from pywisetransfer.model.requirement_type import RequirementType
 from pywisetransfer.test.record import TestClient
-from pywisetransfer.model.currency import Currency
+from pywisetransfer.model.currency import Currency, CurrencyCode
 
 
 @pytest.fixture(scope="package")
@@ -140,3 +143,25 @@ def sandbox_example_quote(
 @pytest.fixture
 def mock():
     return MagicMock()
+
+
+@pytest.fixture(scope="session")
+def sandbox_email_recipient_request(sandbox_personal_profile: Profile)-> Recipient:
+    """The data to request creating a new email recipient."""
+    return Recipient(
+        currency=CurrencyCode.EUR,
+        type=RequirementType.email,
+        profile=sandbox_personal_profile,
+        accountHolderName="John Doe",
+        ownedByCustomer=False,
+        details=RecipientDetails(email="john@doe.com"),
+    )
+
+
+@pytest.fixture(scope="session")
+def sandbox_email_recipient(sandbox_client: Client, sandbox_email_recipient_request:Recipient) -> RecipientAccountResponse:
+    """Create an email recipient."""
+    answer = sandbox_client.recipient_accounts.create_recipient(sandbox_email_recipient_request)
+    return sandbox_client.recipient_accounts.get(answer)
+
+    
