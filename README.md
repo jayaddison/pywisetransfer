@@ -1,6 +1,6 @@
 # pywisetransfer
 
-An unofficial, experimental Python client library for the [TransferWise API](https://api-docs.transferwise.com).
+An unofficial, experimental Python client library for the [Wise API](https://docs.wise.com/api-docs/api-reference).
 
 :warning: The classes, functions and interfaces that this library provides are very much in-development and prone to change.
 
@@ -9,12 +9,6 @@ An unofficial, experimental Python client library for the [TransferWise API](htt
 ```bash
 # Within your project directory
 pip install pywisetransfer
-```
-After installation, you should be able to import the package.
-
-```python
->>> from pywisetransfer import Client
-
 ```
 
 ## Command Line
@@ -52,8 +46,14 @@ Permissions on sandbox: read+write+sca
 Permissions on live: none
 ```
 
-
 ## Python Package
+
+After installation, you should be able to import the package.
+
+```python
+>>> from pywisetransfer import Client
+
+```
 
 Wise provides [two APIs](https://docs.wise.com/api-docs/api-reference#environments): `live` and `sandbox`.
 You can use either of these environments with this library.
