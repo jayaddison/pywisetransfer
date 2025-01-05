@@ -149,7 +149,7 @@ class RecipientAccount:
         The resulting list contains all the accounts that are currently available in the API.
 
         Args:
-            profile: Filter by personal or business profile, returns only those owned by this profile. 
+            profile: Filter by personal or business profile, returns only those owned by this profile.
                 Defaults to all profiles
             page_size: Number of accounts to retrieve per request.
             sort: Sorting strategy for the response.
@@ -211,7 +211,9 @@ class RecipientAccount:
             source_amount: The source amount
         """
         response = self.service.get_requirements(params=params)
-        return RecipientAccountRequirements(AccountRequirement(**requirement) for requirement in response)
+        return RecipientAccountRequirements(
+            AccountRequirement(**requirement) for requirement in response
+        )
 
 
 __all__ = ["RecipientAccount", "SortRecipientAccounts"]

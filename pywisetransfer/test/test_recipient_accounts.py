@@ -21,4 +21,3 @@ def test_listing_by_profile(client: Client):
     assert p, "Personal profile is not empty."
     assert b, "Business profile is not empty."
     assert a == p | b, "All recipients are listed in both profiles."
-    
