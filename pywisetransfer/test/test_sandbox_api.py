@@ -28,7 +28,7 @@ from pywisetransfer.model.profile import Profile, Profiles
 from pywisetransfer.model.quote import ExampleQuoteRequest, PaymentMethod, QuoteRequest, QuoteResponse, QuoteStatus
 from pywisetransfer.model.recipient import Recipient
 from pywisetransfer.model.requirements import TransferRequirements
-from pywisetransfer.model.transfer import TransferRequest, TransferResponse
+from pywisetransfer.model.transfer import TransferRequest, TransferResponse, TransferStatus
 
 
 class Order(IntEnum):
@@ -41,7 +41,7 @@ class Order(IntEnum):
     UPDATE_QUOTE = 5
     CREATE_TRANSFER = 6
     FUND_TRANSFER = 7
-    SIMULATE_TRANSFER = 8
+    SIMULATE_TRANSFER = 100
 
 
 # ------------------- 1 - GET_ACCOUNT_DATA -------------------
@@ -205,6 +205,12 @@ def test_6_3_transfer_matches(sandbox_transfer:TransferResponse, sandbox_transfe
     assert sandbox_transfer.targetAccount == sandbox_transfer_request.targetAccount
     assert sandbox_transfer.quoteUuid == sandbox_transfer_request.quoteUuid
 
+@pytest.mark.order(Order.FUND_TRANSFER)
+def test_6_4_transfer_status(sandbox_transfer:TransferResponse, sandbox_client:Client):
+    """The status of the transfer should have changed."""
+    transfer = sandbox_client.transfers.get(sandbox_transfer)
+    assert transfer.status == TransferStatus.incoming_payment_waiting
+
 # ------------------- 7 - FUND_TRANSFER -------------------
 
 @pytest.mark.order(Order.FUND_TRANSFER)
@@ -215,4 +221,21 @@ def test_7_1_fund_transfer(sandbox_payment:PaymentResponse):
     assert sandbox_payment.type == PaymentType.BALANCE
 
 
+@pytest.mark.order(Order.FUND_TRANSFER)
+def test_7_2_transfer_status(sandbox_transfer:TransferResponse, sandbox_client:Client):
+    """The status of the transfer should have changed."""
+    transfer = sandbox_client.transfers.get(sandbox_transfer)
+    assert transfer.status == TransferStatus.incoming_payment_waiting
+    
+
 # ------------------- 8 - SIMULATE_TRANSFER -------------------
+
+@pytest.mark.order(Order.SIMULATE_TRANSFER)
+def test_change_transfer_status(sandbox_client:Client, sandbox_transfer:TransferResponse):
+    """We expect the payment to go trough."""
+    for new_status in TransferStatus.transfer_simulation:
+        sandbox_client.simulate_transfer.to(new_status, sandbox_transfer)
+        transfer = sandbox_client.transfers.get(sandbox_transfer)
+        assert transfer.status == new_status
+        assert transfer.id == sandbox_transfer.id
+    

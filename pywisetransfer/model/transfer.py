@@ -1,5 +1,5 @@
 """The model classes for transfers."""
-
+from __future__ import annotations
 from datetime import date
 from uuid import UUID
 
@@ -41,6 +41,16 @@ class TransferStatus(StrEnum):
     def description(self) -> str:
         """The description of the transfer status."""
         return TransferStatusDescription[self]
+    
+    transfer_simulation: list[TransferStatus]
+
+TransferStatus.transfer_simulation = [
+    TransferStatus.processing,
+    TransferStatus.funds_converted,
+    TransferStatus.outgoing_payment_sent,
+    TransferStatus.bounced_back,
+    TransferStatus.funds_refunded,
+]
 
 
 TransferStatusDescription = {

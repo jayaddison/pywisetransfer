@@ -1,5 +1,5 @@
 from __future__ import annotations
-from .client import Client
+from .client import Client, DEFAULT_PRIVATE_KEY, DEFAULT_PUBLIC_KEY
 from .model import *
 
 
@@ -70,4 +70,6 @@ __all__ = [
     "TransferResponse",
     "TransferStatus",
     "profile_type",
+    "DEFAULT_PUBLIC_KEY", 
+    "DEFAULT_PRIVATE_KEY",
 ]

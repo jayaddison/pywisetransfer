@@ -81,6 +81,7 @@ class Client:
         from pywisetransfer.subscription import Subscription
         from pywisetransfer.transfer import Transfer
         from pywisetransfer.user import User
+        from pywisetransfer.sandbox_simulation import TransferSimulation
 
         self.account_details = AccountDetails(client=self)
         self.balance_statements = BalanceStatements(client=self)
@@ -91,6 +92,7 @@ class Client:
         self.profiles = Profile(client=self)
         self.quotes = Quote(client=self)
         self.recipient_accounts = RecipientAccount(client=self)
+        self.simulate_transfer = TransferSimulation(client=self)
         self.subscriptions = Subscription(client=self)
         self.transfers = Transfer(client=self)
         self.users = User(client=self)

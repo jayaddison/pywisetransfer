@@ -15,7 +15,7 @@ from unittest.mock import MagicMock
 from munch import Munch
 import pytest
 from pywisetransfer import Client
-from pywisetransfer.client import DEFAULT_PRIVATE_KEY
+from pywisetransfer.client import DEFAULT_PRIVATE_KEY, DEFAULT_PUBLIC_KEY
 from pywisetransfer.endpoint import WiseAPIError
 from pywisetransfer.model.legal_type import LegalType
 from pywisetransfer.model.account import AccountRequirement, RecipientAccountRequirements, RecipientAccountResponse
@@ -260,5 +260,10 @@ def sandbox_payment(sandbox_client: Client, sandbox_transfer: TransferResponse, 
         return sandbox_client.transfers.fund(sandbox_transfer.id, sandbox_business_profile.id)
         # return sandbox_client.transfers.fund(sandbox_transfer)
     except WiseAPIError as e:
-        print("Activate SCA at https://sandbox.transferwise.tech/settings/public-keys")
+        print(f"""
+              Activate SCA at https://sandbox.transferwise.tech/settings/public-keys
+              And upload the public key to your BUSINESS account.
+              {DEFAULT_PUBLIC_KEY}
+              Otherwise, the next steps do not work.
+              """)
         raise e

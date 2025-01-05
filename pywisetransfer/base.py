@@ -92,7 +92,7 @@ class Base(Service):
         if "params" in kwargs:
             kwargs["params"] = cls.get_params_for_endpoint(**kwargs["params"])
         if "json" in kwargs and isinstance(kwargs["json"], BaseModel):
-            print("base model", type(kwargs["json"]))
+            # print("base model", type(kwargs["json"]))
             kwargs["json"] = kwargs["json"].model_dump()
         return kwargs
 

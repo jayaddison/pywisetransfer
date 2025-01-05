@@ -108,7 +108,7 @@ class Transfer:
         See https://docs.wise.com/api-docs/api-reference/transfer#transfer-requirements
         """
         response = self.service.get_requirements(json=transfer)
-        pprint(response)
+        # pprint(response)
         return TransferRequirements(TransferRequirement(**requirement) for requirement in response)
 
     def fund(self, transfer: TransferResponse|int, profile: int | Profile |None = None, payment:Payment|None=None) -> PaymentResponse:
@@ -141,8 +141,8 @@ class Transfer:
         if payment is None:
             payment = Payment()
         response = self.service.fund(transfer_id=transfer, profile_id=profile, json=payment)
-        print(payment.model_dump_json())
-        pprint(response)
+        # print(payment.model_dump_json())
+        # pprint(response)
         return PaymentResponse(**response)
 
 __all__ = ["Transfer"]

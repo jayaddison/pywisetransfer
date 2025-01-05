@@ -63,7 +63,7 @@ class Quote:
         See https://docs.wise.com/api-docs/api-reference/quote#create-not-authenticated
         """
         response = self.service.example(json=quote)
-        pprint(response)
+        # pprint(response)
         return QuoteResponse(**response)
 
     def create(self, quote: QuoteRequest, profile: int | Profile) -> QuoteResponse:
@@ -98,8 +98,8 @@ class Quote:
         if not profile and isinstance(quote, QuoteResponse):
             profile = quote.profile
         response = self.service.patch(json=quote_update, profile_id=profile, quote_id=quote)
-        pprint(response)
-        print("targetAccount" in response)
+        # pprint(response)
+        # print("targetAccount" in response)
         return QuoteResponse(**response)
 
     def get(self, quote: int | QuoteResponse, profile: Optional[int | Profile] = None):
