@@ -26,6 +26,7 @@ Upload the public key to your business account:
 https://sandbox.transferwise.tech/settings/public-keys
 
 """
+
 from pathlib import Path
 
 from pywisetransfer.model.enum import StrEnum
@@ -37,35 +38,35 @@ DEFAULT_PUBLIC_KEY = HERE / "test" / "public.pem"
 
 class Environment(StrEnum):
     """The different environments that we can access.
-    
+
     Attributes:
         sandbox: The sandbox environment.
         live: The live environment.
     """
-    
+
     sandbox = "sandbox"
     live = "live"
 
 
 class Client:
     """The client class to access the Wise API.
-    
+
     In order to use the API you need to provide an API key.
     Please have a look in the project documentation for more information.
-    
+
     In order to use SCA protected endpoints, you need to generate a key.
     See https://docs.wise.com/api-docs/features/strong-customer-authentication-2fa/personal-token-sca
-    
+
     Generate the key:
-    
+
         openssl genrsa -out wise.pem 2048
-        
+
     Get the public key:
-    
+
         openssl rsa -pubout -in wise.pem -out wise.pub
-    
+
     Then, upload the public key to your account.
-    
+
     """
 
     def add_resources(self) -> None:

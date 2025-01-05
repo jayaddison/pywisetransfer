@@ -6,5 +6,6 @@ class LegalType(StrEnum):
 
     PRIVATE = "PRIVATE"
     BUSINESS = "BUSINESS"
-    
+
+
 __all__ = ["LegalType"]

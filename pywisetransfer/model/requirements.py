@@ -56,7 +56,7 @@ class RequiredGroupElement(BaseModel):
     refreshRequirementsOnChange: bool
     required: bool
     displayFormat: Optional[str]
-    example: str|None
+    example: str | None
     minLength: Optional[int]
     maxLength: Optional[int]
     validationRegexp: Optional[str]
@@ -232,8 +232,9 @@ class TransferRequirement(RequirementBase):
 
 class TransferRequirements(RequirementsList[TransferRequirement]):
     """An easy access to all the requirements."""
-    
+
     transfer: Optional[TransferRequirement]
+
 
 TransferRequirements._add_getter("transfer", TransferRequirement)
 

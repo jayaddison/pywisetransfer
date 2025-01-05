@@ -70,6 +70,6 @@ __all__ = [
     "TransferResponse",
     "TransferStatus",
     "profile_type",
-    "DEFAULT_PUBLIC_KEY", 
+    "DEFAULT_PUBLIC_KEY",
     "DEFAULT_PRIVATE_KEY",
 ]

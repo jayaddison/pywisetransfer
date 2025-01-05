@@ -10,7 +10,7 @@ def remove_none(model: BaseModel):
     return model.model_dump(exclude_none=True)
 
 
-T = TypeVar('T')
+T = TypeVar("T")
 
 # class WithoutNone:
 #     """Remove the fields with None from the value of this model."""

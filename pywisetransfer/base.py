@@ -11,7 +11,6 @@ from pywisetransfer import Client
 from pywisetransfer.model.base import BaseModel
 
 
-
 class Base(Service):
 
     client: Client | None = None

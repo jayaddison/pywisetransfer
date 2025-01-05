@@ -27,7 +27,10 @@ class TransferService(Base):
     create = JsonEndpoint(default_method="POST", path="/v1/transfers")
     get_requirements = JsonEndpoint(default_method="POST", path="/v1/transfer-requirements")
     get_requirements.timeout_spec = Timeout(1, 10)  # requirements take a bit longer
-    fund = JsonEndpointWithSCA(default_method="POST", path="/v3/profiles/{profile_id}/transfers/{transfer_id}/payments")
+    fund = JsonEndpointWithSCA(
+        default_method="POST", path="/v3/profiles/{profile_id}/transfers/{transfer_id}/payments"
+    )
+
 
 class Transfer:
     def __init__(self, client: Client):
@@ -111,17 +114,22 @@ class Transfer:
         # pprint(response)
         return TransferRequirements(TransferRequirement(**requirement) for requirement in response)
 
-    def fund(self, transfer: TransferResponse|int, profile: int | Profile |None = None, payment:Payment|None=None) -> PaymentResponse:
+    def fund(
+        self,
+        transfer: TransferResponse | int,
+        profile: int | Profile | None = None,
+        payment: Payment | None = None,
+    ) -> PaymentResponse:
         """Fund a transfer. (Pay for it)
 
         See https://docs.wise.com/api-docs/api-reference/transfer#fund
-        
+
         This endpoint is SCA protected when it applies.
         If your profile is registered within the UK and/or EEA,
         SCA most likely applies to you. Please read more about implementing SCA below.
-        
+
         You must pass a private key file to the client in order to use this functinality.
-        
+
         Args:
             transfer: Transfer ID or Transfer object
             profile: Profile ID or Profile object
@@ -144,5 +152,6 @@ class Transfer:
         # print(payment.model_dump_json())
         # pprint(response)
         return PaymentResponse(**response)
+
 
 __all__ = ["Transfer"]

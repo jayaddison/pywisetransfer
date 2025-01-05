@@ -40,7 +40,7 @@ class Payment(BaseModel):
 
 class PaymentWithPartnerReference(Payment):
     """Additional partner reference.
-    
+
     Attributes:
         type: Payment type (BALANCE)
         partnerReference: The transaction/payment identifier in your system, uniquely
@@ -58,6 +58,7 @@ class PaymentWithPartnerReference(Payment):
     """
 
     partnerReference: str
+
 
 class PaymentStatus(StrEnum):
     """The status of a payment."""
@@ -87,4 +88,10 @@ class PaymentResponse(BaseModel):
     errorCode: Optional[ERROR_CODE | str] = None
 
 
-__all__ = ["Payment", "PaymentType", "PaymentResponse", "PaymentStatus", "PaymentWithPartnerReference"]
+__all__ = [
+    "Payment",
+    "PaymentType",
+    "PaymentResponse",
+    "PaymentStatus",
+    "PaymentWithPartnerReference",
+]

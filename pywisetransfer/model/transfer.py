@@ -1,4 +1,5 @@
 """The model classes for transfers."""
+
 from __future__ import annotations
 from datetime import date
 from uuid import UUID
@@ -41,8 +42,9 @@ class TransferStatus(StrEnum):
     def description(self) -> str:
         """The description of the transfer status."""
         return TransferStatusDescription[self]
-    
+
     transfer_simulation: list[TransferStatus]
+
 
 TransferStatus.transfer_simulation = [
     TransferStatus.processing,
@@ -169,7 +171,7 @@ class OriginatorGroup(BaseModel):
         }
     }
     """
-    
+
     legalEntityType: LegalEntityType | LegalType
     name: Optional[WithoutNone[RecipientName]] = None
     reference: Optional[str] = None

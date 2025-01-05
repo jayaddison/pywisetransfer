@@ -18,10 +18,19 @@ from pywisetransfer import Client
 from pywisetransfer.client import DEFAULT_PRIVATE_KEY, DEFAULT_PUBLIC_KEY
 from pywisetransfer.endpoint import WiseAPIError
 from pywisetransfer.model.legal_type import LegalType
-from pywisetransfer.model.account import AccountRequirement, RecipientAccountRequirements, RecipientAccountResponse
+from pywisetransfer.model.account import (
+    AccountRequirement,
+    RecipientAccountRequirements,
+    RecipientAccountResponse,
+)
 from pywisetransfer.model.payment import PaymentResponse
 from pywisetransfer.model.profile import Profile, Profiles
-from pywisetransfer.model.quote import ExampleQuoteRequest, PaymentMethod, QuoteRequest, QuoteResponse
+from pywisetransfer.model.quote import (
+    ExampleQuoteRequest,
+    PaymentMethod,
+    QuoteRequest,
+    QuoteResponse,
+)
 from pywisetransfer.model.recipient import Recipient
 from pywisetransfer.model.recipient.details import RecipientDetails
 from pywisetransfer.model.account_requirement_type import AccountRequirementType
@@ -213,57 +222,74 @@ def sandbox_quote_request() -> QuoteRequest:
 
 
 @pytest.fixture(scope="session")
-def sandbox_quote(sandbox_client: Client, sandbox_quote_request: QuoteRequest, sandbox_business_profile:Profile) -> QuoteResponse:
+def sandbox_quote(
+    sandbox_client: Client, sandbox_quote_request: QuoteRequest, sandbox_business_profile: Profile
+) -> QuoteResponse:
     """A Quote to send money to Max Mustermann."""
     return sandbox_client.quotes.create(sandbox_quote_request, sandbox_business_profile)
 
 
 @pytest.fixture(scope="session")
-def sandbox_quote_requirements(sandbox_client: Client, sandbox_quote: QuoteResponse) -> RecipientAccountRequirements:
+def sandbox_quote_requirements(
+    sandbox_client: Client, sandbox_quote: QuoteResponse
+) -> RecipientAccountRequirements:
     """Get the requirements for a quote."""
     return sandbox_client.recipient_accounts.get_requirements_for_quote(sandbox_quote)
 
 
 @pytest.fixture(scope="session")
-def sandbox_quote_updated(sandbox_client: Client, sandbox_quote: QuoteResponse, sandbox_iban_recipient: RecipientAccountResponse) -> QuoteResponse:
+def sandbox_quote_updated(
+    sandbox_client: Client,
+    sandbox_quote: QuoteResponse,
+    sandbox_iban_recipient: RecipientAccountResponse,
+) -> QuoteResponse:
     """Update the quote with the account."""
     return sandbox_client.quotes.update(sandbox_iban_recipient, sandbox_quote)
 
 
 @pytest.fixture(scope="session")
-def sandbox_transfer_request(sandbox_quote_updated: QuoteResponse, sandbox_iban_recipient: RecipientAccountResponse) -> TransferRequest:
+def sandbox_transfer_request(
+    sandbox_quote_updated: QuoteResponse, sandbox_iban_recipient: RecipientAccountResponse
+) -> TransferRequest:
     """Create a transfer request."""
     return TransferRequest(
         targetAccount=sandbox_iban_recipient.id,
         quoteUuid=sandbox_quote_updated.id,
-        details=TransferDetails(
-            reference="Geschenk"
-        ),
+        details=TransferDetails(reference="Geschenk"),
     )
 
+
 @pytest.fixture(scope="session")
-def sandbox_transfer_requirements(sandbox_client: Client, sandbox_transfer_request: TransferRequest) -> TransferResponse:
+def sandbox_transfer_requirements(
+    sandbox_client: Client, sandbox_transfer_request: TransferRequest
+) -> TransferResponse:
     """Create a transfer."""
     return sandbox_client.transfers.get_requirements(sandbox_transfer_request)
 
 
 @pytest.fixture(scope="session")
-def sandbox_transfer(sandbox_client: Client, sandbox_transfer_request: TransferRequest) -> TransferResponse:
+def sandbox_transfer(
+    sandbox_client: Client, sandbox_transfer_request: TransferRequest
+) -> TransferResponse:
     """Create a transfer."""
     return sandbox_client.transfers.create(sandbox_transfer_request)
 
 
 @pytest.fixture(scope="session")
-def sandbox_payment(sandbox_client: Client, sandbox_transfer: TransferResponse, sandbox_business_profile: Profile) -> PaymentResponse:
+def sandbox_payment(
+    sandbox_client: Client, sandbox_transfer: TransferResponse, sandbox_business_profile: Profile
+) -> PaymentResponse:
     """Return the payment response."""
     try:
         return sandbox_client.transfers.fund(sandbox_transfer.id, sandbox_business_profile.id)
         # return sandbox_client.transfers.fund(sandbox_transfer)
     except WiseAPIError as e:
-        print(f"""
+        print(
+            f"""
               Activate SCA at https://sandbox.transferwise.tech/settings/public-keys
               And upload the public key to your BUSINESS account.
               {DEFAULT_PUBLIC_KEY}
               Otherwise, the next steps do not work.
-              """)
+              """
+        )
         raise e

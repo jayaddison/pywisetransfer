@@ -98,9 +98,8 @@ class JsonEndpoint(ApironJsonEndpoint):
         self.additional_headers = (
             additional_headers.copy() if additional_headers is not None else {}
         )
-        
-    @staticmethod
 
+    @staticmethod
     def __get__(self, instance: JsonEndpoint, owner: type[Base]):
         """Return the callable endpoint."""
         caller = super().__get__(instance, owner)
