@@ -50,6 +50,10 @@ def test_client_live_environment(me_response):
 def test_cannot_create_live_client_with_default_key():
     """Check we create an error for the default key."""
     with pytest.raises(ValueError):
-        Client(api_key="live-key", private_key_data=DEFAULT_PRIVATE_KEY.read_bytes(), environment="live")
+        Client(
+            api_key="live-key",
+            private_key_data=DEFAULT_PRIVATE_KEY.read_bytes(),
+            environment="live",
+        )
     with pytest.raises(ValueError):
         Client(api_key="live-key", private_key_file=DEFAULT_PRIVATE_KEY, environment="live")

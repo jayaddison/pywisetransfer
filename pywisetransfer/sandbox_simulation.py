@@ -55,7 +55,7 @@ class TransferSimulation:
             transfer: Transfer ID or Transfer object
         """
         self.service.funds_converted(transfer_id=transfer)
-        
+
     def to_outgoing_payment_sent(self, transfer: TransferResponse | int) -> None:
         """Changes transfer status from funds_converted to outgoing_payment_sent.
 
@@ -71,7 +71,7 @@ class TransferSimulation:
             transfer: Transfer ID or Transfer object
         """
         self.service.bounced_back(transfer_id=transfer)
-        
+
     def to_funds_refunded(self, transfer: TransferResponse | int) -> None:
         """Changes transfer status from bounced_back to funds_refunded.
 

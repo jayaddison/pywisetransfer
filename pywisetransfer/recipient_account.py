@@ -118,16 +118,16 @@ class RecipientAccount:
         page_size: int = 20,
     ) -> Generator[RecipientAccountResponse, None, None]:
         """Iterate over all the recipient accounts.
-        
+
         All the accounts will be retrieved in chunks from the API.
         The resulting generator gets all the accounts that are currently available in the API.
-        
+
         Args:
             profile: Filter by personal or business profile, returns only those owned by this profile. Defaults to the personal profile.
             page_size: Number of accounts to retrieve per request.
             sort: Sorting strategy for the response.
         """
-        position : Optional[int] = None
+        position: Optional[int] = None
         page_size = max(1, min(page_size, MAXIMUM_PAGE_SIZE))
         while True:
             response = self.list(profile=profile, sort=sort, size=page_size, seek_position=position)
@@ -135,7 +135,6 @@ class RecipientAccount:
             if len(response.content) < page_size:
                 return
             position = response.content[-1].id
-        
 
     def all(
         self,
@@ -147,7 +146,7 @@ class RecipientAccount:
 
         All the accounts will be retrieved in chunks from the API.
         The resulting list contains all the accounts that are currently available in the API.
-        
+
         Args:
             profile: Filter by personal or business profile, returns only those owned by this profile. Defaults to the personal profile.
             page_size: Number of accounts to retrieve per request.
