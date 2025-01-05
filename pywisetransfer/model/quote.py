@@ -39,6 +39,8 @@ class PriceType(StrEnum):
     TOTAL = "TOTAL"
     TRANSFERWISE = "TRANSFERWISE"
     VAT = "VAT"
+    DISCOUNT = "DISCOUNT"
+    FEE = "FEE"
 
 
 class PricingConfigurationFee(BaseModel):
@@ -182,7 +184,7 @@ class PaymentOptionPrice(BaseModel):
             "value": {
                 "amount": 0.77,
                 "currency": "GBP",
-                "label:": "0.77 GBP"
+                "label": "0.77 GBP"
             }
         },
         "items": [
@@ -190,7 +192,7 @@ class PaymentOptionPrice(BaseModel):
                 "type": "FEE",
                 "label": "fee",
                 "value": {
-                    "amount": 0,
+                    "amount": 0.0,
                     "currency": "GBP",
                     "label": "0 GBP"
                 }
@@ -205,16 +207,12 @@ class PaymentOptionPrice(BaseModel):
                 }
             },
             {
-                "id": 123,
                 "type": "DISCOUNT",
+                "label": "Discount applied",
                 "value": {
                     "amount": -2.27,
                     "currency": "GBP",
                     "label": "2.27 GBP"
-                },
-                "label": "Discount applied",
-                "explanation": {
-                    "plainText": "You can have a discount for a number of reasons..."
                 }
             }
         ],
@@ -232,8 +230,8 @@ class PaymentOptionPrice(BaseModel):
     """
 
     priceSetId: int
-    total: dict  # TODO: later
-    items: list  # TODO: later
+    total: Price
+    items: list[Price]
     deferredFee: Optional[dict] = None
     calculatedOn: Optional[dict] = None
 
@@ -271,7 +269,7 @@ class PaymentOption(BaseModel):
                 "value": {
                     "amount": 0.77,
                     "currency": "GBP",
-                    "label:": "0.77 GBP"
+                    "label": "0.77 GBP"
                 }
             },
             "items": [
@@ -279,7 +277,7 @@ class PaymentOption(BaseModel):
                     "type": "FEE",
                     "label": "fee",
                     "value": {
-                        "amount": 0,
+                        "amount": 0.0,
                         "currency": "GBP",
                         "label": "0 GBP"
                     }
@@ -294,16 +292,12 @@ class PaymentOption(BaseModel):
                     }
                 },
                 {
-                    "id": 123,
                     "type": "DISCOUNT",
+                    "label": "Discount applied",
                     "value": {
                         "amount": -2.27,
                         "currency": "GBP",
                         "label": "2.27 GBP"
-                    },
-                    "label": "Discount applied",
-                    "explanation": {
-                        "plainText": "You can have a discount for a number of reasons..."
                     }
                 }
             ],
@@ -332,6 +326,7 @@ class PaymentOption(BaseModel):
         "feePercentage": 0.0092
     }
     """
+
     disabled: bool
     estimatedDelivery: Optional[Timestamp] = None
     formattedEstimatedDelivery: Optional[str] = None
