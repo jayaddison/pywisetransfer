@@ -1,0 +1,29 @@
+responses:
+- response:
+    auto_calculate_content_length: false
+    body: '{"id":700614969,"creatorId":12970746,"profileId":28577318,"name":{"fullName":"John
+      Doe","givenName":null,"familyName":null,"middleName":null,"patronymicName":null,"cannotHavePatronymicName":null},"currency":"EUR","type":"Email","legalEntityType":"PERSON","email":"john@doe.com","active":true,"details":{"hashedByLooseHashAlgorithm":"9ba00348d31cf14f26b1ba5fbe16166797713a2764467e9287445d9a697c28f8"},"commonFieldMap":{},"hash":"3038f9347ed20e5daf6851131efddddc10f6855d4cb41de505e38b650a48ab55","accountSummary":"john@doe.com","longAccountSummary":"john@doe.com","displayFields":[{"key":"email","label":"Email
+      (Optional)","value":"john@doe.com"}],"isInternal":false,"ownedByCustomer":false}'
+    content_type: text/plain
+    headers:
+      CF-Cache-Status: DYNAMIC
+      CF-RAY: 8fd5e2f21d764136-LHR
+      Set-Cookie: __cf_bm=CUE8ARUUJc.2IS1RNKnud1tk6VaIGE25auAeRO8sCZo-1736105464-1.0.1.1-2edtcUJcUi.EuJ_.gSCXW2KcLNWu7LxYrcdxfvmUiRH_GuK2lwwsWCSCi57o7trCck8hTl6mEU9ht.Ik7l1VBQ;
+        path=/; expires=Sun, 05-Jan-25 20:01:04 GMT; domain=.transferwise.tech; HttpOnly;
+        Secure; SameSite=None
+      Transfer-Encoding: chunked
+      alt-svc: h3=":443"; ma=86400
+      cache-control: no-cache, no-store, max-age=0, must-revalidate
+      
+      expires: '0'
+      pragma: no-cache
+      vary: origin,access-control-request-method,access-control-request-headers,accept-encoding
+      x-content-type-options: nosniff
+      x-envoy-attempt-count: '1'
+      x-envoy-upstream-service-time: '41'
+      x-frame-options: DENY
+      x-trace-id: 3d1fd11ef3875354
+      x-xss-protection: '0'
+    method: GET
+    status: 200
+    url: https://api.sandbox.transferwise.tech/v2/accounts/700614969

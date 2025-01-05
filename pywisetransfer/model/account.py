@@ -301,7 +301,7 @@ class RecipientAccountsSorting(BaseModel):
     unsorted: bool
 
 
-class RecipientAccountList(BaseModel):
+class RecipientAccountListResponse(BaseModel):
     """A list paginated of recipient accounts."""
 
     EXAMPLE_JSON: ClassVar[
@@ -390,6 +390,11 @@ class RecipientAccountRequirements(RequirementsList[AccountRequirement]):
 
 RecipientAccountRequirements._add_getters_from_enum(AccountRequirementType, AccountRequirement)
 
+
+class RecipientAccountList(list[RecipientAccountResponse]):
+    """A list of recipient accounts."""
+
+
 __all__ = [
     "RecipientAccountResponse",
     "RecipientAccountRequest",
@@ -399,7 +404,7 @@ __all__ = [
     "DisplayField",
     "AccountRequirement",
     "RequiredField",
-    "RecipientAccountList",
+    "RecipientAccountListResponse",
     "RecipientAccountsSorting",
     "AccountRequirementType",
     "FilledInRecipientAccountRequest",

@@ -544,7 +544,7 @@ We can now create a transfer.
     >>> client.simulate_transfer.to_funds_converted(transfer)  # simulate the transfer change
     >>> transfer = client.transfers.get(transfer)  # update the transfer
     >>> transfer.status  # check the status again
-    'incoming_payment_waiting'
+    'processing'
 
     ```
 

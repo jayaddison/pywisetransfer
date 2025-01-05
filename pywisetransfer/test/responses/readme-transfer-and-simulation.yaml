@@ -108,7 +108,7 @@ responses:
       x-xss-protection: '0'
     method: GET
     status: 200
-    url: https://api.sandbox.transferwise.tech/v1/simulation/transfers/54685640/funds_converted
+    url: https://api.sandbox.transferwise.tech/v1/simulation/transfers/54685607/funds_converted
 - response:
     auto_calculate_content_length: false
     body: '{"id":54685640,"user":12970746,"targetAccount":700615291,"sourceAccount":700594732,"quote":null,"quoteUuid":"d216d512-2ba3-4de8-ad26-d3094eec6d29","status":"processing","reference":"Geschenk","rate":1.20512,"created":"2025-01-05

@@ -67,7 +67,7 @@ __all__ = [
     "QuoteUpdate",
     "RateType",
     "Recipient",
-    "RecipientAccountList",
+    "RecipientAccountListResponse",
     "RecipientAccountRequest",
     "RecipientAccountRequestDetails",
     "RecipientAccountRequirements",

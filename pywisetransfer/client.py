@@ -118,12 +118,12 @@ class Client:
                 )
             with open(private_key_file, "rb") as f:
                 private_key_data = f.read()
-            if private_key_data == DEFAULT_PRIVATE_KEY.read_bytes() and environment == "live":
-                raise ValueError(
-                    "Do not use the private key provided for this package on the live environment. "
-                    "Read on how to create your own: "
-                    "https://docs.wise.com/api-docs/features/strong-customer-authentication-2fa/personal-token-sca"
-                )
+        if private_key_data == DEFAULT_PRIVATE_KEY.read_bytes() and environment == "live":
+            raise ValueError(
+                "Do not use the private key provided for this package on the live environment. "
+                "Read on how to create your own: "
+                "https://docs.wise.com/api-docs/features/strong-customer-authentication-2fa/personal-token-sca"
+            )
 
         self.api_key = api_key
         self.environment = environment

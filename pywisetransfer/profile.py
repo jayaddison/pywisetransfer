@@ -38,7 +38,7 @@ class Profile:
     @functools.cache
     def business(self) -> list[Profile]:
         """Business profiles.
-        
+
         This is a shortcut for listing them.
         The result is also cached for fast access.
         """
@@ -48,10 +48,10 @@ class Profile:
     @functools.cache
     def personal(self) -> Profile:
         """Return the one personal profile.
-        
+
         This is a shortcut for listing them.
         The result is also cached for fast access.
-        
+
         Raises:
             IndexError: If there is no personal profile (unlikely)
         """

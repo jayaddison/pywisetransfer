@@ -48,13 +48,16 @@ class TestClient(Client):
     uses the Wise API after this except if you do this:
 
     client.stop()
-    
+
     This client uses pywisetransfer.DEFAULT_PRIVATE_KEY as private key.
     """
 
     def __init__(self, api_key: str = "test-key"):
         from pywisetransfer import DEFAULT_PRIVATE_KEY
-        super().__init__(api_key=api_key, environment="sandbox", private_key_file=DEFAULT_PRIVATE_KEY)
+
+        super().__init__(
+            api_key=api_key, environment="sandbox", private_key_file=DEFAULT_PRIVATE_KEY
+        )
         try:
             from responses import RequestsMock
         except ImportError:
