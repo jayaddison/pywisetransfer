@@ -211,7 +211,7 @@ class RecipientAccount:
             source_amount: The source amount
         """
         response = self.service.get_requirements(params=params)
-        return [AccountRequirement(**requirement) for requirement in response]
+        return RecipientAccountRequirements(AccountRequirement(**requirement) for requirement in response)
 
 
 __all__ = ["RecipientAccount", "SortRecipientAccounts"]
