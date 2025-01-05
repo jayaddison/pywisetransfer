@@ -7,7 +7,6 @@ An unofficial, experimental Python client library for the [Wise API](https://doc
 ## Installation
 
 ```bash
-# Within your project directory
 pip install pywisetransfer
 ```
 
@@ -34,6 +33,7 @@ $ wise new-key
 writing RSA key
 private key: wise.com.private.pem
 public key: wise.com.public.pem
+You can now upload the public key to https://wise.com or https://sandbox.transferwise.tech.
 ```
 
 ### Check API Key
@@ -41,7 +41,7 @@ public key: wise.com.public.pem
 You can check if your API key and private key work.
 
 ```sh
-$ WISE_API_KEY="your api key" python -m pywisetransfer check
+$ python -m pywisetransfer check "your api key"
 Permissions on sandbox: read+write+sca
 Permissions on live: none
 ```
