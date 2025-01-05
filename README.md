@@ -274,8 +274,6 @@ True
 
 ```
 
-### Create a Recipient of a Transfer
-
 ### Request a Quote
 
 To create a transfer, you first need a quote.
