@@ -22,14 +22,17 @@ VwIDAQAB
 Read more on SCA protection here:
 https://docs.wise.com/api-docs/features/strong-customer-authentication-2fa/personal-token-sca
 
+Upload the public key to your business account:
+https://sandbox.transferwise.tech/settings/public-keys
+
 """
 from pathlib import Path
 
 from pywisetransfer.model.enum import StrEnum
 
 HERE = Path(__file__).parent
-DEFAULT_PRIVATE_KEY = HERE / "test" / "test-sca.pem"
-DEFAULT_PUBLIC_KEY = HERE / "test" / "test-sca.pub"
+DEFAULT_PRIVATE_KEY = HERE / "test" / "private.pem"
+DEFAULT_PUBLIC_KEY = HERE / "test" / "public.pem"
 
 
 class Environment(StrEnum):

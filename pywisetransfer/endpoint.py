@@ -13,7 +13,6 @@ from requests.exceptions import HTTPError
 from pywisetransfer.base import Base
 from pywisetransfer.signing import sign_sca_challenge
 from pywisetransfer.model.error import WiseAPIErrorResponse
-from apiron.client import call as apiron_call
 
 
 class WiseAPIError(HTTPError):
@@ -99,6 +98,8 @@ class JsonEndpoint(ApironJsonEndpoint):
         self.additional_headers = (
             additional_headers.copy() if additional_headers is not None else {}
         )
+        
+    @staticmethod
 
     def __get__(self, instance: JsonEndpoint, owner: type[Base]):
         """Return the callable endpoint."""
@@ -112,15 +113,7 @@ class JsonEndpoint(ApironJsonEndpoint):
 
             Those for the path will undergo a replacement.
             """
-            leave_untouched = apiron_call.__code__.co_varnames
-            for key, value in kwargs.items():
-                if key not in leave_untouched:
-                    kwargs[key] = owner.param_value_to_str(value, key)
-            if "params" in kwargs:
-                kwargs["params"] = owner.get_params_for_endpoint(**kwargs["params"])
-            if "json" in kwargs and isinstance(kwargs["json"], BaseModel):
-                print("base model", type(kwargs["json"]))
-                kwargs["json"] = kwargs["json"].model_dump()
+            kwargs = owner.adjust_endpoint_call(kwargs)
             return caller(*args, **kwargs)
 
         return wrapper
@@ -148,10 +141,12 @@ class JsonEndpointWithSCA(JsonEndpoint):
 
     def __get__(self, instance: Base | None, owner: type[Base]) -> Callable[..., Any]:
         caller = partial(apiron.client.call, owner, self)
+        caller = WiseAPIError.replace_HTTPError(caller)
         update_wrapper(caller, apiron.client.call)
 
         @wraps(apiron.client.call)
         def perform_2fa_if_needed(*args: Any, **kwargs: Any) -> Any:
+            kwargs = owner.adjust_endpoint_call(kwargs)
             try:
                 return caller(*args, **kwargs)
             except HTTPError as e:

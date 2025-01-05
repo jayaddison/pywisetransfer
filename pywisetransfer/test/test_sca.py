@@ -4,6 +4,7 @@ import responses
 from responses import matchers
 
 from pywisetransfer import Client
+from pywisetransfer.client import DEFAULT_PRIVATE_KEY
 
 
 @pytest.fixture
@@ -19,7 +20,7 @@ def sca_challenge():
 
 @pytest.fixture
 def sca_challenge_signature():
-    # echo -n 7fa8c832-b8b5-4757-9c24-e952119999f2|openssl sha256 -sign test-sca.pem | base64 -w 0
+    # echo -n 7fa8c832-b8b5-4757-9c24-e952119999f2|openssl sha256 -sign private.pem | base64 -w 0
     return (
         "H4AmLxMBsJ08oF80anN/Co4MbfhP6BQP0f43xVlmUP2a3W2n63izw3QNHciWxiTe3udX8RD7hE6p+p5s"
         "GRgIRbBgu1l53o021+i2GY0HhXiVc78HPjIpLepJbI4DqetdWXho6RAUppRj57knGn1iCrh/w+4VMWA8"
@@ -200,12 +201,8 @@ def test_sca_statement_without_private_key(statement_forbidden):
         )
 
 
-HERE = os.path.abspath(os.path.dirname(__file__))
-PRIVATE_KEY = os.path.join(HERE, "test-sca.pem")
-
-
 def test_sca_statement_with_private_key(statement_forbidden, statement_authorised):
-    client = Client(api_key="test-key", private_key_file=PRIVATE_KEY)
+    client = Client(api_key="test-key", private_key_file=DEFAULT_PRIVATE_KEY)
     statement = client.balance_statements.statement(
         profile_id=0,
         balance_id=231,

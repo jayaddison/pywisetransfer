@@ -18,6 +18,7 @@ from .legal_type import LegalType
 __all__ = [
     "AccountRequirementType",
     "AddressDetails",
+    "PaymentWithPartnerReference",
     "AllowedValue",
     "BusinessCategory",
     "BusinessProfileDetails",

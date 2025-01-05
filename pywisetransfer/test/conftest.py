@@ -15,6 +15,8 @@ from unittest.mock import MagicMock
 from munch import Munch
 import pytest
 from pywisetransfer import Client
+from pywisetransfer.client import DEFAULT_PRIVATE_KEY
+from pywisetransfer.endpoint import WiseAPIError
 from pywisetransfer.model.legal_type import LegalType
 from pywisetransfer.model.account import AccountRequirement, RecipientAccountRequirements, RecipientAccountResponse
 from pywisetransfer.model.payment import PaymentResponse
@@ -64,7 +66,7 @@ def api_token(request: pytest.FixtureRequest) -> str:
 @pytest.fixture(scope="session")
 def sandbox_client(api_token: str) -> Client:
     """The client communicating with the Wise Sandbox API."""
-    return Client(api_key=api_token)
+    return Client(api_key=api_token, private_key_file=DEFAULT_PRIVATE_KEY)
 
 
 @pytest.fixture(scope="session")
@@ -252,6 +254,11 @@ def sandbox_transfer(sandbox_client: Client, sandbox_transfer_request: TransferR
 
 
 @pytest.fixture(scope="session")
-def sandbox_payment(sandbox_client: Client, sandbox_transfer: TransferResponse) -> PaymentResponse:
+def sandbox_payment(sandbox_client: Client, sandbox_transfer: TransferResponse, sandbox_business_profile: Profile) -> PaymentResponse:
     """Return the payment response."""
-    return sandbox_client.transfers.fund(sandbox_transfer)
+    try:
+        return sandbox_client.transfers.fund(sandbox_transfer.id, sandbox_business_profile.id)
+        # return sandbox_client.transfers.fund(sandbox_transfer)
+    except WiseAPIError as e:
+        print("Activate SCA at https://sandbox.transferwise.tech/settings/public-keys")
+        raise e

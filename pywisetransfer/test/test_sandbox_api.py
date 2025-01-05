@@ -23,6 +23,7 @@ from pywisetransfer.model.account import (
     AccountRequirementType,
 )
 from pywisetransfer.model.currency import Currency, CurrencyCode
+from pywisetransfer.model.payment import PaymentResponse, PaymentStatus, PaymentType
 from pywisetransfer.model.profile import Profile, Profiles
 from pywisetransfer.model.quote import ExampleQuoteRequest, PaymentMethod, QuoteRequest, QuoteResponse, QuoteStatus
 from pywisetransfer.model.recipient import Recipient
@@ -206,8 +207,12 @@ def test_6_3_transfer_matches(sandbox_transfer:TransferResponse, sandbox_transfe
 
 # ------------------- 7 - FUND_TRANSFER -------------------
 
-
-
+@pytest.mark.order(Order.FUND_TRANSFER)
+def test_7_1_fund_transfer(sandbox_payment:PaymentResponse):
+    """We expect the payment to go trough."""
+    assert not sandbox_payment.errorCode
+    assert sandbox_payment.status == PaymentStatus.COMPLETED
+    assert sandbox_payment.type == PaymentType.BALANCE
 
 
 # ------------------- 8 - SIMULATE_TRANSFER -------------------

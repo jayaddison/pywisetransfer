@@ -25,9 +25,6 @@ class Payment(BaseModel):
 
     Attributes:
         type: Payment type (BALANCE)
-        partnerReference: The transaction/payment identifier in your system, uniquely
-            identifies the transfer in your platform.
-            This is required for the Cross Currency Bulk Settlement model.
     """
 
     EXAMPLE_JSON: ClassVar[
@@ -40,6 +37,27 @@ class Payment(BaseModel):
 
     type: PaymentType = PaymentType.BALANCE
 
+
+class PaymentWithPartnerReference(Payment):
+    """Additional partner reference.
+    
+    Attributes:
+        type: Payment type (BALANCE)
+        partnerReference: The transaction/payment identifier in your system, uniquely
+            identifies the transfer in your platform.
+            This is required for the Cross Currency Bulk Settlement model.
+    """
+
+    EXAMPLE_JSON: ClassVar[
+        str
+    ] = """
+    {
+        "type": "BALANCE",
+        "partnerReference": "made up reference"
+    }
+    """
+
+    partnerReference: str
 
 class PaymentStatus(StrEnum):
     """The status of a payment."""
@@ -69,4 +87,4 @@ class PaymentResponse(BaseModel):
     errorCode: Optional[ERROR_CODE | str] = None
 
 
-__all__ = ["Payment", "PaymentType", "PaymentResponse", "PaymentStatus"]
+__all__ = ["Payment", "PaymentType", "PaymentResponse", "PaymentStatus", "PaymentWithPartnerReference"]

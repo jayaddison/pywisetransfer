@@ -4,8 +4,12 @@ from typing import Any
 from uuid import UUID
 
 from apiron import Service
+from apiron.client import call as apiron_call
+
 
 from pywisetransfer import Client
+from pywisetransfer.model.base import BaseModel
+
 
 
 class Base(Service):
@@ -77,6 +81,20 @@ class Base(Service):
             if value is not None:
                 wise_call_args[wise_arg] = cls.param_value_to_str(value, wise_arg)
         return wise_call_args
+
+    @classmethod
+    def adjust_endpoint_call(cls, kwargs: dict[str, Any]) -> dict[str, Any]:
+        """Replace the call arguments so that it is more convenient to use."""
+        leave_untouched = apiron_call.__code__.co_varnames
+        for key, value in kwargs.items():
+            if key not in leave_untouched:
+                kwargs[key] = cls.param_value_to_str(value, key)
+        if "params" in kwargs:
+            kwargs["params"] = cls.get_params_for_endpoint(**kwargs["params"])
+        if "json" in kwargs and isinstance(kwargs["json"], BaseModel):
+            print("base model", type(kwargs["json"]))
+            kwargs["json"] = kwargs["json"].model_dump()
+        return kwargs
 
 
 __all__ = ["Base"]

@@ -11,7 +11,7 @@ from typing import List, Optional
 
 from apiron import Timeout
 
-from pywisetransfer.model.payment import PaymentResponse
+from pywisetransfer.model.payment import Payment, PaymentResponse
 from pywisetransfer.model.profile import Profile
 from pywisetransfer.model.requirements import TransferRequirement, TransferRequirements
 from pywisetransfer.model.transfer import TransferRequest, TransferResponse
@@ -111,7 +111,7 @@ class Transfer:
         pprint(response)
         return TransferRequirements(TransferRequirement(**requirement) for requirement in response)
 
-    def fund(self, transfer: TransferResponse|int, profile: int | Profile |None = None) -> PaymentResponse:
+    def fund(self, transfer: TransferResponse|int, profile: int | Profile |None = None, payment:Payment|None=None) -> PaymentResponse:
         """Fund a transfer. (Pay for it)
 
         See https://docs.wise.com/api-docs/api-reference/transfer#fund
@@ -128,14 +128,20 @@ class Transfer:
                 If this is not provided, the business profile will be used if given
                 by the transfer. If the transfer has no business profile information,
                 we assume that the first personal profile is used.
+            payment: Payment to perform
+                This will be paid from your balance if no value is provided.
         """
-        if not profile and isinstance(transfer, TransferResponse):
-            profile = transfer.business
-            if profile is None:
-                profile = self.service.client.profiles.list().personal[0]
-        else:
-            raise ValueError("You must provide a profile")
-        response = self.service.fund(transfer_id=transfer, profile_id=profile)
+        if not profile:
+            if isinstance(transfer, TransferResponse):
+                profile = transfer.business
+                if profile is None:
+                    profile = self.service.client.profiles.list().personal[0]
+            else:
+                raise ValueError("You must provide a profile")
+        if payment is None:
+            payment = Payment()
+        response = self.service.fund(transfer_id=transfer, profile_id=profile, json=payment)
+        print(payment.model_dump_json())
         pprint(response)
         return PaymentResponse(**response)
 

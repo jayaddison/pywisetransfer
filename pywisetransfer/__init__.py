@@ -10,6 +10,7 @@ __all__ = [
     "BusinessCategory",
     "BusinessProfileDetails",
     "Client",
+    "PaymentWithPartnerReference",
     "CommonFieldMap",
     "CompanyRole",
     "CompanyType",
