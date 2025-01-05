@@ -14,6 +14,7 @@ __all__ = [
     "CommonFieldMap",
     "CompanyRole",
     "CompanyType",
+    "new_uuid",
     "Country",
     "Currency",
     "CurrencyCode",

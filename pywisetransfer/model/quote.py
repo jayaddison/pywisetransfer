@@ -1380,6 +1380,11 @@ class QuoteResponse(BaseModel):
     status: QuoteStatus
     expirationTime: Timestamp | None
     notices: list[Notice]
+    
+    @property
+    def enabled_payments(self) -> list[PaymentOption]:
+        """A list of payment options that can be used."""
+        return [payment_option for payment_option in self.paymentOptions if not payment_option.disabled]
 
 
 class ExampleQuoteRequest(BaseModel):

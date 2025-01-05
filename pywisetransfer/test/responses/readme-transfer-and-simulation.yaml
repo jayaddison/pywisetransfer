@@ -1,0 +1,138 @@
+responses:
+- response:
+    auto_calculate_content_length: false
+    body: '{"id":54685607,"user":12970746,"targetAccount":700615291,"sourceAccount":null,"quote":null,"quoteUuid":"f74a8311-7534-4e0a-851a-f24ad4d37170","status":"incoming_payment_waiting","reference":"Geschenk","rate":1.20512,"created":"2025-01-05
+      11:31:08","business":28577319,"transferRequest":null,"details":{"reference":"Geschenk"},"hasActiveIssues":false,"sourceCurrency":"GBP","sourceValue":996.12,"targetCurrency":"EUR","targetValue":1200.44,"customerTransactionId":"c84d9145-1e9a-4ce6-b356-6d6c97ca3ae5"}'
+    content_type: text/plain
+    headers:
+      CF-Cache-Status: DYNAMIC
+      CF-RAY: 8fd325bb9c7fcd44-LHR
+      Set-Cookie: __cf_bm=w0A4MXueneFG3_71DbZ9AlTJ4RZJ5q_sHU1PKbGDXX4-1736076743-1.0.1.1-n9GdM4AFlFoSPSddRGxYogMhgaeznVhhwkIz3Lu8OjcCz8UMjGHIJQv08LsJeUG66Sdd5VMitQRdBFsoUIoj9w;
+        path=/; expires=Sun, 05-Jan-25 12:02:23 GMT; domain=.transferwise.tech; HttpOnly;
+        Secure; SameSite=None
+      Transfer-Encoding: chunked
+      alt-svc: h3=":443"; ma=86400
+      cache-control: no-cache, no-store, max-age=0, must-revalidate
+      
+      expires: '0'
+      pragma: no-cache
+      vary: origin,access-control-request-method,access-control-request-headers,accept-encoding
+      x-content-type-options: nosniff
+      x-envoy-attempt-count: '1'
+      x-envoy-upstream-service-time: '632'
+      x-frame-options: DENY
+      x-trace-id: b862e3adcb0f43ce
+      x-xss-protection: '0'
+    method: POST
+    status: 200
+    url: https://api.sandbox.transferwise.tech/v1/transfers
+- response:
+    auto_calculate_content_length: false
+    body: '{"error":"forbidden"}'
+    content_type: text/plain
+    headers:
+      CF-Cache-Status: DYNAMIC
+      CF-RAY: 8fd33d45893ff662-LHR
+      Set-Cookie: __cf_bm=cw1TD0pgzX1P8n8kz5keytNZ6V.rQNsBYEuHiU.MUL4-1736077707-1.0.1.1-jcjBnejyqP46hiFwILSkwbTdsT1HYKlGT0LBSzRxJRRg0Er_BjkyXyqNM3QvZhE6cDJjM_N1Hi_N7Q_tFTWIJA;
+        path=/; expires=Sun, 05-Jan-25 12:18:27 GMT; domain=.transferwise.tech; HttpOnly;
+        Secure; SameSite=None
+      Transfer-Encoding: chunked
+      alt-svc: h3=":443"; ma=86400
+      cache-control: no-cache, no-store, max-age=0, must-revalidate
+      
+      expires: '0'
+      pragma: no-cache
+      vary: origin,access-control-request-method,access-control-request-headers,accept-encoding
+      x-2fa-approval: c0450ff2-fe15-4cd5-962f-1346bc83504f
+      x-2fa-approval-result: REJECTED
+      x-content-type-options: nosniff
+      x-envoy-attempt-count: '1'
+      x-envoy-upstream-service-time: '125'
+      x-frame-options: DENY
+      x-trace-id: aa37f6b465ff6fa9
+      x-xss-protection: '0'
+    method: POST
+    status: 403
+    url: https://api.sandbox.transferwise.tech/v3/profiles/28577319/transfers/54685607/payments
+- response:
+    auto_calculate_content_length: false
+    body: '{"type":"BALANCE","status":"COMPLETED","errorCode":null,"errorMessage":null,"balanceTransactionId":5683542}'
+    content_type: text/plain
+    headers:
+      CF-Cache-Status: DYNAMIC
+      CF-RAY: 8fd33d490855ef23-LHR
+      Set-Cookie: __cf_bm=wlbVLcbBaBQ7idAXr9pyxq68S7fdSzSPTCa7p1ZY5KM-1736077708-1.0.1.1-Jaaeezmfl5Ph5y9MHrZ44gww5j6NnZUhqvU.vU5XscD1.wCeR0p.daYkKvjmc2eKiB0iiKzYhtnYlqiMRlvJ2Q;
+        path=/; expires=Sun, 05-Jan-25 12:18:28 GMT; domain=.transferwise.tech; HttpOnly;
+        Secure; SameSite=None
+      Transfer-Encoding: chunked
+      alt-svc: h3=":443"; ma=86400
+      cache-control: no-cache, no-store, max-age=0, must-revalidate
+      
+      expires: '0'
+      pragma: no-cache
+      vary: origin,access-control-request-method,access-control-request-headers,accept-encoding
+      x-2fa-approval-result: APPROVED
+      x-content-type-options: nosniff
+      x-envoy-attempt-count: '1'
+      x-envoy-upstream-service-time: '581'
+      x-frame-options: DENY
+      x-trace-id: 71ee169792153389
+      x-xss-protection: '0'
+    method: POST
+    status: 201
+    url: https://api.sandbox.transferwise.tech/v3/profiles/28577319/transfers/54685607/payments
+- response:
+    auto_calculate_content_length: false
+    body: '{"errors":[{"arguments":[],"code":"wrong_status","message":"Transfer processing
+      is suspended due to one or more payment processing issues, please ensure profile
+      is verified and consult the relevant regional guide in the API documentation."}]}'
+    content_type: text/plain
+    headers:
+      CF-Cache-Status: DYNAMIC
+      CF-RAY: 8fd34d951a556331-LHR
+      Set-Cookie: __cf_bm=c6QHkURPby7OGesE304a0a6i4c9lCCEUaueBW8jyZsU-1736078375-1.0.1.1-oV80Nz6z3kj4avbIgs1LLkZI7I.h3vREqBNW2XCDW91qcaj4L93ZRz2mX0aVUme9thGhIxXQD.fzKmppP34mTw;
+        path=/; expires=Sun, 05-Jan-25 12:29:35 GMT; domain=.transferwise.tech; HttpOnly;
+        Secure; SameSite=None
+      Transfer-Encoding: chunked
+      alt-svc: h3=":443"; ma=86400
+      cache-control: no-cache, no-store, max-age=0, must-revalidate
+      
+      expires: '0'
+      pragma: no-cache
+      vary: origin,access-control-request-method,access-control-request-headers,accept-encoding
+      x-content-type-options: nosniff
+      x-envoy-attempt-count: '1'
+      x-envoy-upstream-service-time: '171'
+      x-frame-options: DENY
+      x-trace-id: 67d3e6677e00b00e
+      x-xss-protection: '0'
+    method: GET
+    status: 200
+    url: https://api.sandbox.transferwise.tech/v1/simulation/transfers/54685640/funds_converted
+- response:
+    auto_calculate_content_length: false
+    body: '{"id":54685640,"user":12970746,"targetAccount":700615291,"sourceAccount":700594732,"quote":null,"quoteUuid":"d216d512-2ba3-4de8-ad26-d3094eec6d29","status":"processing","reference":"Geschenk","rate":1.20512,"created":"2025-01-05
+      11:59:07","business":28577319,"transferRequest":null,"details":{"reference":"Geschenk"},"hasActiveIssues":false,"sourceCurrency":"GBP","sourceValue":996.31,"targetCurrency":"EUR","targetValue":1200.67,"customerTransactionId":"e7124fca-f6c3-446a-9f4a-d7dbebf7f35f"}'
+    content_type: text/plain
+    headers:
+      CF-Cache-Status: DYNAMIC
+      CF-RAY: 8fd34e2d9a793692-LHR
+      Set-Cookie: __cf_bm=l1SRFU3Y3GNtDfwSW_JaTDXVnV4YuTgw0Bzjpvm4DhM-1736078399-1.0.1.1-kRbUv29IEXDLkgCodxwtDSp7sN0LpXy4k7atNZARhEA8YYlgGoPaiEO73n5uwuioUjSM2tDUXDJd_e1utDcxag;
+        path=/; expires=Sun, 05-Jan-25 12:29:59 GMT; domain=.transferwise.tech; HttpOnly;
+        Secure; SameSite=None
+      Transfer-Encoding: chunked
+      alt-svc: h3=":443"; ma=86400
+      cache-control: no-cache, no-store, max-age=0, must-revalidate
+      
+      expires: '0'
+      pragma: no-cache
+      vary: origin,access-control-request-method,access-control-request-headers,accept-encoding
+      x-content-type-options: nosniff
+      x-envoy-attempt-count: '1'
+      x-envoy-upstream-service-time: '86'
+      x-frame-options: DENY
+      x-trace-id: 246b3877168af9cd
+      x-xss-protection: '0'
+    method: GET
+    status: 200
+    url: https://api.sandbox.transferwise.tech/v1/transfers/54685640

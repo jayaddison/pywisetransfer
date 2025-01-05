@@ -400,6 +400,8 @@ We use the business profile for this.
     ```python
     >>> quote_request = QuoteRequest(sourceCurrency="GBP",targetCurrency="EUR", sourceAmount=1000)
     >>> quote = client.quotes.create(quote_request, business_profile)
+    >>> quote.id
+    'f8301dde-cdb4-46c0-b944-3a07c7807d47'
 
     ```
 
@@ -442,9 +444,111 @@ We use the business profile for this.
 
     ```
 
-5. [Fund the transfer]().
+5. Check the requirements again.
 
+    The fields tell you if you need to check the requirements again.
+    For example, the recipient type changes the required fields.
 
+    ```python
+    >>> requirements = client.recipient_accounts.get_requirements_for_quote(quote)
+    >>> requirements.iban.required_keys
+    ['IBAN', 'accountHolderName', 'legalType']
+
+    ```
+
+Above, we saw the flow of creating an IBAN recipient tied to the quote.
+
+### Check the Prices
+
+A Quote includes different pricing options.
+These depend on the `payIn` and `payOut` options of the quote or the transfer.
+
+Below, we show all the available options to pay for the transfer, sorted by price.
+
+```python
+>>> for po in sorted(quote.enabled_payments, key=lambda po: po.fee.total):
+...     print(f"fee: {po.fee.total: <6} payIn: {po.payIn: <21} payOut: {po.payOut}")
+fee: 3.69   payIn: BALANCE               payOut: BANK_TRANSFER
+fee: 3.88   payIn: BANK_TRANSFER         payOut: BANK_TRANSFER
+fee: 3.88   payIn: PISP                  payOut: BANK_TRANSFER
+fee: 3.88   payIn: SWIFT                 payOut: BANK_TRANSFER
+fee: 7.56   payIn: VISA_DEBIT_OR_PREPAID payOut: BANK_TRANSFER
+fee: 10.42  payIn: DEBIT                 payOut: BANK_TRANSFER
+fee: 10.42  payIn: MC_DEBIT_OR_PREPAID   payOut: BANK_TRANSFER
+fee: 10.42  payIn: CARD                  payOut: BANK_TRANSFER
+fee: 10.42  payIn: MAESTRO               payOut: BANK_TRANSFER
+fee: 16.28  payIn: MC_CREDIT             payOut: BANK_TRANSFER
+fee: 19.09  payIn: VISA_BUSINESS_DEBIT   payOut: BANK_TRANSFER
+fee: 26.09  payIn: CREDIT                payOut: BANK_TRANSFER
+fee: 26.09  payIn: APPLE_PAY             payOut: BANK_TRANSFER
+fee: 26.09  payIn: VISA_CREDIT           payOut: BANK_TRANSFER
+fee: 26.09  payIn: GOOGLE_PAY            payOut: BANK_TRANSFER
+fee: 35.43  payIn: MC_BUSINESS_DEBIT     payOut: BANK_TRANSFER
+fee: 43.14  payIn: MC_BUSINESS_CREDIT    payOut: BANK_TRANSFER
+fee: 43.14  payIn: VISA_BUSINESS_CREDIT  payOut: BANK_TRANSFER
+fee: 55.66  payIn: INTERNATIONAL_DEBIT   payOut: BANK_TRANSFER
+fee: 55.66  payIn: INTERNATIONAL_CREDIT  payOut: BANK_TRANSFER
+
+```
+
+We can see that to pay with the **balance** by **bank transfer** is the cheapest option.
+
+### Create a Transfer
+
+We can now create a transfer.
+
+1. Create a transfer request with the minimal required data of the transfer.
+
+    ```python
+    >>> from pywisetransfer import TransferRequest, TransferDetails
+    >>> transfer_request = TransferRequest(
+    ...     targetAccount=created_iban_recipient.id,
+    ...     quoteUuid=quote.id,
+    ...     details=TransferDetails(
+    ...         reference="Geschenk"
+    ...     )
+    ... )
+    >>> transfer = client.transfers.create(transfer_request)
+    >>> transfer.status
+    'incoming_payment_waiting'
+
+    ```
+
+    At this point, we can see the transfer in the [user interface](https://sandbox.transferwise.tech/):
+
+    !()[img/created-transfer.png]
+
+2. Fund the transfer.
+
+    Funding transfers requires [SCA] authentication.
+    You can read on how to [configure SCA here][SCA].
+    You can use the default key located at `pywisetransfer.DEFAULT_PRIVATE_KEY` for
+    the sandbox API and upload it to your account's business profile.
+
+    ```python
+    >>> from pywisetransfer import DEFAULT_PRIVATE_KEY
+    >>> client = Client(api_key="...", private_key_file=DEFAULT_PRIVATE_KEY)
+    >>> funding_result = client.transfers.fund(transfer)
+    >>> funding_result.status
+    'COMPLETED'
+
+    ```
+
+3. Sandbox Transfer Simulation
+
+    The sandbox API allows you to simulate transfers.
+
+    ```python
+    >>> transfer.status
+    'incoming_payment_waiting'
+    >>> client.simulate_transfer.to_funds_converted(transfer)  # simulate the transfer change
+    >>> transfer = client.transfers.get(transfer)  # update the transfer
+    >>> transfer.status  # check the status again
+    'incoming_payment_waiting'
+
+    ```
+
+[SCA]: https://docs.wise.com/api-docs/features/strong-customer-authentication-2fa/personal-token-sca
 
 ## Run tests
 

@@ -1,6 +1,8 @@
 import pytest
 import responses
 
+from pywisetransfer.client import DEFAULT_PRIVATE_KEY, Client
+
 
 @pytest.fixture
 def me_response():
@@ -43,3 +45,11 @@ def test_client_live_environment(me_response):
     domain = client.borderless_accounts.service.domain
     assert "api.sandbox.transferwise" not in domain
     assert "api.transferwise" in domain
+
+
+def test_cannot_create_live_client_with_default_key():
+    """Check we create an error for the default key."""
+    with pytest.raises(ValueError):
+        Client(private_key_data=DEFAULT_PRIVATE_KEY.read_bytes(), environment="live")
+    with pytest.raises(ValueError):
+        Client(private_key_file=DEFAULT_PRIVATE_KEY, environment="live")
