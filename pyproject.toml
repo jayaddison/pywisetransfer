@@ -32,5 +32,5 @@ repository = "https://www.github.com/jayaddison/pywisetransfer"
 line-length = 100
 
 [build-system]
-requires = ["poetry>=2.0.0"]
-build-backend = "poetry.masonry.api"
+requires = ["poetry-core>=2.0.0"]
+build-backend = "poetry.core.masonry.api"
