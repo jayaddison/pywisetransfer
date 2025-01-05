@@ -552,7 +552,7 @@ We can now create a transfer.
 
     At this point, we can see the transfer in the [user interface](https://sandbox.transferwise.tech/):
 
-    !()[img/created-transfer.png]
+    !()[img/created-transfer.png)
 
 2. Fund the transfer.
 
