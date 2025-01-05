@@ -3,10 +3,9 @@ from __future__ import annotations
 import functools
 from typing import Any
 
-from apiron import JsonEndpoint
-
 from pywisetransfer import Client
 from pywisetransfer.base import Base
+from pywisetransfer.endpoint import JsonEndpoint
 from pywisetransfer.model.profile import Profiles, profile_type, Profile as ProfileModel
 
 
@@ -36,7 +35,7 @@ class Profile:
 
     @property
     @functools.cache
-    def business(self) -> list[Profile]:
+    def business(self) -> list[ProfileModel]:
         """Business profiles.
 
         This is a shortcut for listing them.
@@ -46,7 +45,7 @@ class Profile:
 
     @property
     @functools.cache
-    def personal(self) -> Profile:
+    def personal(self) -> ProfileModel:
         """Return the one personal profile.
 
         This is a shortcut for listing them.

@@ -17,7 +17,43 @@ After installation, you should be able to import the package.
 
 ```
 
-## Usage
+## Command Line
+
+You can use some of the functions on the command line.
+By installing `pywisetransfer`, you also install the `wise` command.
+
+### Help and Information
+
+Get help:
+
+```bash
+wise --help
+```
+
+### Generate a Key Pair
+
+We can generate a key pair.
+Note that this needs the `openssl` command installed.
+
+```sh
+$ wise new-key
+writing RSA key
+private key: wise.com.private.pem
+public key: wise.com.public.pem
+```
+
+### Check API Key
+
+You can check if your API key and private key work.
+
+```sh
+$ WISE_API_KEY="your api key" python -m pywisetransfer check
+Permissions on sandbox: read+write+sca
+Permissions on live: none
+```
+
+
+## Python Package
 
 Wise provides [two APIs](https://docs.wise.com/api-docs/api-reference#environments): `live` and `sandbox`.
 You can use either of these environments with this library.
@@ -552,8 +588,9 @@ We can now create a transfer.
 
 ## Run tests
 
-```bash
+```sh
 # Within the pywisetransfer working directory
-pip install .[dev]
-pytest
+pip install tox
+tox
 ```
+

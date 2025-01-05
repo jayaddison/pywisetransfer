@@ -28,12 +28,44 @@ https://sandbox.transferwise.tech/settings/public-keys
 """
 
 from pathlib import Path
+from typing import Optional
 
 from pywisetransfer.model.enum import StrEnum
 
 HERE = Path(__file__).parent
 DEFAULT_PRIVATE_KEY = HERE / "test" / "private.pem"
 DEFAULT_PUBLIC_KEY = HERE / "test" / "public.pem"
+
+
+def generate_key_pair(
+    *,
+    private_key: Path | str = "wise.com.private.pem",
+    public_key: Optional[Path | str] = "wise.com.public.pem",
+):
+    """Generate a key public and private key pair.
+
+    This uses openssl to generate the key pair.
+    The key pair is stored in the specified location.
+
+    You can then upload the public key to your business account.
+    https://sandbox.transferwise.tech/settings/public-keys
+
+    Args:
+        private_key: The name of the private key.
+            If the file exists, it will not be deleted or overwritten.
+        public_key_name: The name of the public key.
+            If this is None, the key will not be generated.
+    """
+    import subprocess
+
+    private_path = Path(private_key)
+    if not private_path.exists():
+        subprocess.check_call(["openssl", "genrsa", "-out", private_path, "2048"])
+    if public_key is not None:
+        public_path = Path(public_key)
+        subprocess.check_call(
+            ["openssl", "rsa", "-pubout", "-in", private_path, "-out", public_path]
+        )
 
 
 class Environment(StrEnum):
@@ -57,7 +89,7 @@ class Client:
     In order to use SCA protected endpoints, you need to generate a key.
     See https://docs.wise.com/api-docs/features/strong-customer-authentication-2fa/personal-token-sca
 
-    Generate the key:
+    Generate the key, either by command line below or using generate_key_pair().
 
         openssl genrsa -out wise.pem 2048
 
@@ -131,5 +163,52 @@ class Client:
         self.private_key_data = private_key_data
         self.add_resources()
 
+    def can_read(self) -> bool:
+        """Wether or not we can read the API.
+        
+        We request information on us.
+        """
+        from pywisetransfer.endpoint import WiseAPIError
+        try:
+            self.users.me()
+        except WiseAPIError:
+            return False
+        return True
 
+    def can_write(self) -> bool:
+        """Wether or not we can write to the API.
+        
+        We try to create a quote.
+        """
+        from pywisetransfer.quote import QuoteRequest
+        from pywisetransfer.endpoint import WiseAPIError
+        try:
+            self.quotes.create(
+                QuoteRequest(
+                    sourceCurrency="EUR",
+                    targetCurrency="USD",
+                    sourceAmount=100,
+                ),
+                self.profiles.list()[0]
+            )
+        except WiseAPIError:
+            return False
+        return True
+
+    def can_sca(self) -> bool:
+        """Wether we can authenticate with SCA.
+        
+        We try to fund a non-existing transfer.
+        """
+        from pywisetransfer.endpoint import WiseAPIError
+        try:
+            if not self.profiles.business:
+                return False
+            self.transfers.fund(0, self.profiles.business[0])
+        except WiseAPIError as e:
+            if e.json.status == 401:
+                # We are not authorized, the transfer id was not checked.
+                return False
+        return True
+    
 __all__ = ["Client", "DEFAULT_PRIVATE_KEY", "DEFAULT_PUBLIC_KEY", "Environment"]

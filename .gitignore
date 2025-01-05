@@ -4,3 +4,5 @@ dist
 *.swp
 .venv
 .tox
+wise.com.private.pem
+wise.com.public.pem

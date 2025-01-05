@@ -162,7 +162,7 @@ class BusinessProfileDetails(BaseModel):
     abn: Optional[str]
     arbn: Optional[str]
     companyType: CompanyType
-    companyRole: CompanyRole
+    companyRole: Optional[CompanyRole]
     descriptionOfBusiness: Optional[str]
     webpage: Optional[str]
     primaryAddress: Optional[int]
