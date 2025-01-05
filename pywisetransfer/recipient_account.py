@@ -87,7 +87,7 @@ class RecipientAccount:
 
         Args:
             creator: Creator id of the account.
-            profile: Filter by personal or business profile, returns only those owned by this profile. Defaults to the personal profile.
+            profile: Filter by personal or business profile, returns only those owned by this profile. Defaults to all profiles.
             currency: Currency of the account.
             active: Filter by whether this profile is active. Defaults to true.
             type: Filter responses by account type, comma separated values are supported (e.g. "iban,swift_code").
@@ -123,7 +123,8 @@ class RecipientAccount:
         The resulting generator gets all the accounts that are currently available in the API.
 
         Args:
-            profile: Filter by personal or business profile, returns only those owned by this profile. Defaults to the personal profile.
+            profile: Filter by personal or business profile, returns only those owned by this profile.
+                Defaults to all profiles
             page_size: Number of accounts to retrieve per request.
             sort: Sorting strategy for the response.
         """
@@ -148,7 +149,8 @@ class RecipientAccount:
         The resulting list contains all the accounts that are currently available in the API.
 
         Args:
-            profile: Filter by personal or business profile, returns only those owned by this profile. Defaults to the personal profile.
+            profile: Filter by personal or business profile, returns only those owned by this profile. 
+                Defaults to all profiles
             page_size: Number of accounts to retrieve per request.
             sort: Sorting strategy for the response.
         """
