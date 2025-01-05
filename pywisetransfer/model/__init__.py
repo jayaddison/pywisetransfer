@@ -16,9 +16,9 @@ from .requirements import *
 from .legal_type import LegalType
 
 __all__ = [
+    "AccountRequirement",
     "AccountRequirementType",
     "AddressDetails",
-    "PaymentWithPartnerReference",
     "AllowedValue",
     "BusinessCategory",
     "BusinessProfileDetails",
@@ -34,7 +34,8 @@ __all__ = [
     "DisplayField",
     "EmailDetails",
     "ExampleQuoteRequest",
-    "FeeType",
+    "Price",
+    "PriceType",
     "FilledInRecipientAccountRequest",
     "LegalEntityType",
     "LegalType",
@@ -44,6 +45,7 @@ __all__ = [
     "OccupationFormat",
     "OriginatorGroup",
     "PROFILE_TYPE",
+    "PayInProduct",
     "Payment",
     "PaymentMetadata",
     "PaymentMethod",
@@ -53,6 +55,7 @@ __all__ = [
     "PaymentResponse",
     "PaymentStatus",
     "PaymentType",
+    "PaymentWithPartnerReference",
     "PersonalProfileDetails",
     "PricingConfiguration",
     "PricingConfigurationFee",
@@ -67,7 +70,6 @@ __all__ = [
     "RecipientAccountList",
     "RecipientAccountRequest",
     "RecipientAccountRequestDetails",
-    "AccountRequirement",
     "RecipientAccountRequirements",
     "RecipientAccountResponse",
     "RecipientAccountsSorting",
@@ -88,4 +90,6 @@ __all__ = [
     "parse_timestamp",
     "profile_type",
     "serialize_timestamp",
+    "PriceValue",
+    "PayInProduct",
 ]

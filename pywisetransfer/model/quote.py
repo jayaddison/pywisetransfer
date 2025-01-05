@@ -27,10 +27,18 @@ class ProvidedAmountType(StrEnum):
     TARGET = "TARGET"
 
 
-class FeeType(StrEnum):
-    """The type of a Fee."""
+class PriceType(StrEnum):
+    """The type of a Fee.
+
+    Attributes:
+        OVERRIDE: The type of fee you can set yourself in the pricing configuration.
+    """
 
     OVERRIDE = "OVERRIDE"
+    PAYIN = "PAYIN"
+    TOTAL = "TOTAL"
+    TRANSFERWISE = "TRANSFERWISE"
+    VAT = "VAT"
 
 
 class PricingConfigurationFee(BaseModel):
@@ -50,9 +58,9 @@ class PricingConfigurationFee(BaseModel):
     }
     """
 
-    type: FeeType = FeeType.OVERRIDE
-    variable: float
-    fixed: float
+    type: PriceType = PriceType.OVERRIDE
+    variable: float = 0
+    fixed: float = 0
 
 
 class PricingConfiguration(BaseModel):
@@ -79,7 +87,7 @@ class PricingConfiguration(BaseModel):
     @classmethod
     def no_fee(cls) -> PricingConfiguration:
         """Return a PricingConfiguration with no fee."""
-        return cls(fee=PricingConfigurationFee(type=FeeType.OVERRIDE, variable=0.0, fixed=0.0))
+        return cls(fee=PricingConfigurationFee(type=PriceType.OVERRIDE, variable=0.0, fixed=0.0))
 
 
 class DeliveryDelay(BaseModel):
@@ -107,6 +115,57 @@ class PaymentOptionFee(BaseModel):
     discount: float
     partner: float
     total: float
+
+
+class PriceValue(BaseModel):
+    """The value of a price.
+
+    Attributes:
+        amount: The amount of the value.
+        currency: The currency of the value.
+        label: The label of the value
+    """
+
+    EXAMPLE_JSON: ClassVar[
+        str
+    ] = """
+    {
+        "amount": 0.77,
+        "currency": "GBP",
+        "label": "0.77 GBP"
+    }
+    """
+    amount: float
+    currency: str = CURRENCY
+    label: str
+
+
+class Price(BaseModel):
+    """The total fees of a payment option of a quote.
+
+    Attributes:
+        type: Type of the fee.
+        label: Label of the fee.
+        value: Value of the fee.
+    """
+
+    EXAMPLE_JSON: ClassVar[
+        str
+    ] = """
+    {
+        "type": "TOTAL",
+        "label": "Total fees",
+        "value": {
+            "amount": 0.77,
+            "currency": "GBP",
+            "label": "0.77 GBP"
+        }
+    }
+    """
+
+    type: PriceType
+    label: str
+    value: PriceValue
 
 
 class PaymentOptionPrice(BaseModel):
@@ -274,8 +333,8 @@ class PaymentOption(BaseModel):
     }
     """
     disabled: bool
-    estimatedDelivery: Timestamp
-    formattedEstimatedDelivery: str
+    estimatedDelivery: Optional[Timestamp] = None
+    formattedEstimatedDelivery: Optional[str] = None
     estimatedDeliveryDelays: list[DeliveryDelay]
     fee: PaymentOptionFee
     price: PaymentOptionPrice
@@ -286,8 +345,21 @@ class PaymentOption(BaseModel):
     payIn: PaymentMethod
     payOut: PaymentMethod
     allowedProfileTypes: list[PROFILE_TYPE]
-    payInProduct: str
+    payInProduct: Optional[PayInProduct] = None
     feePercentage: float
+
+
+class PayInProduct(StrEnum):
+    """The product to use to pay in for a quote."""
+
+    # generated from
+    # grep -roE 'payInProduct":[^,]+' pywisetransfer/ | grep -oE '"[^"]+"$' | sort | uniq
+    ADVANCED = "ADVANCED"
+    BALANCE = "BALANCE"
+    CHEAP = "CHEAP"
+    EASY = "EASY"
+    FAST = "FAST"
+    JUST_FAST = "JUST_FAST"
 
 
 class QuoteStatus(StrEnum):
@@ -1545,10 +1617,13 @@ __all__ = [
     "RateType",
     "DeliveryDelay",
     "PricingConfigurationFee",
-    "FeeType",
+    "PriceType",
     "ExampleQuoteRequest",
     "QuoteRequest",
     "PaymentMethod",
     "PaymentMetadata",
     "QuoteUpdate",
+    "Price",
+    "PriceValue",
+    "PayInProduct",
 ]

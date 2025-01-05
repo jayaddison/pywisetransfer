@@ -11,8 +11,13 @@ from pydantic import PlainSerializer, BeforeValidator
 DATETIME_FORMAT = "%Y-%m-%dT%H:%M:%SZ"
 
 
-def parse_timestamp(s: str) -> datetime:
-    """Parse a timestamp as Wise specifies it."""
+def parse_timestamp(s: str | None) -> Optional[datetime]:
+    """Parse a timestamp as Wise specifies it.
+
+    If None is returned, None is the result.
+    """
+    if s is None:
+        return None
     if s[-1] != "Z":
         s += "Z"  # compatibility with older API calls
     if " " in s:

@@ -62,7 +62,13 @@ class Quote:
 
         See https://docs.wise.com/api-docs/api-reference/quote#create-not-authenticated
         """
-        response = self.service.example(json=quote)
+        response = self.service.example(
+            json=quote,
+            # x_source_amount=str(quote.sourceAmount),
+            # x_target_amount=str(quote.targetAmount),
+            # x_source_currency=str(quote.sourceCurrency),
+            # x_target_currency=str(quote.targetCurrency),
+        )
         # pprint(response)
         return QuoteResponse(**response)
 

@@ -1,7 +1,7 @@
 """The currency model."""
 
 from __future__ import annotations
-from typing import ClassVar
+from typing import ClassVar, TypeVar
 from pydantic import BaseModel, Field
 import re
 
