@@ -230,6 +230,8 @@ In this example, we get the requirements for a recipient account that should rec
 
 ```
 
+Genrally, for thie currency, we can send money to a recipient specified by email, IBAN or sort code.
+
 ### Webhook signature verification
 
 ```python
@@ -286,10 +288,10 @@ The `targetAccount` is None because we don't know the recipient yet.
 ```python
 >>> from pywisetransfer import QuoteRequest, PaymentMethod
 >>> quote_request = QuoteRequest(
-...        sourceCurrency="GBP",
-...        targetCurrency="USD",
+...        sourceCurrency="EUR",
+...        targetCurrency="EUR",
 ...        sourceAmount=None,
-...        targetAmount=110,
+...        targetAmount=1,
 ...        targetAccount=None,
 ...        payOut=PaymentMethod.BANK_TRANSFER,
 ...        preferredPayIn=PaymentMethod.BANK_TRANSFER,

@@ -37,6 +37,7 @@ class TransferStatus(StrEnum):
     bounced_back = "bounced_back"
     charged_back = "charged_back"
     unknown = "unknown"
+    waiting_recipient_input_to_proceed = "waiting_recipient_input_to_proceed"
 
     @property
     def description(self) -> str:
@@ -66,6 +67,7 @@ TransferStatusDescription = {
     TransferStatus.bounced_back: "Bounced back",
     TransferStatus.charged_back: "Charged back",
     TransferStatus.unknown: "Unknown",
+    TransferStatus.waiting_recipient_input_to_proceed: "Sent email to recipient",
 }
 
 
