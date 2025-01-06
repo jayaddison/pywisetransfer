@@ -1,0 +1,28 @@
+responses:
+- response:
+    auto_calculate_content_length: false
+    body: '{"id":54685607,"user":12970746,"targetAccount":700615291,"sourceAccount":700594732,"quote":null,"quoteUuid":"f74a8311-7534-4e0a-851a-f24ad4d37170","status":"processing","reference":"Geschenk","rate":1.20512,"created":"2025-01-05
+      11:31:08","business":28577319,"transferRequest":null,"details":{"reference":"Geschenk"},"hasActiveIssues":false,"sourceCurrency":"GBP","sourceValue":996.31,"targetCurrency":"EUR","targetValue":1200.67,"customerTransactionId":"c84d9145-1e9a-4ce6-b356-6d6c97ca3ae5"}'
+    content_type: text/plain
+    headers:
+      CF-Cache-Status: DYNAMIC
+      CF-RAY: 8fd5e9ec5df279ba-LHR
+      Set-Cookie: __cf_bm=lMnzlo5KVkkVatS5OoTTUiii3_e03sK8M0Av.LmLJFo-1736105750-1.0.1.1-B2dljvhW2YdIfR61eVXRNtANUxVfYR2gkVpd_bnnauVyKtIYmFggj_HhbXHwoQQ.caPT_sAUqVep4OafKn47kg;
+        path=/; expires=Sun, 05-Jan-25 20:05:50 GMT; domain=.transferwise.tech; HttpOnly;
+        Secure; SameSite=None
+      Transfer-Encoding: chunked
+      alt-svc: h3=":443"; ma=86400
+      cache-control: no-cache, no-store, max-age=0, must-revalidate
+      
+      expires: '0'
+      pragma: no-cache
+      vary: origin,access-control-request-method,access-control-request-headers,accept-encoding
+      x-content-type-options: nosniff
+      x-envoy-attempt-count: '1'
+      x-envoy-upstream-service-time: '84'
+      x-frame-options: DENY
+      x-trace-id: 15f5d630d5038ef
+      x-xss-protection: '0'
+    method: GET
+    status: 200
+    url: https://api.sandbox.transferwise.tech/v1/transfers/54685607

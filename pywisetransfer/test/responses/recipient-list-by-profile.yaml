@@ -1,0 +1,67 @@
+responses:
+- response:
+    auto_calculate_content_length: false
+    body: '{"content":[{"id":700615291,"creatorId":12970746,"profileId":28577319,"name":{"fullName":"Max
+      Mustermann","givenName":null,"familyName":null,"middleName":null,"patronymicName":null,"cannotHavePatronymicName":null},"currency":"EUR","country":"DE","type":"Iban","legalEntityType":"PERSON","active":true,"details":{"iban":"DE75512108001245126199","hashedByLooseHashAlgorithm":"a078da65da3a921b6a3f5ba720edc770e0c20ce05fb5b071528b34023666445f"},"commonFieldMap":{"accountNumberField":"iban","bankCodeField":"bic","bicField":"bic"},"isDefaultAccount":false,"hash":"dde6303665df4d85da7118015978e229af840528181804d155222f0f1883f65a","accountSummary":"DE75
+      5121 0800 1245 1261 99","longAccountSummary":"EUR account ending in 6199","displayFields":[{"key":"details/iban","label":"IBAN","value":"DE75
+      5121 0800 1245 1261 99"}],"isInternal":false,"ownedByCustomer":false},{"id":700615308,"creatorId":12970746,"profileId":28577319,"name":{"fullName":"Max
+      Mustermann","givenName":null,"familyName":null,"middleName":null,"patronymicName":null,"cannotHavePatronymicName":null},"currency":"EUR","country":"BE","type":"Iban","legalEntityType":"PERSON","active":true,"details":{"iban":"BE19967722383012","hashedByLooseHashAlgorithm":"5eb17c87f8f29de271abb6b5510ffd9bc531a2ab680aa67ad38e6e122920b8de"},"commonFieldMap":{"accountNumberField":"iban","bankCodeField":"bic","bicField":"bic"},"isDefaultAccount":false,"hash":"1a5eb4bef43dac61aab2243ab70bf56f98a376948e09975476a960fa7731155f","accountSummary":"BE19
+      9677 2238 3012","longAccountSummary":"EUR account ending in 3012","displayFields":[{"key":"details/iban","label":"IBAN","value":"BE19
+      9677 2238 3012"}],"isInternal":false,"ownedByCustomer":false},{"id":700615388,"creatorId":12970746,"profileId":28577319,"name":{"fullName":"Max
+      Mustermann","givenName":null,"familyName":null,"middleName":null,"patronymicName":null,"cannotHavePatronymicName":null},"currency":"EUR","country":"BE","type":"Iban","legalEntityType":"PERSON","email":"john@doe.com","active":true,"details":{"iban":"BE19967722383012","hashedByLooseHashAlgorithm":"5eb17c87f8f29de271abb6b5510ffd9bc531a2ab680aa67ad38e6e122920b8de"},"commonFieldMap":{"accountNumberField":"iban","bankCodeField":"bic","bicField":"bic"},"isDefaultAccount":false,"hash":"ebb4d3438c6dff8f125ae05373694bf4c0006325d21c729f7e378f8f3919b851","accountSummary":"BE19
+      9677 2238 3012","longAccountSummary":"EUR account ending in 3012","displayFields":[{"key":"details/iban","label":"IBAN","value":"BE19
+      9677 2238 3012"},{"key":"email","label":"Email (Optional)","value":"john@doe.com"}],"isInternal":false,"ownedByCustomer":false},{"id":700615394,"creatorId":12970746,"profileId":28577319,"name":{"fullName":"Max
+      Mustermann","givenName":null,"familyName":null,"middleName":null,"patronymicName":null,"cannotHavePatronymicName":null},"currency":"EUR","country":"BE","type":"Iban","legalEntityType":"PERSON","email":"max@mustermann.de","active":true,"details":{"iban":"BE19967722383012","hashedByLooseHashAlgorithm":"5eb17c87f8f29de271abb6b5510ffd9bc531a2ab680aa67ad38e6e122920b8de"},"commonFieldMap":{"accountNumberField":"iban","bankCodeField":"bic","bicField":"bic"},"isDefaultAccount":false,"hash":"c5bb9ecf9fae865f319f727115958cb0d5dbfc620255ee1a090fa4c229d88de5","accountSummary":"BE19
+      9677 2238 3012","longAccountSummary":"EUR account ending in 3012","displayFields":[{"key":"details/iban","label":"IBAN","value":"BE19
+      9677 2238 3012"},{"key":"email","label":"Email (Optional)","value":"max@mustermann.de"}],"isInternal":false,"ownedByCustomer":false}],"sort":{"empty":false,"sorted":true,"unsorted":false},"size":4}'
+    content_type: text/plain
+    headers:
+      CF-Cache-Status: DYNAMIC
+      CF-RAY: 8fd5f8e3ea61ed0c-LHR
+      Set-Cookie: __cf_bm=Fx4HUXhC8EYTUOa5dZR7_vFSku_EPbcsNdK0FiWRAuc-1736106363-1.0.1.1-rR5quNRvxZDXuZ4UZrsb5f.4wQFcCHKbMYqYHetoSrkrlqGsy.XCJZ8iwECorPNsCBV_57vVuSlKNlO34AGf1A;
+        path=/; expires=Sun, 05-Jan-25 20:16:03 GMT; domain=.transferwise.tech; HttpOnly;
+        Secure; SameSite=None
+      Transfer-Encoding: chunked
+      alt-svc: h3=":443"; ma=86400
+      cache-control: no-cache, no-store, max-age=0, must-revalidate
+      
+      expires: '0'
+      pragma: no-cache
+      vary: origin,access-control-request-method,access-control-request-headers,accept-encoding
+      x-content-type-options: nosniff
+      x-envoy-attempt-count: '1'
+      x-envoy-upstream-service-time: '108'
+      x-frame-options: DENY
+      x-trace-id: a5f3e98a8a68c7d7
+      x-xss-protection: '0'
+    method: GET
+    status: 200
+    url: https://api.sandbox.transferwise.tech/v2/accounts?profileId=28577319&size=20&sort=id%2Casc
+- response:
+    auto_calculate_content_length: false
+    body: '{"content":[{"id":700614969,"creatorId":12970746,"profileId":28577318,"name":{"fullName":"John
+      Doe","givenName":null,"familyName":null,"middleName":null,"patronymicName":null,"cannotHavePatronymicName":null},"currency":"EUR","type":"Email","legalEntityType":"PERSON","email":"john@doe.com","active":true,"details":{"hashedByLooseHashAlgorithm":"9ba00348d31cf14f26b1ba5fbe16166797713a2764467e9287445d9a697c28f8"},"commonFieldMap":{},"isDefaultAccount":false,"hash":"3038f9347ed20e5daf6851131efddddc10f6855d4cb41de505e38b650a48ab55","accountSummary":"john@doe.com","longAccountSummary":"john@doe.com","displayFields":[{"key":"email","label":"Email
+      (Optional)","value":"john@doe.com"}],"isInternal":false,"ownedByCustomer":false}],"sort":{"empty":false,"sorted":true,"unsorted":false},"size":1}'
+    content_type: text/plain
+    headers:
+      CF-Cache-Status: DYNAMIC
+      CF-RAY: 8fd5f8f68bf288b0-LHR
+      Set-Cookie: __cf_bm=p6GOLbAZYaNRceHu9M9YTvsowE2kXObkNVAaBjCxnwY-1736106366-1.0.1.1-ajL7KWcLFrJY70GgsCqNkRMkgyBGNuJRA.HzVR_nO3HxO6CpCItIT11gUve_w9BsTxff9csAIkxpU8XqWKxpeA;
+        path=/; expires=Sun, 05-Jan-25 20:16:06 GMT; domain=.transferwise.tech; HttpOnly;
+        Secure; SameSite=None
+      Transfer-Encoding: chunked
+      alt-svc: h3=":443"; ma=86400
+      cache-control: no-cache, no-store, max-age=0, must-revalidate
+      
+      expires: '0'
+      pragma: no-cache
+      vary: origin,access-control-request-method,access-control-request-headers,accept-encoding
+      x-content-type-options: nosniff
+      x-envoy-attempt-count: '1'
+      x-envoy-upstream-service-time: '78'
+      x-frame-options: DENY
+      x-trace-id: 51f738d61dacf8b2
+      x-xss-protection: '0'
+    method: GET
+    status: 200
+    url: https://api.sandbox.transferwise.tech/v2/accounts?profileId=28577318&size=20&sort=id%2Casc
