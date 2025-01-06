@@ -39,9 +39,7 @@ def opt_license(*param_decls: str, **kwargs: Any) -> Callable:
     return click.option(*param_decls, **kwargs)
 
 
-ARG_API_KEY = click.argument(
-    "api_key", envvar="WISE_API_KEY", required=True
-)
+ARG_API_KEY = click.argument("api_key", envvar="WISE_API_KEY", required=True)
 ARG_PRIVATE_KEY = click.argument(
     "private_key",
     envvar="WISE_PRIVATE_KEY",
@@ -60,25 +58,24 @@ ARG_ENV = click.argument(
 )
 
 
-
 @click.group()
 @opt_license()
 @click.version_option()
 def main():
     """General arguments are defined here.
-    
+
     WISE_ENV or --env:
-    
+
     \b
         The environment to use. Must be sandbox or live or a comma seperated list to use both. By default both or the first are used."
-    
+
     WISE_API_KEY or --api-key:
-    
+
     \b
         The API key to use.
-        
+
     WISE_PRIVATE_KEY or --private-key:
-    
+
     \b
         The private key to use.
         By default this is ./wise.com.private.pem
@@ -125,11 +122,11 @@ def new_key(private_key: Path, public_key: Path):
 def check(api_key: str, private_key: Optional[Path], env: list[str]):
     """Check that we can access the API."""
     from pywisetransfer.client import Client, Environment
-    
+
     for environment in env:
         if environment not in Environment:
             raise ValueError(f"Environment must be sandbox or live, not {environment}")
-        client =Client(api_key=api_key, environment=environment, private_key_file=private_key)
+        client = Client(api_key=api_key, environment=environment, private_key_file=private_key)
         permissions = []
         if client.can_read():
             permissions.append("read")

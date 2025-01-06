@@ -165,10 +165,11 @@ class Client:
 
     def can_read(self) -> bool:
         """Wether or not we can read the API.
-        
+
         We request information on us.
         """
         from pywisetransfer.endpoint import WiseAPIError
+
         try:
             self.users.me()
         except WiseAPIError:
@@ -177,11 +178,12 @@ class Client:
 
     def can_write(self) -> bool:
         """Wether or not we can write to the API.
-        
+
         We try to create a quote.
         """
         from pywisetransfer.quote import QuoteRequest
         from pywisetransfer.endpoint import WiseAPIError
+
         try:
             self.quotes.create(
                 QuoteRequest(
@@ -189,7 +191,7 @@ class Client:
                     targetCurrency="USD",
                     sourceAmount=100,
                 ),
-                self.profiles.list()[0]
+                self.profiles.list()[0],
             )
         except WiseAPIError:
             return False
@@ -197,10 +199,11 @@ class Client:
 
     def can_sca(self) -> bool:
         """Wether we can authenticate with SCA.
-        
+
         We try to fund a non-existing transfer.
         """
         from pywisetransfer.endpoint import WiseAPIError
+
         try:
             if not self.profiles.business:
                 return False
@@ -210,5 +213,6 @@ class Client:
                 # We are not authorized, the transfer id was not checked.
                 return False
         return True
-    
+
+
 __all__ = ["Client", "DEFAULT_PRIVATE_KEY", "DEFAULT_PUBLIC_KEY", "Environment"]

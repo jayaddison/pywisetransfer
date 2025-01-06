@@ -84,7 +84,13 @@ class Quote:
 
     def update(
         self,
-        quote_update: ExampleQuoteRequest | QuoteRequest | QuoteUpdate | FilledInRecipientAccountRequest | RecipientAccountResponse,
+        quote_update: (
+            ExampleQuoteRequest
+            | QuoteRequest
+            | QuoteUpdate
+            | FilledInRecipientAccountRequest
+            | RecipientAccountResponse
+        ),
         quote: int | QuoteResponse,
         profile: int | Profile | None = None,
     ) -> QuoteResponse:
