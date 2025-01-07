@@ -101,6 +101,7 @@ class LegalEntityType(StrEnum):
 
     PERSON = "PERSON"
     BUSINESS = "BUSINESS"
+    INSTITUTION = "INSTITUTION"
 
 
 class RecipientAccountResponse(BaseModel):
