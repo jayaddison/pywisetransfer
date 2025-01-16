@@ -10,13 +10,13 @@ This is a fork of [pywisetransfer]
 ## Installation
 
 ```bash
-pip install pywisetransfer
+pip install wise-banking-api-client
 ```
 
 ## Command Line
 
 You can use some of the functions on the command line.
-By installing `pywisetransfer`, you also install the `wise` command.
+By installing `wise_banking_api_client`, you also install the `wise` command.
 
 ### Help and Information
 
@@ -44,7 +44,7 @@ You can now upload the public key to https://wise.com or https://sandbox.transfe
 You can check if your API key and private key work.
 
 ```sh
-$ python -m pywisetransfer check "your api key"
+$ WISE_API_KEY="your api key" python -m wise_banking_api_client check
 Permissions on sandbox: read+write+sca
 Permissions on live: none
 ```
@@ -54,7 +54,7 @@ Permissions on live: none
 After installation, you should be able to import the package.
 
 ```python
->>> from pywisetransfer import Client
+>>> from wise_banking_api_client import Client
 
 ```
 
@@ -97,7 +97,7 @@ First of all, you create a `Client` object:
 - Create a `Client` object which interacts with the recorded API which is used for the tests:
 
     ```python
-    >>> from pywisetransfer.test import TestClient
+    >>> from wise_banking_api_client.test import TestClient
     >>> client = TestClient()
 
     ```
@@ -212,7 +212,7 @@ Above are the up-to-date currencies.
 You can also use those in the package.
 
 ```python
->>> from pywisetransfer import Currency
+>>> from wise_banking_api_client import Currency
 >>> Currency.AED.code
 'AED'
 >>> Currency.AED.name
@@ -239,7 +239,7 @@ Genrally, for thie currency, we can send money to a recipient specified by email
 
 ```python
 from flask import abort, request
-from pywisetransfer.webhooks import validate_request
+from wise_banking_api_client.webhooks import validate_request
 
 @app.route("/payments/wise/webhooks")
 def handle_wise_webhook():
@@ -260,7 +260,7 @@ In this example, we want to transfer `GBP` to `USD` and make sure we have `110US
 The example quote requires less information than a real quote.
 
 ```python
->>> from pywisetransfer import ExampleQuoteRequest
+>>> from wise_banking_api_client import ExampleQuoteRequest
 >>> quote_request = ExampleQuoteRequest(
 ...     sourceCurrency="GBP",
 ...     targetCurrency="USD",
@@ -289,7 +289,7 @@ We also provide pay-out and pay-in information.
 The `targetAccount` is None because we don't know the recipient yet.
 
 ```python
->>> from pywisetransfer import QuoteRequest, PaymentMethod
+>>> from wise_banking_api_client import QuoteRequest, PaymentMethod
 >>> quote_request = QuoteRequest(
 ...        sourceCurrency="EUR",
 ...        targetCurrency="EUR",
@@ -386,7 +386,7 @@ Below, we create the recipient and get a response.
 The response includes all the data that we sent and optional fields.
 
 ```python
->>> from pywisetransfer import Recipient, RecipientDetails, CurrencyCode, AccountRequirementType
+>>> from wise_banking_api_client import Recipient, RecipientDetails, CurrencyCode, AccountRequirementType
 >>> email_recipient = Recipient(
 ...     currency=CurrencyCode.EUR,
 ...     type=AccountRequirementType.email,
@@ -456,7 +456,7 @@ We use the business profile for this.
 3. Create an IBAN recipient.
 
     ```python
-    >>> from pywisetransfer import Recipient, RecipientDetails, CurrencyCode, AccountRequirementType, LegalType
+    >>> from wise_banking_api_client import Recipient, RecipientDetails, CurrencyCode, AccountRequirementType, LegalType
     >>> iban_recipient = Recipient(
     ...     currency=CurrencyCode.EUR,
     ...     type=AccountRequirementType.iban,
@@ -539,7 +539,7 @@ We can now create a transfer.
 1. Create a transfer request with the minimal required data of the transfer.
 
     ```python
-    >>> from pywisetransfer import TransferRequest, TransferDetails
+    >>> from wise_banking_api_client import TransferRequest, TransferDetails
     >>> transfer_request = TransferRequest(
     ...     targetAccount=created_iban_recipient.id,
     ...     quoteUuid=quote.id,
@@ -561,11 +561,11 @@ We can now create a transfer.
 
     Funding transfers requires [SCA] authentication.
     You can read on how to [configure SCA here][SCA].
-    You can use the default key located at `pywisetransfer.DEFAULT_PRIVATE_KEY` for
+    You can use the default key located at `wise_banking_api_client.DEFAULT_PRIVATE_KEY` for
     the sandbox API and upload it to your account's business profile.
 
     ```python
-    >>> from pywisetransfer import DEFAULT_PRIVATE_KEY
+    >>> from wise_banking_api_client import DEFAULT_PRIVATE_KEY
     >>> client = Client(api_key="...", private_key_file=DEFAULT_PRIVATE_KEY)
     >>> funding_result = client.transfers.fund(transfer)
     >>> funding_result.status
@@ -592,7 +592,7 @@ We can now create a transfer.
 ## Run tests
 
 ```sh
-# Within the pywisetransfer working directory
+# Within the wise_banking_api_client working directory
 pip install tox
 tox
 ```
