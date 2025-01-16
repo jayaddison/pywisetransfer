@@ -12,7 +12,7 @@ from pathlib import Path
 
 
 HERE = Path(__file__).parent
-LICENSE = (HERE / ".." / "LICENSE").read_text()
+LICENSE = (HERE / "LICENSE").read_text()
 
 
 DEFAULT_PRIVATE_KEY = "wise.com.private.pem"
