@@ -6,3 +6,4 @@ dist
 .tox
 wise.com.private.pem
 wise.com.public.pem
+wise_banking_api_client/_version.py

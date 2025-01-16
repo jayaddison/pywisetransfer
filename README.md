@@ -16,7 +16,11 @@ pip install wise-banking-api-client
 ## Command Line
 
 You can use some of the functions on the command line.
-By installing `wise_banking_api_client`, you also install the `wise` command.
+By installing `wise_banking_api_client[cli]`, you also install the `wise` command.
+
+```bash
+pip install wise_banking_api_client[cli]
+```
 
 ### Help and Information
 

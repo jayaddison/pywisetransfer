@@ -4,27 +4,26 @@ build-backend = "hatchling.build"
 
 [project]
 name = "wise-banking-api-client"
-version = "0.0.1"
 description = "Typed Python client library for the API of the bank Wise"
 authors = [
-    "James Addison <jay@jp-hosting.net>",
-    "Nicco Kunzmann <niccokunzmann@rambler.ru>",
+    { name="James Addison", email="jay@jp-hosting.net" },
+    { name="Nicco Kunzmann", email="niccokunzmann@rambler.ru" },
 ]
 maintainers = [
-    "Nicco Kunzmann <niccokunzmann@rambler.ru>",
+    { name="Nicco Kunzmann", email="niccokunzmann@rambler.ru" },
 ]
 license = "AGPL-3.0"
 readme = "README.md"
 keywords = ["payments", "wise", "balance", "transfer"]
 dynamic = ["urls", "version"]
 
-requires-python = ">=3.12"
+requires-python = "==3.12"
 # see https://pypi.python.org/pypi?%3Aaction=list_classifiers
 classifiers = [
     "Development Status :: 3 - Alpha",
     "License :: OSI Approved :: GNU Affero General Public License v3",
     "Intended Audience :: Developers",
-    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.12",
     "Operating System :: OS Independent",
     "Topic :: Internet",
     "Topic :: Office/Business :: Financial",
@@ -37,7 +36,6 @@ classifiers = [
 ]
 
 dependencies = [
-    "python >= 3.12",
     "apiron >= 8.0.0",
     "munch >= 4.0.0",
     "cryptography >= 44.0.0",
@@ -66,12 +64,12 @@ wise = "wise_banking_api_client.cli:main"
 
 [tool.hatch.metadata.hooks.vcs.urls]
 #[project.urls]
-Homepage = "https://icalendar-compatibility.readthedocs.io/"
-Repository = "https://github.com/niccokunzmann/icalendar_compatibility/"
-source_archive = "https://github.com/niccokunzmann/icalendar_compatibility/archive/{commit_hash}.zip"
-Issues = "https://github.com/niccokunzmann/icalendar_compatibility/issues"
-Documentation = "https://icalendar-compatibility.readthedocs.io/"
-Changelog = "https://icalendar-compatibility.readthedocs.io/en/latest/changes.html"
+# Homepage = "https://wise-banking-api-client.readthedocs.io/"
+Repository = "https://github.com/foss-fund/wise-banking-api-client"
+source_archive = "https://github.com/foss-fund/wise-banking-api-client/archive/{commit_hash}.zip"
+Issues = "https://github.com/foss-fund/wise-banking-api-client/issues"
+# Documentation = "https://wise-banking-api-client.readthedocs.io/"
+# Changelog = "https://wise-banking-api-client.readthedocs.io/en/latest/changes.html"
 
 [tool.hatch.version]
 source = "vcs"
@@ -81,7 +79,7 @@ source = "vcs"
 local_scheme = "no-local-version"
 
 [tool.hatch.build.hooks.vcs]
-version-file = "icalendar_compatibility/_version.py"
+version-file = "wise_banking_api_client/_version.py"
 
 [tool.hatch.metadata]
 allow-direct-references = true
@@ -128,7 +126,7 @@ extend-safe-fixes = [
 ]
 
 [tool.ruff.lint.per-file-ignores]
-"icalendar_compatibility/test/*" = [
+"wise_banking_api_client/test/*" = [
     "B011",   # Do not assert False (python -O removes these calls), raise AssertionError()
     "DTZ001", # datetime.datetime() called without a tzinfo argument
     "E501",   # Indentation is not a multiple of {indent_size}
