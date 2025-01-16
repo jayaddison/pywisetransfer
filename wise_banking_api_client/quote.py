@@ -13,7 +13,10 @@ from __future__ import annotations
 from pprint import pprint
 from typing import Any, Optional
 
-from wise_banking_api_client.model.account import FilledInRecipientAccountRequest, RecipientAccountResponse
+from wise_banking_api_client.model.account import (
+    FilledInRecipientAccountRequest,
+    RecipientAccountResponse,
+)
 from wise_banking_api_client.model.profile import Profile
 
 from .endpoint import JsonEndpoint
@@ -21,7 +24,12 @@ from munch import munchify
 
 from wise_banking_api_client import Client
 from wise_banking_api_client.base import Base
-from wise_banking_api_client.model.quote import QuoteRequest, QuoteResponse, ExampleQuoteRequest, QuoteUpdate
+from wise_banking_api_client.model.quote import (
+    QuoteRequest,
+    QuoteResponse,
+    ExampleQuoteRequest,
+    QuoteUpdate,
+)
 
 
 class QuoteService(Base):

@@ -34,7 +34,11 @@ from wise_banking_api_client.model.quote import (
 from wise_banking_api_client.model.recipient import Recipient
 from wise_banking_api_client.model.recipient.details import RecipientDetails
 from wise_banking_api_client.model.account_requirement_type import AccountRequirementType
-from wise_banking_api_client.model.transfer import TransferDetails, TransferRequest, TransferResponse
+from wise_banking_api_client.model.transfer import (
+    TransferDetails,
+    TransferRequest,
+    TransferResponse,
+)
 from wise_banking_api_client.test.record import TestClient
 from wise_banking_api_client.model.currency import Currency, CurrencyCode
 

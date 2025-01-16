@@ -2,7 +2,11 @@
 
 from datetime import datetime, timezone
 
-from wise_banking_api_client.model.timestamp import DATETIME_FORMAT, parse_timestamp, serialize_timestamp
+from wise_banking_api_client.model.timestamp import (
+    DATETIME_FORMAT,
+    parse_timestamp,
+    serialize_timestamp,
+)
 
 
 def test_parse_example_stamp():

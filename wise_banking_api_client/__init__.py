@@ -78,6 +78,6 @@ __all__ = [
     "profile_type",
     "PriceValue",
     "PayInProduct",
-    "version", 
+    "version",
     "version_tuple",
 ]

@@ -1,10 +1,13 @@
 """Command line interface for wise_banking_api_client."""
 
 from typing import Any, Callable, Optional
+
 try:
     import click
 except ImportError:
-    raise ImportError("You need to install wisebanking_api_client[cli]:\n\n    pip install wisebanking_api_client[cli]")
+    raise ImportError(
+        "You need to install wisebanking_api_client[cli]:\n\n    pip install wisebanking_api_client[cli]"
+    )
 from pathlib import Path
 
 

@@ -81,7 +81,7 @@ class RecipientAccount:
         creator: Optional[int] = None,
         active: Optional[bool] = None,
         type: Optional[str | AccountRequirementType] = None,
-        owned_by_customer: Optional[bool] = None
+        owned_by_customer: Optional[bool] = None,
     ) -> RecipientAccountListResponse:
         """List existing recipient accounts.
 
