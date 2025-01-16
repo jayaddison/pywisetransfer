@@ -17,7 +17,7 @@ readme = "README.md"
 keywords = ["payments", "wise", "balance", "transfer"]
 dynamic = ["urls", "version"]
 
-requires-python = "==3.12"
+requires-python = "~=3.12"
 # see https://pypi.python.org/pypi?%3Aaction=list_classifiers
 classifiers = [
     "Development Status :: 3 - Alpha",
