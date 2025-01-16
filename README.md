@@ -601,3 +601,18 @@ pip install tox
 tox
 ```
 
+You can also run the tests against the sandbox API:
+
+```sh
+tox -e py312 -- --api_token=12345678-1234-1234-1234-123456789abcde
+```
+
+## Changelog
+
+### v0.0.1
+
+- Initial release
+
+## License
+
+The code is released under the [AGPL License](LICENSE).

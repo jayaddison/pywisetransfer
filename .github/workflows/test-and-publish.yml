@@ -33,6 +33,27 @@ jobs:
       run: |
         tox -e ${{ matrix.config[1] }}
 
+  cli:
+    runs-on: ubuntu-latest
+    name: cli
+    steps:
+    - uses: actions/checkout@v4
+    - name: Set up Python
+      uses: actions/setup-python@v5
+      with:
+        python-version: "3.12"
+    - name: Install dependencies
+      run: |
+        python -m pip install --upgrade pip
+        pip install .[cli] tox
+    - name: Check API key
+      run: wise check
+      env:
+        # add the secret https://docs.github.com/de/actions/security-for-github-actions/security-guides/using-secrets-in-github-actions
+        WISE_API_KEY: ${{ secrets.WISE_API_KEY }} 
+    - name: Run the tests with a real API key
+      run: tox -e py312 -- --api_token ${{ secrets.WISE_API_KEY }}
+  
   deploy-tag-to-pypi:
     # only deploy on tags, see https://stackoverflow.com/a/58478262/1320237
     if: startsWith(github.ref, 'refs/tags/v')
