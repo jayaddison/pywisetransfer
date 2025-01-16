@@ -1,3 +1,4 @@
+# This is the old file from pywisetransfer that we forked from
 
 [tool.poetry]
 name = "pywisetransfer"
