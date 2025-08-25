@@ -10,14 +10,14 @@ readme = "README.md"
 keywords = ["payments", "transferwise"]
 requires-python = ">3.9.1"
 dependencies = [
-  "apiron (>=8.0.0,<9)",
+  "apiron (>=9.0.0,<10)",
   "munch (>=4.0.0,<5)",
-  "cryptography (>=44.0.0,<45)"
+  "cryptography (>=45.0.0,<46)"
 ]
 
 [project.optional-dependencies]
 dev = [
-  "black (>=24.10.0,<25)",
+  "black (>=25.1.0,<26)",
   "munch-stubs (>=0.1.2,<0.2)",
   "pytest (>=8.3.4,<9)",
   "responses (>=0.25.0,<0.26)",
