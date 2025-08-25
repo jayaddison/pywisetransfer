@@ -1,6 +1,6 @@
 [project]
 name = "pywisetransfer"
-version = "0.3.4.1"
+version = "0.3.4.2"
 description = "Python library for the TransferWise API"
 authors = [
   { name = "James Addison", email = "jay@jp-hosting.net" }
