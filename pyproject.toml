@@ -19,7 +19,7 @@ dependencies = [
 dev = [
   "black (>=25.1.0,<26)",
   "munch-stubs (>=0.1.2,<0.2)",
-  "pytest (>=8.3.4,<9)",
+  "pytest (>=9.0.2,<10)",
   "responses (>=0.25.0,<0.26)",
   "types-cryptography (>=3.3.23.2,<3.4)"
 ]
