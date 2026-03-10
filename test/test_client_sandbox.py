@@ -1,15 +1,16 @@
 import pytest
 
 import pywisetransfer
+from pywisetransfer.exceptions import WiseClientConfigurationException
 
 
 def test_client_missing_key():
-    with pytest.raises(KeyError, match="pywisetransfer.api_key"):
+    with pytest.raises(WiseClientConfigurationException, match="pywisetransfer.api_key"):
         pywisetransfer.Client(api_key=None)
 
 
 def test_client_invalid_environment():
-    with pytest.raises(KeyError, match="pywisetransfer.environment"):
+    with pytest.raises(WiseClientConfigurationException, match="pywisetransfer.environment"):
         pywisetransfer.Client(api_key="test-key", environment="test-environment")
 
 

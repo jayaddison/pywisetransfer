@@ -1,6 +1,10 @@
 from dataclasses import dataclass
 
 
+class WiseClientConfigurationException(Exception):
+    pass
+
+
 class WiseException(Exception):
     pass
 
