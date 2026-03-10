@@ -1,3 +1,7 @@
+class WiseClientConfigurationException(Exception):
+    pass
+
+
 class WiseException(Exception):
     pass
 
