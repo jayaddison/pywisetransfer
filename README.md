@@ -48,6 +48,6 @@ def handle_wise_webhook():
 
 ```bash
 # Within the pywisetransfer working directory
-pip install . --group dev
+pip install . --group test
 pytest
 ```
