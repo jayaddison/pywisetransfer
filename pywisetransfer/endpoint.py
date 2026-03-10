@@ -8,12 +8,31 @@ from apiron.endpoint import JsonEndpoint
 from requests.exceptions import HTTPError
 
 from pywisetransfer.base import Base
-from pywisetransfer.exceptions import WiseClientConfigurationException
+from pywisetransfer.exceptions import (
+    WiseAccessDeniedException,
+    WiseClientConfigurationException,
+)
 from pywisetransfer.signing import sign_sca_challenge
 
 
 class WiseEndpoint(JsonEndpoint):
-    pass
+    def __get__(self, instance: Base | None, owner: type[Base]) -> Callable[..., Any]:
+        caller = partial(apiron.client.call, owner, self)
+        update_wrapper(caller, apiron.client.call)
+
+        @wraps(apiron.client.call)
+        def error_handler(*args: Any, **kwargs: Any) -> Any:
+            try:
+                return caller(*args, **kwargs)
+            except HTTPError as e:
+                resp = e.response
+                if resp.status_code == 403:
+                    data = resp.json()
+                    code, message = data["code"], data["message"]
+                    raise WiseAccessDeniedException(code=code, message=message)
+                raise
+
+        return error_handler
 
 
 class WiseEndpointWithSCA(WiseEndpoint):
