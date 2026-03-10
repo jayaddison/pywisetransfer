@@ -8,10 +8,34 @@ from apiron.endpoint import JsonEndpoint
 from requests.exceptions import HTTPError
 
 from pywisetransfer.base import Base
+from pywisetransfer.exceptions import (
+    WiseAccessDeniedException,
+    WiseClientConfigurationException,
+)
 from pywisetransfer.signing import sign_sca_challenge
 
 
-class JsonEndpointWithSCA(JsonEndpoint):
+class WiseEndpoint(JsonEndpoint):
+    def __get__(self, instance: Base | None, owner: type[Base]) -> Callable[..., Any]:
+        caller = partial(apiron.client.call, owner, self)
+        update_wrapper(caller, apiron.client.call)
+
+        @wraps(apiron.client.call)
+        def error_handler(*args: Any, **kwargs: Any) -> Any:
+            try:
+                return caller(*args, **kwargs)
+            except HTTPError as e:
+                resp = e.response
+                if resp.status_code == 403:
+                    data = resp.json()
+                    code, message = data["code"], data["message"]
+                    raise WiseAccessDeniedException(code=code, message=message)
+                raise
+
+        return error_handler
+
+
+class WiseEndpointWithSCA(WiseEndpoint):
     def __init__(self, *args: Any, **kwargs: Any):
         super().__init__(*args, **kwargs)
         self.sca_headers: dict[str, str] = {}
@@ -36,7 +60,7 @@ class JsonEndpointWithSCA(JsonEndpoint):
                 if resp.status_code == 403 and resp.headers["X-2FA-Approval-Result"] == "REJECTED":
                     challenge = resp.headers["X-2FA-Approval"]
                     if owner.client.private_key_data is None:  # type: ignore[union-attr]
-                        raise Exception(
+                        raise WiseClientConfigurationException(
                             "Please provide pytransferwise.private_key_file or private_key_data to perform SCA authentication"
                         ) from e
 

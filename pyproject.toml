@@ -8,18 +8,18 @@ authors = [
 license = "AGPL-3.0"
 readme = "README.md"
 keywords = ["payments", "transferwise"]
-requires-python = ">3.9.1"
+requires-python = ">=3.10"
 dependencies = [
   "apiron (>=9.0.0,<10)",
   "munch (>=4.0.0,<5)",
-  "cryptography (>=45.0.0,<46)"
+  "cryptography (>=46.0.3,<47)"
 ]
 
 [project.optional-dependencies]
 dev = [
   "black (>=25.1.0,<26)",
   "munch-stubs (>=0.1.2,<0.2)",
-  "pytest (>=8.3.4,<9)",
+  "pytest (>=9.0.2,<10)",
   "responses (>=0.25.0,<0.26)",
   "types-cryptography (>=3.3.23.2,<3.4)"
 ]

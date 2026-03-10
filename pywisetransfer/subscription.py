@@ -1,15 +1,15 @@
 from typing import Any
 
-from apiron import JsonEndpoint
 from munch import munchify
 
 from pywisetransfer import Client
 from pywisetransfer.base import Base
+from pywisetransfer.endpoint import WiseEndpoint
 
 
 class SubscriptionService(Base):
-    list = JsonEndpoint(path="/v3/profiles/{profile_id}/subscriptions")
-    get = JsonEndpoint(path="/v3/profiles/{profile_id}/subscriptions/{subscription_id}")
+    list = WiseEndpoint(path="/v3/profiles/{profile_id}/subscriptions")
+    get = WiseEndpoint(path="/v3/profiles/{profile_id}/subscriptions/{subscription_id}")
 
 
 class Subscription:

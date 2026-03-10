@@ -3,6 +3,7 @@ import responses
 from responses import matchers
 
 from pywisetransfer import Client
+from pywisetransfer.exceptions import WiseClientConfigurationException
 
 
 @pytest.fixture
@@ -188,7 +189,7 @@ def statement_authorised(
 
 def test_sca_statement_without_private_key(statement_forbidden):
     client = Client(api_key="test-key")
-    with pytest.raises(Exception, match="Please provide.*private_key.*"):
+    with pytest.raises(WiseClientConfigurationException, match="Please provide.*private_key.*"):
         client.balance_statements.statement(
             profile_id=0,
             balance_id=231,

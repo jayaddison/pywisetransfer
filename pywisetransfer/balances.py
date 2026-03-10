@@ -1,15 +1,15 @@
 from typing import Any
 
-from apiron import JsonEndpoint
 from munch import munchify
 
 from pywisetransfer import Client
 from pywisetransfer.base import Base
+from pywisetransfer.endpoint import WiseEndpoint
 
 
 class BalancesService(Base):
-    list = JsonEndpoint(path="/v4/profiles/{profile_id}/balances", required_params=["types"])
-    get = JsonEndpoint(path="/v4/profiles/{profile_id}/balances/{balance_id}")
+    list = WiseEndpoint(path="/v4/profiles/{profile_id}/balances", required_params=["types"])
+    get = WiseEndpoint(path="/v4/profiles/{profile_id}/balances/{balance_id}")
 
 
 class Balances:
