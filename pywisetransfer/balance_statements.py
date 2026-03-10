@@ -4,11 +4,11 @@ from munch import munchify
 
 from pywisetransfer import Client
 from pywisetransfer.base import Base
-from pywisetransfer.endpoint import JsonEndpointWithSCA
+from pywisetransfer.endpoint import WiseEndpointWithSCA
 
 
 class BalanceStatementsService(Base):
-    statement = JsonEndpointWithSCA(
+    statement = WiseEndpointWithSCA(
         path="/v1/profiles/{profile_id}/balance-statements/{balance_id}/statement.json",
         required_params=["currency", "intervalStart", "intervalEnd"],
     )

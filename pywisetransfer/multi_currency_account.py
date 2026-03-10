@@ -1,17 +1,17 @@
 from typing import Any
 
-from apiron import JsonEndpoint
 from munch import munchify
 
 from pywisetransfer import Client
 from pywisetransfer.base import Base
+from pywisetransfer.endpoint import WiseEndpoint
 
 
 class MultiCurrencyAccountService(Base):
-    available_currencies = JsonEndpoint(
+    available_currencies = WiseEndpoint(
         path="/v2/borderless-accounts-configuration/profiles/{profile_id}/available-currencies"
     )
-    get = JsonEndpoint(path="/v4/profiles/{profile_id}/multi-currency-account")
+    get = WiseEndpoint(path="/v4/profiles/{profile_id}/multi-currency-account")
 
 
 class MultiCurrencyAccount:

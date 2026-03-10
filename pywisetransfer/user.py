@@ -1,15 +1,15 @@
 from typing import Any
 
-from apiron import JsonEndpoint
 from munch import munchify
 
 from pywisetransfer import Client
 from pywisetransfer.base import Base
+from pywisetransfer.endpoint import WiseEndpoint
 
 
 class UserService(Base):
-    me = JsonEndpoint(path="/v1/me")
-    get = JsonEndpoint(path="/v1/users/{userId}")
+    me = WiseEndpoint(path="/v1/me")
+    get = WiseEndpoint(path="/v1/users/{userId}")
 
 
 class User:

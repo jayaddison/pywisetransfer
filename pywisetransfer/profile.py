@@ -2,16 +2,16 @@ from __future__ import annotations
 
 from typing import Any
 
-from apiron import JsonEndpoint
 from munch import munchify
 
 from pywisetransfer import Client
 from pywisetransfer.base import Base
+from pywisetransfer.endpoint import WiseEndpoint
 
 
 class ProfileService(Base):
-    list = JsonEndpoint(path="/v1/profiles")
-    get = JsonEndpoint(path="/v1/profiles/{profile_id}")
+    list = WiseEndpoint(path="/v1/profiles")
+    get = WiseEndpoint(path="/v1/profiles/{profile_id}")
 
 
 class Profile:

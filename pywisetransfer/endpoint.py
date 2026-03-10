@@ -11,7 +11,11 @@ from pywisetransfer.base import Base
 from pywisetransfer.signing import sign_sca_challenge
 
 
-class JsonEndpointWithSCA(JsonEndpoint):
+class WiseEndpoint(JsonEndpoint):
+    pass
+
+
+class WiseEndpointWithSCA(WiseEndpoint):
     def __init__(self, *args: Any, **kwargs: Any):
         super().__init__(*args, **kwargs)
         self.sca_headers: dict[str, str] = {}
