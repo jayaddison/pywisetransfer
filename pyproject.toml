@@ -15,7 +15,7 @@ dependencies = [
   "cryptography (>=46.0.3,<47)"
 ]
 
-[project.optional-dependencies]
+[dependency-groups]
 dev = [
   "black (>=25.1.0,<26)",
   "munch-stubs (>=0.1.2,<0.2)",

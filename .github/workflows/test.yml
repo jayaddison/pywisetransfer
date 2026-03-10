@@ -16,5 +16,5 @@ jobs:
         with:
           persist-credentials: false
       - uses: actions/setup-python@v6
-      - run: pip install .[dev]
+      - run: pip install . --group dev
       - run: pytest
