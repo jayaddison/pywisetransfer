@@ -55,11 +55,12 @@ class WiseEndpointWithSCA(WiseEndpoint):
             except HTTPError as e:
                 resp = e.response
                 if resp.status_code == 403 and resp.headers["X-2FA-Approval-Result"] == "REJECTED":
+                    challenge = resp.headers["X-2FA-Approval"]
                     if owner.client.private_key_data is None:  # type: ignore[union-attr]
                         raise Exception(
                             "Please provide pytransferwise.private_key_file or private_key_data to perform SCA authentication"
                         ) from e
-                    challenge = resp.headers["X-2FA-Approval"]
+
                     self.sca_headers["X-Signature"] = sign_sca_challenge(
                         challenge, owner.client.private_key_data  # type: ignore[union-attr]
                     )
