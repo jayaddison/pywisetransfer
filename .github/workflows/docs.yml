@@ -20,5 +20,5 @@ jobs:
       - run: make -C docs html
       - uses: actions/upload-pages-artifact@v4
         with:
-          path: docs/_build
+          path: docs/_build/html
       - uses: actions/deploy-pages@v4
