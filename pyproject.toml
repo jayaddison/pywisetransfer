@@ -23,6 +23,9 @@ dev = [
   "responses (>=0.25.0,<0.26)",
   "types-cryptography (>=3.3.23.2,<3.4)"
 ]
+docs = [
+  "sphinx (>=7.2.6,<8)"
+]
 
 [project.urls]
 homepage = "https://pypi.org/project/pywisetransfer"
