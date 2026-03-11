@@ -4,3 +4,4 @@ docs/generated
 *.egg-info
 *.pyc
 *.swp
+.venv
