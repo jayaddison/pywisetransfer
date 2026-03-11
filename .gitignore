@@ -1,4 +1,6 @@
 dist
+docs/_build
+docs/generated
 *.egg-info
 *.pyc
 *.swp
