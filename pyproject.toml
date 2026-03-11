@@ -28,6 +28,7 @@ docs = [
 ]
 
 [project.urls]
+documentation = "https://pywisetransfer.github.io/pywisetransfer"
 homepage = "https://pypi.org/project/pywisetransfer"
 repository = "https://github.com/pywisetransfer/pywisetransfer"
 
